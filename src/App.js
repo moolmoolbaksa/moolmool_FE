@@ -4,6 +4,9 @@ function App() {
   return (
     <React.Fragment>
       hello wrold
+      <div>
+        자동화 배포 테스트 
+      </div>
     </React.Fragment>
   );
 };
