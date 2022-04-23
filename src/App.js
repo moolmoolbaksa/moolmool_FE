@@ -7,6 +7,9 @@ function App() {
       <div>
         자동화 배포 테스트 
       </div>
+      <div style={{margin:"20px"}}>
+        자동화 배포 테스트2
+      </div>
     </React.Fragment>
   );
 };
