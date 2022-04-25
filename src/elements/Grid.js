@@ -15,21 +15,23 @@ const Grid = props => {
 		height, 
 		position,
 		justify,
-		column,
+		is_column,
+		gap,
 	} = props;
 
 	const styles = {
-		flex: flex,
-		width: width,
-		margin: margin,
-		padding: padding,
-		bg: bg,
-		center: center,
-		gridBox: gridBox,
-		height: height,
+		flex,
+		width,
+		margin,
+		padding,
+		bg,
+		center,
+		gridBox,
+		height,
         position,
 		justify,
-		column,
+		is_column,
+		gap,
 	};
 
 	if (gridBox) {
@@ -59,7 +61,8 @@ Grid.defaultProp = {
 	height: false,
     position: "static",
 	justify: false,
-	column: "row",
+	is_column: "row",
+	gap: "10px",
 };
 
 const GridBox = styled.div`
@@ -73,7 +76,9 @@ const GridBox = styled.div`
 	${props => (props.flex ? `display:flex; align-items:center; justify-content:space-between` : '')};
 	${props => (props.height ? `height:${props.height}` : '')};
 	${props => (props.justify ? `justify-content:${props.justify}` : '')};
-	flex-direction: ${props => props.column};
+	${props => (props.gap ? `gap:${props.gap}` : '')};
+	${props => (props.is_column ? `flex-direction: column` : '')};
+
 `;
 
 const ParentsGridbox = styled.div`

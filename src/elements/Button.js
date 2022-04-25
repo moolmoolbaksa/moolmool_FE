@@ -14,6 +14,8 @@ const Button = (props) => {
         text,
         lineHeight,
         radius,
+        border,
+        padding,
     } = props;
     
     const styles = {
@@ -26,6 +28,8 @@ const Button = (props) => {
         background,
         lineHeight,
         radius,
+        border,
+        padding,
     }
    
     return (
@@ -44,14 +48,17 @@ Button.defaultProps = {
     width: "100%",
     height: "100%",
     size: "14px",
-    color: "white",
+    color: "black",
     bold: false,
-    radius: false,
+    radius: null,
     lineHeight: "initial",
+    border: "none",
+    padding: false,
 }
 
 const Btn = styled.button`
     margin: ${props => props.margin};
+    padding: ${props => props.padding};
     width: ${props => props.width};
     height: ${props => props.height};
     font-size: ${props => props.size};
@@ -60,6 +67,7 @@ const Btn = styled.button`
     background: ${props => props.background};
     line-height: ${props => props.lineHeight};
     border-radius: ${props => props.radius};
+    border: ${props => props.border};
     cursor: pointer;
 `;
 
