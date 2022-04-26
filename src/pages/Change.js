@@ -9,8 +9,8 @@ import DetailBottom from '../components/detail/DetailBottom';
 const Change = (props) => {
     return (
         <Grid
-            padding="30px 16px"
-            height="100vh"
+            padding="30px 16px 90px 16px"
+            height="calc(100% + 60px);"
             position="relative"
         >
             <Text 
@@ -19,7 +19,7 @@ const Change = (props) => {
                 size="24px"
                 letterSpacing="-1px"
             />
-            <Grid height="390px" margin="20px 0 40px 0">
+            <Grid  margin="20px 0 40px 0">
                 <Grid gridBox>
                     {response.list.map((v, i) => {
                         return  <ImageWrap 
@@ -38,7 +38,7 @@ const Change = (props) => {
                 letterSpacing="-1px"
             />
             <TouchSlide />
-            <DetailBottom change/>
+            <DetailBottom/>
         </Grid>
     );
 };
@@ -51,6 +51,10 @@ const ImageWrap = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    @media screen and (max-width: 400px) {
+        width: 170px;
+        height: 170px;
+    }
 `;
 
 export default Change;
