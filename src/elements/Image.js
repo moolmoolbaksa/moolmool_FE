@@ -3,7 +3,7 @@ import React from "react";
 
 const Image = (props) => {
     const {shape, src, size} = props;
-    // console.log(props);
+    console.log(props);
     const styles = {
         src: src,
         size: size,
@@ -47,16 +47,23 @@ const ImageDefault = styled.div`
 
 
 const AspectOutter = styled.div`
-    width: 100%;
-    min-width: 250px;
+--size: ${(props) => props.size}px;
+width: var(--size);
+height: var(--size);
+border-radius:4px;
 `;
 
 const AspectInner = styled.div`
-    position: relative;
-    padding-top: 75%;
-    overflow: hidden;
+--size: ${(props) => props.size}px;
+width: var(--size);
+height: var(--size);    
+position: relative;
+    // padding-top: 100%;
+    // overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
+    border-radius:4px;
+    
 `;
 
 const ImageCircle = styled.div`
