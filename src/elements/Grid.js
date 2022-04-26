@@ -88,6 +88,7 @@ const GridBox = styled.div`
 
 const ParentsGridbox = styled.div`
 	width: 100%;
+	${props => (props.height ? `height:${props.height}` : '')};
 	${props => (props.center ? `text-align:center` : '')};
 	${props => (props.padding ? `padding:${props.padding}` : '')};
 	${props => (props.margin ? `margin:${props.margin}` : '')};
