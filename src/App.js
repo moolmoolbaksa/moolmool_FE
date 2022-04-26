@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Login, Signup } from './pages/index';
+import { Login, Signup, Detail } from './pages/index';
 import RegisterProduct from './pages/RegisterProduct';
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/registerproduct" element={<RegisterProduct />} />
+        <Route path="/detail" element={<Detail />} />
       </Routes>
     </React.Fragment>
   );
