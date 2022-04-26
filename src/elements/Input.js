@@ -12,6 +12,8 @@ const Input = (props) => {
     padding,
     margin,
     size,
+    name,
+    text,
   } = props;
 
   const style = {
@@ -31,6 +33,9 @@ const Input = (props) => {
         placeholder={placeholder}
         onChange={onChange}
       />
+      <Label htmlFor={id} name={name}>
+        {text}
+      </Label>
     </React.Fragment>
   );
 };
@@ -40,10 +45,12 @@ Input.defaultProps = {
   label: null,
   type: "text",
   id: null,
+  name: null,
   width: "100%",
   size: "14px",
   padding: false,
   margin: false,
+  text: null,
   onChange: () => {},
 };
 
@@ -59,6 +66,11 @@ const ElInput = styled.input`
     font-size: 14px;
     color: #90a4ae;
   }
+`;
+
+const Label = styled.label`
+  color: red;
+  font-size: 14px;
 `;
 
 export default Input;
