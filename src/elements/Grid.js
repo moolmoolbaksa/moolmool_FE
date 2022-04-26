@@ -98,6 +98,9 @@ const ParentsGridbox = styled.div`
 	grid-template-columns: 120px 120px 120px;
 	align-items: center;
 	justify-content: space-between;
+	@media screen and (max-width: 400px) {
+        grid-template-columns: 170px 170px;
+    }
 `;
 
 export default Grid;
