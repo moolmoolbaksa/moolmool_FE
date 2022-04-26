@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
-const reducer = {
+import userSlice from './modules/user';
 
+const reducer = {
+  user: userSlice,
 };
 
 const store = configureStore({
