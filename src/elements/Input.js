@@ -12,6 +12,8 @@ const Input = (props) => {
     padding,
     margin,
     size,
+    name,
+    text,
     rows,
     cols,
     multiLine,
@@ -50,6 +52,9 @@ const Input = (props) => {
         placeholder={placeholder}
         onChange={onChange}
       />
+      <Label htmlFor={id} name={name}>
+        {text}
+      </Label>
     </React.Fragment>
   );
 };
@@ -59,10 +64,12 @@ Input.defaultProps = {
   label: null,
   type: "text",
   id: null,
+  name: null,
   width: "100%",
   size: "14px",
   padding: false,
   margin: false,
+  text: null,
   rows:"",
   onChange: () => {},
 };
@@ -80,6 +87,11 @@ const ElInput = styled.input`
     color: #90a4ae;
   }
   resize:none;
+`;
+
+const Label = styled.label`
+  color: red;
+  font-size: 14px;
 `;
 
 const MultiInput = styled.textarea`
