@@ -17,6 +17,8 @@ const Grid = props => {
 		justify,
 		is_column,
 		gap,
+		align,
+		is_flex,
 	} = props;
 
 	const styles = {
@@ -32,6 +34,8 @@ const Grid = props => {
 		justify,
 		is_column,
 		gap,
+		align,
+		is_flex,
 	};
 
 	if (gridBox) {
@@ -62,7 +66,7 @@ Grid.defaultProp = {
     position: "static",
 	justify: false,
 	is_column: "row",
-	gap: "10px",
+	is_flex: false,
 };
 
 const GridBox = styled.div`
@@ -75,22 +79,28 @@ const GridBox = styled.div`
 	${props => (props.bg ? `background-color:${props.bg}` : '')};
 	${props => (props.flex ? `display:flex; align-items:center; justify-content:space-between` : '')};
 	${props => (props.height ? `height:${props.height}` : '')};
+	${props => (props.align ? `align-items:${props.align}` : '')};
 	${props => (props.justify ? `justify-content:${props.justify}` : '')};
 	${props => (props.gap ? `gap:${props.gap}` : '')};
 	${props => (props.is_column ? `flex-direction: column` : '')};
-
+	${props => (props.is_flex ? `display:flex` : '')};
 `;
 
 const ParentsGridbox = styled.div`
-	width: ${props => props.width};
-	box-sizing: border-box;
+	width: 100%;
+	${props => (props.height ? `height:${props.height}` : '')};
 	${props => (props.center ? `text-align:center` : '')};
 	${props => (props.padding ? `padding:${props.padding}` : '')};
 	${props => (props.margin ? `margin:${props.margin}` : '')};
 	${props => (props.bg ? `background-color:${props.bg}` : '')};
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	row-gap: 15px;
+	grid-template-columns: 120px 120px 120px;
 	align-items: center;
+	justify-content: space-between;
+	@media screen and (max-width: 400px) {
+        grid-template-columns: 170px 170px;
+    }
 `;
 
 export default Grid;
