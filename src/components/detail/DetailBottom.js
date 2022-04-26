@@ -20,7 +20,7 @@ const DetailBottom = (props) => {
     };
     
     return (
-        <Grid position="relative">
+        
             <Container>
                     <Grid 
                         justify="center" 
@@ -55,7 +55,7 @@ const DetailBottom = (props) => {
                         background="black"   
                     /> 
             </Container>
-        </Grid>
+    
     );
 };
 
@@ -69,6 +69,7 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid lightgray;
+    background-color: white;
 `;
 
 const HeartOuter = styled.div`

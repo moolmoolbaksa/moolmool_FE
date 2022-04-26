@@ -87,15 +87,16 @@ const GridBox = styled.div`
 `;
 
 const ParentsGridbox = styled.div`
-	width: ${props => props.width};
-	box-sizing: border-box;
+	width: 100%;
 	${props => (props.center ? `text-align:center` : '')};
 	${props => (props.padding ? `padding:${props.padding}` : '')};
 	${props => (props.margin ? `margin:${props.margin}` : '')};
 	${props => (props.bg ? `background-color:${props.bg}` : '')};
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	row-gap: 15px;
+	grid-template-columns: 120px 120px 120px;
 	align-items: center;
+	justify-content: space-between;
 `;
 
 export default Grid;

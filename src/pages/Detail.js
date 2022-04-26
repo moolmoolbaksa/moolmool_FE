@@ -29,7 +29,6 @@ const Detail = (props) => {
                                 key={v.productId}
                                 src={v.imageUrl}
                                 shape="rectangle"
-                                height="400px"
                             />
                         )}
                     )}
@@ -44,6 +43,7 @@ const Detail = (props) => {
 
 const Container = styled.div`
     height: 100vh;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
