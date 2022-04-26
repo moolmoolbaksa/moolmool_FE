@@ -14,6 +14,9 @@ const Input = (props) => {
     size,
     name,
     text,
+    rows,
+    cols,
+    multiLine,
   } = props;
 
   const style = {
@@ -22,7 +25,23 @@ const Input = (props) => {
     margin,
     size,
   };
-
+  if (multiLine)
+  {
+    return (
+      <React.Fragment>
+        <MultiInput
+          {...style}
+          id={id}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          rows={rows}
+          cols={cols}
+        />
+      </React.Fragment>
+    );
+  }
   return (
     <React.Fragment>
       <ElInput
@@ -51,6 +70,7 @@ Input.defaultProps = {
   padding: false,
   margin: false,
   text: null,
+  rows:"",
   onChange: () => {},
 };
 
@@ -66,11 +86,27 @@ const ElInput = styled.input`
     font-size: 14px;
     color: #90a4ae;
   }
+  resize:none;
 `;
 
 const Label = styled.label`
   color: red;
   font-size: 14px;
 `;
+
+const MultiInput = styled.textarea`
+width: ${props => props.width};
+  padding: ${props => props.padding};
+  margin: ${props => props.margin};
+  font-size: ${props => props.size};
+  border: 1px solid gray;
+  border-radius: 3px;
+  outline: none;
+  &::placeholder {
+    font-size: 14px;
+    color: #90a4ae;
+  }
+  resize:none;
+`
 
 export default Input;
