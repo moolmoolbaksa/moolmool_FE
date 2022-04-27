@@ -28,7 +28,7 @@ const Detail = (props) => {
                             <Image 
                                 key={v.productId}
                                 src={v.imageUrl}
-                                shape="rectangle"
+                                shape="slide"
                                 size='40'
                             />
                         )}
