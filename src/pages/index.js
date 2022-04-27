@@ -5,6 +5,9 @@ import Mall from "./Mall";
 import Change from "./Change";
 import Main from "./Main";
 import Notification from "./Notification";
+import FirstSet from "./FirstSet";
+import Mypage from "./Mypage";
+
 export { 
     Login,
     Signup,
@@ -12,5 +15,7 @@ export {
     Mall,
     Change,
     Main,
-    Notification
+    Notification,
+    FirstSet,
+    Mypage,
 };
