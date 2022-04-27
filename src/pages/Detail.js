@@ -29,6 +29,7 @@ const Detail = (props) => {
                                 key={v.productId}
                                 src={v.imageUrl}
                                 shape="rectangle"
+                                size='40'
                             />
                         )}
                     )}
