@@ -57,7 +57,6 @@ const StyledSlider = styled(slider)`
         height: 100%;
         overflow-x: hidden;
     }
-
     .slick-dots { 
         bottom: 20px;
     }

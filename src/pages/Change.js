@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Text, Grid } from '../elements/index';
 import { response } from '../shared/mock'
-import TouchSlide from '../shared/TouchSlide';
+import TouchSlide from '../components/TouchSlide';
 import DetailBottom from '../components/detail/DetailBottom';
 
 const Change = (props) => {
@@ -30,13 +30,6 @@ const Change = (props) => {
                     })}
                 </Grid>
             </Grid>
-            <Text 
-                text="물물박사님의 보따리"
-                bold="bold"
-                size="24px"
-                margin="0 0 10px 0"
-                letterSpacing="-1px"
-            />
             <TouchSlide />
             <DetailBottom/>
         </Grid>
