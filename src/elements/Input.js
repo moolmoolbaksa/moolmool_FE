@@ -25,6 +25,7 @@ const Input = (props) => {
     margin,
     size,
   };
+  
   if (multiLine)
   {
     return (

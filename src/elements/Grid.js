@@ -94,13 +94,10 @@ const ParentsGridbox = styled.div`
 	${props => (props.margin ? `margin:${props.margin}` : '')};
 	${props => (props.bg ? `background-color:${props.bg}` : '')};
 	display: grid;
-	row-gap: 15px;
-	grid-template-columns: 120px 120px 120px;
+	gap: 15px;
+	grid-template-columns: 1fr 1fr 1fr;
 	align-items: center;
 	justify-content: space-between;
-	@media screen and (max-width: 400px) {
-        grid-template-columns: 170px 170px;
-    }
 `;
 
 export default Grid;

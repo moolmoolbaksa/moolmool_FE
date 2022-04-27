@@ -4,6 +4,9 @@ import Detail from "./Detail";
 import Mall from "./Mall";
 import Change from "./Change";
 import Main from "./Main";
+import FirstSet from "./FirstSet";
+import Mypage from "./Mypage";
+
 export { 
     Login,
     Signup,
@@ -11,4 +14,6 @@ export {
     Mall,
     Change,
     Main,
+    FirstSet,
+    Mypage,
 };
