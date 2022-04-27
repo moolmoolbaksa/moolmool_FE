@@ -17,6 +17,7 @@ const Input = (props) => {
     rows,
     cols,
     multiLine,
+    border,
   } = props;
 
   const style = {
@@ -38,6 +39,7 @@ const Input = (props) => {
           onChange={onChange}
           rows={rows}
           cols={cols}
+          border={border}
         />
       </React.Fragment>
     );
@@ -51,6 +53,7 @@ const Input = (props) => {
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        border={border}
       />
       <Label htmlFor={id} name={name}>
         {text}
@@ -72,6 +75,7 @@ Input.defaultProps = {
   text: null,
   rows:"",
   onChange: () => {},
+  border:'1px solid grey',
 };
 
 const ElInput = styled.input`
@@ -79,7 +83,7 @@ const ElInput = styled.input`
   padding: ${props => props.padding};
   margin: ${props => props.margin};
   font-size: ${props => props.size};
-  border: 1px solid gray;
+  border: ${props => props.border};
   border-radius: 3px;
   outline: none;
   &::placeholder {
@@ -99,7 +103,7 @@ width: ${props => props.width};
   padding: ${props => props.padding};
   margin: ${props => props.margin};
   font-size: ${props => props.size};
-  border: 1px solid gray;
+  border: ${props => props.border};
   border-radius: 3px;
   outline: none;
   &::placeholder {

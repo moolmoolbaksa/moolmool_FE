@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Login, Signup, Detail, Mall, Change,Main } from './pages/index';
+import { Login, Signup, Detail, Mall, Change,Main,Notification } from './pages/index';
 import RegisterProduct from './pages/RegisterProduct';
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/mall" element={<Mall />} />
         <Route path="/change" element={<Change />} />
+        <Route path="/noti" element={<Notification/>}/>
       </Routes>
     </React.Fragment>
   );

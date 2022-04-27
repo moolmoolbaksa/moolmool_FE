@@ -4,6 +4,7 @@ import Detail from "./Detail";
 import Mall from "./Mall";
 import Change from "./Change";
 import Main from "./Main";
+import Notification from "./Notification";
 export { 
     Login,
     Signup,
@@ -11,4 +12,5 @@ export {
     Mall,
     Change,
     Main,
+    Notification
 };

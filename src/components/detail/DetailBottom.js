@@ -58,7 +58,7 @@ const DetailBottom = (props) => {
 };
 
 const Container = styled.div`
-    position: fixed;
+    position: relative;
     left: 0;
     right: 0;
     bottom: 0;
@@ -71,7 +71,7 @@ const Container = styled.div`
 `;
 
 const HeartOuter = styled.div`
-    position: relative;
+    position: absolute;
     z-index: 10;
     margin-top: 5px;
     svg {

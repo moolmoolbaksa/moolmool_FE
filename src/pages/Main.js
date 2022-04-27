@@ -4,11 +4,8 @@ import { styled, alpha } from '@mui/material/styles';
 import { Text, Grid, Input, Button,Image } from '../elements/index';
 import IconTabs from '../components/IconTabs';
 import Card from '../components/Main/Card'
-import Mainheader from '../components/Main/Mainheader';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,20 +13,37 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
-import Stack from '@mui/material/Stack';
 import MailIcon from '@mui/icons-material/Mail';
+
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import List from '@mui/material/List';
+import { Javascript } from '@mui/icons-material';
 // Instantiation
 
 
 const Main = (props) => {
+  const [filter,setfilter] = useState(false);
     
         
+  const Drawers =()=>{
+    if(filter)
+    {setfilter(false);}
+    else{
+      setfilter(true);
+    }
+    console.log(filter);
 
+  }
     return (
         <React.Fragment>
             <AppBar position="static">
                <Toolbar>
-                   <IconButton size="large"edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                   <IconButton onClick={Drawers} size="large"edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
 
@@ -46,9 +60,34 @@ const Main = (props) => {
                         <MailIcon color="action" />
                     </Badge>
 
-
                 </Toolbar>
             </AppBar>
+            
+            <Drawer
+            PaperProps={{ style: { height: "500px",}}}
+            open={filter}
+            onClose={Drawers}
+            
+            
+            >
+              <div style={{width:'250px'}}>
+                <List>
+                  {['category1','category2','category3','category4','category4','category4','category4','category4','category4'].map((text,index)=>(
+                    <ListItem key={text}>
+                    <input type='checkbox'/>
+                    <ListItemIcon>
+                      <MailIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary={text}/>
+                    </ListItem>
+                  ))}
+
+                </List>
+                <Button text='적용' height='40px' background='black' color='white'></Button>
+              </div>
+            
+
+            </Drawer>
             <div style={{display:'flex', width:'100%', margin:'30px 0px 20px 0px'}}>
                 <Image/>
 
