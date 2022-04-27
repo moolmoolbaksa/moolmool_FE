@@ -26,6 +26,14 @@ const Image = (props) => {
         )
     }
 
+    if(shape === "slide"){
+        return (
+            <SlideOutter>
+                <SlideInner {...styles}></SlideInner>
+            </SlideOutter>
+        )
+    }
+
     return (
         <React.Fragment>
             <ImageDefault {...styles}></ImageDefault>
@@ -49,7 +57,6 @@ const ImageDefault = styled.div`
   background-size: cover;
 `;
 
-
 const AspectOutter = styled.div`
 --size: ${(props) => props.size}px;
 width: var(--size);
@@ -70,7 +77,22 @@ position: relative;
     
     background-repeat: no-repeat;
     background-position: center;
-    
+`;
+
+const SlideOutter = styled.div`
+    width: 100%;
+    min-width: 250px;
+`;
+
+const SlideInner = styled.div`
+    position: relative;
+    padding-top: 75%;
+    overflow: hidden;
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: ${props => props.height};
 `;
 
 const ImageCircle = styled.div`

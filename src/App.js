@@ -7,13 +7,13 @@ function App() {
   return (
     <React.Fragment>
       <Routes>
+        <Route path="/" element={<Main/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/registerproduct" element={<RegisterProduct />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/mall" element={<Mall />} />
         <Route path="/change" element={<Change />} />
-        <Route path="/main" element={<Main/>}/>
       </Routes>
     </React.Fragment>
   );
