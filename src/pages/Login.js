@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Text, Grid, Input, Button } from '../elements/index';
+import { logIn } from '../redux/modules/user';
 
 const Login = (props) => {
+    const dispatch = useDispatch();
+
+    const [formLogin, setFormLogin] = useState({
+        username: '',
+        password: '',
+    });
+
+    const {username, password} = formLogin;
+
+    const onChange = (e) => {
+        const {id, value} = e.target;
+
+        setFormLogin({
+            ...formLogin,
+            [id]: value,
+        });
+    };
+
+    const clickLogin = () => {
+        dispatch(logIn(formLogin));
+    };
+    
     return (
         <Grid
             height="100vh"
@@ -18,18 +42,23 @@ const Login = (props) => {
                     lineHeight="200px"
                     flex
                 />
-                <Input 
+                <Input
+                    onChange={onChange} 
+                    id="username"
                     placeholder="이메일"
                     padding="10px"
                     margin="0 0 10px 0"
                 />
                 <Input 
+                    onChange={onChange} 
+                    id="password"
                     type="password"
                     placeholder="비밀번호"
                     padding="10px"
                     margin="0 0 10px 0"
                 />
                 <Button 
+                    onClick={clickLogin}
                     text="로그인하기"
                     size="18px"
                     background="black"

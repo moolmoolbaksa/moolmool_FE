@@ -1,24 +1,26 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage,Notification  } from './pages/index';
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from './redux/configureStore';
+import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification } from './pages/index';
 import RegisterProduct from './pages/RegisterProduct';
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <React.Fragment>
-      <Routes>
-        <Route path="/" element={<Main/>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/firstset" element={<FirstSet />} />
-        <Route path="/registerproduct" element={<RegisterProduct />} />
-        <Route path="/detail" element={<Detail />} />
-        <Route path="/mall" element={<Mall />} />
-        <Route path="/change" element={<Change />} />
-        <Route path="/noti" element={<Notification/>}/>
-        <Route path="/mypage" element={<Mypage />} />
-      </Routes>
-    </React.Fragment>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/firstset" component={FirstSet} />
+        <Route exact path="/registerproduct" component={RegisterProduct} />
+        <Route exact path="/detail" component={Detail} />
+        <Route exact path="/mall" component={Mall} />
+        <Route exact path="/change" component={Change} />
+        <Route exact path="/mypage" component={Mypage} />
+        <Route exact path="/noti" component={Notification}/>
+      </Switch>
+    </ConnectedRouter>
   );
 };
 
