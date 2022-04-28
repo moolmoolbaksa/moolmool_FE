@@ -22,23 +22,50 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
-import { Javascript } from '@mui/icons-material';
+import { ItemAPI } from '../shared/api';
+import { set } from 'lodash';
 // Instantiation
 
 
 const Main = (props) => {
-  const [filter,setfilter] = useState(false);
+  const [filter,setfilter] = useState('전체');
+  const [openFilter,setopenfilter] = useState(false);
+  // console.log(filter);
+  
+  
+  
+  React.useEffect(()=>{
+    let category_string=null;
     
-        
-  const Drawers =()=>{
-    if(filter)
-    {setfilter(false);}
-    else{
-      setfilter(true);
+    if (filter=='전체')
+    {
+      category_string='/items'
+      console.log(category_string)
     }
-    console.log(filter);
+    else{
+      category_string=`/items?category=${filter}`
+      console.log(category_string)
+      
+    }
+    // ItemAPI.getItems(category_string)
+    // .then((res)=>{
+    //   console.log(res);
 
+    // })
+    // .catch((error)=>{
+    //   console.log(error);
+    // })
+
+
+  },[openFilter])
+  const Drawers =()=>{
+    if(openFilter)
+    {setopenfilter(false);}
+    else{
+      setopenfilter(true);
+    }
   }
+
     return (
         <React.Fragment>
             <AppBar position="static">
@@ -65,20 +92,24 @@ const Main = (props) => {
             
             <Drawer
             PaperProps={{ style: { height: "500px",}}}
-            open={filter}
+            open={openFilter}
             onClose={Drawers}
             
             
             >
               <div style={{width:'250px'}}>
                 <List>
-                  {['category1','category2','category3','category4','category4','category4','category4','category4','category4'].map((text,index)=>(
+                  {['전체','category1','category2','category3','category4','category5'].map((text,index)=>(
                     <ListItem key={text}>
                     <input type='checkbox'/>
                     <ListItemIcon>
                       <MailIcon/>
                     </ListItemIcon>
-                    <ListItemText primary={text}/>
+                    <ListItemText primary={text} onClick={()=>{
+                      setfilter(text);
+                      console.log(text);
+                      setopenfilter(false);
+                      }}/>
                     </ListItem>
                   ))}
 

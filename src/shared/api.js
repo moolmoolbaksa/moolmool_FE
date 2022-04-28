@@ -41,6 +41,22 @@ export const apis = {
   //
 }
 
+export const ItemAPI = {
+
+  getItems: (category_string) => api.get(`${category_string}`, {
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem('token')}`,
+    },
+  }),
+  registerItem: (Formitem) => api.get('/api/items',Formitem, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      "Authorization": `Bearer ${sessionStorage.getItem('token')}`,
+    },
+  })
+  
+}
+
 export const ChatAPI = {
 
   // 방 목록 가져오기
