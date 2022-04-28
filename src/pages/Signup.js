@@ -22,10 +22,10 @@ const Signup = (props) => {
     
     const [checkDupID, setCheckDupID] = useState(true);
     const [checkDupNick, setCheckDupNick] = useState(true);
+    
     const [checkID, setCheckID] = useState(true);
-    const [_checkPassword, setCheckPassword] = useState(true);
+    const [checkPW, setCheckPW] = useState(true);
     const [isRight, setIsRight] = useState(true);
-
 
     const onChangeFormRegister = (e) => {
         const {id, value} = e.target;
@@ -52,13 +52,13 @@ const Signup = (props) => {
 
     useEffect(() => {
         if(password === ""){
-            setCheckPassword(true);
+            setCheckPW(true);
             return;
         }
         if(!isPassword(password)){
-            setCheckPassword(false);
+            setCheckPW(false);
         } else {
-            setCheckPassword(true);
+            setCheckPW(true);
         }
     }, [password]);
     
@@ -77,29 +77,31 @@ const Signup = (props) => {
     const checkDup = useCallback( 
         _.debounce((id, value) => {
             if(id === "username"){
-                usernameCheckApi(value);
+                dispatch(usernameCheckApi(value));
             } else {
-                nicknameCheckApi(value);
+                dispatch(nicknameCheckApi(value));
             }
         }, 500)
     ,[]);
 
     const usernameCheckApi = (username) => {
-        return async () => {
+        return async function () {
             try {
-                const response = await axios.post('/user/id-check', {username});
-                if(!response.data) setCheckDupID(false);
+                const response = await axios.post('http://13.124.0.71/user/id-check', {username});
+                setCheckDupID(response.data.ok);
+                console.log("이메일 중복 여부: ", response.data.ok)
             } catch (error) {
                 console.log(error);
             }
         }
     };
-
+    
     const nicknameCheckApi = (nickname) => {
         return async () => {
             try {
-                const response = await axios.post('/user/nickname-check', {nickname});
-                if(!response.data) setCheckDupNick(false);
+                const response = await axios.post('http://13.124.0.71/user/nickname-check', {nickname});
+                setCheckDupNick(response.data.ok);
+                console.log("닉네임 중복 여부: ",response.data.ok)
             } catch (error) {
                 console.log(error);
             }
@@ -109,8 +111,28 @@ const Signup = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
         
-        if (!username || !nickname || !password || !passwordCheck) {
+        if(!username || !nickname || !password || !passwordCheck){
             alert("빈칸을 모두 채워주세요.");
+            return;
+        }
+        if(!checkID){
+            alert("이메일 형식이 올바르지 않습니다.");
+            return;
+        }
+        if(!checkPW){
+            alert("비밀번호 형식이 올바르지 않습니다.");
+            return;
+        }
+        if(!checkDupID){
+            alert("이미 사용 중인 이메일입니다.");
+            return;
+        }
+        if(!checkDupNick){
+            alert("이미 사용 중인 닉네임입니다.");
+            return;
+        }
+        if(!isRight){
+            alert("비밀번호가 일치하지 않습니다.")
             return;
         }
         dispatch(signUp(formRegister));
@@ -137,7 +159,7 @@ const Signup = (props) => {
                     placeholder="이메일"
                     padding="10px"
                     margin="0 0 10px 0"
-                    text={checkDupID ? (checkID ? '' : '이메일 형식이 올바르지 않습니다') : "이미 사용 중인 이메일입니다"}
+                    text={checkDupID ? (checkID ? '' : '올바른 이메일 형식을 입력해주세요.') : "이미 사용 중인 이메일입니다"}
                 />
                 <Input 
                     onChange={onChangeFormRegister}
@@ -154,7 +176,7 @@ const Signup = (props) => {
                     placeholder="비밀번호"
                     padding="10px"
                     margin="0 0 10px 0"
-                    text={_checkPassword ? '' : '비밀번호 형식이 올바르지 않습니다'}
+                    text={checkPW ? '' : '8~20자로 영문 대소문자, 숫자, 특수문자 조합을 사용하세요.'}
                 />
                 <Input 
                     onChange={onChangeFormRegister}

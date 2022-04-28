@@ -5,12 +5,10 @@ import styled from 'styled-components';
 import { Text } from '../elements/index';
 
 const TitleBar = ({ title }) => {
-    const navigate = useNavigate();
-
     return (
         <Container>
             <span 
-                onClick={() => {navigate(-1)}}
+                // onClick={() => {navigate(-1)}}
                 className="material-symbols-outlined"
             >
                 arrow_back_ios
