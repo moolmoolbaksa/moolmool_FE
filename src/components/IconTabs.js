@@ -10,20 +10,26 @@ import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { history } from '../redux/configureStore';
 export default function IconTabs() {
     const [value, setValue] = React.useState(0);
   
     const handleChange = (e, newValue) => {
       setValue(newValue);
     };
-  
+    
+    const goMypage = () => {
+      history.push('/mypage');
+      window.scrollTo(0, 0);
+    }
+
     return (
       <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
         <Tab icon={<HomeOutlinedIcon />} aria-label="phone" style={{minWidth:"20%"}}/>
         <Tab icon={<SearchOutlinedIcon />} aria-label="favorite" style={{minWidth:"20%"}} />
         <Tab icon={<AddIcon />} aria-label="person" style={{minWidth:"20%"}} />
         <Tab icon={<ChatOutlinedIcon />} aria-label="favorite"  style={{minWidth:"20%"}}/>
-        <Tab icon={<PeopleAltOutlinedIcon />} aria-label="phone" style={{minWidth:"20%"}} />
+        <Tab onClick={goMypage} icon={<PeopleAltOutlinedIcon />} aria-label="phone" style={{minWidth:"20%"}} />
 
       </Tabs>
     );
