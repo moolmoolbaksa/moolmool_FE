@@ -10,7 +10,7 @@ const Change = (props) => {
     return (
         <Grid
             padding="30px 16px 90px 16px"
-            height="calc(100% + 60px);"
+            height="100vh"
             position="relative"
         >
             <Text 
@@ -19,6 +19,39 @@ const Change = (props) => {
                 size="24px"
                 letterSpacing="-1px"
             />
+            <Grid  margin="20px 0 40px 0">
+                <Grid gridBox>
+                    {response.list.map((v, i) => {
+                        return  <ImageWrap 
+                                    shape="rectangle"
+                                    src={v.imageUrl}
+                                    key={i}
+                                />          
+                    })}
+                </Grid>
+            </Grid>
+            <Grid  margin="20px 0 40px 0">
+                <Grid gridBox>
+                    {response.list.map((v, i) => {
+                        return  <ImageWrap 
+                                    shape="rectangle"
+                                    src={v.imageUrl}
+                                    key={i}
+                                />          
+                    })}
+                </Grid>
+            </Grid>
+            <Grid  margin="20px 0 40px 0">
+                <Grid gridBox>
+                    {response.list.map((v, i) => {
+                        return  <ImageWrap 
+                                    shape="rectangle"
+                                    src={v.imageUrl}
+                                    key={i}
+                                />          
+                    })}
+                </Grid>
+            </Grid>
             <Grid  margin="20px 0 40px 0">
                 <Grid gridBox>
                     {response.list.map((v, i) => {
