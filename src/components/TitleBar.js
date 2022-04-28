@@ -1,14 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Text } from '../elements/index';
+import { history } from '../redux/configureStore';
 
 const TitleBar = ({ title }) => {
     return (
         <Container>
             <span 
-                // onClick={() => {navigate(-1)}}
+                onClick={() => {history.push(-1)}}
                 className="material-symbols-outlined"
             >
                 arrow_back_ios

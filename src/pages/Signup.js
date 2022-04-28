@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Text, Grid, Input, Button } from '../elements/index';
 import axios from 'axios';
 import { isPassword, isUsername } from '../shared/regExp';
-import { signUp } from '../redux/modules/user';
+import { api as userApi } from '../redux/modules/user';
 
 const Signup = (props) => {
     const dispatch = useDispatch();
@@ -135,7 +135,7 @@ const Signup = (props) => {
             alert("비밀번호가 일치하지 않습니다.")
             return;
         }
-        dispatch(signUp(formRegister));
+        dispatch(userApi.signupApi(formRegister));
     };
 
     return (
@@ -143,14 +143,17 @@ const Signup = (props) => {
             height="100vh"
             is_flex
             is_column
-            justify="space-between"
+            justify="center"
+            padding="0 16px"
         >   
             <Grid>
                 <Text 
-                    text="회원가입하기"
+                    text="회원가입"
                     textAlign="center"
                     size="24px"
-                    lineHeight="200px"
+                    lineHeight="150px"
+                    letterSpacing="-0.6px"
+                    bold="bold"
                     flex
                 />
                 <Input 
@@ -158,7 +161,8 @@ const Signup = (props) => {
                     id="username"
                     placeholder="이메일"
                     padding="10px"
-                    margin="0 0 10px 0"
+                    margin="0 0 30px 0"
+                    height="50px"
                     text={checkDupID ? (checkID ? '' : '올바른 이메일 형식을 입력해주세요.') : "이미 사용 중인 이메일입니다"}
                 />
                 <Input 
@@ -166,7 +170,8 @@ const Signup = (props) => {
                     id="nickname"
                     placeholder="닉네임"
                     padding="10px"
-                    margin="0 0 10px 0"
+                    margin="0 0 30px 0"
+                    height="50px"
                     text={checkDupNick ? "" : "이미 사용 중인 닉네임입니다"}
                 />
                 <Input 
@@ -175,7 +180,8 @@ const Signup = (props) => {
                     type="password"
                     placeholder="비밀번호"
                     padding="10px"
-                    margin="0 0 10px 0"
+                    margin="0 0 30px 0"
+                    height="50px"
                     text={checkPW ? '' : '8~20자로 영문 대소문자, 숫자, 특수문자 조합을 사용하세요.'}
                 />
                 <Input 
@@ -184,14 +190,15 @@ const Signup = (props) => {
                     type="password"
                     placeholder="비밀번호확인"
                     padding="10px"
-                    margin="0 0 10px 0"
+                    margin="0 0 30px 0"
+                    height="50px"
                     text={isRight ? '' : '비밀번호가 일치하지 않습니다.'}
                 />
             </Grid>
-            <Grid flex height="300px">
+            <Grid flex height="200px">
                 <Button 
                     onClick={onSubmit}
-                    text="회원가입하기"
+                    text="회원가입"
                     size="18px"
                     background="black"
                     color="white"

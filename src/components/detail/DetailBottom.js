@@ -58,9 +58,7 @@ const DetailBottom = (props) => {
 };
 
 const Container = styled.div`
-    position: relative;
-    left: 0;
-    right: 0;
+    position: fixed;
     bottom: 0;
     width: 100%;
     max-width: 420px;
@@ -73,7 +71,7 @@ const Container = styled.div`
 `;
 
 const HeartOuter = styled.div`
-    position: absolute;
+    position: relative;
     z-index: 10;
     margin-top: 5px;
     svg {
