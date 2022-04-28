@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Grid from "./Grid";
 
 const Input = (props) => {
   const {
@@ -18,6 +19,7 @@ const Input = (props) => {
     cols,
     multiLine,
     border,
+    height,
   } = props;
 
   const style = {
@@ -25,6 +27,7 @@ const Input = (props) => {
     padding,
     margin,
     size,
+    height,
   };
   
   if (multiLine)
@@ -47,18 +50,20 @@ const Input = (props) => {
   }
   return (
     <React.Fragment>
-      <ElInput
-        {...style}
-        id={id}
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        border={border}
-      />
-      <Label htmlFor={id} name={name}>
-        {text}
-      </Label>
+      <Grid position="relative">
+        <ElInput
+          {...style}
+          id={id}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          border={border}
+        />
+        <Label htmlFor={id} name={name}>
+          {text}
+        </Label>
+      </Grid>
     </React.Fragment>
   );
 };
@@ -85,18 +90,23 @@ const ElInput = styled.input`
   margin: ${props => props.margin};
   font-size: ${props => props.size};
   border: ${props => props.border};
+  ${props => (props.height ? `height:${props.height}` : '')};
   border-radius: 3px;
   outline: none;
   &::placeholder {
     font-size: 14px;
     color: #90a4ae;
   }
-  resize:none;
+  resize: none;
 `;
 
 const Label = styled.label`
+  position: absolute;
+  left: 5px;
+  bottom: 13px;
+  letter-spacing: -1px;
+  font-size: 12px;
   color: red;
-  font-size: 14px;
 `;
 
 const MultiInput = styled.textarea`

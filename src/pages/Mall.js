@@ -7,18 +7,20 @@ import { Grid } from '../elements/index';
 
 const Mall = (props) => {
     return (
-        <>   
+        <Grid height="100vh">   
             <Grid
                 padding="0 16px"
                 position="relative"
-                height="100vh"
+                
             >
                 <MypageTop />
                 <BagList />
             </Grid>
             <DetailBottom />
-        </> 
+        </Grid> 
     );
 };
+
+
 
 export default Mall;
