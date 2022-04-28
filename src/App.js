@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from './redux/configureStore';
-import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage } from './pages/index';
+import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification } from './pages/index';
 import RegisterProduct from './pages/RegisterProduct';
 import { Route, Switch } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ function App() {
         <Route exact path="/mall" component={Mall} />
         <Route exact path="/change" component={Change} />
         <Route exact path="/mypage" component={Mypage} />
+        <Route exact path="/noti" component={Notification}/>
       </Switch>
     </ConnectedRouter>
   );
