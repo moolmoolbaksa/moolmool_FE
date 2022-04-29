@@ -7,6 +7,7 @@ import { Text, Grid, Input, Button } from '../elements/index';
 import { api as userApi } from '../redux/modules/user';
 
 const Login = (props) => {
+    console.log(process.env.REACT_APP_URL)
     const dispatch = useDispatch();
 
     const [formLogin, setFormLogin] = useState({

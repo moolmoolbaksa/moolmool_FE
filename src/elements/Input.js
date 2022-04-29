@@ -110,7 +110,7 @@ const Label = styled.label`
 `;
 
 const MultiInput = styled.textarea`
-width: ${props => props.width};
+  width: ${props => props.width};
   padding: ${props => props.padding};
   margin: ${props => props.margin};
   font-size: ${props => props.size};

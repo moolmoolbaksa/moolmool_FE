@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import KakaoMap from '../components/KakaoMap';
 import { setPreview } from '../redux/modules/image';
+import { TextArea } from '../elements/index';
 
 const FirstSet = (props) => {
     const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const FirstSet = (props) => {
                 />
                 <label htmlFor='profile_img'></label>
             </FileBox>
+            < TextArea />
             <KakaoMap />
         </Container>
     );
