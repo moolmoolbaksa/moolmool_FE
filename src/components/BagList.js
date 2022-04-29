@@ -44,6 +44,15 @@ const ImageInner = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:active {
+        background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url('${props => props.src}');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
 `;
 
 export default BagList;
