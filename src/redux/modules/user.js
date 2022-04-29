@@ -47,7 +47,7 @@ export const loginApi = createAsyncThunk(
 
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
-    async () => {
+    async (thunkAPI) => {
         const token = localStorage.getItem("token");
         try {
             const response = await axios.get('http://13.124.0.71/user/check',{
@@ -66,7 +66,6 @@ const loginCheckApi = createAsyncThunk(
 const kakaoLogin = createAsyncThunk(
     'user/kakaoLogin',
     async (code, thunkAPI) => {
-        console.log("카카오 로그인", code)
         try {
             const response = await axios.get(`http://13.124.0.71/user/kakao?code=${code}`);
    
@@ -87,14 +86,60 @@ const kakaoLogin = createAsyncThunk(
     }
 );
 
+const setFirstUserInfo = createAsyncThunk(
+    'user/setFristUserInfo',
+    async (preview, introduce) => {
+        const token = localStorage.getItem("token");
+        const formData = new FormData();
+        formData.append('profile', preview);
+        formData.append('storeInfo', introduce);
+        formData.append('address', '');
+        try {
+            const response = await axios.put(`http://13.124.0.71/user/info`,formData,{
+                headers: {
+                    Authorization: token,
+                    // 'Content-Type' : 'multipart/form-data'
+                }
+            });
+            console.log(response)
+            // if(response.data.ok){
+            //     history.replace('/');
+            // }
+        } catch (error) {
+            console.log("setFirstUserInfo: ", error);
+            alert('setFirstUserInfo error');
+        }
+    }
+);
+
 export const user = createSlice({
     name: 'user',
     initialState: {
-        nickname: "",
-        profile: "",
+        user: {
+            nickname: "",
+            profile: "",
+            introduce: "",
+            address: "",
+        },
+        preview: "http://kaihuastudio.com/common/img/default_profile.png",
         is_login: false,
     },
-    reducers: {},
+    reducers: {
+        setUser: (state, action) => {
+            state.nickname = action.payload.nickname;
+            state.profile = action.payload.profile;
+            state.is_login = true;
+        },
+        setPreview: (state, action) => {
+            state.preview = action.payload;
+        },
+        introduce: (state, action) => {
+            state.introduce = action.payload;
+        },
+        setAddress: (state, action) => {
+            state.address = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(loginCheckApi.fulfilled, (state, action) => {
@@ -105,13 +150,18 @@ export const user = createSlice({
     }
 });
 
-// export const { authLogin } = user.actions;
+export const { 
+    setPreview,
+    introduce,
+    setAddress,
+} = user.actions;
 
 export const api = {
     signupApi,
     loginApi,
     loginCheckApi,
     kakaoLogin,
+    setFirstUserInfo,
 };
 
 export default user.reducer;
