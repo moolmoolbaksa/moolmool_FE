@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from './redux/configureStore';
-import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification } from './pages/index';
+import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification, LoginProgress } from './pages/index';
 import RegisterProduct from './pages/RegisterProduct';
 import { Route, Switch } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Main} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/auth/kakao/callback" component={LoginProgress} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/firstset" component={FirstSet} />
         <Route exact path="/registerproduct" component={RegisterProduct} />

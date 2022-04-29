@@ -7,6 +7,7 @@ import Main from "./Main";
 import Notification from "./Notification";
 import FirstSet from "./FirstSet";
 import Mypage from "./Mypage";
+import LoginProgress from "./LoginProgress";
 
 export { 
     Login,
@@ -18,4 +19,5 @@ export {
     Notification,
     FirstSet,
     Mypage,
+    LoginProgress,
 };
