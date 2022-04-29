@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 import { history } from "../configureStore";
 
 export const signupApi = createAsyncThunk(
@@ -27,11 +28,17 @@ export const loginApi = createAsyncThunk(
                 window.alert("기입된 정보를 다시 확인해주세요.");
                 return;
             }
-            
+            console.log(response)
             const token = response.headers.authorization;
             localStorage.setItem("token", token)
 
             thunkAPI.dispatch(loginCheckApi());
+
+            if(response.data.isFirst){
+                history.replace('/firstset');
+            } else {
+                history.replace('/');
+            }
         } catch (error) {
             console.log(error);
         }    
@@ -52,6 +59,30 @@ const loginCheckApi = createAsyncThunk(
         } catch (error) {
             console.log("loginCheck error: ", error);
             alert('logincheck error');
+        }
+    }
+);
+
+const kakaoLogin = createAsyncThunk(
+    'user/kakaoLogin',
+    async (code, thunkAPI) => {
+        console.log("카카오 로그인", code)
+        try {
+            const response = await axios.get(`http://13.124.0.71/user/kakao?code=${code}`);
+   
+            const token = response.headers.authorization;
+            localStorage.setItem("token", token)
+            
+            thunkAPI.dispatch(loginCheckApi());
+            
+            if(response.data.isFirst){
+                history.replace('/firstset');
+            } else {
+                history.replace('/');
+            }
+        } catch (error) {
+            console.log("kakaologin error: ", error);
+            alert('kakaologin error');
         }
     }
 );
@@ -80,6 +111,7 @@ export const api = {
     signupApi,
     loginApi,
     loginCheckApi,
+    kakaoLogin,
 };
 
 export default user.reducer;

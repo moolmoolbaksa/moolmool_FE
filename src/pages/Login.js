@@ -8,6 +8,9 @@ import { api as userApi } from '../redux/modules/user';
 
 const Login = (props) => {
     const dispatch = useDispatch();
+    
+    const REDIRECT_URI = `${process.env.REACT_APP_URL}/auth/kakao/callback`;
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const [formLogin, setFormLogin] = useState({
         username: '',
@@ -73,17 +76,7 @@ const Login = (props) => {
                     radius="3px"
                     height="50px"
                 />
-                <Button 
-                    onClick={clickLogin}
-                    text="카카오로그인하기"
-                    size="18px"
-                    background="yellow"
-                    color="black"
-                    padding="10px 0"
-                    radius="3px"
-                    height="50px"
-                    margin="15px 0"
-                />
+                <KakaoBtn href={KAKAO_AUTH_URL}>카카오로그인하기</KakaoBtn>
             </Grid>
             <Grid
                 flex
@@ -107,4 +100,8 @@ const StyledLink = styled(Link)`
     /* text-decoration: none; */
     color: black;
 `
+
+const KakaoBtn = styled.a`
+
+`;
 export default Login;
