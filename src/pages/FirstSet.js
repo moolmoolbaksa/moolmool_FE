@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import KakaoMap from '../components/KakaoMap';
 import { setPreview } from '../redux/modules/image';
 
 const FirstSet = (props) => {
@@ -32,6 +33,7 @@ const FirstSet = (props) => {
                 />
                 <label htmlFor='profile_img'></label>
             </FileBox>
+            <KakaoMap />
         </Container>
     );
 };
