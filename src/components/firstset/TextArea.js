@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Grid } from './index'
+import { Grid } from '../../elements/index';
 
 const TextArea = (props) => {
     const [inputVal, setInputVal] = useState('');
