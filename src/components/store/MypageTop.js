@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
 
 const MypageTop = ({user_info}) => {
-    const {nickname, profile, store_info, degree, address} = user_info;
+    const {nickname, profile, storeInfo, degree, address} = user_info;
 
     return (
         <Container>
@@ -43,7 +43,7 @@ const MypageTop = ({user_info}) => {
                     />
                 </div>
                 <Text 
-                    text={store_info}
+                    text={storeInfo}
                     letterSpacing="-1px"
                 />
             </Grid>

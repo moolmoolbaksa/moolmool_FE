@@ -1,13 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Text, Image } from '../../elements/index';
-import { history } from '../../redux/configureStore';
+import { api as userActions } from '../../redux/modules/user';
 
 const DetailContent = (props) => {
+    const dispatch = useDispatch();
     const product_info = useSelector(state => state.product.product_info);
-
+    
     const {
         userId,
         nickname,
@@ -19,7 +20,7 @@ const DetailContent = (props) => {
     } = product_info;
 
     const onGoUserMall = () => {
-        history.push(`/mall/${userId}`);
+        dispatch(userActions.getCounterUserInfoApi(userId));
     };
 
     return (

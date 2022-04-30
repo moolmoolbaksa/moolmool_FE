@@ -3,11 +3,11 @@ import React from 'react';
 import { Text, Grid } from '../../elements/index';
 import ItemImage from './ItemImage';
 
-const BagList = ({item_list}) => {
+const ItemGrid = ({item_list}) => {
 
     return (
         <React.Fragment>
-            <Text 
+            <Text
                 text="물물박사님의 보따리"
                 bold="bold"
                 size="24px"
@@ -25,4 +25,4 @@ const BagList = ({item_list}) => {
     )
 }
 
-export default BagList;
+export default ItemGrid;

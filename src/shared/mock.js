@@ -73,4 +73,24 @@ export const response = {
         scrabCnt: 53,
         isScrab: true,
     },
+    couterUser: {
+        nickname:"상대유저",
+        profile:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDIR-ndvhlYiGJf7ayW7UqDNKqK-j-odL7hA&usqp=CAU",
+        degree:'물물이',
+        grade:1.7,
+        address : '어디사냐',
+        storeInfo:'저는 상대유저입니다.',
+        itemList:[
+            {
+                itemId: 1,
+                image:'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YXBwbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+                status:'거래중'
+            },
+            {
+                itemId: 2,
+                image:'https://images.unsplash.com/photo-1535591273668-578e31182c4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZmlzaHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+                status:'거래중'
+            }
+        ]
+    }
 }

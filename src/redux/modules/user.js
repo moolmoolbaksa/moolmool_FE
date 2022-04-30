@@ -133,6 +133,21 @@ const getMyInfoApi = createAsyncThunk(
     }
 );
 
+const getCounterUserInfoApi = createAsyncThunk(
+    'user/getCounterUserInfoApi',
+    async (userId) => {
+        try {
+            // const response = await axios.get(`http://13.124.0.71/${userId}/store`);
+            // return response.data;
+            history.push(`/mall/${userId}`);
+            return response.couterUser;
+        } catch (error) {
+            console.log("getMyInfo: ", error);
+            alert('getMyInfo error');
+        };
+    }
+)
+
 export const user = createSlice({
     name: 'user',
     initialState: {
@@ -144,7 +159,16 @@ export const user = createSlice({
             degree: "",
             grade: "",
         },
+        other: {
+            nickname: "",
+            profile: "",
+            store_info: "",
+            address: "",
+            degree: "",
+            grade: "",
+        },
         item_list: [],
+        other_item_list: [],
         preview: "http://kaihuastudio.com/common/img/default_profile.png",
         is_login: false,
     },
@@ -172,13 +196,14 @@ export const user = createSlice({
                 state.is_login = true;
             })
             .addCase(getMyInfoApi.fulfilled, (state, action) => {
-                state.user_info.nickname = action.payload.nickname;
-                state.user_info.profile = action.payload.profile;
-                state.user_info.degree = action.payload.degree;
-                state.user_info.grade = action.payload.grade;
-                state.user_info.address = action.payload.address;
-                state.user_info.store_info = action.payload.storeInfo;
-                state.item_list = action.payload.itemList;
+                const {itemList, ...user_info} = action.payload;
+                state.user_info = user_info;
+                state.item_list = itemList;
+            })
+            .addCase(getCounterUserInfoApi.fulfilled, (state, action) => {
+                const {itemList, ...other_info} = action.payload;
+                state.other = other_info;
+                state.other_item_list = itemList;
             })
     }
 });
@@ -196,6 +221,7 @@ export const api = {
     kakaoLoginApi,
     setFirstUserInfoApi,
     getMyInfoApi,
+    getCounterUserInfoApi,
 };
 
 export default user.reducer;
