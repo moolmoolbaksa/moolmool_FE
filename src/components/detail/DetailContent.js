@@ -1,38 +1,56 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Text, Image } from '../../elements/index';
-import { response } from '../../shared/mock';
+import { history } from '../../redux/configureStore';
 
 const DetailContent = (props) => {
+    const product_info = useSelector(state => state.product.product_info);
+
+    const {
+        userId,
+        nickname,
+        title,
+        date,
+        contents,
+        bagImages,
+        viewCnt,
+    } = product_info;
+
+    const onGoUserMall = () => {
+        history.push(`/mall/${userId}`);
+    };
+
     return (
         <Grid
             padding="10px 16px"
         >
-            <P><span>범인은나야</span>님의 보따리 구경하기</P>
+            <P onClick={onGoUserMall}><span>{nickname}</span>님의 보따리 구경하기</P>
             <Grid is_flex margin="10px 0 15px 0">
-                {response.list.map(v => {
+                {bagImages && bagImages.map((v, i) => {
                     return <Image 
                                 shape="circle"
-                                key={v.productId}
-                                src={v.imageUrl}
+                                onClick={onGoUserMall}
+                                key={i}
+                                src={v}
                                 margin="0 7px 0 0"
                             />
                 })}
             </Grid>
             <Text 
-                text="포켓몬 스티커 교환하실분"
+                text={title}
                 bold="bold"
                 size="18px"
                 margin="0 0 10px 0"
             />
             <Text 
-                text="피카츄랑 라이츄 교환 원해요 스티커 아니어도 됩니다. 다른 물건 제시 가능 부담 갖지 말고 채팅주세요!"
+                text={contents}
                 margin="0 0 10px 0"
             />
             <Grid is_flex width="auto">
                 <Text 
-                    text="3일전"
+                    text={date}
                     size="12px"
                     letterSpacing="-1px"
                     color="lightgray"
@@ -40,7 +58,7 @@ const DetailContent = (props) => {
                     margin="0 15px 0 0"
                 />
                 <Text 
-                    text="조회 6,132회"
+                    text={`조회 ${viewCnt}`}
                     size="12px"
                     letterSpacing="-1px"
                     width="fit-content"

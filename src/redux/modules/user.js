@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { history } from "../configureStore";
+import { response } from "../../shared/mock";
 
 export const signupApi = createAsyncThunk(
     'user/signupApi',
@@ -63,7 +64,7 @@ const loginCheckApi = createAsyncThunk(
     }
 );
 
-const kakaoLogin = createAsyncThunk(
+const kakaoLoginApi = createAsyncThunk(
     'user/kakaoLogin',
     async (code, thunkAPI) => {
         try {
@@ -79,6 +80,7 @@ const kakaoLogin = createAsyncThunk(
             } else {
                 history.replace('/');
             }
+            console.log(response)
         } catch (error) {
             console.log("kakaologin error: ", error);
             alert('kakaologin error');
@@ -86,7 +88,7 @@ const kakaoLogin = createAsyncThunk(
     }
 );
 
-const setFirstUserInfo = createAsyncThunk(
+const setFirstUserInfoApi = createAsyncThunk(
     'user/setFristUserInfo',
     async (preview, introduce) => {
         const token = localStorage.getItem("token");
@@ -112,29 +114,51 @@ const setFirstUserInfo = createAsyncThunk(
     }
 );
 
+const getMyInfoApi = createAsyncThunk(
+    'user/getMyInfo',
+    async () => {
+        const token = localStorage.getItem("token");
+        try {
+            // const response = await axios.get('http://13.124.0.71/api/mypage',{
+            //     headers: {
+            //         Authorization: token,
+            //     }
+            // });
+            // return response.data;
+            return response.mypage
+        } catch (error) {
+            console.log("getMyInfo: ", error);
+            alert('getMyInfo error');
+        };
+    }
+);
+
 export const user = createSlice({
     name: 'user',
     initialState: {
-        user: {
+        user_info: {
             nickname: "",
             profile: "",
-            introduce: "",
+            store_info: "",
             address: "",
+            degree: "",
+            grade: "",
         },
+        item_list: [],
         preview: "http://kaihuastudio.com/common/img/default_profile.png",
         is_login: false,
     },
     reducers: {
         setUser: (state, action) => {
-            state.nickname = action.payload.nickname;
-            state.profile = action.payload.profile;
+            state.user.nickname = action.payload.nickname;
+            state.user.profile = action.payload.profile;
             state.is_login = true;
         },
         setPreview: (state, action) => {
             state.preview = action.payload;
         },
-        introduce: (state, action) => {
-            state.introduce = action.payload;
+        setIntroduce: (state, action) => {
+            state.user.store_info = action.payload;
         },
         setAddress: (state, action) => {
             state.address = action.payload;
@@ -146,13 +170,22 @@ export const user = createSlice({
                 state.nickname = action.payload.nickname;
                 state.profile = action.payload.profile;
                 state.is_login = true;
-            });
+            })
+            .addCase(getMyInfoApi.fulfilled, (state, action) => {
+                state.user_info.nickname = action.payload.nickname;
+                state.user_info.profile = action.payload.profile;
+                state.user_info.degree = action.payload.degree;
+                state.user_info.grade = action.payload.grade;
+                state.user_info.address = action.payload.address;
+                state.user_info.store_info = action.payload.storeInfo;
+                state.item_list = action.payload.itemList;
+            })
     }
 });
 
 export const { 
     setPreview,
-    introduce,
+    setIntroduce,
     setAddress,
 } = user.actions;
 
@@ -160,8 +193,9 @@ export const api = {
     signupApi,
     loginApi,
     loginCheckApi,
-    kakaoLogin,
-    setFirstUserInfo,
+    kakaoLoginApi,
+    setFirstUserInfoApi,
+    getMyInfoApi,
 };
 
 export default user.reducer;

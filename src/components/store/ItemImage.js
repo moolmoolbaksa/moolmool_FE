@@ -1,30 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
-import { Text, Grid } from '../elements/index';
-import { response } from '../shared/mock'
+import { api as productActions } from '../../redux/modules/product';
 
-const BagList = (props) => {
+const ItemImage = ({itemId, image, status}) => {
+    const dispatch = useDispatch();
+
+    const onGoDetail = () => {
+        dispatch(productActions.getProductApi(itemId));
+    };
+
     return (
-        <React.Fragment>
-            <Text 
-                text="물물박사님의 보따리"
-                bold="bold"
-                size="24px"
-                letterSpacing="-1px"
+        <ImageOutter 
+            onClick={onGoDetail}
+        >
+            <ImageInner 
+                src={image} 
             />
-            <Grid gridBox margin="20px 0">
-                {response.list.map(v => {
-                    return  <ImageOutter key={v.productId}>
-                                <ImageInner 
-                                    src={v.imageUrl} 
-                                />  
-                            </ImageOutter>        
-                })}
-            </Grid>
-        </React.Fragment>
-    )
-}
+            {status === '거래중' && <ProductStatus>거래중</ProductStatus>}
+        </ImageOutter>
+    );
+};
 
 const ImageOutter = styled.div`
     position: relative;
@@ -55,4 +52,16 @@ const ImageInner = styled.div`
     }
 `;
 
-export default BagList;
+const ProductStatus = styled.div`
+    font-size: 8px;
+    padding: 2px 5px;
+    border-radius: 10px;
+    background-color: white;
+    letter-spacing: -0.67px;
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    left: 5px;
+`;
+
+export default ItemImage;

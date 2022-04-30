@@ -5,12 +5,14 @@ import { createBrowserHistory } from 'history';
 import logger from 'redux-logger';
 
 import userSlice from './modules/user';
+import productSlice from './modules/product';
 
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: userSlice,
+  product: productSlice,
   router: connectRouter(history),
 });
 

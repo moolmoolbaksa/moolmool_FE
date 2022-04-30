@@ -15,8 +15,8 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/firstset" component={FirstSet} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
-        <Route exact path="/detail" component={Detail} />
-        <Route exact path="/mall" component={Mall} />
+        <Route exact path="/detail/:id" component={Detail} />
+        <Route exact path="/mall/:id" component={Mall} />
         <Route exact path="/change" component={Change} />
         <Route exact path="/mypage" component={Mypage} />
         <Route exact path="/noti" component={Notification}/>

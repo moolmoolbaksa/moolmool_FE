@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Button, Text } from '../../elements/index';
+import { api as productActions } from '../../redux/modules/product';
 
 const DetailBottom = (props) => {
-    const [ heartClick, setHeartClick ] = useState(false);
+    const dispatch = useDispatch();
+    const {userId, scrabCnt, isScrab} = useSelector(state => state.product.product_info);
+    const [heartClick, setHeartClick] = useState(isScrab);
+    const [cnt, setCnt] = useState(scrabCnt);
     const btnRef = useRef();
 
     useEffect(() => {
@@ -17,6 +22,8 @@ const DetailBottom = (props) => {
 
     const clickHeart = () => {
         setHeartClick(!heartClick);
+        heartClick ? setCnt(cnt - 1) : setCnt(cnt + 1);
+        // dispatch(productActions.setProductScrabApi(userId));
     };
     
     return (
@@ -39,7 +46,7 @@ const DetailBottom = (props) => {
                     </svg>
                 </HeartOuter>
                 <Text 
-                    text="1"
+                    text={cnt}
                     size="12px"
                     letterSpacing="-1px"
                     color="lightgray"
@@ -74,6 +81,7 @@ const HeartOuter = styled.div`
     position: relative;
     z-index: 10;
     margin-top: 5px;
+    user-select: none;
     svg {
         width: 30px;
         height: 30px;
