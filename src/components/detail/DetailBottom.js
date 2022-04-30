@@ -8,9 +8,15 @@ import { api as productActions } from '../../redux/modules/product';
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
     const {userId, scrabCnt, isScrab} = useSelector(state => state.product.product_info);
-    const [heartClick, setHeartClick] = useState(isScrab);
-    const [cnt, setCnt] = useState(scrabCnt);
+    const [heartClick, setHeartClick] = useState('');
+    const [cnt, setCnt] = useState('');
     const btnRef = useRef();
+    
+    useEffect(() => {
+        setCnt(scrabCnt);
+        setHeartClick(isScrab);
+        console.log("실행")
+    }, [scrabCnt, isScrab]);
 
     useEffect(() => {
         if (heartClick) {
