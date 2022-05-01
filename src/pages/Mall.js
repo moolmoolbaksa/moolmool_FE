@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux';
 import MypageTop from '../components/store/MypageTop';
 import ItemGrid from '../components/store/ItemGrid';
 import { Grid } from '../elements/index';
+import DetailBottom from '../components/detail/DetailBottom';
 
 const Mall = (props) => {
     const user_info = useSelector(state => state.user.other);
     const item_list = useSelector(state => state.user.other_item_list);
 
     return (
-        <Grid height="100vh">   
+        <Grid>   
             <Grid
                 padding="0 16px"
                 position="relative" 
@@ -18,7 +19,7 @@ const Mall = (props) => {
                 <MypageTop user_info={user_info}/>
                 <ItemGrid item_list={item_list}/>
             </Grid>
-            {/* <DetailBottom /> */}
+            <DetailBottom/>
         </Grid> 
     );
 };

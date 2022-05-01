@@ -71,10 +71,10 @@ const DetailBottom = (props) => {
 };
 
 const Container = styled.div`
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
-    max-width: 420px;
+    /* max-width: 420px; */
     height: 60px;
     display: flex;
     justify-content: space-between;
