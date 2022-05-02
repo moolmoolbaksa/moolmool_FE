@@ -6,6 +6,8 @@ import ImageSlide from '../components/ImageSlide';
 import ScrollHorizontal from 'react-scroll-horizontal';
 import IconTabs from '../components/IconTabs';
 import Noti from '../components/Registerproduct/Noti';
+import { ItemAPI } from '../shared/api';
+
 
 
 
@@ -15,13 +17,36 @@ const Imageitem = ({src})=>{
 
 const RegisterProduct = (props) => {
     
+    
+    const categorys_list=[
+        {id:1, value:"category1"},
+        {id:2, value:"category2"},
+        {id:3, value:"category3"},
+        {id:4, value:"category4"},
+        {id:5, value:"category5"},
+        {id:6, value:"category6"},
+        {id:7, value:"category7"}
+    ];
+    const type_list=[
+        {id:1, value:"상관없음"},
+        {id:2, value:"택배거래"},
+        {id:3, value:"직거래"},
+    ]
+    const [title,setTitle]=React.useState("");
+    const [contents,setContents]=React.useState("");
+    const [category,setCategory]=React.useState("");
+    const [favors,setFavors]=React.useState([]);
+    const [fileslist,setFileslist]=React.useState([]);
+    const [type,setType]=React.useState("");
+    const onlyonecheck=React.useRef();
 
-    // let filelist=['data:image/jpeg;base64,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',''];
     const fileInput=React.useRef();
     const [files,setFiles]=useState([]);
-    const [categoryOpen,setcategoryOpen]=useState(false);
 
-    const category = () =>{
+    const [categoryOpen,setcategoryOpen]=useState(false);
+    const [favorsOpen,setFavorsOpen]=useState(false);
+    const [typeOpen,setTypeOpen]=useState(false);
+    const openCategory = () =>{
         if(categoryOpen){
             setcategoryOpen(false);
         }
@@ -29,66 +54,138 @@ const RegisterProduct = (props) => {
             setcategoryOpen(true);
         }
     }
+    const openFavors = () =>{
+        if(favorsOpen){
+            setFavorsOpen(false);
+        }
+        else{
+            setFavorsOpen(true);
+        }
+    }
+    const openType=()=>{
+        if(typeOpen){
+            console.log('opentype check');
+            setTypeOpen(false);
+        }
+        else{
+            setTypeOpen(true);
+        }
+
+    }
 
     const selectfile=(e)=>{
         const reader=new FileReader;
         const file = fileInput.current.files[0];
         console.log(fileInput.current.files);
-        reader.readAsDataURL(file);
         console.log(file);
+        reader.readAsDataURL(file);
         let filelist=[...fileInput.current.files];
         
-        setFiles(filelist);
-        
-
+        setFileslist(filelist);
     }
     
+    
     React.useEffect(()=>{
-        console.log("useeffect");
-        console.log(files);
-        // console.log(files.length);
+        // console.log(files);
+        // console.log(fileslist);
 
-    },[files]);
-
+    },[favors]);
+    const handleCategory=(e)=>{
+        setCategory(e.target.value);
+    }
+    const handleTitle=(e)=>{
+        setTitle(e.target.value);
+    }
+    const handleContents=(e)=>{
+        setContents(e.target.value);
+    }
+    const handleType=(e)=>{
+        setType(e.target.value);
+    }
+    const handleFavor=(e)=>{
+        if(e.target.checked)
+        {
+            setFavors(favors=>[...favors,e.target.value]);
+        }
+        else
+        {   
+            setFavors(favors.filter(favor=>favor !== e.target.value));
+        }
+    }
+    const submit=()=>{
+        console.log('submit_success')
+        const formData = new FormData();
+        formData.append('category',category);
+        formData.append('favored',favors);
+        formData.append('contents',contents);
+        formData.append('title',title);
+        // formData.append('images',fileslist);
+        formData.append('type',type);
+       
+        console.log(category);
+        console.log(favors);
+        console.log(contents);
+        console.log(title);
+        console.log(type);
+        
+        for (var i = 0; i < fileslist.length; i++) {
+            formData.append("images", fileslist[i]);
+            console.log('uploading files');
+        }
+        console.log()
+        ItemAPI.registerItem(formData)
+        .then((res)=>
+        {
+            console.log(res);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+    }
     return (
         <React.Fragment>
             <h1>바꿀래요?</h1>
             <Noti></Noti>
 
 
-        <Button height='100px' text='+카테고리 선택하기' onClick={category}></Button>
+        <Button height='100px' text='+카테고리 선택하기' onClick={openCategory}></Button>
         
         {categoryOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {categoryOpen?
         
-        <div>
-            <input type="checkbox"></input>category1
-            <input type="checkbox"></input>category2
-            <input type="checkbox"></input>category3
-            <input type="checkbox"></input>category4
-            <input type="checkbox"></input>category5
-            <input type="checkbox"></input>category6
-            <input type="checkbox"></input>category7
-            <input type="checkbox"></input>category8
-            <input type="checkbox"></input>category9
-            <input type="checkbox"></input>category10
-            <input type="checkbox"></input>category11</div>:""}
+        <div style={{display:'flex', flexWrap:'wrap'}}>
+            {
+                categorys_list.map((p)=>{
+                    return(
+                <div> 
+                    <input name="category" id={p.value} type="radio" value={p.value} checked={null} onClick={handleCategory}/>
+                    <label for={p.value}
+                    >
+                            
+                            {p.value}
+                    </label>
+                </div>);
+                })
+                              
+            }
+            
+            
+            
+            </div>:""}
         <Empty/>
 
-        <Input border='none' size='50px' placeholder='제목을 입력해주세요 (최대 30자)' type='text'  margin='0px' width='100%'></Input>
+        <Input border='none' size='50px' placeholder='제목을 입력해주세요 (최대 30자)' type='text'  margin='0px' width='100%' onChange={handleTitle}></Input>
         <hr></hr>
-        <Input border='none' size='50px' placeholder='내용을 입력해주세요 (최대 30자)' type='text'  multiLine rows='5'  width='100%'/>
+        <Input border='none' size='50px' placeholder='내용을 입력해주세요 (최대 30자)' type='text'  multiLine rows='5'  width='100%' onChange={handleContents}/>
         
         <Empty/>
         <Grid>
-            <h2>사진 등록 ({files.length}/8)개</h2>
+            <h2>사진 등록 ({fileslist.length}/8)개</h2>
 
             <input onChange={selectfile} accept="image/*" id="raised-button-file"  ref={fileInput}  multiple type="file" />
             <div style={{display:'flex'}}>
             
-            {files.map((n,idx) => {
-            console.log(n);
-            console.log();
+            {fileslist.map((n,idx) => {
             return <ImageSlide></ImageSlide>;
             
           })}
@@ -97,28 +194,49 @@ const RegisterProduct = (props) => {
         
         <Empty/>
         
-        <div>
-                <Text text='선호하는 교환품목'/>
-                <div style={{display:'flex'}}>
-                    <Image></Image>
-                    <Image></Image>
-                    <Image></Image>
-                    <Image></Image>
-                    <Image></Image>
-                    <Image></Image>
-                </div>
-        </div>
+        <Button height='50px' text='+선호하는 교환품목' onClick={openFavors}></Button>
+        
+        {favorsOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
+        {favorsOpen?
+        
+        <div style={{display:'flex', flexWrap:'wrap'}}>
+            {
+                categorys_list.map((p)=>{
+                    return(
+                <div> 
+                    <input name="favors" id={p.value} type="checkbox" value={p.value} checked={null} onClick={handleFavor}/>
+                    <label htmlfor={p.value}
+                    >
+                            
+                            {p.value}
+                    </label>
+                </div>);
+                })
+                              
+            }
+            
+            
+            
+            </div>:""}
         
         <Empty/>
-        <Grid width='90%' margin='0 auto' >
-          <Text margin='20px 0px 20px 0px' text='선호하는 거래조건'/>
-        </Grid>
-        
-        <Emptyline/>
 
-        <Grid width='90%' margin='0 auto'>
-            <Text margin='20px 0px 20px 0px' text='택배거래/직거래/상관없음'/>
-        </Grid>
+        <Button height='50px' text='선호하는 거래조건' onClick={openType}></Button>
+        
+        {typeOpen?(<Emptyline/>):""}
+        {
+            typeOpen?(
+                type_list.map((p)=>{
+                    return(
+                        <div>
+                            <input name="type" id={p.value} type="radio" value={p.value} checked={null} onClick={handleType}/>
+                            <label htmlfor={p.value}> {p.value} </label>
+                        </div>
+                    )
+                })
+                ):""
+        }
+        
         
 
         <Emptyline/>
@@ -126,7 +244,7 @@ const RegisterProduct = (props) => {
             <div style={{margin: '20px 0px 20px 0px', display:'flex'}}>
             <Text text='물품 거래 주의사항을 모두확인했으며 이에 동의합니다.'></Text><input type='checkbox'/>
             </div>
-            <Button height='40px' radius='4px' background='black' color='white' text='바꿀래요'></Button>
+            <Button height='40px' radius='4px' background='black' color='white' text='바꿀래요' onClick={submit}></Button>
         </div>
         
         <IconTabs></IconTabs>

@@ -5,10 +5,11 @@ import { Button } from "../../elements";
 
   
 const NotiModal = (props) => {
-
+    console.log(props);
     return (
         <React.Fragment>
             <ModalPage>
+                
                 <h1>1</h1>
                 <h2>asd</h2>
                 
@@ -19,7 +20,7 @@ const NotiModal = (props) => {
                 <h1>3</h1>
                 <h2>zxc</h2>
 
-                <Button text='확인' background='black' height='30px' color='white' onClick={()=>props.closeModal()}/>
+                <Button text='확인' background='black' height='30px' color='white' onClick={props.closeModal} />
                     
             </ModalPage>
                

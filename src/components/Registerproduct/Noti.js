@@ -21,16 +21,15 @@ const style = {
 const Noti = (props) => {
     const [isModalOpen,setIsModalOpen]=useState(false);
     const openModal = () => {
-        document.querySelector("body").style.paddingRight='0px !important';
-        document.querySelector("body").style.overflow='auto;'
         setIsModalOpen(true);
         console.log(isModalOpen);
         // 모달을 열겠다.
       };
     
       const closeModal = () => {
-        if (isModalOpen === true) return setIsModalOpen(false);
+        setIsModalOpen(false);
         //모달이 열렸을 때만 닫아주겠다. 
+        console.log(isModalOpen);
       };
 
     return (

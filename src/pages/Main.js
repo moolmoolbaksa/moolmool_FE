@@ -31,7 +31,7 @@ const Main = (props) => {
   const [filter,setfilter] = useState('전체');
   const [openFilter,setopenfilter] = useState(false);
   // console.log(filter);
-  
+  const [cardList, setCardlist]=useState([]);
   
   
   React.useEffect(()=>{
@@ -39,7 +39,7 @@ const Main = (props) => {
     
     if (filter=='전체')
     {
-      category_string='/items'
+      category_string='/items?category'
       console.log(category_string)
     }
     else{
@@ -47,14 +47,16 @@ const Main = (props) => {
       console.log(category_string)
       
     }
-    // ItemAPI.getItems(category_string)
-    // .then((res)=>{
-    //   console.log(res);
+    ItemAPI.getItems(category_string)
+    .then((res)=>{
+      console.log(res);
+      setCardlist(res.data);
 
-    // })
-    // .catch((error)=>{
-    //   console.log(error);
-    // })
+    })
+    .catch((error)=>{
+      console.log(error);
+      console.log(category_string);
+    })
 
 
   },[openFilter])
@@ -99,7 +101,7 @@ const Main = (props) => {
             >
               <div style={{width:'250px'}}>
                 <List>
-                  {['전체','category1','category2','category3','category4','category5'].map((text,index)=>(
+                  {['전체','category1','category2','category3','category4','category5','category6','category7'].map((text,index)=>(
                     <ListItem key={text}>
                     <input type='checkbox'/>
                     <ListItemIcon>
@@ -133,12 +135,14 @@ const Main = (props) => {
             </div>     
 
                 
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
+            {
+              cardList.map((p,idx)=>{ 
+                return <Card key={p.itemId} title={p.title} image={p.image} address={p.address} contents={p.contents} scrab={p.scrab} scrabCnt={p.scrabCnt} viewCnt={p.viewCnt} />
 
+              })
+
+            }
+            
             <IconTabs/>
         </React.Fragment>
         

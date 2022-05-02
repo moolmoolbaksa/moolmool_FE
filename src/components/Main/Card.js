@@ -13,17 +13,17 @@ import IconButton from '@mui/material/IconButton';
 const Card = (props) => {
     const [ heartClick, setHeartClick ] = useState(false);
     // const btnRef = useRef();
+    const {image,address,title,contents,scrab,scrabCnt,viewCnt}=props;
     
         
-
     return (
         <React.Fragment>
             <Background>
-                <Image shape='rectangle' size='98'></Image>
+                <Image shape='rectangle' size='98' src={image}></Image>
                 
                 <Info>
                     <Title>
-                        <Titletext>Title</Titletext>
+                        <Titletext>{title}</Titletext>
                         {/* <BookmarkBorderOutlinedIcon/> */}
                         <IconButton size='small' aria-label='hearts' >
                             <BookmarkBorderOutlinedIcon/>
@@ -33,19 +33,18 @@ const Card = (props) => {
 
                     </Title>
                     
-                    <Author>Author</Author>
-                    <Description>설명설명</Description>
+                    <Description>{contents}</Description>
                     <div style={{display:'flex'}}>
                         <IconButton size='small' aria-label='hearts' color='primary'>
-                            <FavoriteBorderOutlinedIcon/>  1234
+                            <FavoriteBorderOutlinedIcon/>{scrabCnt}
                         </IconButton>
                         
                         
                         <IconButton size='small' aria-label='hearts' color='primary'>
-                            <ChatBubbleOutlineOutlinedIcon/> 9303
+                            <ChatBubbleOutlineOutlinedIcon/> {viewCnt}
                         </IconButton>
                         <IconButton size='small' aria-label='hearts' color='primary'>
-                            <LocationOnOutlinedIcon/> 7303
+                            <LocationOnOutlinedIcon/> {address}
                         </IconButton>
                 </div>
                 </Info>

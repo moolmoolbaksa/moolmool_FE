@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const token = sessionStorage.getItem('token');
+const token = localStorage.getItem('token');
 const api = axios.create({
   baseURL: 'http://13.124.0.71',
 });
@@ -45,13 +45,13 @@ export const ItemAPI = {
 
   getItems: (category_string) => api.get(`${category_string}`, {
     headers: {
-      "Authorization": `Bearer ${sessionStorage.getItem('token')}`,
+      "Authorization": token,
     },
   }),
-  registerItem: (Formitem) => api.get('/api/items',Formitem, {
+  registerItem: (Formitem) => api.post('/api/items',Formitem, {
     headers: {
       'Content-Type': 'multipart/form-data',
-      "Authorization": `Bearer ${sessionStorage.getItem('token')}`,
+      "Authorization": `${localStorage.getItem('token')}`,
     },
   })
   

@@ -22,12 +22,17 @@ export default function IconTabs() {
       history.push('/mypage');
       window.scrollTo(0, 0);
     }
+    const goRegipage =()=>{
+      history.push('/registerproduct');
+      window.scrollTo(0, 0);
+
+    }
 
     return (
       <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
         <Tab icon={<HomeOutlinedIcon />} aria-label="phone" style={{minWidth:"20%"}}/>
         <Tab icon={<SearchOutlinedIcon />} aria-label="favorite" style={{minWidth:"20%"}} />
-        <Tab icon={<AddIcon />} aria-label="person" style={{minWidth:"20%"}} />
+        <Tab onClick={goRegipage} icon={<AddIcon />} aria-label="person" style={{minWidth:"20%"}} />
         <Tab icon={<ChatOutlinedIcon />} aria-label="favorite"  style={{minWidth:"20%"}}/>
         <Tab onClick={goMypage} icon={<PeopleAltOutlinedIcon />} aria-label="phone" style={{minWidth:"20%"}} />
 
