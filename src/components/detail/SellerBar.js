@@ -1,12 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Image, Grid, Text } from '../../elements/index';
 import { history } from '../../redux/configureStore';
+import { api as userActions } from '../../redux/modules/user';
 
 const SellerBar = (props) => {
+    const dispatch = useDispatch();
+
     const {
         degree,
         nickname,
@@ -15,7 +18,7 @@ const SellerBar = (props) => {
     } = useSelector(state => state.product.product_info);
 
     const onGoUserMall = () => {
-        history.push(`/mall/${userId}`);
+        dispatch(userActions.getCounterUserInfoApi(userId));
     };
 
     return (

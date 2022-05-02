@@ -8,9 +8,14 @@ import { api as productActions } from '../../redux/modules/product';
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
     const {userId, scrabCnt, isScrab} = useSelector(state => state.product.product_info);
-    const [heartClick, setHeartClick] = useState(isScrab);
-    const [cnt, setCnt] = useState(scrabCnt);
+    const [heartClick, setHeartClick] = useState('');
+    const [cnt, setCnt] = useState('');
     const btnRef = useRef();
+    
+    useEffect(() => {
+        setCnt(scrabCnt);
+        setHeartClick(isScrab);
+    }, [scrabCnt, isScrab]);
 
     useEffect(() => {
         if (heartClick) {
@@ -65,10 +70,10 @@ const DetailBottom = (props) => {
 };
 
 const Container = styled.div`
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
-    max-width: 420px;
+    /* max-width: 420px; */
     height: 60px;
     display: flex;
     justify-content: space-between;
