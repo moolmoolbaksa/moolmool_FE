@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 
-import { Text, Grid, Input, Button } from '../elements/index';
+import { Text, Grid, Input, Button } from '../../elements/index';
 import axios from 'axios';
-import { isPassword, isUsername } from '../shared/regExp';
-import { api as userApi } from '../redux/modules/user';
+import { isPassword, isUsername } from '../../shared/regExp';
+import { api as userApi } from '../../redux/modules/user';
 
 const Signup = (props) => {
     const dispatch = useDispatch();

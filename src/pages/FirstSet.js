@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import KakaoMap from '../components/shared/KakaoMap';
 
 import { Grid } from '../elements/index';
 import { setPreview } from '../redux/modules/user';
@@ -41,7 +42,7 @@ const FirstSet = (props) => {
 
     return (
         <Container>
-            <StyledLink 
+            {/* <StyledLink 
                 to="/"
                 onClick={onSubmitClick}
             >
@@ -68,7 +69,8 @@ const FirstSet = (props) => {
                     placeholder="소개를 적어주세요!"
                 />
                 <TextLength>{inputVal.length}/30</TextLength>
-            </Grid>
+            </Grid> */}
+            <KakaoMap />
         </Container>
     );
 };

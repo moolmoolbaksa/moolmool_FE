@@ -83,6 +83,7 @@ const GridBox = styled.div`
 	${props => (props.gap ? `gap:${props.gap}` : '')};
 	${props => (props.is_column ? `flex-direction: column` : '')};
 	${props => (props.is_flex ? `display:flex` : '')};
+	/* border: 1px red solid; */
 `;
 
 const ParentsGridbox = styled.div`

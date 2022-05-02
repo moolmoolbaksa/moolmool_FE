@@ -4,9 +4,12 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
 import { history } from './redux/configureStore';
-import { 
+import {
   Login,
   Signup,
+  Signup2,
+} from './pages/login&signup/index';
+import { 
   Detail,
   Mall,
   Change,
@@ -18,6 +21,7 @@ import {
   EditMyInfo,
   RegisterProduct,
 } from './pages/index';
+
 
 function App() {
   const handleResize = () => {
@@ -41,6 +45,8 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/auth/kakao/callback" component={LoginProgress} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signup2" component={Signup2} />
+
         <Route exact path="/firstset" component={FirstSet} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
         <Route exact path="/detail/:id" component={Detail} />

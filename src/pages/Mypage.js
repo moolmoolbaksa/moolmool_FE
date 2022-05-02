@@ -37,7 +37,7 @@ const Mypage = (props) => {
 
 const Wrap = styled.div`
     width: 100%;
-    height: calc(100vh - 325px);
+    height: calc(100vh - 315px);
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     &::-webkit-scrollbar {
