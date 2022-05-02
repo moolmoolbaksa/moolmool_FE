@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import KakaoMap from '../components/KakaoMap';
 import { Grid } from '../elements/index';
 import { setPreview } from '../redux/modules/user';
 import { api as userApi } from '../redux/modules/user';
@@ -70,7 +69,6 @@ const FirstSet = (props) => {
                 />
                 <TextLength>{inputVal.length}/30</TextLength>
             </Grid>
-            <KakaoMap />
         </Container>
     );
 };

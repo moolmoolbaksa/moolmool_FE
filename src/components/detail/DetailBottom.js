@@ -15,7 +15,6 @@ const DetailBottom = (props) => {
     useEffect(() => {
         setCnt(scrabCnt);
         setHeartClick(isScrab);
-        console.log("실행")
     }, [scrabCnt, isScrab]);
 
     useEffect(() => {

@@ -8,12 +8,12 @@ import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notificati
 import RegisterProduct from './pages/RegisterProduct';
 
 function App() {
-  const handleResize = ()=>{
+  const handleResize = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
-  handleResize()
+  handleResize();
 
   React.useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -21,7 +21,7 @@ function App() {
       window.removeEventListener('resize', handleResize);
     }
   });
-
+  
   return (
     <ConnectedRouter history={history}>
       <Container>
