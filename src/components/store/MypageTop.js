@@ -53,7 +53,7 @@ const MypageTop = ({user_info}) => {
 
 const Container = styled.div`
     display: flex;
-    padding: 30px 0px 15px;
+    padding: 15px 0px;
     margin-bottom: 20px;
     border-bottom: 1px lightgray solid;
 `;

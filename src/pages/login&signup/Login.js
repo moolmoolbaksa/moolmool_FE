@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Text, Grid, Input, Button } from '../elements/index';
-import { api as userApi } from '../redux/modules/user';
+import { Text, Grid, Input, Button } from '../../elements/index';
+import { api as userApi } from '../../redux/modules/user';
 
 const Login = (props) => {
     const dispatch = useDispatch();

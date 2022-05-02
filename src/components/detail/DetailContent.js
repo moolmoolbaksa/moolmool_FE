@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { Grid, Text, Image } from '../../elements/index';
 import { api as userActions } from '../../redux/modules/user';
+import timeForToday from '../../shared/timeForToday';
 
 const DetailContent = (props) => {
     const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const DetailContent = (props) => {
             />
             <Grid is_flex width="auto">
                 <Text 
-                    text={date}
+                    text={timeForToday(date)}
                     size="12px"
                     letterSpacing="-1px"
                     color="lightgray"

@@ -72,7 +72,6 @@ Grid.defaultProp = {
 const GridBox = styled.div`
 	width: ${props => props.width};
     position: ${props => props.position};
-	box-sizing: border-box;
 	${props => (props.center ? `text-align:center` : '')};
 	${props => (props.padding ? `padding:${props.padding}` : '')};
 	${props => (props.margin ? `margin:${props.margin}` : '')};
@@ -84,6 +83,7 @@ const GridBox = styled.div`
 	${props => (props.gap ? `gap:${props.gap}` : '')};
 	${props => (props.is_column ? `flex-direction: column` : '')};
 	${props => (props.is_flex ? `display:flex` : '')};
+	/* border: 1px red solid; */
 `;
 
 const ParentsGridbox = styled.div`

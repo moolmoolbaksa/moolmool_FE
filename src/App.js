@@ -1,11 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
 import { history } from './redux/configureStore';
-import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification, LoginProgress } from './pages/index';
-import RegisterProduct from './pages/RegisterProduct';
+import {
+  Login,
+  Signup,
+  Signup2,
+} from './pages/login&signup/index';
+import { 
+  Detail,
+  Mall,
+  Change,
+  Main,
+  FirstSet,
+  Mypage,
+  Notification,
+  LoginProgress,
+  EditMyInfo,
+  RegisterProduct,
+} from './pages/index';
+
 
 function App() {
   const handleResize = () => {
@@ -29,12 +45,15 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/auth/kakao/callback" component={LoginProgress} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signup2" component={Signup2} />
+
         <Route exact path="/firstset" component={FirstSet} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/mall/:id" component={Mall} />
         <Route exact path="/change" component={Change} />
         <Route exact path="/mypage" component={Mypage} />
+        <Route exact path="/editmyinfo" component={EditMyInfo} />
         <Route exact path="/noti" component={Notification}/>
       </Container>
     </ConnectedRouter>
