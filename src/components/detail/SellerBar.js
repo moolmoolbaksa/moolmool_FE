@@ -1,16 +1,34 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Image, Grid, Text } from '../../elements/index';
+import { history } from '../../redux/configureStore';
+import { api as userActions } from '../../redux/modules/user';
+
 const SellerBar = (props) => {
-    // degree, nickname, profile, userId
+    const dispatch = useDispatch();
+
+    const {
+        degree,
+        nickname,
+        profile,
+        userId,
+    } = useSelector(state => state.product.product_info);
+
+    const onGoUserMall = () => {
+        dispatch(userActions.getCounterUserInfoApi(userId));
+    };
+
     return (
         <Container>
             <Grid
                 is_flex
             >
                 <Image 
+                    onClick={onGoUserMall}
+                    src={profile}
                     shape="circle" 
                     size="50"
                     margin="0px"
@@ -22,16 +40,22 @@ const SellerBar = (props) => {
                     margin="0 0 0 15px"
                 >
                     <Text 
-                        text="물물학사"
+                        text={degree}
                         color="gray"
                     />
                     <Text 
-                        text="범인은나야"
+                        onClick={onGoUserMall}
+                        text={nickname}
                         size="18px"
                     />
                 </Grid>
             </Grid>
-            <StyledLink to="#">정보 보기</StyledLink>
+            <StyledLink 
+                to='#'
+                onClick={onGoUserMall}
+            >
+                정보 보기
+            </StyledLink>
         </Container>
     );
 };
@@ -49,6 +73,7 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     font-weight: 700;
     color: black;
+    letter-spacing: -1px;
 `;
 
 export default SellerBar;

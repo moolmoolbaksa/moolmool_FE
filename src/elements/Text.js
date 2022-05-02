@@ -14,6 +14,7 @@ const Text = (props) => {
         width,
         textAlign,
         borderB,
+        onClick,
     } = props;
 
     const styles = {
@@ -31,7 +32,7 @@ const Text = (props) => {
     return (
         <ElText 
             {...styles}
-            value={text}
+            onClick={onClick}
         >
             {text ? text : ""}
         </ElText>
@@ -49,6 +50,7 @@ Text.defaultProps = {
     width: "100%",
     textAlign: "auto",
     borderB: "none",
+    onClick: () => {},
 };
 
 const ElText = styled.div`

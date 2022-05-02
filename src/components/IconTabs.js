@@ -11,7 +11,11 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { history } from '../redux/configureStore';
+import { useDispatch } from 'react-redux';
+import { api as userApi } from '../redux/modules/user';
+
 export default function IconTabs() {
+    const dispatch = useDispatch()
     const [value, setValue] = React.useState(0);
   
     const handleChange = (e, newValue) => {
@@ -19,6 +23,7 @@ export default function IconTabs() {
     };
     
     const goMypage = () => {
+      dispatch(userApi.getMyInfoApi());
       history.push('/mypage');
       window.scrollTo(0, 0);
     }

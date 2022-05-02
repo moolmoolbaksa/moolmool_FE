@@ -1,45 +1,60 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 import { history } from "../configureStore";
-import { apis } from "../../shared/api";
-export const signUp = (formRegister) => {
-    return async function (dispatch, getState){
-    
-    }
-}
-    
-export const logIn = (formLogin) => {
-    return async function (dispatch, getState) {
+import { response } from "../../shared/mock";
 
+export const getProductApi = createAsyncThunk(
+    'product/getProductApi',
+    async (itemId) => {
+        try {
+            // const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`);
+            history.push(`/detail/${itemId}`);
+            // return response.data;
+            return response.product;
+        } catch (error) {
+            console.log("getProductApi: ", error);
+            alert('getProductApi error');
+        }
     }
-};
+);
 
-const initialState = {
-    user_info: {
-        nickname: "",
-        profile: "",
+export const setProductScrabApi = createAsyncThunk(
+    'product/setProductScrabApi',
+    async (itemId) => {
+        const token = localStorage.getItem("token");
+        try {
+            await axios.post(`http://13.124.0.71/api/${itemId}/scrabs`,{},{
+                headers: {
+                    Authorization: token,
+                }
+            });
+            // reducer의 product_info 최신화할지는 고민해보기!
+        } catch (error) {
+            console.log("setProductScrabApi: ", error);
+            alert('setProductScrabApi error');
+        }
+    }
+)
+
+export const product = createSlice({
+    name: 'product',
+    initialState: {
+        product_info: [],
+        is_loading: false,
     },
-    is_login: false, 
-};
-
-export const user = createSlice({
-    name: 'user',
-    initialState,
     reducers: {},
-    // extraReducers: (builder) => {
-    //     builder.addCase(signUp.fulfilled, (state, action) => {
-    //         state.nickname = action.payload.nickname;
-    //         state.profile = action.payload.profile;
-    //         state.is_login = true;
-    //     });
-        // builder.addCase(logIn.fulfilled, (state, action) => {
-        //     state.nickname = action.payload.nickname;
-        //     state.profile = action.payload.profile;
-        //     state.is_login = true;
-        // });
-    // }
+    extraReducers: (builder) => {
+        builder
+            .addCase(getProductApi.fulfilled, (state, action) => {
+                state.product_info = action.payload;
+            })
+    }
 });
 
-// export const { authLogin } = user.actions;
+export const api = {
+    getProductApi,
+    setProductScrabApi,
+};
 
-export default user.reducer;
+export default product.reducer;
