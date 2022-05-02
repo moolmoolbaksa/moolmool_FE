@@ -72,7 +72,6 @@ Grid.defaultProp = {
 const GridBox = styled.div`
 	width: ${props => props.width};
     position: ${props => props.position};
-	box-sizing: border-box;
 	${props => (props.center ? `text-align:center` : '')};
 	${props => (props.padding ? `padding:${props.padding}` : '')};
 	${props => (props.margin ? `margin:${props.margin}` : '')};

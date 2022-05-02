@@ -8,6 +8,8 @@ import Notification from "./Notification";
 import FirstSet from "./FirstSet";
 import Mypage from "./Mypage";
 import LoginProgress from "./LoginProgress";
+import EditMyInfo from "./EditMyInfo";
+import RegisterProduct from "./RegisterProduct";
 
 export { 
     Login,
@@ -20,4 +22,6 @@ export {
     FirstSet,
     Mypage,
     LoginProgress,
+    EditMyInfo,
+    RegisterProduct,
 };

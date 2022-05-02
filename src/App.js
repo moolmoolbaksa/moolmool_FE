@@ -1,11 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
 import { history } from './redux/configureStore';
-import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification, LoginProgress } from './pages/index';
-import RegisterProduct from './pages/RegisterProduct';
+import { 
+  Login,
+  Signup,
+  Detail,
+  Mall,
+  Change,
+  Main,
+  FirstSet,
+  Mypage,
+  Notification,
+  LoginProgress,
+  EditMyInfo,
+  RegisterProduct,
+} from './pages/index';
 
 function App() {
   const handleResize = () => {
@@ -35,6 +47,7 @@ function App() {
         <Route exact path="/mall/:id" component={Mall} />
         <Route exact path="/change" component={Change} />
         <Route exact path="/mypage" component={Mypage} />
+        <Route exact path="/editmyinfo" component={EditMyInfo} />
         <Route exact path="/noti" component={Notification}/>
       </Container>
     </ConnectedRouter>
