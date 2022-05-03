@@ -44,7 +44,7 @@ const Text = (props) => {
 Text.defaultProps = {
     size: "14px",
     bold: "normal",
-    color: "#333",
+    color: "black",
     lineHeight: "initial",
     letterSpacing: "normal",
     padding: false,

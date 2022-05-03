@@ -7,17 +7,16 @@ import { history } from './redux/configureStore';
 import {
   Login,
   Signup,
-  Signup2,
+  LoginProgress,
+  Welcome,
 } from './pages/login&signup/index';
 import { 
   Detail,
   Mall,
   Change,
   Main,
-  FirstSet,
   Mypage,
   Notification,
-  LoginProgress,
   EditMyInfo,
   RegisterProduct,
   Address,
@@ -46,9 +45,9 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/auth/kakao/callback" component={LoginProgress} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/signup2" component={Signup2} />
         <Route exact path="/address" component={Address} />
-        <Route exact path="/firstset" component={FirstSet} />
+        <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/mall/:id" component={Mall} />

@@ -21,7 +21,7 @@ const KakaoMap = () => {
         errMsg: null,
         isLoading: true,
     })
-
+    
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -57,7 +57,7 @@ const KakaoMap = () => {
     }, [state]);
     
     const throttle = 
-        _.debounce(() => {
+        _.throttle(() => {
             let geocoder = new kakao.maps.services.Geocoder();
             let coord = new kakao.maps.LatLng(state.center.lat, state.center.lng);
             let callback = function(result, status) {
@@ -71,7 +71,7 @@ const KakaoMap = () => {
             }
             geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
         }, 500);
-
+    
     return (
         <>
             <Map
