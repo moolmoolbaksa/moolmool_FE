@@ -9,17 +9,23 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import IconButton from '@mui/material/IconButton';
+import { api as productActions } from '../../redux/modules/product';
+import { useDispatch } from 'react-redux';
 
 const Card = (props) => {
+    const dispatch = useDispatch();
     const [ heartClick, setHeartClick ] = useState(false);
     // const btnRef = useRef();
-    const {image,address,title,contents,scrab,scrabCnt,viewCnt}=props;
+    const {itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}=props;
     
-        
+    const onGoDetail = () => {
+        dispatch(productActions.getProductApi(itemId));
+    };
+
     return (
         <React.Fragment>
             <Background>
-                <Image shape='rectangle' size='98' src={image}></Image>
+                <Image shape='rectangle' size='98' src={image} onClick={onGoDetail}></Image>
                 
                 <Info>
                     <Title>

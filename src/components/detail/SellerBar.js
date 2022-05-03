@@ -16,7 +16,10 @@ const SellerBar = (props) => {
         profile,
         userId,
     } = useSelector(state => state.product.product_info);
-
+    console.log(degree,
+        nickname,
+        profile,
+        userId)
     const onGoUserMall = () => {
         dispatch(userActions.getCounterUserInfoApi(userId));
     };
