@@ -19,6 +19,7 @@ const Grid = props => {
 		gap,
 		align,
 		is_flex,
+		cursor,
 	} = props;
 
 	const styles = {
@@ -36,6 +37,7 @@ const Grid = props => {
 		gap,
 		align,
 		is_flex,
+		cursor,
 	};
 
 	if (gridBox) {
@@ -83,6 +85,7 @@ const GridBox = styled.div`
 	${props => (props.gap ? `gap:${props.gap}` : '')};
 	${props => (props.is_column ? `flex-direction: column` : '')};
 	${props => (props.is_flex ? `display:flex` : '')};
+	${props => (props.cursor ? `cursor:pointer` : '')};
 	/* border: 1px red solid; */
 `;
 

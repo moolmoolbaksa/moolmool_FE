@@ -8,6 +8,7 @@ import Mypage from "./Mypage";
 import LoginProgress from "./LoginProgress";
 import EditMyInfo from "./EditMyInfo";
 import RegisterProduct from "./RegisterProduct";
+import Address from "./Address";
 
 export { 
     Detail,
@@ -20,4 +21,5 @@ export {
     LoginProgress,
     EditMyInfo,
     RegisterProduct,
+    Address,
 };

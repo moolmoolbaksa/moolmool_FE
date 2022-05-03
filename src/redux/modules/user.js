@@ -167,6 +167,7 @@ export const user = createSlice({
             degree: "",
             grade: "",
         },
+        address: "",
         item_list: [],
         other_item_list: [],
         preview: "http://kaihuastudio.com/common/img/default_profile.png",

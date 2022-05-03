@@ -20,6 +20,7 @@ import {
   LoginProgress,
   EditMyInfo,
   RegisterProduct,
+  Address,
 } from './pages/index';
 
 
@@ -46,7 +47,7 @@ function App() {
         <Route exact path="/auth/kakao/callback" component={LoginProgress} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/signup2" component={Signup2} />
-
+        <Route exact path="/address" component={Address} />
         <Route exact path="/firstset" component={FirstSet} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
         <Route exact path="/detail/:id" component={Detail} />

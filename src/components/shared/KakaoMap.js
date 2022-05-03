@@ -1,127 +1,125 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react"
+import styled from "styled-components";
+
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import DaumPostcode from "react-daum-postcode";
-import styled from 'styled-components';
-import { Grid, Input, Button } from '../../elements';
+import { ReactComponent as InfoWindow } from "../../images/인포윈도우.svg";
+import _ from "lodash";
+import { useDispatch } from "react-redux";
+import { setAddress } from "../../redux/modules/user";
 
 const { kakao } = window;
 
-const postCodeStyle = {
-    display: "block",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    zIndex: "10",
+const KakaoMap = () => {
+    const dispatch = useDispatch();
+
+    const [state, setState] = useState({
+        center: {
+            lat: 33.450701,
+            lng: 126.570667,
+        },
+        errMsg: null,
+        isLoading: true,
+    })
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setState((prev) => ({
+                        ...prev,
+                        center: {
+                            lat: position.coords.latitude, // 위도
+                            lng: position.coords.longitude, // 경도
+                        },
+                        isLoading: false,
+                    }))
+                },
+                (err) => {
+                    setState((prev) => ({
+                        ...prev,
+                        errMsg: err.message,
+                        isLoading: false,
+                    }))
+            }
+            )
+        } else {
+            setState((prev) => ({
+                ...prev,
+                errMsg: "위치 서비스를 사용할수 없어요..",
+                isLoading: false,
+            }))
+        }
+    }, []);
+
+    useEffect(() => { 
+        throttle(); 
+    }, [state]);
+    
+    const throttle = 
+        _.debounce(() => {
+            let geocoder = new kakao.maps.services.Geocoder();
+            let coord = new kakao.maps.LatLng(state.center.lat, state.center.lng);
+            let callback = function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    console.log(result)
+                    const road_address = result[0].road_address?.address_name;
+                    const general_address = result[0].address?.address_name;
+                    // const is_address = general_address ? general_address : '지번주소를 알 수 없어요.';
+                    dispatch(setAddress({road_address, general_address}));
+                }
+            }
+            geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+        }, 500);
+
+    return (
+        <>
+            <Map
+                center={state.center}
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    position: "relative",
+                }}
+                level={3}
+                onCenterChanged={(map) => setState({
+                    level: map.getLevel(),
+                    center: {
+                        lat: map.getCenter().getLat(),
+                        lng: map.getCenter().getLng(),
+                    }
+                })}
+            >
+                {!state.isLoading && (
+                    <MapMarker position={state.center} />
+                )}
+                <Wrap>
+                    <MapInfo>{state.errMsg ? state.errMsg : "지도를 움직여 위치를 설정하세요."}</MapInfo>
+                </Wrap>
+            </Map>
+        </>
+    )
 };
 
-const KakaoMap = (props) => {
-    const [isAddress, setIsAddress] = useState("제주특별자치도 제주시 첨단로 242");
-    const [isPopupOpen, setIsPopupOpen] = useState(false)
-
-    const openPostCode = () => {
-        setIsPopupOpen(true);
-    };
-    
-    const handleComplete = (data) => {
-        let fullAddress = data.address;
-        let extraAddress = "";
-    
-        if (data.addressType === "R") {
-            if (data.bname !== "") {
-                extraAddress += data.bname;
-            }
-            if (data.buildingName !== "") {
-                extraAddress +=
-                extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-            }
-            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-        }
-        setIsAddress(fullAddress);
-        setIsPopupOpen(false);
-    };
-    
-    useEffect(() => {
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-            mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };  
-
-        // 지도를 생성합니다    
-        var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-        // 주소-좌표 변환 객체를 생성합니다
-        var geocoder = new kakao.maps.services.Geocoder();
-        
-        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
-            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-        
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-           
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(isAddress, function(result, status) {
-
-            // 정상적으로 검색이 완료됐으면 
-            if (status === kakao.maps.services.Status.OK) {
-
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                new kakao.maps.Marker({
-                    map: map,
-                    position: coords,
-                    image: markerImage,
-                });
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-            } 
-        });    
-    }, [isAddress]);
-
-    
-  
-    return (
-        <Grid
-            is_flex
-            is_column
-            // height="calc(100vh - 100px)"
-            padding="0 0 16px 0"
-            gap="20px"
-        >
-            <Grid
-                is_flex
-                justify="space-between"
-            >
-                <AddressBox onClick={openPostCode}>{isAddress}</AddressBox>
-                <Button 
-                    text="검색"
-                    background="#FFBB00"
-                    color="white"
-                    radius="10px"
-                    width="60px"
-                    padding="5px"
-                />
-            </Grid>
-            <Grid position="relative" is_flex justify="center">
-                {isPopupOpen && <DaumPostcode  style={postCodeStyle} onComplete={handleComplete} />}
-                <MapContainer id="map" />
-            </Grid>
-        </Grid>
-    )
-}
-
-const MapContainer = styled.div`
+const Wrap = styled.div`
+    position: absolute;
+    z-index: 100;
     width: 100%;
-    height: calc(100vh - 165px);
+    top: 10px;
+    display: flex;
+    justify-content: center;
 `;
 
-const AddressBox = styled.div`
-    width: 80%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    border-bottom: 2px black solid;
+const MapInfo = styled.div`
+    top: 0px;
+    text-align: center;
+    display: inline-block;
+    background-color: rgb(255, 202, 57);
+    letter-spacing: -1px;
+    line-height: 19px;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
 `;
 
 export default KakaoMap;
