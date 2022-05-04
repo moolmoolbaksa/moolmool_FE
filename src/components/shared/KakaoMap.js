@@ -12,7 +12,12 @@ const { kakao } = window;
 
 const KakaoMap = () => {
     const dispatch = useDispatch();
-
+    const [firstPlace, setFirstPlace] = useState({
+        center: {
+            lat: "",
+            lng: "",
+        }
+    })
     const [state, setState] = useState({
         center: {
             lat: 33.450701,
@@ -21,7 +26,7 @@ const KakaoMap = () => {
         errMsg: null,
         isLoading: true,
     })
-    
+    // console.log(firstPlace)
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -33,7 +38,13 @@ const KakaoMap = () => {
                             lng: position.coords.longitude, // 경도
                         },
                         isLoading: false,
-                    }))
+                    }));
+                    setFirstPlace({
+                        center: {
+                            lat: position.coords.latitude, // 위도
+                            lng: position.coords.longitude,
+                        }
+                    })
                 },
                 (err) => {
                     setState((prev) => ({

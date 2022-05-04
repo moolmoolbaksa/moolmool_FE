@@ -79,13 +79,13 @@ const Address = (props) => {
                     margin="20px 0px"
                 >
                     <Text 
-                        text={general_address}
+                        text={road_address}
                         size="20px"
                         letterSpacing="-1px"
                         bold="bold"
                     />
                     <Text 
-                        text={`지번주소) ${road_address}`}
+                        text={`지번주소) ${general_address}`}
                         size="12px"
                         letterSpacing="-1px"
                         bold="500"
