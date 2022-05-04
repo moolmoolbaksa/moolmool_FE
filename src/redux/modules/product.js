@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { history } from "../configureStore";
-import { response } from "../../shared/mock";
 
 export const getProductApi = createAsyncThunk(
     'product/getProductApi',
@@ -15,6 +14,7 @@ export const getProductApi = createAsyncThunk(
                     Authorization: token,
                 }
             });
+            console.log(response)
             history.push(`/detail/${itemId}`);
             return response.data;
             // return response.product;
@@ -41,12 +41,27 @@ export const setProductScrabApi = createAsyncThunk(
             alert('setProductScrabApi error');
         }
     }
-)
+);
 
 export const product = createSlice({
     name: 'product',
     initialState: {
-        product_info: [],
+        product_info: {
+            bagImages: [],
+            contents: '',
+            date: '',
+            images: [],
+            degree: '',
+            grade: '',
+            nickname:'',
+            profile: '',
+            isScrab: false,
+            scrabCnt: 0,
+            status: '',
+            title: '',
+            userId: '',
+            viewCnt: 0,
+        },
         is_loading: false,
     },
     reducers: {},
@@ -54,6 +69,15 @@ export const product = createSlice({
         builder
             .addCase(getProductApi.fulfilled, (state, action) => {
                 state.product_info = action.payload;
+            })
+            .addCase(setProductScrabApi.fulfilled, (state, action) => {
+                if(state.product_info.isScrab){
+                    state.product_info.scrabCnt -= 1;
+                    state.product_info.isScrab = false;
+                } else {
+                    state.product_info.scrabCnt += 1;
+                    state.product_info.isScrab = true;
+                };
             })
     }
 });

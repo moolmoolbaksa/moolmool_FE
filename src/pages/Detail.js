@@ -23,9 +23,6 @@ const Detail = (props) => {
   
     return (
         <Container>
-            <Grid
-                height="100%"
-            >
                 <StyledSlider {...settings}>
                     {image_list && image_list.map((v ,i) => {
                         return(
@@ -33,14 +30,14 @@ const Detail = (props) => {
                                 key={i}
                                 src={v}
                                 shape="slide"
-                                // size='40'
                             />
                         )}
                     )}
                 </StyledSlider>
-                <SellerBar/>
-                <DetailContent/>
-            </Grid>
+                <Wrap>
+                    <SellerBar/>
+                    <DetailContent/>
+                </Wrap>
             <DetailBottom />
         </Container>
     );
@@ -56,8 +53,6 @@ const Container = styled.div`
 `;
 
 const StyledSlider = styled(Slider)`
-    /* border: 1px blue solid; */
-    /* height: 50%; */
     .slick-list { 
         width: 100%;
         height: 100%;
@@ -66,6 +61,12 @@ const StyledSlider = styled(Slider)`
     .slick-dots { 
         bottom: 20px;
     }
+`;
+
+const Wrap = styled.div`
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 `;
 
 export default Detail;
