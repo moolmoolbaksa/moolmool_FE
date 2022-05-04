@@ -4,7 +4,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
 import { history } from './redux/configureStore';
-import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification, LoginProgress } from './pages/index';
+import { Login, Signup, Detail, Mall, Change, Main, FirstSet, Mypage, Notification, LoginProgress,Tradehistory,Rating } from './pages/index';
 import RegisterProduct from './pages/RegisterProduct';
 
 function App() {
@@ -36,6 +36,8 @@ function App() {
         <Route exact path="/change" component={Change} />
         <Route exact path="/mypage" component={Mypage} />
         <Route exact path="/noti" component={Notification}/>
+        <Route exact path="/trhistory" component={Tradehistory}/>
+        <Route exact path="/rating" component={Rating}/>
       </Container>
     </ConnectedRouter>
   );
