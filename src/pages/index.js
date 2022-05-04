@@ -8,7 +8,8 @@ import Mypage from "./Mypage";
 import LoginProgress from "./LoginProgress";
 import EditMyInfo from "./EditMyInfo";
 import RegisterProduct from "./RegisterProduct";
-
+import Tradehistory from "./Tradehistory";
+import Rating from "./Rating";
 export { 
     Detail,
     Mall,
@@ -20,4 +21,7 @@ export {
     LoginProgress,
     EditMyInfo,
     RegisterProduct,
+    Tradehistory,
+    Rating,
+
 };
