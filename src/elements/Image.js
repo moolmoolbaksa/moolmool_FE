@@ -19,7 +19,7 @@ const Image = (props) => {
     if(shape === "rectangle"){
         return (
             <AspectOutter>
-                <AspectInner {...styles}></AspectInner>
+                <AspectInner {...styles} onClick={onClick}></AspectInner>
             </AspectOutter>
         )
     }
@@ -27,14 +27,14 @@ const Image = (props) => {
     if(shape === "slide"){
         return (
             <SlideOutter>
-                <SlideInner {...styles}></SlideInner>
+                <SlideInner {...styles} onClick={onClick}></SlideInner>
             </SlideOutter>
         )
     }
 
     return (
         <React.Fragment>
-            <ImageDefault {...styles}></ImageDefault>
+            <ImageDefault {...styles} onClick={onClick}></ImageDefault>
         </React.Fragment>
     )
 }

@@ -8,6 +8,7 @@ const Text = (props) => {
         color,
         lineHeight,
         letterSpacing,
+        wordSpacing,
         text,
         padding,
         margin,
@@ -23,6 +24,7 @@ const Text = (props) => {
         color,
         lineHeight,
         letterSpacing,
+        wordSpacing,
         padding,
         margin,
         width,
@@ -42,7 +44,7 @@ const Text = (props) => {
 Text.defaultProps = {
     size: "14px",
     bold: "normal",
-    color: "#333",
+    color: "black",
     lineHeight: "initial",
     letterSpacing: "normal",
     padding: false,
@@ -64,6 +66,7 @@ const ElText = styled.div`
     width: ${props => props.width};
     text-align: ${props => props.textAlign};
     border-bottom: ${props => props.borderB};
+    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : '')};
 `;
         
 export default Text;
