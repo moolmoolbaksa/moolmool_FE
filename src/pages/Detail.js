@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 const Detail = (props) => {
     const image_list = useSelector(state => state.product.product_info.images);
-
+    
     const settings = { 
         infinite: false,
         dots: true, 

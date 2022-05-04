@@ -20,6 +20,7 @@ const Input = (props) => {
     multiLine,
     border,
     height,
+    bg,
   } = props;
 
   const style = {
@@ -28,6 +29,7 @@ const Input = (props) => {
     margin,
     size,
     height,
+    bg,
   };
   
   if (multiLine)
@@ -91,11 +93,16 @@ const ElInput = styled.input`
   font-size: ${props => props.size};
   border: ${props => props.border};
   ${props => (props.height ? `height:${props.height}` : '')};
-  border-radius: 3px;
+  ${props => (props.bg ? `background:${props.bg}` : '')};
+  border-radius: 5px;
   outline: none;
+  border: none;
   &::placeholder {
-    font-size: 14px;
-    color: #90a4ae;
+    font-size: 16px;
+    color: rgb(157,157,157);
+    line-height: 22.6px;
+    font-weight: 500;
+    letter-spacing: -1px;
   }
   resize: none;
 `;

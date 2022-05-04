@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { api as userApi } from '../redux/modules/user';
+import { api as userApi } from '../../redux/modules/user';
 
 const LoginProgress = (props) => {
     const dispatch = useDispatch();

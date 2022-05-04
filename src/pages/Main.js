@@ -127,17 +127,13 @@ const Main = (props) => {
                 <div>
                     <p>안녕하세요, 물물박사님 </p>
                     <p>물물 교환을 시작해 볼까요?</p>
-
-
-
-                </div>
-                
+                </div> 
             </div>     
 
                 
             {
               cardList.map((p,idx)=>{ 
-                return <Card key={p.itemId} title={p.title} image={p.image} address={p.address} contents={p.contents} scrab={p.scrab} scrabCnt={p.scrabCnt} viewCnt={p.viewCnt} />
+                return <Card key={p.itemId} itemId={p.itemId} title={p.title} image={p.image} address={p.address} contents={p.contents} scrab={p.scrab} scrabCnt={p.scrabCnt} viewCnt={p.viewCnt} />
 
               })
 

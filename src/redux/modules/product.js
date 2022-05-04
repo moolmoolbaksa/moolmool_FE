@@ -7,11 +7,17 @@ import { response } from "../../shared/mock";
 export const getProductApi = createAsyncThunk(
     'product/getProductApi',
     async (itemId) => {
+        const token = localStorage.getItem("token");
+        console.log(itemId)
         try {
-            // const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`);
+            const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
+                headers: {
+                    Authorization: token,
+                }
+            });
             history.push(`/detail/${itemId}`);
-            // return response.data;
-            return response.product;
+            return response.data;
+            // return response.product;
         } catch (error) {
             console.log("getProductApi: ", error);
             alert('getProductApi error');

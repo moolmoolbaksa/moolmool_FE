@@ -1,9 +1,11 @@
 import Login from "./Login";
 import Signup from "./Signup";
-import Signup2 from "./Signup2";
+import LoginProgress from "./LoginProgress";
+import Welcome from "./Welcome";
 
 export {
     Login,
     Signup,
-    Signup2
+    LoginProgress,
+    Welcome,
 };
