@@ -9,7 +9,8 @@ import { api as userActions } from '../../redux/modules/user';
 
 const SellerBar = (props) => {
     const dispatch = useDispatch();
-
+    const info = useSelector(state => state.product.product_info)
+    console.log(info)
     const {
         degree,
         nickname,

@@ -45,13 +45,13 @@ const Address = (props) => {
                     />
                 </Grid>
             </Grid>
-            <MapContainer>
+            {/* <MapContainer> */}
                 <KakaoMap/>
-            </MapContainer>
+            {/* </MapContainer> */}
             <Grid
                 padding="0 16px"
             >
-                <Input 
+                {/* <Input 
                     height="50px"
                     padding="18px 15px"
                     bg="rgb(245, 245, 245)"
@@ -74,7 +74,7 @@ const Address = (props) => {
                         wordSpacing="-1px"
                         bold="500"
                     />
-                </Grid>
+                </Grid> */}
                 <Grid
                     margin="20px 0px"
                 >

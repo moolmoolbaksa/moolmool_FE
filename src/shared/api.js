@@ -51,7 +51,7 @@ export const ItemAPI = {
 
   getItems: (category_string) => api.get(`${category_string}`, {
     headers: {
-      "Authorization": token,
+      "Authorization": `${localStorage.getItem('token')}`,
     },
   }),
   registerItem: (Formitem) => api.post('/api/items',Formitem, {

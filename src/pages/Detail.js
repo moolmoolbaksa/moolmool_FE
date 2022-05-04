@@ -1,5 +1,5 @@
 import React from 'react';
-import slider from 'react-slick/lib/slider';
+import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"
 import styled from 'styled-components';
@@ -23,7 +23,9 @@ const Detail = (props) => {
   
     return (
         <Container>
-            <Grid>
+            <Grid
+                height="100%"
+            >
                 <StyledSlider {...settings}>
                     {image_list && image_list.map((v ,i) => {
                         return(
@@ -31,7 +33,7 @@ const Detail = (props) => {
                                 key={i}
                                 src={v}
                                 shape="slide"
-                                size='40'
+                                // size='40'
                             />
                         )}
                     )}
@@ -53,8 +55,10 @@ const Container = styled.div`
     overflow: hidden;
 `;
 
-const StyledSlider = styled(slider)`
-    .slick-list {  
+const StyledSlider = styled(Slider)`
+    /* border: 1px blue solid; */
+    /* height: 50%; */
+    .slick-list { 
         width: 100%;
         height: 100%;
         overflow-x: hidden;

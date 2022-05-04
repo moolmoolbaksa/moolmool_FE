@@ -80,6 +80,8 @@ position: relative;
 const SlideOutter = styled.div`
     width: 100%;
     min-width: 250px;
+    /* height: 100px; */
+    /* border: 1px red solid; */
 `;
 
 const SlideInner = styled.div`
@@ -90,7 +92,7 @@ const SlideInner = styled.div`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: ${props => props.height};
+    /* height: 100%; */
 `;
 
 const ImageCircle = styled.div`

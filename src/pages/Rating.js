@@ -4,15 +4,13 @@ import { alpha } from '@mui/material/styles';
 import styled from 'styled-components';
 import { Text, Grid, Input, Button,Image } from '../elements/index';
 import IconTabs from '../components/IconTabs';
-import { FaStar } from 'react-icons/fa';
+// import { FaStar } from 'react-icons/fa';
 
 // Instantiation
 
 
 const Rating = (props) => {
     const [rating, setRating]=useState(0);
-
-
 
     return (
         <React.Fragment>
