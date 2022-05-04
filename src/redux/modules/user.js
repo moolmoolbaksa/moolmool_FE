@@ -192,8 +192,8 @@ export const user = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginCheckApi.fulfilled, (state, action) => {
-                state.nickname = action.payload.nickname;
-                state.profile = action.payload.profile;
+                state.user_info.nickname = action.payload.nickname;
+                state.user_info.profile = action.payload.profile;
                 state.is_login = true;
             })
             .addCase(getMyInfoApi.fulfilled, (state, action) => {
