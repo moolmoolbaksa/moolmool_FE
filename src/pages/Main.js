@@ -70,7 +70,7 @@ const Main = (props) => {
 
     return (
         <React.Fragment>
-            <AppBar position="static">
+            <AppBar position="static" sx={{bgcolor:'#FFBB00'}}>
                <Toolbar>
                    <IconButton onClick={Drawers} size="large"edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <MenuIcon />
@@ -121,7 +121,7 @@ const Main = (props) => {
             
 
             </Drawer>
-            <div style={{display:'flex', width:'100%', margin:'30px 0px 20px 0px'}}>
+            <div style={{display:'flex', width:'100%', margin:'', backgroundColor:'#FFBB00'}}>
                 <Image/>
 
                 <div>

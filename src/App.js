@@ -20,8 +20,9 @@ import {
   EditMyInfo,
   RegisterProduct,
   Address,
+  Tradehistory,
+  Rating,
 } from './pages/index';
-
 
 function App() {
   const handleResize = () => {
@@ -55,6 +56,8 @@ function App() {
         <Route exact path="/mypage" component={Mypage} />
         <Route exact path="/editmyinfo" component={EditMyInfo} />
         <Route exact path="/noti" component={Notification}/>
+        <Route exact path="/trhistory" component={Tradehistory}/>
+        <Route exact path="/rating" component={Rating}/>
       </Container>
     </ConnectedRouter>
   );

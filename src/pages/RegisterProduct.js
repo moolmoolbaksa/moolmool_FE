@@ -38,10 +38,8 @@ const RegisterProduct = (props) => {
     const [favors,setFavors]=React.useState([]);
     const [fileslist,setFileslist]=React.useState([]);
     const [type,setType]=React.useState("");
-    const onlyonecheck=React.useRef();
 
     const fileInput=React.useRef();
-    const [files,setFiles]=useState([]);
 
     const [categoryOpen,setcategoryOpen]=useState(false);
     const [favorsOpen,setFavorsOpen]=useState(false);
