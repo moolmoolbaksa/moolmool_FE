@@ -47,15 +47,31 @@ const DetailBottom = (props) => {
                 </HeartOuter>
                
             </Grid>
-            <Button 
-                text="바꿀래요!"
-                color="white"
-                size="20px" 
-                radius="3px"
-                height="60px"
-                background="#0095b7"   
-                margin="0 0 0 16px"
-            /> 
+            <Grid
+                is_flex
+                gap="5px"
+                width="100%"
+            >
+                <Button 
+                    text="채팅보내기"
+                    color="white"
+                    size="20px" 
+                    radius="3px"
+                    height="50px"
+                    bold="bold"
+                    background="#0095b7"   
+                    margin="0 0 0 16px"
+                /> 
+                <Button 
+                    text="교환신청"
+                    color="black"
+                    size="20px" 
+                    radius="3px"
+                    bold="bold"
+                    height="50px"
+                    background="#ffca39"   
+                /> 
+            </Grid>
         </Container>
     );
 };

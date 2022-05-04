@@ -3,9 +3,8 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../../elements/index';
-import { api as userActions } from '../../redux/modules/user';
 import timeForToday from '../../shared/timeForToday';
-import { ReactComponent as InfoWindow } from "../../images/좌표.svg";
+import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 
 const DetailContent = (props) => {
     const product_info = useSelector(state => state.product.product_info);
@@ -68,7 +67,7 @@ const DetailContent = (props) => {
                 <Grid
                     flex
                 >
-                    <InfoWindow />
+                    <LocationIcon />
                     <Text 
                     text="1.9km"
                     size="12px"
@@ -83,7 +82,7 @@ const DetailContent = (props) => {
 };
 
 const Container = styled.div`
-    margin-bottom: 96px;
+    margin-bottom: 86px;
     flex-grow: 1;
     padding: 10px 16px 0px;
     display: flex;

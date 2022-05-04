@@ -7,8 +7,9 @@ import styled from 'styled-components';
 import DetailBottom from '../components/detail/DetailBottom';
 import DetailContent from '../components/detail/DetailContent';
 import SellerBar from '../components/detail/SellerBar';
-import { Image, Grid } from '../elements/index';
+import { Image } from '../elements/index';
 import { useSelector } from 'react-redux';
+import LocationBar from '../components/LocationBar';
 
 const Detail = (props) => {
     const image_list = useSelector(state => state.product.product_info.images);
@@ -23,6 +24,7 @@ const Detail = (props) => {
   
     return (
         <Container>
+                <LocationBar transparent/>
                 <StyledSlider {...settings}>
                     {image_list && image_list.map((v ,i) => {
                         return(

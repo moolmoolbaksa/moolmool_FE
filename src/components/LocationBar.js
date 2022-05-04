@@ -5,11 +5,19 @@ import styled from 'styled-components';
 
 import { Text } from '../elements/index';
 import { history } from '../redux/configureStore';
+import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
 
-const LocationBar = ({ title }) => {
+const LocationBar = ({ title, transparent }) => {
     const is_login = useSelector(state => state.user.is_login);
     const location = useLocation();
-    
+
+    if(transparent){
+        return (
+            <ArrowContainer onClick={() => {history.goBack()}}>
+                <ArrowIcon width="40" height="40"/>
+            </ArrowContainer>
+        )
+    }
     return (
         <Container>
             <Wrap flex>
@@ -48,6 +56,13 @@ const Container = styled.div`
     background-color: lightgray;
 `;
 
+const ArrowContainer = styled.div`
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    z-index: 100;
+    cursor: pointer;
+`;
 const Wrap = styled.div`
     display: flex;
     justify-content: center;
