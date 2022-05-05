@@ -43,7 +43,7 @@ const MypageTop = ({user_info}) => {
                     />
                 </div>
                 <Text 
-                    text={storeInfo}
+                    text={storeInfo ? storeInfo : '아직 보따리 소개가 없어요.'}
                     letterSpacing="-1px"
                 />
             </Grid>

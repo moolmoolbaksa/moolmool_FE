@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
@@ -23,21 +23,31 @@ import {
   Tradehistory,
   Rating,
 } from './pages/index';
+import { useDispatch } from 'react-redux';
+import { api as userActions } from './redux/modules/user';
 
 function App() {
+  const dispatch = useDispatch();
+
   const handleResize = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
-
+  
   handleResize();
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     }
   });
+
+  const is_token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (is_token) dispatch(userActions.loginCheckApi());
+  }, []);
   
   return (
     <ConnectedRouter history={history}>

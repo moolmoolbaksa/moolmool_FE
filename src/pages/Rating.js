@@ -6,6 +6,8 @@ import { Text, Grid, Input, Button,Image } from '../elements/index';
 import IconTabs from '../components/IconTabs';
 import { FaStar } from 'react-icons/fa';
 import LocationBar from '../components/LocationBar';
+// import { FaStar } from 'react-icons/fa';
+
 // Instantiation
 
 

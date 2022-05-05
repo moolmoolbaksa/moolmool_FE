@@ -68,7 +68,7 @@ const Btn = styled.button`
     line-height: ${props => props.lineHeight};
     border-radius: ${props => props.radius};
     border: ${props => props.border};
-    letter-spacing: -1px;
+    letter-spacing: -0.67px;
     cursor: pointer;
 `;
 

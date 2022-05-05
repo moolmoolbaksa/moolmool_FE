@@ -98,7 +98,8 @@ const ParentsGridbox = styled.div`
 	${props => (props.bg ? `background-color:${props.bg}` : '')};
 	display: grid;
 	gap: 15px;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 1fr;
 	align-items: center;
 	justify-content: space-between;
 `;

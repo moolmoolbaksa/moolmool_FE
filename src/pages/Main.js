@@ -23,6 +23,8 @@ import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import { ItemAPI } from '../shared/api';
 
+import { set } from 'lodash';
+import { useSelector } from 'react-redux';
 // Instantiation
 
 
@@ -32,7 +34,7 @@ const Main = (props) => {
   const [openFilter,setopenfilter] = useState(false);
   // console.log(filter);
   const [cardList, setCardlist]=useState([]);
-  
+  const {nickname, profile} = useSelector(state => state.user.user_info);
   
   React.useEffect(()=>{
     let category_string=null;
@@ -122,10 +124,10 @@ const Main = (props) => {
 
             </Drawer>
             <div style={{display:'flex', width:'100%', margin:'', backgroundColor:'#FFBB00'}}>
-                <Image/>
+                <Image src={profile}/>
 
                 <div>
-                    <p>안녕하세요, 물물박사님 </p>
+                    <p>안녕하세요, {nickname}님 </p>
                     <p>물물 교환을 시작해 볼까요?</p>
                 </div> 
             </div>     

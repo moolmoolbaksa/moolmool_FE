@@ -1,64 +1,54 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { Grid, Text, Image } from '../../elements/index';
-import { api as userActions } from '../../redux/modules/user';
+import { Grid, Text } from '../../elements/index';
 import timeForToday from '../../shared/timeForToday';
+import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 
 const DetailContent = (props) => {
-    const dispatch = useDispatch();
     const product_info = useSelector(state => state.product.product_info);
     
     const {
-        userId,
-        nickname,
         title,
         date,
         contents,
-        bagImages,
         viewCnt,
+        scrabCnt,
     } = product_info;
-
-    const onGoUserMall = () => {
-        dispatch(userActions.getCounterUserInfoApi(userId));
-    };
-
+   
     return (
-        <Grid
-            padding="10px 16px"
-        >
-            <P onClick={onGoUserMall}><span>{nickname}</span>님의 보따리 구경하기</P>
-            <Grid is_flex margin="10px 0 15px 0">
-                {bagImages && bagImages.map((v, i) => {
-                    return <Image 
-                                shape="circle"
-                                onClick={onGoUserMall}
-                                key={i}
-                                src={v}
-                                margin="0 7px 0 0"
-                            />
-                })}
-            </Grid>
-            <Text 
-                text={title}
-                bold="bold"
-                size="18px"
-                margin="0 0 10px 0"
-            />
-            <Text 
-                text={contents}
-                margin="0 0 10px 0"
-            />
-            <Grid is_flex width="auto">
+        <Container>
+            <Grid> 
+                <Grid
+                    flex
+                    margin="0 0 16px 0"
+                >
+                    <Text 
+                        text={title}
+                        bold="bold"
+                        size="18px"
+                        width="max-content"
+                    />
+                    <Text 
+                        text={timeForToday(date)}
+                        size="12px"
+                        letterSpacing="-1px"
+                        color="lightgray"
+                        width="max-content"
+                        padding="0 0 5px 0"
+                    />
+                </Grid>
                 <Text 
-                    text={timeForToday(date)}
-                    size="12px"
-                    letterSpacing="-1px"
-                    color="lightgray"
-                    width="fit-content"
-                    margin="0 15px 0 0"
+                    text={contents}
                 />
+            </Grid>
+            <Grid 
+                is_flex
+                align="center"
+                justify="flex-end"
+                gap="10px"
+            >
                 <Text 
                     text={`조회 ${viewCnt}`}
                     size="12px"
@@ -66,20 +56,39 @@ const DetailContent = (props) => {
                     width="fit-content"
                     color="lightgray"
                 />
+                <Text 
+                    text={`찜 ${scrabCnt ? scrabCnt : '0'}`}
+                    size="12px"
+                    letterSpacing="-1px"
+                    color="lightgray"
+                    width="fit-content"
+                    textAlign="center"
+                />
+                <Grid
+                    flex
+                >
+                    <LocationIcon fill="lightgray"/>
+                    <Text 
+                    text="1.9km"
+                    size="12px"
+                    width="fit-content"
+                    color="lightgray"
+                    margin="0 0 0 -3px"
+                />
+                </Grid>
             </Grid>
-        </Grid>
+        </Container>
     );
 };
 
-const P = styled.p`
-    color: gray;
-    letter-spacing: -1px;
-    & span {
-        color: black;
-        font-size: 17px;
-        font-weight: bold;
-        letter-spacing: -2px;
-    }
+const Container = styled.div`
+    margin-bottom: 86px;
+    flex-grow: 1;
+    padding: 10px 16px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
+
 
 export default DetailContent;

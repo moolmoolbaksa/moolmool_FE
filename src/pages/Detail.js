@@ -1,5 +1,5 @@
 import React from 'react';
-import slider from 'react-slick/lib/slider';
+import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"
 import styled from 'styled-components';
@@ -9,9 +9,11 @@ import DetailContent from '../components/detail/DetailContent';
 import SellerBar from '../components/detail/SellerBar';
 import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
+import LocationBar from '../components/LocationBar';
+import StatusLabel from '../components/shared/StatusLabel';
 
 const Detail = (props) => {
-    const image_list = useSelector(state => state.product.product_info.images);
+    const {images, status} = useSelector(state => state.product.product_info);
     
     const settings = { 
         infinite: false,
@@ -23,22 +25,27 @@ const Detail = (props) => {
   
     return (
         <Container>
-            <Grid>
-                <StyledSlider {...settings}>
-                    {image_list && image_list.map((v ,i) => {
-                        return(
-                            <Image 
-                                key={i}
-                                src={v}
-                                shape="slide"
-                                size='40'
-                            />
+                <LocationBar transparent/>
+                <Grid
+                    position="relative"
+                >
+                    <StyledSlider {...settings}>
+                        {images && images.map((v ,i) => {
+                            return(
+                                <Image 
+                                    key={i}
+                                    src={v}
+                                    shape="slide"
+                                />
+                            )}
                         )}
-                    )}
-                </StyledSlider>
-                <SellerBar/>
-                <DetailContent/>
-            </Grid>
+                    </StyledSlider>
+                    <StatusLabel status={status}/>
+                </Grid>
+                <Wrap>
+                    <SellerBar/>
+                    <DetailContent/>
+                </Wrap>
             <DetailBottom />
         </Container>
     );
@@ -53,8 +60,8 @@ const Container = styled.div`
     overflow: hidden;
 `;
 
-const StyledSlider = styled(slider)`
-    .slick-list {  
+const StyledSlider = styled(Slider)`
+    .slick-list { 
         width: 100%;
         height: 100%;
         overflow-x: hidden;
@@ -62,6 +69,12 @@ const StyledSlider = styled(slider)`
     .slick-dots { 
         bottom: 20px;
     }
+`;
+
+const Wrap = styled.div`
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 `;
 
 export default Detail;
