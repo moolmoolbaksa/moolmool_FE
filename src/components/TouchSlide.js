@@ -4,24 +4,25 @@ import styled from 'styled-components';
 import { Text } from '../elements/index';
 import { response } from '../shared/mock';
 
-const TouchSlide = ({ title }) => {
+const TouchSlide = ({ title, myScrabList }) => {
+    console.log(myScrabList)
     return (
         <>
-        <Text 
-            text={title}
-            bold="bold"
-            size="24px"
-            margin="0 0 10px 0"
-            letterSpacing="-1px"
-        />
-        <SlideWrap className='no-scroll'>
-            {response.list.map(v => {
-                return  <ImageWrap 
-                            key={v.productId}
-                            src={v.imageUrl}
-                        />
-            })}
-        </SlideWrap>
+            <Text 
+                text={title}
+                bold="bold"
+                size="24px"
+                margin="0 0 10px 0"
+                letterSpacing="-1px"
+            />
+            <SlideWrap className='no-scroll'>
+                {myScrabList.map(v => {
+                    return  <ImageWrap 
+                                key={v.itemId}
+                                src={v.itemImg}
+                            />
+                })}
+            </SlideWrap>
         </>
     );
 };

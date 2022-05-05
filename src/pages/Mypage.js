@@ -11,8 +11,8 @@ import DetailBottom from '../components/detail/DetailBottom';
 import LocationBar from '../components/LocationBar';
 
 const Mypage = (props) => {
-    const {user_info, item_list} = useSelector(state => state.user);
-
+    const {user_info, item_list, myScrabList} = useSelector(state => state.user);
+    console.log(user_info, item_list, myScrabList)
     return (
         <>
         <LocationBar title="마이페이지"/>
@@ -25,12 +25,12 @@ const Mypage = (props) => {
             
             >
                 <ItemGrid item_list={item_list}/>
-                <TouchSlide title="찜한 상품"/>
-                <TouchSlide title="나의 교환내역"/>
+                <TouchSlide title="찜한 상품" myScrabList={myScrabList}/>
+                {/* <TouchSlide title="나의 교환내역"/> */}
             </Wrap>
             {/* <IconTabs /> */}
         </Grid>
-        <DetailBottom />
+        {/* <DetailBottom /> */}
         </>
     );
 };

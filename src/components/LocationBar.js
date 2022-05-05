@@ -21,12 +21,7 @@ const LocationBar = ({ title, transparent }) => {
     return (
         <Container>
             <Wrap flex>
-                <span 
-                    className="material-symbols-outlined"
-                    onClick={() => {history.goBack()}}
-                >
-                    arrow_back_ios
-                </span>
+                <ArrowIcon width="27" height="27"/>
                 <Text 
                     text={title}
                     size="22px"
@@ -51,9 +46,9 @@ const LocationBar = ({ title, transparent }) => {
 const Container = styled.div`
     display: flex;
     align-items: center;
-    padding: 10px 16px;
+    padding: 15px 16px;
     justify-content: space-between;
-    background-color: lightgray;
+    background-color: #ffca39;
 `;
 
 const ArrowContainer = styled.div`

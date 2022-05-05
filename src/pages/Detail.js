@@ -7,13 +7,14 @@ import styled from 'styled-components';
 import DetailBottom from '../components/detail/DetailBottom';
 import DetailContent from '../components/detail/DetailContent';
 import SellerBar from '../components/detail/SellerBar';
-import { Image } from '../elements/index';
+import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
+import StatusLabel from '../components/shared/StatusLabel';
 
 const Detail = (props) => {
-    const image_list = useSelector(state => state.product.product_info.images);
-    
+    const {images, status} = useSelector(state => state.product.product_info);
+
     const settings = { 
         infinite: false,
         dots: true, 
@@ -25,17 +26,22 @@ const Detail = (props) => {
     return (
         <Container>
                 <LocationBar transparent/>
-                <StyledSlider {...settings}>
-                    {image_list && image_list.map((v ,i) => {
-                        return(
-                            <Image 
-                                key={i}
-                                src={v}
-                                shape="slide"
-                            />
+                <Grid
+                    position="relative"
+                >
+                    <StyledSlider {...settings}>
+                        {images && images.map((v ,i) => {
+                            return(
+                                <Image 
+                                    key={i}
+                                    src={v}
+                                    shape="slide"
+                                />
+                            )}
                         )}
-                    )}
-                </StyledSlider>
+                    </StyledSlider>
+                    <StatusLabel status={status}/>
+                </Grid>
                 <Wrap>
                     <SellerBar/>
                     <DetailContent/>

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import KakaoMap from '../components/shared/KakaoMap';
 
 import { Grid, Text, Input, Button } from '../elements/index';
-import icon from '../images/좌표.png'
 
 const Address = (props) => {
     const {road_address, general_address} = useSelector(state => state.user.address);
@@ -15,6 +14,7 @@ const Address = (props) => {
             is_flex
             is_column
             justify="center"
+            position="relative"
         >
             <Grid
                 is_flex
@@ -45,52 +45,48 @@ const Address = (props) => {
                     />
                 </Grid>
             </Grid>
-            {/* <MapContainer> */}
-                <KakaoMap/>
-            {/* </MapContainer> */}
+            <KakaoMap/>
             <Grid
                 padding="0 16px"
             >
-                {/* <Input 
-                    height="50px"
-                    padding="18px 15px"
-                    bg="rgb(245, 245, 245)"
-                    margin="0 0 16px 0"
-                    placeholder="지번, 도로명, 건물명으로 검색"
-                />
-                <Grid 
-                    flex
-                    cursor="true"
-                >
-                    <img 
-                        src={icon}
-                        alt="좌표 아이콘"
-                        width="18px"
-                        height="18px"
-                    />
-                    <Text 
-                        text="현재 위치로 설정하기"
-                        letterSpacing="-1px"
-                        wordSpacing="-1px"
-                        bold="500"
-                    />
-                </Grid> */}
                 <Grid
                     margin="20px 0px"
+                    height="43px"
                 >
-                    <Text 
-                        text={road_address}
-                        size="20px"
-                        letterSpacing="-1px"
-                        bold="bold"
-                    />
-                    <Text 
-                        text={`지번주소) ${general_address}`}
-                        size="12px"
-                        letterSpacing="-1px"
-                        bold="500"
-                        color="rgb(102, 102, 102)"
-                    />
+                    {road_address && 
+                        <>
+                            <Text 
+                                text={road_address}
+                                size="20px"
+                                letterSpacing="-1px"
+                                bold="bold"
+                            />
+                            <Text 
+                                text={`지번주소) ${general_address}`}
+                                size="12px"
+                                letterSpacing="-1px"
+                                bold="500"
+                                color="rgb(102, 102, 102)"
+                            />
+                        </>
+                    }
+                    {!road_address && 
+                        <>
+                            <Text 
+                                text={general_address}
+                                size="20px"
+                                letterSpacing="-1px"
+                                bold="bold"
+                            />
+                            <Text 
+                                text="도로명 주소를 알 수 없어요."
+                                size="12px"
+                                letterSpacing="-1px"
+                                bold="500"
+                                color="rgb(102, 102, 102)"
+                            />
+                        </>
+                    }
                 </Grid>
                 <Button
                     height="50px"

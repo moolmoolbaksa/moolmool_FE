@@ -9,7 +9,7 @@ const ItemGrid = ({item_list}) => {
     const onGoCreateItem = () => {
         history.push('/registerproduct')
     };
-
+    console.log(item_list)
     return (
         <React.Fragment>
             <Text

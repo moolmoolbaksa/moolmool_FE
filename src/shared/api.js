@@ -5,11 +5,12 @@ axios.defaults.withCredentials = true;
 const token = localStorage.getItem('token');
 
 const api = axios.create({
-  baseURL: "http://13.124.0.71",
+  baseURL: "http://54.146.243.198",
 });
 
 export const UserAPI = {
-	login: (id, pw) => api.post("/user/login", { username: id, password: pw }),
+	login: (formLogin) => api.post("/user/login", formLogin),
+	
 	signup: (id, nickname, pw, pwcheck) =>
 		api.post("/api/register", {
 		username: id,
@@ -49,17 +50,19 @@ export const UserAPI = {
 
 export const ItemAPI = {
 
-  getItems: (category_string) => api.get(`${category_string}`, {
-    headers: {
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  }),
-  registerItem: (Formitem) => api.post('/api/items',Formitem, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  })
+  	getItems: (category_string) => api.get(`${category_string}`, 
+	  	
+	   {
+		headers: {
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+  	}),
+	registerItem: (Formitem) => api.post('/api/items',Formitem, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+	})
   
 }
 

@@ -67,7 +67,7 @@ const DetailContent = (props) => {
                 <Grid
                     flex
                 >
-                    <LocationIcon />
+                    <LocationIcon fill="lightgray"/>
                     <Text 
                     text="1.9km"
                     size="12px"

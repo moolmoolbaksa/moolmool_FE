@@ -1,16 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components";
 
-// import { Map, MapMarker } from "react-kakao-maps-sdk";
 import DaumPostcode from "react-daum-postcode";
-import { ReactComponent as InfoWindow } from "../../images/인포윈도우.svg";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import { setAddress } from "../../redux/modules/user";
 import { Input, Grid, Text } from "../../elements/index";
-import icon from '../../images/좌표.png'
+import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
+import { ReactComponent as GlassIcon } from "../../images/돋보기.svg";
 
 const { kakao } = window;
+
+const postCodeStyle = {
+    display: "block",
+    position: "relative",
+    width: "100%",
+    minHeight: "100%",
+    zIndex: "1000",
+    padding: "0 16px",
+};
 
 const KakaoMap = () => {
     const dispatch = useDispatch();
@@ -21,8 +29,31 @@ const KakaoMap = () => {
         errMSg: null,
     });
 
-    console.log(state)
+    const [isAddress, setIsAddress] = useState("");
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+    const openPostCode = () => {
+        setIsPopupOpen(true);
+    };
+
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = "";
+
+        if (data.addressType === "R") {
+            if (data.bname !== "") {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== "") {
+                extraAddress +=
+                extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+        }
+        setIsAddress(fullAddress);
+        setIsPopupOpen(false);
+    };
+    
     useEffect(() => {
         const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
@@ -76,14 +107,36 @@ const KakaoMap = () => {
                 }
             }
             geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-        }, 500))
+        }, 500));
+
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        if(isAddress){
+            geocoder.addressSearch(isAddress, function(result, status) {
+
+                // 정상적으로 검색이 완료됐으면 
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    // new kakao.maps.Marker({
+                    //     map: map,
+                    //     position: coords,
+                    //     // image: markerImage,
+                    // });
+                    marker.setPosition(coords);
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                } 
+            });
+        };
 
         locationRef.current.addEventListener('click', () => {
             // map.setCenter(state.center);
             window.location.reload();
         });
-        
-    }, [])
+    }, [isAddress]);
     
     return (
         <>
@@ -94,25 +147,20 @@ const KakaoMap = () => {
                     <Wrap>
                         <MapInfo>{state.errMSg ? state.errMSg : "지도를 움직여 위치를 설정하세요."}</MapInfo>
                     </Wrap>
+                    {/* {isPopupOpen && <StyledPost  style={postCodeStyle} onComplete={handleComplete} />} */}
                 </Map>
             </MapContainer>
             <Grid
                 padding="0 16px"
             >
-                <Input 
-                    height="50px"
-                    padding="18px 15px"
-                    bg="rgb(245, 245, 245)"
-                    margin="0 0 16px 0"
-                    placeholder="지번, 도로명, 건물명으로 검색"
-                />
+                <SearchAddress 
+                    onClick={openPostCode}
+                >
+                    지번, 도로명, 건물명으로 검색
+                    <GlassIcon />
+                </SearchAddress>
                 <NowLocation ref={locationRef}>
-                    <img 
-                        src={icon}
-                        alt="좌표 아이콘"
-                        width="18px"
-                        height="18px"
-                    />
+                    <LocationIcon />
                     <Text 
                         text="현재 위치로 설정하기"
                         letterSpacing="-1px"
@@ -121,19 +169,29 @@ const KakaoMap = () => {
                     />
                 </NowLocation>
             </Grid>
+            {isPopupOpen && <Grid height="100vh" position="absolute" width="100%" flex><StyledPost  style={postCodeStyle} onComplete={handleComplete} /></Grid>}
         </>
-    )
+    );
 };
+
 const MapContainer = styled.div`
     height: 100%;
     max-height: 355px;
     width: 100%;
     margin-bottom: 18px;
     position: relative;
-
 `;
+
 const Map = styled.div`
     height: 100%;
+`;
+
+const StyledPost = styled(DaumPostcode)`
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
 `;
 
 const Wrap = styled.div`
@@ -155,6 +213,24 @@ const MapInfo = styled.div`
     color: white;
     padding: 8px 15px;
     border-radius: 20px;
+`;
+
+const SearchAddress = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 50px;
+    padding: 0px 15px;
+    background: rgb(245, 245, 245);
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    color: rgb(157,157,157);
+    line-height: 22.6px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    border-radius: 5px;
+    cursor: pointer;
 `;
 
 const NowLocation = styled.div`

@@ -9,7 +9,7 @@ export const getProductApi = createAsyncThunk(
         const token = localStorage.getItem("token");
         console.log(itemId)
         try {
-            const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
+            const response = await axios.get(`http://54.146.243.198/api/items/${itemId}`,{
                 headers: {
                     Authorization: token,
                 }
@@ -30,7 +30,7 @@ export const setProductScrabApi = createAsyncThunk(
     async (itemId) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.post(`http://13.124.0.71/api/${itemId}/scrabs`,{},{
+            await axios.post(`http://54.146.243.198/api/${itemId}/scrabs`,{},{
                 headers: {
                     Authorization: token,
                 }

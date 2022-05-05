@@ -16,9 +16,9 @@ const ItemImage = ({itemId, image, status}) => {
             onClick={onGoDetail}
         >
             <ImageInner 
-                src={image} 
+                src={image}
             />
-            {status === '거래중' && <ProductStatus>거래중</ProductStatus>}
+            {status === 2 && <ProductStatus>교환중</ProductStatus>}
         </ImageOutter>
     );
 };
