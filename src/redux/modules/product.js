@@ -7,9 +7,8 @@ export const getProductApi = createAsyncThunk(
     'product/getProductApi',
     async (itemId) => {
         const token = localStorage.getItem("token");
-        console.log(itemId)
         try {
-            const response = await axios.get(`http://54.146.243.198/api/items/${itemId}`,{
+            const response = await axios.get(`http://13.125.220.67:8080/api/items/${itemId}`,{
                 headers: {
                     Authorization: token,
                 }
@@ -17,7 +16,6 @@ export const getProductApi = createAsyncThunk(
             console.log(response)
             history.push(`/detail/${itemId}`);
             return response.data;
-            // return response.product;
         } catch (error) {
             console.log("getProductApi: ", error);
             alert('getProductApi error');
@@ -30,18 +28,37 @@ export const setProductScrabApi = createAsyncThunk(
     async (itemId) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.post(`http://54.146.243.198/api/${itemId}/scrabs`,{},{
+            await axios.post(`http://13.125.220.67:8080/api/${itemId}/scrabs`,{},{
                 headers: {
                     Authorization: token,
                 }
             });
-            // reducer의 product_info 최신화할지는 고민해보기!
         } catch (error) {
             console.log("setProductScrabApi: ", error);
             alert('setProductScrabApi error');
         }
     }
 );
+
+export const setTradeProductApi = createAsyncThunk(
+    'product/setTradeProductApi',
+    async (itemId, userId) => {
+        console.log(itemId, userId, '??')
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.get(`http://13.125.220.67:8080/api/trade?itemId=${itemId}&userId=${userId}`,{
+                headers: {
+                    Authorization: token,
+                } 
+            });
+            history.push('/change');
+            return response.data;
+        } catch (error) {
+            console.log("setTradeProductApi: ", error);
+            alert('setTradeProductApi error');
+        }
+    }
+)
 
 export const product = createSlice({
     name: 'product',
@@ -61,7 +78,9 @@ export const product = createSlice({
             title: '',
             userId: '',
             viewCnt: 0,
+            itemId: '',
         },
+        barter_info: {},
         is_loading: false,
     },
     reducers: {},
@@ -79,12 +98,16 @@ export const product = createSlice({
                     state.product_info.isScrab = true;
                 };
             })
+            .addCase(setTradeProductApi.fulfilled, (state, action) => {
+                state.barter_info = action.payload;
+            })
     }
 });
 
 export const api = {
     getProductApi,
     setProductScrabApi,
+    setTradeProductApi,
 };
 
 export default product.reducer;

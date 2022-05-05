@@ -14,7 +14,7 @@ import StatusLabel from '../components/shared/StatusLabel';
 
 const Detail = (props) => {
     const {images, status} = useSelector(state => state.product.product_info);
-
+    
     const settings = { 
         infinite: false,
         dots: true, 

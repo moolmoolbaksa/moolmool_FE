@@ -9,12 +9,12 @@ import LoginNoti from '../modal/LoginNoti';
 
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
-
+    
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
     const is_modal = useSelector(state => state.modal.is_modal);
-    const {userId, nickname, isScrab} = useSelector(state => state.product.product_info);
-    
+    const {userId, nickname, isScrab, itemId} = useSelector(state => state.product.product_info);
+    console.log(userId)
     const btnRef = useRef();
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const DetailBottom = (props) => {
     const clickHeart = () => {
         if(nickname === my_nickname) return;
         if(is_login){
-            dispatch(productActions.setProductScrabApi(userId));
+            dispatch(productActions.setProductScrabApi(itemId));
         } else {
             window.alert('로그인 후 이용해주세요')
         }
@@ -38,7 +38,8 @@ const DetailBottom = (props) => {
         if(!is_login){
             dispatch(setModal(true));
             return;
-        }
+        };
+        dispatch(productActions.setTradeProductApi(itemId, userId));
     };
 
     const onDoChat = () => {

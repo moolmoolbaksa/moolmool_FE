@@ -21,7 +21,7 @@ const LocationBar = ({ title, transparent }) => {
     return (
         <Container>
             <Wrap flex>
-                <ArrowIcon width="27" height="27"/>
+                <ArrowIcon onClick={() => {history.goBack()}} width="27" height="27"/>
                 <Text 
                     text={title}
                     size="22px"

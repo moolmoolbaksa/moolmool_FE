@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 const token = localStorage.getItem('token');
 
 const api = axios.create({
-  baseURL: "http://54.146.243.198",
+  baseURL: "http://13.125.220.67:8080",
 });
 
 export const UserAPI = {

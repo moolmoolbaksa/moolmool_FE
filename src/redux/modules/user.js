@@ -9,7 +9,7 @@ const loginCheckApi = createAsyncThunk(
     async (thunkAPI) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get('http://54.146.243.198/user/check',{
+            const response = await axios.get('http://13.125.220.67:8080/user/check',{
                 headers: {
                     Authorization: token,
                 }
@@ -26,7 +26,7 @@ const kakaoLoginApi = createAsyncThunk(
     'user/kakaoLogin',
     async (code, thunkAPI) => {
         try {
-            const response = await axios.get(`http://54.146.243.198/user/kakao?code=${code}`);
+            const response = await axios.get(`http://13.125.220.67:8080/user/kakao?code=${code}`);
    
             const token = response.headers.authorization;
             localStorage.setItem("token", token)
@@ -55,7 +55,7 @@ const setFirstUserInfoApi = createAsyncThunk(
         formData.append('storeInfo', introduce);
         formData.append('address', '');
         try {
-            const response = await axios.put(`http://54.146.243.198/user/info`,formData,{
+            const response = await axios.put(`http://13.125.220.67:8080/user/info`,formData,{
                 headers: {
                     Authorization: token,
                     // 'Content-Type' : 'multipart/form-data'
@@ -77,7 +77,7 @@ const getMyInfoApi = createAsyncThunk(
     async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get('http://54.146.243.198/api/mypage',{
+            const response = await axios.get('http://13.125.220.67:8080/api/mypage',{
                 headers: {
                     Authorization: token,
                 }
@@ -95,7 +95,7 @@ const getCounterUserInfoApi = createAsyncThunk(
     'user/getCounterUserInfoApi',
     async (userId) => {
         try {
-            // const response = await axios.get(`http://13.124.0.71/${userId}/store`);
+            // const response = await axios.get(`http://13.125.220.67:8080/${userId}/store`);
             // return response.data;
             history.push(`/mall/${userId}`);
             return response.couterUser;
