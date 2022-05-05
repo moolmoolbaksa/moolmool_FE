@@ -104,6 +104,5 @@ const ImageCircle = styled.div`
     background-position: center;
     margin: ${props => props.margin}
 `;
-
 export default Image;
 

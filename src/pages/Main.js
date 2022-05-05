@@ -15,7 +15,6 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
@@ -23,11 +22,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import { ItemAPI } from '../shared/api';
-import { set } from 'lodash';
+
 // Instantiation
 
 
 const Main = (props) => {
+  // console.log(localStorage.getItem('token'));
   const [filter,setfilter] = useState('전체');
   const [openFilter,setopenfilter] = useState(false);
   // console.log(filter);

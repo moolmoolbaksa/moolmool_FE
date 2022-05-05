@@ -44,6 +44,7 @@ const RegisterProduct = (props) => {
     const [categoryOpen,setcategoryOpen]=useState(false);
     const [favorsOpen,setFavorsOpen]=useState(false);
     const [typeOpen,setTypeOpen]=useState(false);
+    const [preview,setPreview]=useState([]);
     const openCategory = () =>{
         if(categoryOpen){
             setcategoryOpen(false);
@@ -72,22 +73,30 @@ const RegisterProduct = (props) => {
     }
 
     const selectfile=(e)=>{
-        const reader=new FileReader;
-        const file = fileInput.current.files[0];
-        console.log(fileInput.current.files);
-        console.log(file);
-        reader.readAsDataURL(file);
         let filelist=[...fileInput.current.files];
-        
         setFileslist(filelist);
+        if(preview.length>0)
+        {
+            setPreview(arr=>arr.splice(0,arr.length));
+        }
+        Array.from(fileInput.current.files).forEach(file => {
+        
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                setPreview((as)=>[...as,reader.result]);
+            }
+        });
+        
+    }
+    const deletePreview=(id)=>{
+        setPreview(preview.filter((_,idx)=>idx!==id));
+        setFileslist(fileslist.filter((_,idx)=>idx!==id));
     }
     
     
     React.useEffect(()=>{
-        // console.log(files);
-        // console.log(fileslist);
-
-    },[favors]);
+    },[preview]);
     const handleCategory=(e)=>{
         setCategory(e.target.value);
     }
@@ -157,7 +166,7 @@ const RegisterProduct = (props) => {
                     return(
                 <div> 
                     <input name="category" id={p.value} type="radio" value={p.value} checked={null} onClick={handleCategory}/>
-                    <label for={p.value}
+                    <label htmlFor={p.value}
                     >
                             
                             {p.value}
@@ -180,14 +189,16 @@ const RegisterProduct = (props) => {
         <Grid>
             <h2>사진 등록 ({fileslist.length}/8)개</h2>
 
-            <input onChange={selectfile} accept="image/*" id="raised-button-file"  ref={fileInput}  multiple type="file" />
-            <div style={{display:'flex'}}>
             
-            {fileslist.map((n,idx) => {
-            return <ImageSlide></ImageSlide>;
+            <Imagelist >
+            {/* _onclick={deletePreview(idx)} */}
+            {preview.map((n,idx) => {
+                return <ImageSlide  key={idx} src={n} can_delete></ImageSlide>;
             
           })}
-          </div>
+          <UploadLabel htmlFor="raised-button-file">+</UploadLabel>
+            <input onChange={selectfile} accept="image/*" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}} />
+          </Imagelist>
         </Grid>
         
         <Empty/>
@@ -228,7 +239,7 @@ const RegisterProduct = (props) => {
                     return(
                         <div>
                             <input name="type" id={p.value} type="radio" value={p.value} checked={null} onClick={handleType}/>
-                            <label htmlfor={p.value}> {p.value} </label>
+                            <label htmlFor={p.value}> {p.value} </label>
                         </div>
                     )
                 })
@@ -255,7 +266,22 @@ const RegisterProduct = (props) => {
 
     );
 };
+const Imagelist=styled.div`
+    display:flex;
+    overflow:auto;
+    overflow-x:hidden;
+`;
+const UploadLabel=styled.label`
+    box-sizing:border-box;
+    display:block;
+    width:50px;
+    height:50px;
+    background-color:grey;
+    border: 1px solid red;
+    text-align:center;
+    align-items:center;
 
+`;
 const Empty=styled.div`
 width:100%;
 background-color:#F5F5F5;

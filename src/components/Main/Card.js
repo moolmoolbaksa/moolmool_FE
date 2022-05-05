@@ -27,14 +27,7 @@ const Card = (props) => {
                 
                 <Info>
                     <Title>
-                        <Titletext>{title}</Titletext>
-                        {/* <BookmarkBorderOutlinedIcon/> */}
-                        <IconButton size='small' aria-label='hearts' >
-                            <BookmarkBorderOutlinedIcon/>
-                        </IconButton>
-                        
-                        
-
+                        <Titletext>{title}</Titletext>                     
                     </Title>
                     
                     <Description>{contents}</Description>

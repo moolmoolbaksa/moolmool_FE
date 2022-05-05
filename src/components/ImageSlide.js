@@ -2,29 +2,32 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Text, Grid, Input, Button,Image } from '../elements/index';
-
+import { BsTrash } from "react-icons/bs";
 const ImageSlide = (props) => {
-    let filelist=[];
-    const fileInput=React.useRef();
-    const selectfile=(e)=>{
-        const reader=new FileReader;
-        const file = fileInput.current.files[0];
-        console.log(fileInput.current.files);
-        reader.readAsDataURL(file);
-        console.log(file);
-        filelist=[...fileInput.current.files];
-        console.log(filelist);
-
-    }
+    
     return (
-        <React.Fragment>
+        <DeleteOuter>
+            <DeleteButton onClick={props.funcdelete}><BsTrash/></DeleteButton>
+            <Image shape="square" size="50" src={props.src} margin="10px"></Image>
             
-            <Image></Image>
-        
-        </React.Fragment>
+        </DeleteOuter>
         
 
     );
 };
-
+const DeleteOuter=styled.div`
+    position:relative;
+`;
+const DeleteButton=styled.button`
+    display:block;    
+    position:absolute;
+    width:20px;
+    height:20px;
+    border-radius:10px;
+    border:2px solid blue;
+    left:40px;
+    bottom:40px;
+    
+    
+`
 export default ImageSlide;
