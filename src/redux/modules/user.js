@@ -4,54 +4,12 @@ import axios from "axios";
 import { history } from "../configureStore";
 import { response } from "../../shared/mock";
 
-export const signupApi = createAsyncThunk(
-    'user/signupApi',
-    async (formRegister, thunkAPI) => {
-        try {
-            const response = await axios.post('http://13.124.0.71/user/signup', formRegister);
-            if(response.data.ok){
-                window.alert("안녕")
-                history.push('/login')
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-);
-
-export const loginApi = createAsyncThunk(
-    'user/loginApi',
-    async (formLogin, thunkAPI) => {
-        try {
-            const response = await axios.post('http://13.124.0.71/user/login', formLogin);
-            
-            if(!response.data.ok){
-                window.alert("기입된 정보를 다시 확인해주세요.");
-                return;
-            }
-            console.log(response)
-            const token = response.headers.authorization;
-            localStorage.setItem("token", token)
-
-            thunkAPI.dispatch(loginCheckApi());
-
-            if(response.data.isFirst){
-                history.replace('/firstset');
-            } else {
-                history.replace('/');
-            }
-        } catch (error) {
-            console.log(error);
-        }    
-    }
-);
-
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
     async (thunkAPI) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get('http://13.124.0.71/user/check',{
+            const response = await axios.get('http://13.125.220.67:8080/user/check',{
                 headers: {
                     Authorization: token,
                 }
@@ -68,7 +26,7 @@ const kakaoLoginApi = createAsyncThunk(
     'user/kakaoLogin',
     async (code, thunkAPI) => {
         try {
-            const response = await axios.get(`http://13.124.0.71/user/kakao?code=${code}`);
+            const response = await axios.get(`http://13.125.220.67:8080/user/kakao?code=${code}`);
    
             const token = response.headers.authorization;
             localStorage.setItem("token", token)
@@ -97,7 +55,7 @@ const setFirstUserInfoApi = createAsyncThunk(
         formData.append('storeInfo', introduce);
         formData.append('address', '');
         try {
-            const response = await axios.put(`http://13.124.0.71/user/info`,formData,{
+            const response = await axios.put(`http://13.125.220.67:8080/user/info`,formData,{
                 headers: {
                     Authorization: token,
                     // 'Content-Type' : 'multipart/form-data'
@@ -119,13 +77,13 @@ const getMyInfoApi = createAsyncThunk(
     async () => {
         const token = localStorage.getItem("token");
         try {
-            // const response = await axios.get('http://13.124.0.71/api/mypage',{
-            //     headers: {
-            //         Authorization: token,
-            //     }
-            // });
-            // return response.data;
-            return response.mypage
+            const response = await axios.get('http://13.125.220.67:8080/api/mypage',{
+                headers: {
+                    Authorization: token,
+                }
+            });
+            console.log(response)
+            return response.data;
         } catch (error) {
             console.log("getMyInfo: ", error);
             alert('getMyInfo error');
@@ -137,7 +95,7 @@ const getCounterUserInfoApi = createAsyncThunk(
     'user/getCounterUserInfoApi',
     async (userId) => {
         try {
-            // const response = await axios.get(`http://13.124.0.71/${userId}/store`);
+            // const response = await axios.get(`http://13.125.220.67:8080/${userId}/store`);
             // return response.data;
             history.push(`/mall/${userId}`);
             return response.couterUser;
@@ -169,6 +127,7 @@ export const user = createSlice({
         },
         address: "",
         item_list: [],
+        myScrabList: [],
         other_item_list: [],
         preview: "http://kaihuastudio.com/common/img/default_profile.png",
         is_login: false,
@@ -192,14 +151,15 @@ export const user = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginCheckApi.fulfilled, (state, action) => {
-                state.nickname = action.payload.nickname;
-                state.profile = action.payload.profile;
+                state.user_info.nickname = action.payload.nickname;
+                state.user_info.profile = action.payload.profile;
                 state.is_login = true;
             })
             .addCase(getMyInfoApi.fulfilled, (state, action) => {
-                const {itemList, ...user_info} = action.payload;
+                const {itemList, myScrabList, ...user_info} = action.payload;
                 state.user_info = user_info;
                 state.item_list = itemList;
+                state.myScrabList = myScrabList;
             })
             .addCase(getCounterUserInfoApi.fulfilled, (state, action) => {
                 const {itemList, ...other_info} = action.payload;
@@ -216,8 +176,6 @@ export const {
 } = user.actions;
 
 export const api = {
-    signupApi,
-    loginApi,
     loginCheckApi,
     kakaoLoginApi,
     setFirstUserInfoApi,

@@ -21,6 +21,8 @@ const Input = (props) => {
     border,
     height,
     bg,
+    onClick,
+    disabled,
   } = props;
 
   const style = {
@@ -60,7 +62,9 @@ const Input = (props) => {
           value={value}
           placeholder={placeholder}
           onChange={onChange}
+          onClick={onClick}
           border={border}
+          disabled={disabled}
         />
         <Label htmlFor={id} name={name}>
           {text}
@@ -82,7 +86,9 @@ Input.defaultProps = {
   margin: false,
   text: null,
   rows:"",
+  disabled: false,
   onChange: () => {},
+  onClick: () => {},
   border:'1px solid grey',
 };
 

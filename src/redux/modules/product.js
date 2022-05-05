@@ -2,22 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { history } from "../configureStore";
-import { response } from "../../shared/mock";
 
 export const getProductApi = createAsyncThunk(
     'product/getProductApi',
     async (itemId) => {
         const token = localStorage.getItem("token");
-        console.log(itemId)
         try {
-            const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
+            const response = await axios.get(`http://13.125.220.67:8080/api/items/${itemId}`,{
                 headers: {
                     Authorization: token,
                 }
             });
+            console.log(response)
             history.push(`/detail/${itemId}`);
             return response.data;
-            // return response.product;
         } catch (error) {
             console.log("getProductApi: ", error);
             alert('getProductApi error');
@@ -30,15 +28,34 @@ export const setProductScrabApi = createAsyncThunk(
     async (itemId) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.post(`http://13.124.0.71/api/${itemId}/scrabs`,{},{
+            await axios.post(`http://13.125.220.67:8080/api/${itemId}/scrabs`,{},{
                 headers: {
                     Authorization: token,
                 }
             });
-            // reducer의 product_info 최신화할지는 고민해보기!
         } catch (error) {
             console.log("setProductScrabApi: ", error);
             alert('setProductScrabApi error');
+        }
+    }
+);
+
+export const setTradeProductApi = createAsyncThunk(
+    'product/setTradeProductApi',
+    async (itemId, userId) => {
+        console.log(itemId, userId, '??')
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.get(`http://13.125.220.67:8080/api/trade?itemId=${itemId}&userId=${userId}`,{
+                headers: {
+                    Authorization: token,
+                } 
+            });
+            history.push('/change');
+            return response.data;
+        } catch (error) {
+            console.log("setTradeProductApi: ", error);
+            alert('setTradeProductApi error');
         }
     }
 )
@@ -46,7 +63,24 @@ export const setProductScrabApi = createAsyncThunk(
 export const product = createSlice({
     name: 'product',
     initialState: {
-        product_info: [],
+        product_info: {
+            bagImages: [],
+            contents: '',
+            date: '',
+            images: [],
+            degree: '',
+            grade: '',
+            nickname:'',
+            profile: '',
+            isScrab: false,
+            scrabCnt: 0,
+            status: '',
+            title: '',
+            userId: '',
+            viewCnt: 0,
+            itemId: '',
+        },
+        barter_info: {},
         is_loading: false,
     },
     reducers: {},
@@ -55,12 +89,25 @@ export const product = createSlice({
             .addCase(getProductApi.fulfilled, (state, action) => {
                 state.product_info = action.payload;
             })
+            .addCase(setProductScrabApi.fulfilled, (state, action) => {
+                if(state.product_info.isScrab){
+                    state.product_info.scrabCnt -= 1;
+                    state.product_info.isScrab = false;
+                } else {
+                    state.product_info.scrabCnt += 1;
+                    state.product_info.isScrab = true;
+                };
+            })
+            .addCase(setTradeProductApi.fulfilled, (state, action) => {
+                state.barter_info = action.payload;
+            })
     }
 });
 
 export const api = {
     getProductApi,
     setProductScrabApi,
+    setTradeProductApi,
 };
 
 export default product.reducer;

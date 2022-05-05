@@ -9,11 +9,11 @@ const ItemGrid = ({item_list}) => {
     const onGoCreateItem = () => {
         history.push('/registerproduct')
     };
-
+    console.log(item_list)
     return (
         <React.Fragment>
             <Text
-                text="물물박사님의 보따리"
+                text="나의 보따리"
                 bold="bold"
                 size="24px"
                 letterSpacing="-1px"

@@ -6,6 +6,7 @@ import logger from 'redux-logger';
 
 import userSlice from './modules/user';
 import productSlice from './modules/product';
+import modalSlice from './modules/modal';
 
 
 export const history = createBrowserHistory();
@@ -13,6 +14,7 @@ export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   user: userSlice,
   product: productSlice,
+  modal: modalSlice,
   router: connectRouter(history),
 });
 
