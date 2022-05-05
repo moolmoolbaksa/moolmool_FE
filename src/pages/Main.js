@@ -14,6 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
+import BsEye from 'react-icons/bs'
 
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -22,6 +23,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import { ItemAPI } from '../shared/api';
+
 
 import { set } from 'lodash';
 import { useSelector } from 'react-redux';
@@ -77,16 +79,7 @@ const Main = (props) => {
                    <IconButton onClick={Drawers} size="large"edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
-
-                    <Search>
-                        <SearchIconWrapper>
                             <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
                     <Badge badgeContent={4} color="success">
                         <MailIcon color="action" />
                     </Badge>
@@ -124,7 +117,7 @@ const Main = (props) => {
 
             </Drawer>
             <div style={{display:'flex', width:'100%', margin:'', backgroundColor:'#FFBB00'}}>
-                <Image src={profile}/>
+                <Image size='100' src={profile} margin='20px 20px'/>
 
                 <div>
                     <p>안녕하세요, {nickname}님 </p>

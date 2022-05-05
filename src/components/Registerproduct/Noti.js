@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Text, Grid } from '../../elements/index';
 import Modal from '@mui/material/Modal';
-import NotiModal from './NotiModal';
 import { Button } from '@mui/material';
 const style = {
     position: 'absolute',
@@ -42,7 +41,9 @@ const Noti = (props) => {
                 onClose={closeModal}
                         
             >
-                <NotiModal closeModal={closeModal}/>
+                <Modalwindow>
+                    <h1>gi</h1>
+                    </Modalwindow>
 
                 
             </Modal>
@@ -53,6 +54,18 @@ const Noti = (props) => {
     );
 };
 
+const Modalwindow = styled.div`
 
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 300px;
+height: 500px;
+background: white;
+border: 2px solid #000;
+// boxShadow: 24,
+z-index: 2000;
+`;
 
 export default Noti;

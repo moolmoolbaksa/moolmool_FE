@@ -6,6 +6,8 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import {BsEye} from 'react-icons/bs'
+
 import IconButton from '@mui/material/IconButton';
 import { api as productActions } from '../../redux/modules/product';
 import { useDispatch } from 'react-redux';
@@ -23,7 +25,7 @@ const Card = (props) => {
     return (
         <React.Fragment>
             <Background>
-                <Image shape='rectangle' size='98' src={image} onClick={onGoDetail}></Image>
+                <Image shape='rectangle' size='150' src={image} onClick={onGoDetail} padding='20px'></Image>
                 
                 <Info>
                     <Title>
@@ -38,7 +40,7 @@ const Card = (props) => {
                         
                         
                         <IconButton size='small' aria-label='hearts' color='primary'>
-                            <ChatBubbleOutlineOutlinedIcon/> {viewCnt}
+                            <BsEye/> {viewCnt}
                         </IconButton>
                         <IconButton size='small' aria-label='hearts' color='primary'>
                             <LocationOnOutlinedIcon/> {address}
@@ -75,7 +77,7 @@ display:flex;
 background: #FFFFFF;
 
 border-radius: 5px;
-height:100px;
+height:150px;
 border:1px solid black;
 margin:0px 0px 5px 0px;
 `;
