@@ -37,7 +37,7 @@ const MypageTop = ({user_info}) => {
                         <Span>Lv. {degree}</Span>
                     </Grid>
                     <Text 
-                        text={address}
+                        text={address.split(' ').splice(0, 2).join(' ')}
                         color="gray"
                         letterSpacing="-1px"
                     />

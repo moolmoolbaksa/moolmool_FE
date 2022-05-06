@@ -1,11 +1,12 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 
 const token = localStorage.getItem('token');
 
 const api = axios.create({
-  baseURL: "http://13.125.220.67:8080",
+  baseURL: "http://13.124.0.71",
 });
 
 export const UserAPI = {

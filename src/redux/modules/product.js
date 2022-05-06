@@ -8,7 +8,7 @@ export const getProductApi = createAsyncThunk(
     async (itemId) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/api/items/${itemId}`,{
+            const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
                 headers: {
                     Authorization: token,
                 }
@@ -28,7 +28,7 @@ export const setProductScrabApi = createAsyncThunk(
     async (itemId) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.post(`http://13.125.220.67:8080/api/${itemId}/scrabs`,{},{
+            await axios.post(`http://13.124.0.71/api/${itemId}/scrabs`,{},{
                 headers: {
                     Authorization: token,
                 }
@@ -44,7 +44,7 @@ export const getMyScrabListApi = createAsyncThunk(
     'product/getMyScrabListApi',
     async () => {
         try {
-            const response = await axios.get('http://13.125.220.67:8080/api/mypage/scrab',{
+            const response = await axios.get('http://13.124.0.71/api/mypage/scrab',{
                 headers: {
                     Authorization: `${localStorage.getItem('token')}`,
                 }
@@ -63,7 +63,7 @@ export const setTradeProductApi = createAsyncThunk(
     async ({itemId, userId}) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/api/trade?itemId=${itemId}&userId=${userId}`,{
+            const response = await axios.get(`http://13.124.0.71/api/trade?itemId=${itemId}&userId=${userId}`,{
                 headers: {
                     Authorization: token,
                 } 

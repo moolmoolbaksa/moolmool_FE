@@ -3,15 +3,25 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../../elements/index';
+import { useDispatch } from 'react-redux';
+import { api as productActions } from '../../redux/modules/product';
 
 const ScrabItem = ({itemId, title, contents, image}) => {
+    const dispatch = useDispatch();
+
+    const onGoDetail = () => {
+        dispatch(productActions.getProductApi(itemId));
+    };
+    
     return (
         <Container>
             <Image 
+                onClick={onGoDetail}
                 src={image}
             />
             <Wrap>
                 <Text
+                    onClick={onGoDetail}
                     text={title}
                     size="18px"
                     bold="bold"

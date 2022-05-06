@@ -2,20 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../elements/index';
-import { response } from '../shared/mock'
-import TouchSlide from '../components/TouchSlide';
-import DetailBottom from '../components/detail/DetailBottom';
 import { useSelector } from 'react-redux';
+import LocationBar from '../components/LocationBar';
 
 const Change = (props) => {
     const {myImages, ...opponent_info} = useSelector(state => state.product.barter_info);
     console.log(myImages, opponent_info)
     return (
         <Grid
-            padding="30px 16px 90px 16px"
-            height="100vh"
+            height="100%"
             position="relative"
         >
+            <LocationBar title="교환신청" />
             
         </Grid>
     );

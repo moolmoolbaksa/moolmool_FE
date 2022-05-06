@@ -9,7 +9,7 @@ const loginCheckApi = createAsyncThunk(
     async (thunkAPI) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get('http://13.125.220.67:8080/user/check',{
+            const response = await axios.get('http://13.124.0.71/user/check',{
                 headers: {
                     Authorization: token,
                 }
@@ -26,7 +26,7 @@ const kakaoLoginApi = createAsyncThunk(
     'user/kakaoLogin',
     async (code, thunkAPI) => {
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/user/kakao?code=${code}`);
+            const response = await axios.get(`http://13.124.0.71/user/kakao?code=${code}`);
    
             const token = response.headers.authorization;
             localStorage.setItem("token", token)
@@ -34,7 +34,7 @@ const kakaoLoginApi = createAsyncThunk(
             thunkAPI.dispatch(loginCheckApi());
             
             if(response.data.isFirst){
-                history.replace('/firstset');
+                history.replace('/address');
             } else {
                 history.replace('/');
             }
@@ -47,37 +47,56 @@ const kakaoLoginApi = createAsyncThunk(
 );
 
 const setFirstUserInfoApi = createAsyncThunk(
-    'user/setFristUserInfo',
-    async (preview, introduce) => {
-        const token = localStorage.getItem("token");
-        const formData = new FormData();
-        formData.append('profile', preview);
-        formData.append('storeInfo', introduce);
-        formData.append('address', '');
+    'user/setFirstUserInfoApi',
+    async (address) => {
+        console.log(address)
         try {
-            const response = await axios.put(`http://13.125.220.67:8080/user/info`,formData,{
+            const response = await axios.put('http://13.124.0.71/user/info',{address},{
                 headers: {
-                    Authorization: token,
-                    // 'Content-Type' : 'multipart/form-data'
+                    Authorization: `${localStorage.getItem('token')}`,
                 }
             });
+            history.replace('/');
             console.log(response)
-            // if(response.data.ok){
-            //     history.replace('/');
-            // }
         } catch (error) {
-            console.log("setFirstUserInfo: ", error);
-            alert('setFirstUserInfo error');
+            console.log("setFirstUserInfoApi error: ", error);
+            alert('setFirstUserInfoApi error');
         }
     }
 );
+
+// const setFirstUserInfoApi = createAsyncThunk(
+//     'user/setFristUserInfo',
+//     async (preview, introduce) => {
+//         const token = localStorage.getItem("token");
+//         const formData = new FormData();
+//         formData.append('profile', preview);
+//         formData.append('storeInfo', introduce);
+//         formData.append('address', '');
+//         try {
+//             const response = await axios.put(`http://13.124.0.71/user/info`,formData,{
+//                 headers: {
+//                     Authorization: token,
+//                     // 'Content-Type' : 'multipart/form-data'
+//                 }
+//             });
+//             console.log(response)
+//             // if(response.data.ok){
+//             //     history.replace('/');
+//             // }
+//         } catch (error) {
+//             console.log("setFirstUserInfo: ", error);
+//             alert('setFirstUserInfo error');
+//         }
+//     }
+// );
 
 const getMyInfoApi = createAsyncThunk(
     'user/getMyInfo',
     async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get('http://13.125.220.67:8080/api/mypage',{
+            const response = await axios.get('http://13.124.0.71/api/mypage',{
                 headers: {
                     Authorization: token,
                 }
@@ -96,7 +115,7 @@ const getCounterUserInfoApi = createAsyncThunk(
     async (userId) => {
         console.log(userId)
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/api/store/${userId}`);
+            const response = await axios.get(`http://13.124.0.71/api/store/${userId}`);
             history.push(`/mall/${userId}`);
             console.log(response)
             return response.data;

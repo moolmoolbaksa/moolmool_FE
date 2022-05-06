@@ -9,6 +9,7 @@ import {
   Signup,
   LoginProgress,
   Welcome,
+  Address,
 } from './pages/login&signup/index';
 import { 
   Detail,
@@ -19,7 +20,6 @@ import {
   Notification,
   EditMyInfo,
   RegisterProduct,
-  Address,
   Tradehistory,
   Rating,
   Scrab,
@@ -47,7 +47,7 @@ function App() {
   const is_token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (is_token) dispatch(userActions.loginCheckApi());
+    if(is_token) dispatch(userActions.loginCheckApi());
   }, []);
   
   return (
@@ -59,7 +59,6 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/address" component={Address} />
         <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/login" component={Login} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/scrab" component={Scrab} />
