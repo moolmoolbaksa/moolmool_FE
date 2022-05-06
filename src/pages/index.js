@@ -10,6 +10,7 @@ import RegisterProduct from "./RegisterProduct";
 import Address from "./Address";
 import Tradehistory from "./Tradehistory";
 import Rating from "./Rating";
+import Scrab from "./Scrab";
 
 export { 
     Detail,
@@ -24,4 +25,5 @@ export {
     Address,
     Tradehistory,
     Rating,
+    Scrab,
 };

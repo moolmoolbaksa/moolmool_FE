@@ -22,6 +22,7 @@ import {
   Address,
   Tradehistory,
   Rating,
+  Scrab,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
@@ -61,6 +62,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/registerproduct" component={RegisterProduct} />
         <Route exact path="/detail/:id" component={Detail} />
+        <Route exact path="/scrab" component={Scrab} />
         <Route exact path="/mall/:id" component={Mall} />
         <Route exact path="/change" component={Change} />
         <Route exact path="/mypage" component={Mypage} />

@@ -40,10 +40,27 @@ export const setProductScrabApi = createAsyncThunk(
     }
 );
 
+export const getMyScrabListApi = createAsyncThunk(
+    'product/getMyScrabListApi',
+    async () => {
+        try {
+            const response = await axios.get('http://13.125.220.67:8080/api/mypage/scrab',{
+                headers: {
+                    Authorization: `${localStorage.getItem('token')}`,
+                }
+            });
+            console.log(response);
+            return response.data;
+        } catch (error) {
+            console.log("getMyScrabListApi: ", error);
+            alert('getMyScrabListApi error');
+        }
+    }
+);
+
 export const setTradeProductApi = createAsyncThunk(
     'product/setTradeProductApi',
-    async (itemId, userId) => {
-        console.log(itemId, userId, '??')
+    async ({itemId, userId}) => {
         const token = localStorage.getItem("token");
         try {
             const response = await axios.get(`http://13.125.220.67:8080/api/trade?itemId=${itemId}&userId=${userId}`,{
@@ -51,6 +68,7 @@ export const setTradeProductApi = createAsyncThunk(
                     Authorization: token,
                 } 
             });
+            console.log(response)
             history.push('/change');
             return response.data;
         } catch (error) {
@@ -58,13 +76,13 @@ export const setTradeProductApi = createAsyncThunk(
             alert('setTradeProductApi error');
         }
     }
-)
+);
 
 export const product = createSlice({
     name: 'product',
     initialState: {
         product_info: {
-            bagImages: [],
+            bagInfos: [],
             contents: '',
             date: '',
             images: [],
@@ -81,6 +99,7 @@ export const product = createSlice({
             itemId: '',
         },
         barter_info: {},
+        scrab_list: [],
         is_loading: false,
     },
     reducers: {},
@@ -101,6 +120,9 @@ export const product = createSlice({
             .addCase(setTradeProductApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
             })
+            .addCase(getMyScrabListApi.fulfilled, (state, action) => {
+                state.scrab_list = action.payload;
+            })
     }
 });
 
@@ -108,6 +130,7 @@ export const api = {
     getProductApi,
     setProductScrabApi,
     setTradeProductApi,
+    getMyScrabListApi,
 };
 
 export default product.reducer;

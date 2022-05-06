@@ -1,33 +1,36 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { Image, Grid, Text } from '../../elements/index';
 import { api as userActions } from '../../redux/modules/user';
-import { product as productActions } from '../../redux/modules/product';
+import { api as productActions } from '../../redux/modules/product';
+import { history } from '../../redux/configureStore';
 
 const SellerBar = (props) => {
     const dispatch = useDispatch();
-    const info = useSelector(state => state.product.product_info)
-    console.log(info)
+    const my_nickname = useSelector(state => state.user.user_info.nickname);
     const {
         degree,
         nickname,
         profile,
         userId,
-        bagImages,
+        bagInfos,
         itemId,
     } = useSelector(state => state.product.product_info);
-   
+
     const onGoUserMall = () => {
+        if(my_nickname === nickname){
+            history.push('/mypage');
+            return;
+        };
         dispatch(userActions.getCounterUserInfoApi(userId));
     };
 
-    const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
-        // 더보기가 생겨서 개별 상세페이지로 연결되면 어떨까함
-    }
+    const onGoDetail = (e) => {
+        dispatch(productActions.getProductApi(e.target.dataset.id));
+    };
 
     return (
         <>
@@ -64,37 +67,40 @@ const SellerBar = (props) => {
                     </Grid>
                 </Grid>
             </InfoContainer>
-            <ItemContainer>
-                <Grid
-                    flex
-                >
-                    <Text 
-                        text={`${nickname} 님의 다른물건`}
-                        size="13px"
-                        letterSpacing="-1px"
-                        bold="bold"
-                        width="max-content"
-                    />
-                    <StyledLink 
-                        to='#'
-                        onClick={onGoUserMall}
+            {bagInfos.length && 
+                <ItemContainer>
+                    <Grid
+                        flex
                     >
-                        더보기
-                    </StyledLink>
-                </Grid>
-                <Grid is_flex margin="10px 0 0 0">
-                    {bagImages && bagImages.map((v, i) => {
-                        return <Image 
-                                    shape="circle"
-                                    onClick={onGoUserMall}
-                                    key={i}
-                                    src={v}
-                                    size="36"
-                                    margin="0 7px 0 0"
-                                />
-                    })}
-                </Grid>
-            </ItemContainer>
+                        <Text 
+                            text={`${nickname} 님의 다른물건`}
+                            size="13px"
+                            letterSpacing="-1px"
+                            bold="bold"
+                            width="max-content"
+                        />
+                        <StyledLink 
+                            to='#'
+                            onClick={onGoUserMall}
+                        >
+                            더보기
+                        </StyledLink>
+                    </Grid>
+                    <Grid is_flex margin="10px 0 0 0">
+                        {bagInfos && bagInfos.map((v, i) => {
+                            return <Image 
+                                        shape="circle"
+                                        onClick={onGoDetail}
+                                        key={v.bagItemId}
+                                        itemId={v.bagItemId}
+                                        src={v.bagImg}
+                                        size="36"
+                                        margin="0 7px 0 0"
+                                    />
+                        })}
+                    </Grid>
+                </ItemContainer>
+            }
         </>
     );
 };
@@ -103,11 +109,10 @@ const InfoContainer = styled.div`
     display: flex;
     align-items: center;
     padding: 11px 16px;
+    border-bottom: 1px #f5f5f5 solid;
 `;
 
 const ItemContainer = styled.div`
-    border-bottom: 1px #f5f5f5 solid;
-    border-top: 1px #f5f5f5 solid;
     padding: 8px 16px;
 `;
 

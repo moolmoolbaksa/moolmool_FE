@@ -67,6 +67,9 @@ const ElText = styled.div`
     text-align: ${props => props.textAlign};
     border-bottom: ${props => props.borderB};
     ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : '')};
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
         
 export default Text;

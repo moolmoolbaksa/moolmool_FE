@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements/index';
@@ -6,12 +7,15 @@ import { history } from '../../redux/configureStore';
 import ItemImage from './ItemImage';
 
 const ItemGrid = ({item_list}) => {
+    const location = useLocation();
     const onGoCreateItem = () => {
         history.push('/registerproduct')
     };
-    console.log(item_list)
+
     return (
-        <React.Fragment>
+        <Grid
+            padding="20px 0 0 0"
+        >
             <Text
                 text="나의 보따리"
                 bold="bold"
@@ -25,9 +29,9 @@ const ItemGrid = ({item_list}) => {
                                 {...v}
                             />       
                 })}
-                {item_list.length !== 9 && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
+                {location.pathname==='/mypage' && item_list.length !== 9 && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
             </Grid>
-        </React.Fragment>
+        </Grid>
     )
 };
 
@@ -41,6 +45,6 @@ const PlusItem = styled.div`
     align-items: center;
     font-size: 30px;
     cursor: pointer;
-`
+`;
 
 export default ItemGrid;

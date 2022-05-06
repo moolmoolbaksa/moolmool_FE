@@ -14,7 +14,7 @@ const DetailBottom = (props) => {
     const is_login = useSelector(state => state.user.is_login);
     const is_modal = useSelector(state => state.modal.is_modal);
     const {userId, nickname, isScrab, itemId} = useSelector(state => state.product.product_info);
-    console.log(userId)
+    
     const btnRef = useRef();
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const DetailBottom = (props) => {
             dispatch(setModal(true));
             return;
         };
-        dispatch(productActions.setTradeProductApi(itemId, userId));
+        dispatch(productActions.setTradeProductApi({itemId, userId}));
     };
 
     const onDoChat = () => {

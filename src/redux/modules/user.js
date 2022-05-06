@@ -94,17 +94,18 @@ const getMyInfoApi = createAsyncThunk(
 const getCounterUserInfoApi = createAsyncThunk(
     'user/getCounterUserInfoApi',
     async (userId) => {
+        console.log(userId)
         try {
-            // const response = await axios.get(`http://13.125.220.67:8080/${userId}/store`);
-            // return response.data;
+            const response = await axios.get(`http://13.125.220.67:8080/api/store/${userId}`);
             history.push(`/mall/${userId}`);
-            return response.couterUser;
+            console.log(response)
+            return response.data;
         } catch (error) {
-            console.log("getMyInfo: ", error);
-            alert('getMyInfo error');
+            console.log("getCounterUserInfoApi: ", error);
+            alert('getCounterUserInfoApi error');
         };
     }
-)
+);
 
 export const user = createSlice({
     name: 'user',
