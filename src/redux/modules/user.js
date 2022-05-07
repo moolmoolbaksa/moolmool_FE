@@ -7,11 +7,10 @@ import { response } from "../../shared/mock";
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
     async (thunkAPI) => {
-        const token = localStorage.getItem("token");
         try {
             const response = await axios.get('http://13.124.0.71/user/check',{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             return response.data
@@ -34,7 +33,7 @@ const kakaoLoginApi = createAsyncThunk(
             thunkAPI.dispatch(loginCheckApi());
             
             if(response.data.isFirst){
-                history.replace('/firstset');
+                history.replace('/address');
             } else {
                 history.replace('/');
             }
@@ -47,39 +46,57 @@ const kakaoLoginApi = createAsyncThunk(
 );
 
 const setFirstUserInfoApi = createAsyncThunk(
-    'user/setFristUserInfo',
-    async (preview, introduce) => {
-        const token = localStorage.getItem("token");
-        const formData = new FormData();
-        formData.append('profile', preview);
-        formData.append('storeInfo', introduce);
-        formData.append('address', '');
+    'user/setFirstUserInfoApi',
+    async (address) => {
+        console.log(address)
         try {
-            const response = await axios.put(`http://13.124.0.71/user/info`,formData,{
+            const response = await axios.put('http://13.124.0.71/user/info',{address},{
                 headers: {
-                    Authorization: token,
-                    // 'Content-Type' : 'multipart/form-data'
+                    Authorization: localStorage.getItem('token'),
                 }
             });
+            history.replace('/welcome');
             console.log(response)
-            // if(response.data.ok){
-            //     history.replace('/');
-            // }
         } catch (error) {
-            console.log("setFirstUserInfo: ", error);
-            alert('setFirstUserInfo error');
+            console.log("setFirstUserInfoApi error: ", error);
+            alert('setFirstUserInfoApi error');
         }
     }
 );
 
+// const setFirstUserInfoApi = createAsyncThunk(
+//     'user/setFristUserInfo',
+//     async (preview, introduce) => {
+//         const token = localStorage.getItem("token");
+//         const formData = new FormData();
+//         formData.append('profile', preview);
+//         formData.append('storeInfo', introduce);
+//         formData.append('address', '');
+//         try {
+//             const response = await axios.put(`http://13.124.0.71/user/info`,formData,{
+//                 headers: {
+//                     Authorization: token,
+//                     // 'Content-Type' : 'multipart/form-data'
+//                 }
+//             });
+//             console.log(response)
+//             // if(response.data.ok){
+//             //     history.replace('/');
+//             // }
+//         } catch (error) {
+//             console.log("setFirstUserInfo: ", error);
+//             alert('setFirstUserInfo error');
+//         }
+//     }
+// );
+
 const getMyInfoApi = createAsyncThunk(
     'user/getMyInfo',
     async () => {
-        const token = localStorage.getItem("token");
         try {
             const response = await axios.get('http://13.124.0.71/api/mypage',{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             console.log(response)
@@ -94,17 +111,18 @@ const getMyInfoApi = createAsyncThunk(
 const getCounterUserInfoApi = createAsyncThunk(
     'user/getCounterUserInfoApi',
     async (userId) => {
+        console.log(userId)
         try {
-            // const response = await axios.get(`http://13.125.220.67:8080/${userId}/store`);
-            // return response.data;
+            const response = await axios.get(`http://13.124.0.71/api/store/${userId}`);
             history.push(`/mall/${userId}`);
-            return response.couterUser;
+            console.log(response)
+            return response.data;
         } catch (error) {
-            console.log("getMyInfo: ", error);
-            alert('getMyInfo error');
+            console.log("getCounterUserInfoApi: ", error);
+            alert('getCounterUserInfoApi error');
         };
     }
-)
+);
 
 export const user = createSlice({
     name: 'user',

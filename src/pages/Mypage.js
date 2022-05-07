@@ -16,27 +16,26 @@ const Mypage = (props) => {
     return (
         <>
         <LocationBar title="마이페이지"/>
-        <Grid
+        <Container
             padding="0 16px"
             position="relative"
         >
             <MypageTop user_info={user_info}/>
-            <Wrap>
-                <ItemGrid item_list={item_list}/>
-                <TouchSlide title="찜한 상품" myScrabList={myScrabList}/>
-                {/* <TouchSlide title="나의 교환내역"/> */}
-            </Wrap>
+            <ItemGrid item_list={item_list}/>
+            <TouchSlide title="찜한 상품" myScrabList={myScrabList}/>
+            {/* <TouchSlide title="나의 교환내역"/> */}
             {/* <IconTabs /> */}
-        </Grid>
-        {/* <DetailBottom /> */}
+        </Container>
+        <DetailBottom />
         </>
     );
 };
 
-const Wrap = styled.div`
-    width: 100%;
-    height: calc(100vh - 315px);
-    overflow-y: auto;
+const Container = styled.div`
+    padding: 0 16px;
+    position: relative;
+    height: calc(100vh - 148px);
+    overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     &::-webkit-scrollbar {
         display: none; /* Chrome, Safari and Opera */

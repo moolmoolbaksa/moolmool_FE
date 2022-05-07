@@ -1,13 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import KakaoMap from '../components/shared/KakaoMap';
+import KakaoMap from '../../components/shared/KakaoMap';
 
-import { Grid, Text, Input, Button } from '../elements/index';
+import { Grid, Text, Button } from '../../elements/index';
+import { api as userActions } from '../../redux/modules/user';
 
 const Address = (props) => {
+    const dispatch = useDispatch();
     const {road_address, general_address} = useSelector(state => state.user.address);
-    
+    const onUpdateAddress = () => {
+        dispatch(userActions.setFirstUserInfoApi(general_address));
+    };
+
     return (
         <Grid
             height="100%"
@@ -79,7 +84,7 @@ const Address = (props) => {
                                 bold="bold"
                             />
                             <Text 
-                                text="도로명 주소를 알 수 없어요."
+                                text=""
                                 size="12px"
                                 letterSpacing="-1px"
                                 bold="500"
@@ -89,6 +94,7 @@ const Address = (props) => {
                     }
                 </Grid>
                 <Button
+                    onClick={onUpdateAddress}
                     height="50px"
                     radius="5px"
                     background="rgb(255,202,57)"

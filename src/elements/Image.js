@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const {shape, src, size, margin, onClick, children} = props;
+    const {shape, src, size, margin, onClick, children, itemId} = props;
   
     const styles = {
         src,
@@ -12,7 +12,7 @@ const Image = (props) => {
  
     if(shape === "circle"){
         return (
-            <ImageCircle {...styles} onClick={onClick}></ImageCircle>
+            <ImageCircle {...styles} onClick={onClick} data-id={itemId}></ImageCircle>
         )
     }
 
@@ -45,6 +45,7 @@ Image.defaultProps = {
   size: 36,
   margin: "4px",
   children: null,
+  itemId: null,
   onClick: () => {},
 };
 

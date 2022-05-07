@@ -1,25 +1,50 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Text } from '../elements/index';
-import { response } from '../shared/mock';
+import { Text, Grid } from '../elements/index';
+import { api as productActions } from '../redux/modules/product';
 
 const TouchSlide = ({ title, myScrabList }) => {
+    const dispatch = useDispatch();
+
+    const onGoScrabPage = () => {
+        dispatch(productActions.getMyScrabListApi());
+    };
+
+    const onGoDetail = (e) => {
+        dispatch(productActions.getProductApi(e.target.dataset.id));
+    };
     console.log(myScrabList)
+    
     return (
         <>
-            <Text 
-                text={title}
-                bold="bold"
-                size="24px"
+            <Grid
+                flex
                 margin="0 0 10px 0"
-                letterSpacing="-1px"
-            />
+            >
+                <Text 
+                    text={title}
+                    bold="bold"
+                    size="24px"
+                    letterSpacing="-1px"
+                    width="max-content"
+                />
+                <StyledLink
+                    to="/scrab"
+                    onClick={onGoScrabPage}
+                >
+                    더보기
+                </StyledLink>
+            </Grid>
             <SlideWrap className='no-scroll'>
                 {myScrabList.map(v => {
-                    return  <ImageWrap 
+                    return  <ImageWrap
+                                onClick={onGoDetail} 
                                 key={v.itemId}
                                 src={v.image}
+                                data-id={v.itemId}
                             />
                 })}
             </SlideWrap>
@@ -56,6 +81,17 @@ const ImageWrap = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 12.5px;
+    text-align: right;
+    color: black;
+    letter-spacing: -1px;
+    border-bottom: 1px #9d9d9d solid;
+    cursor: pointer;
 `;
 
 export default TouchSlide;
