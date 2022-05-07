@@ -19,6 +19,7 @@ const Rating = (props) => {
         setRating(idx+1);
     }
     return (
+        
         <React.Fragment>
             <LocationBar title="교환평가"/>
             <div  style={{margin:'0px auto '}}>
@@ -62,18 +63,9 @@ const Rating = (props) => {
                     <Button color='white'  text='평가하기' background='black' margin='auto'></Button>
 
                 </div>
-
-
-
             </div>
-
-            
             <IconTabs/>
         </React.Fragment>
-        
-        
-        
-
     );
 };
 

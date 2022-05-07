@@ -9,6 +9,8 @@ import RegisterProduct from "./RegisterProduct";
 import Tradehistory from "./Tradehistory";
 import Rating from "./Rating";
 import Scrab from "./Scrab";
+import Chatroomlist from "./Chatroomlist";
+import ChatroomDetail from "./ChatroomDetail";
 
 export { 
     Detail,
@@ -22,4 +24,6 @@ export {
     Tradehistory,
     Rating,
     Scrab,
+    Chatroomlist,
+    ChatroomDetail,
 };

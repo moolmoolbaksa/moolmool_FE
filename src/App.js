@@ -23,6 +23,8 @@ import {
   Tradehistory,
   Rating,
   Scrab,
+  Chatroomlist,
+  ChatroomDetail,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
@@ -69,6 +71,8 @@ function App() {
         <Route exact path="/noti" component={Notification}/>
         <Route exact path="/trhistory" component={Tradehistory}/>
         <Route exact path="/rating" component={Rating}/>
+        <Route exact path="/chat" component={Chatroomlist}/>
+        <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
       </Container>
     </ConnectedRouter>
   );

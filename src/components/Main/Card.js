@@ -6,13 +6,15 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import {BsEye} from 'react-icons/bs'
+
 import IconButton from '@mui/material/IconButton';
 import { api as productActions } from '../../redux/modules/product';
 import { useDispatch } from 'react-redux';
+import Image2 from '../../elements/Image2';
 
 const Card = (props) => {
     const dispatch = useDispatch();
-    const [ heartClick, setHeartClick ] = useState(false);
     // const btnRef = useRef();
     const {itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}=props;
     
@@ -23,7 +25,7 @@ const Card = (props) => {
     return (
         <React.Fragment>
             <Background>
-                <Image shape='rectangle' size='98' src={image} onClick={onGoDetail}></Image>
+                <Image2 shape='square' size='15' src={image} onClick={onGoDetail} padding='20px'></Image2>
                 
                 <Info>
                     <Title>
@@ -32,18 +34,11 @@ const Card = (props) => {
                     
                     <Description>{contents}</Description>
                     <div style={{display:'flex'}}>
-                        <IconButton size='small' aria-label='hearts' color='primary'>
+
                             <FavoriteBorderOutlinedIcon/>{scrabCnt}
-                        </IconButton>
-                        
-                        
-                        <IconButton size='small' aria-label='hearts' color='primary'>
-                            <ChatBubbleOutlineOutlinedIcon/> {viewCnt}
-                        </IconButton>
-                        <IconButton size='small' aria-label='hearts' color='primary'>
+                            <BsEye/> {viewCnt}
                             <LocationOnOutlinedIcon/> {address}
-                        </IconButton>
-                </div>
+                     </div>
                 </Info>
                 
                 
@@ -73,10 +68,9 @@ const Background=styled.div`
 
 display:flex;
 background: #FFFFFF;
-
-border-radius: 5px;
-height:100px;
-border:1px solid black;
+box-sizing:content-box;
+height:15vh;
+border-bottom: 1px solid grey;
 margin:0px 0px 5px 0px;
 `;
 
@@ -95,16 +89,11 @@ font-family: 'DM Serif Display';
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
+& ::before{
+    content:'  ';
+}
 // line-height: 25px;`;
-const Author=styled.div`
-display:block;
 
-/* Open Sans / 16 sp • Body 2 */
-font-family: 'Open Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 11px;
-// line-height: 25px;`;
 const Description=styled.h2`
 
 /* Open Sans / 16 sp • Body 2 */

@@ -77,7 +77,7 @@ const RegisterProduct = (props) => {
         setFileslist(filelist);
         if(preview.length>0)
         {
-            setPreview(arr=>arr.splice(0,arr.length));
+            setPreview([]);
         }
         Array.from(fileInput.current.files).forEach(file => {
         
@@ -164,11 +164,11 @@ const RegisterProduct = (props) => {
         
         <div style={{display:'flex', flexWrap:'wrap'}}>
             {
-                categorys_list.map((p)=>{
+                categorys_list.map((p,idx)=>{
                     return(
-                <div> 
-                    <input name="category" id={p.value} type="radio" value={p.value} checked={null} onClick={handleCategory}/>
-                    <label htmlFor={p.value}
+                <div key={`category_div_${idx}`}> 
+                    <input name="category" key={`category_input_${idx}`} id={p.value} type="radio" value={p.value} checked={null} onClick={handleCategory}/>
+                    <label htmlFor={p.value} key={`category_label_${idx}`}
                     >
                             
                             {p.value}
@@ -195,7 +195,7 @@ const RegisterProduct = (props) => {
             <Imagelist >
             {/* _onclick={deletePreview(idx)} */}
             {preview.map((n,idx) => {
-                return <ImageSlide  key={idx} src={n} can_delete></ImageSlide>;
+                return <ImageSlide   idx={idx} key={idx} src={n} can_delete></ImageSlide>;
             
           })}
           <UploadLabel htmlFor="raised-button-file">+</UploadLabel>
@@ -212,11 +212,11 @@ const RegisterProduct = (props) => {
         
         <div style={{display:'flex', flexWrap:'wrap'}}>
             {
-                categorys_list.map((p)=>{
+                categorys_list.map((p,idx)=>{
                     return(
-                <div> 
-                    <input name="favors" id={p.value} type="checkbox" value={p.value} checked={null} onClick={handleFavor}/>
-                    <label htmlfor={p.value}
+                <div key={`favors_div_${idx}`}> 
+                    <input name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} checked={null} onClick={handleFavor}/>
+                    <label htmlFor={p.value} key={`favors_label_${idx}`}
                     >
                             
                             {p.value}
@@ -237,11 +237,11 @@ const RegisterProduct = (props) => {
         {typeOpen?(<Emptyline/>):""}
         {
             typeOpen?(
-                type_list.map((p)=>{
+                type_list.map((p,idx)=>{
                     return(
-                        <div>
-                            <input name="type" id={p.value} type="radio" value={p.value} checked={null} onClick={handleType}/>
-                            <label htmlFor={p.value}> {p.value} </label>
+                        <div key={`type_div_${idx}`}>
+                            <input  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} checked={null} onClick={handleType}/>
+                            <label key={`type_label_${idx}`} htmlFor={p.value}> {p.value} </label>
                         </div>
                     )
                 })
@@ -270,8 +270,11 @@ const RegisterProduct = (props) => {
 };
 const Imagelist=styled.div`
     display:flex;
-    overflow:auto;
-    overflow-x:hidden;
+    overflow:scroll;
+    &.no-scroll::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
+    flex-wrap: nowrap;
 `;
 const UploadLabel=styled.label`
     box-sizing:border-box;

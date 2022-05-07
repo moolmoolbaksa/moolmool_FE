@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 // import styled from 'styled-components';
 import { styled, alpha } from '@mui/material/styles';
-import { Text, Grid, Input, Button,Image } from '../elements/index';
+import { Button,Image } from '../elements/index';
 import IconTabs from '../components/IconTabs';
 import Card from '../components/Main/Card'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -23,12 +21,14 @@ import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import { ItemAPI } from '../shared/api';
 
+
 import { set } from 'lodash';
 import { useSelector } from 'react-redux';
 // Instantiation
 
 
 const Main = (props) => {
+  const is_token = localStorage.getItem("token");
   // console.log(localStorage.getItem('token'));
   const [filter,setfilter] = useState('전체');
   const [openFilter,setopenfilter] = useState(false);
@@ -49,16 +49,40 @@ const Main = (props) => {
       console.log(category_string)
       
     }
-    ItemAPI.getItems(category_string)
+    console.log(is_token);
+    console.log(!is_token);
+    if(!is_token)
+    {
+      
+    ItemAPI.getItemswitoutlogin(category_string)
     .then((res)=>{
       console.log(res);
       setCardlist(res.data);
+      console.log(is_token);
+      console.log('getItemswitoutlogin');
 
     })
     .catch((error)=>{
       console.log(error);
       console.log(category_string);
+      console.log(is_token);
+      console.log('getItemswitoutlogin');
     })
+    }
+    else{
+      ItemAPI.getItems(category_string)
+    .then((res)=>{
+      console.log(res);
+      setCardlist(res.data);
+      console.log('getItems');
+
+    })
+    .catch((error)=>{
+      console.log(error);
+      console.log(category_string);
+      console.log('getItems');
+    })
+  }
 
 
   },[openFilter])
@@ -77,16 +101,7 @@ const Main = (props) => {
                    <IconButton onClick={Drawers} size="large"edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
-
-                    <Search>
-                        <SearchIconWrapper>
                             <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
                     <Badge badgeContent={4} color="success">
                         <MailIcon color="action" />
                     </Badge>
@@ -105,7 +120,6 @@ const Main = (props) => {
                 <List>
                   {['전체','category1','category2','category3','category4','category5','category6','category7'].map((text,index)=>(
                     <ListItem key={text}>
-                    <input type='checkbox'/>
                     <ListItemIcon>
                       <MailIcon/>
                     </ListItemIcon>
@@ -118,16 +132,15 @@ const Main = (props) => {
                   ))}
 
                 </List>
-                <Button text='적용' height='40px' background='black' color='white'></Button>
               </div>
             
 
             </Drawer>
             <div style={{display:'flex', width:'100%', margin:'', backgroundColor:'#FFBB00'}}>
-                <Image src={profile}/>
+                <Image size='100' src={profile} margin='20px 20px'/>
 
                 <div>
-                    <p>안녕하세요, {nickname}님 </p>
+                    <p>안녕하세요, {!is_token?"손":nickname}님 </p>
                     <p>물물 교환을 시작해 볼까요?</p>
                 </div> 
             </div>     
