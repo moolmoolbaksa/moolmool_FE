@@ -8,7 +8,7 @@ export const getProductApi = createAsyncThunk(
     async (itemId) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/api/items/${itemId}`,{
+            const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
                 headers: {
                     Authorization: token,
                 }

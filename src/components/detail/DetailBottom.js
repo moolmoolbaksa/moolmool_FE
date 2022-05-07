@@ -6,7 +6,7 @@ import { Grid, Button } from '../../elements/index';
 import { setModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
 import LoginNoti from '../modal/LoginNoti';
-
+import {ChatAPI} from '../../shared/api';
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
     
@@ -45,8 +45,21 @@ const DetailBottom = (props) => {
     const onDoChat = () => {
         if(!is_login){
             dispatch(setModal(true));
-            return;
+            // return;
         }
+        ChatAPI.addChatRoom(userId)
+        .then((res)=>{
+            console.log(res);
+            console.log('userid:'+userId);
+        })
+        .catch((error)=>{
+            console.log(error);
+            console.log('error check');
+            console.log('userid:'+userId);
+        })
+
+
+
     };
     
     return (

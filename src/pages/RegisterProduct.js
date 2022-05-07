@@ -268,8 +268,11 @@ const RegisterProduct = (props) => {
 };
 const Imagelist=styled.div`
     display:flex;
-    overflow:auto;
-    overflow-x:hidden;
+    overflow:scroll;
+    &.no-scroll::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
+    flex-wrap: nowrap;
 `;
 const UploadLabel=styled.label`
     box-sizing:border-box;

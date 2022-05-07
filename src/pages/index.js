@@ -10,7 +10,8 @@ import RegisterProduct from "./RegisterProduct";
 import Address from "./Address";
 import Tradehistory from "./Tradehistory";
 import Rating from "./Rating";
-
+import Chatroomlist from "./Chatroomlist";
+import ChatroomDetail from "./ChatroomDetail";
 export { 
     Detail,
     Mall,
@@ -24,4 +25,6 @@ export {
     Address,
     Tradehistory,
     Rating,
+    Chatroomlist,
+    ChatroomDetail,
 };

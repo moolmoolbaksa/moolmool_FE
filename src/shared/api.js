@@ -2,11 +2,15 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const token = localStorage.getItem('token');
 
+// http://13.125.220.67:8080
 const api = axios.create({
-  baseURL: "http://13.125.220.67:8080",
+  baseURL: "http://13.124.0.71",
 });
+
+const chatapi = axios.create({
+	baseURL: "http://13.124.0.71",
+  });
 
 export const UserAPI = {
 	login: (formLogin) => api.post("/user/login", formLogin),
@@ -47,7 +51,6 @@ export const UserAPI = {
 
   //
 };
-
 export const ItemAPI = {
 
   getItems: (category_string) => api.get(`${category_string}`, {
@@ -55,6 +58,8 @@ export const ItemAPI = {
       "Authorization": `${localStorage.getItem('token')}`,
     },
   }),
+  getItemswitoutlogin: (category_string) => api.get(`${category_string}`),
+
   registerItem: (Formitem) => api.post('/api/items',Formitem, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -67,39 +72,27 @@ export const ItemAPI = {
 export const ChatAPI = {
 	// 방 목록 가져오기
 	getChatRoom: () =>
-		api.get("/api/chat/rooms", {
+		chatapi.get("/chat/rooms", {
 		headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+			"Authorization": `${localStorage.getItem('token')}`,
 		},
 		}),
 
 	// 방 추가하기
-	addChatRoom: (room) =>
-		api.post("/api/chat/rooms", room, {
+	addChatRoom: (userid) => chatapi.post("/chat/room", {userId:userid}, {
 		headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+			"Authorization":  `${localStorage.getItem('token')}`,
 		},
-		}),
+		})
+		,
 
 	// 방 접속하기
 	enterRoom: (roomId) =>
-		api.get(`/api/chat/rooms/${roomId}`, {
+		api.get(`/chat/room/${roomId}`, {
 		headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+			Authorization:  `${localStorage.getItem('token')}`,
 		},
 		}),
-
-	// 유저 초대하기
-	inviteUser: (roomid, username) =>
-		api.post(
-		`/api/chat/invite`,
-		{ username: username, roomId: roomid },
-		{
-			headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-			},
-		}
-		),
 
 	// 이전 메세지 가져오기
 	getMessage: (roomId) =>

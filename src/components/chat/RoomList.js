@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { history } from '../../redux/configureStore';
+import ChatRoom from './ChatRoom';
+import Inputbox from './Inputbox';
 const Base = styled.div`
 // list-style: none;
   margin: 0;
@@ -8,12 +11,20 @@ const Base = styled.div`
 `;
 
 const Container = styled.div`
-
+  
 `;
 
-const RoomList = (children) => {
+
+
+const RoomList = (props) => {
+  const {roomlist}=props;
+  console.log(roomlist);
+  
+
     return(
-        <Base>{children}</Base>
+        <Base>
+                              
+        </Base>
 
     );
         
