@@ -42,27 +42,15 @@ const ImageInner = styled.div`
     background-position: center;
     background-size: cover;
     border-radius: 5px;
-  
-    border: ${props => props.is_check ? '5px red solid' : ''};
+    border: ${props => props.is_check ? '5px #0095B7 solid' : ''};
     cursor: pointer;
 
-    /* ${props => props.checkItem 
-        ?   `
-            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('${props => props.src}');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            border-radius: 100px;
-            `
-        :   ''
-    }  */
-        
-    /* &:active {
-        background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url('${props => props.src}');
+    &:hover {
+        background: url('${props => props.src}'), linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-    } */
+    }
 `;
 
 export default TradeMyItem;

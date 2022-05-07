@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Grid, Button } from '../../elements/index';
 import { setModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
-import LoginNoti from '../modal/LoginNoti';
+import NotiModal from '../modal/NotiModal';
 
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
@@ -74,31 +74,44 @@ const DetailBottom = (props) => {
                     is_flex
                     gap="5px"
                     width="100%"
-                >
-                    <Button 
-                        onClick={onDoChat}
-                        text="채팅보내기"
-                        color="white"
-                        size="20px" 
-                        radius="3px"
-                        height="50px"
-                        bold="bold"
-                        background="#0095b7"   
-                        margin="0 0 0 16px"
-                    /> 
-                    <Button 
-                        onClick={onDoTrade}
-                        text="교환신청"
-                        color="black"
-                        size="20px" 
-                        radius="3px"
-                        bold="bold"
-                        height="50px"
-                        background="#ffca39"   
-                    /> 
+                >   
+                    {my_nickname === nickname
+                        ?   <Button 
+                                onClick={onDoChat}
+                                text="삭제하기"
+                                color="white"
+                                size="20px" 
+                                radius="3px"
+                                height="50px"
+                                bold="bold"
+                                background="#666666"   
+                                margin="0 0 0 16px"
+                            />
+                        :   <><Button 
+                                onClick={onDoChat}
+                                text="채팅보내기"
+                                color="white"
+                                size="20px" 
+                                radius="3px"
+                                height="50px"
+                                bold="bold"
+                                background="#0095b7"   
+                                margin="0 0 0 16px"
+                            /> 
+                            <Button 
+                                onClick={onDoTrade}
+                                text="교환신청"
+                                color="black"
+                                size="20px" 
+                                radius="3px"
+                                bold="bold"
+                                height="50px"
+                                background="#ffca39"   
+                            /></>
+                    }
                 </Grid>
             </Container>
-            {is_modal && <LoginNoti />}
+            {is_modal && <NotiModal />}
         </>
     );
 };
