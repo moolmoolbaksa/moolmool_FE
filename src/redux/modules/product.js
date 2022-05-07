@@ -5,14 +5,18 @@ import { history } from "../configureStore";
 
 export const getProductApi = createAsyncThunk(
     'product/getProductApi',
-    async (itemId) => {
+    async (itemId, thunkAPI) => {
         try {
-            const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                }
-            });
-            console.log(response)
+            let response;
+            if(thunkAPI.getState().user.is_login){
+                response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    }
+                });
+            } else {
+                response = await axios.get(`http://13.124.0.71/api/items/${itemId}`);
+            }
             history.push(`/detail/${itemId}`);
             return response.data;
         } catch (error) {
@@ -97,7 +101,6 @@ export const product = createSlice({
     name: 'product',
     initialState: {
         product_info: {
-            bagInfos: [],
             contents: '',
             date: '',
             images: [],
@@ -112,6 +115,9 @@ export const product = createSlice({
             userId: '',
             viewCnt: 0,
             itemId: '',
+            type: '',
+            favored: [],
+
         },
         barter_info: {},
         scrab_list: [],

@@ -4,13 +4,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"
 import styled from 'styled-components';
 
-import DetailBottom from '../components/detail/DetailBottom';
-import DetailContent from '../components/detail/DetailContent';
-import SellerBar from '../components/detail/SellerBar';
+import {
+    DetailBottom, 
+    DetailContent, 
+    DetailRecommendCategory, 
+    OpponentInfo, 
+    TransMethod
+} from '../components/detail/index';
 import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import StatusLabel from '../components/shared/StatusLabel';
+
+
 
 const Detail = (props) => {
     const {images, status} = useSelector(state => state.product.product_info);
@@ -41,10 +47,12 @@ const Detail = (props) => {
                         )}
                     </StyledSlider>
                     <StatusLabel status={status}/>
+                    <TransMethod />
                 </Grid>
                 <Wrap>
-                    <SellerBar/>
+                    <OpponentInfo/>
                     <DetailContent/>
+                    <DetailRecommendCategory/>
                 </Wrap>
             <DetailBottom />
         </Container>

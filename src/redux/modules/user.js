@@ -142,11 +142,11 @@ export const user = createSlice({
             address: "",
             degree: "",
             grade: "",
+            other_item_list: [],
         },
         address: "",
         item_list: [],
         myScrabList: [],
-        other_item_list: [],
         preview: "http://kaihuastudio.com/common/img/default_profile.png",
         is_login: false,
     },
@@ -182,7 +182,7 @@ export const user = createSlice({
             .addCase(getCounterUserInfoApi.fulfilled, (state, action) => {
                 const {itemList, ...other_info} = action.payload;
                 state.other = other_info;
-                state.other_item_list = itemList;
+                state.other.other_item_list = itemList;
             })
     }
 });
