@@ -7,11 +7,10 @@ import { response } from "../../shared/mock";
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
     async (thunkAPI) => {
-        const token = localStorage.getItem("token");
         try {
             const response = await axios.get('http://13.124.0.71/user/check',{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             return response.data
@@ -53,7 +52,7 @@ const setFirstUserInfoApi = createAsyncThunk(
         try {
             const response = await axios.put('http://13.124.0.71/user/info',{address},{
                 headers: {
-                    Authorization: `${localStorage.getItem('token')}`,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             history.replace('/welcome');
@@ -94,11 +93,10 @@ const setFirstUserInfoApi = createAsyncThunk(
 const getMyInfoApi = createAsyncThunk(
     'user/getMyInfo',
     async () => {
-        const token = localStorage.getItem("token");
         try {
             const response = await axios.get('http://13.124.0.71/api/mypage',{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             console.log(response)

@@ -6,11 +6,10 @@ import { history } from "../configureStore";
 export const getProductApi = createAsyncThunk(
     'product/getProductApi',
     async (itemId) => {
-        const token = localStorage.getItem("token");
         try {
             const response = await axios.get(`http://13.124.0.71/api/items/${itemId}`,{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             console.log(response)
@@ -26,11 +25,10 @@ export const getProductApi = createAsyncThunk(
 export const setProductScrabApi = createAsyncThunk(
     'product/setProductScrabApi',
     async (itemId) => {
-        const token = localStorage.getItem("token");
         try {
             await axios.post(`http://13.124.0.71/api/${itemId}/scrabs`,{},{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
         } catch (error) {
@@ -46,7 +44,7 @@ export const getMyScrabListApi = createAsyncThunk(
         try {
             const response = await axios.get('http://13.124.0.71/api/mypage/scrab',{
                 headers: {
-                    Authorization: `${localStorage.getItem('token')}`,
+                    Authorization: localStorage.getItem('token'),
                 }
             });
             console.log(response);
@@ -58,14 +56,13 @@ export const getMyScrabListApi = createAsyncThunk(
     }
 );
 
-export const setTradeProductApi = createAsyncThunk(
+export const getTradeProductApi = createAsyncThunk(
     'product/setTradeProductApi',
     async ({itemId, userId}) => {
-        const token = localStorage.getItem("token");
         try {
             const response = await axios.get(`http://13.124.0.71/api/trade?itemId=${itemId}&userId=${userId}`,{
                 headers: {
-                    Authorization: token,
+                    Authorization: localStorage.getItem('token'),
                 } 
             });
             console.log(response)
@@ -77,6 +74,24 @@ export const setTradeProductApi = createAsyncThunk(
         }
     }
 );
+
+export const setTradeApi = createAsyncThunk(
+    'propduct/setTradeApi',
+    async (_,thunkAPI) => {
+        const {userId, itemId} = thunkAPI.getState().product.product_info;
+        const myItemIds = thunkAPI.getState().product.trade_item;
+        try {
+            await axios.post('http://13.124.0.71/api/trade',{userId, itemId, myItemIds},{
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                }
+            });
+        } catch (error) {
+            console.log("setTradeApi: ", error);
+            alert('setTradeApi error');
+        }
+    }
+)
 
 export const product = createSlice({
     name: 'product',
@@ -100,9 +115,18 @@ export const product = createSlice({
         },
         barter_info: {},
         scrab_list: [],
+        trade_item: [],
         is_loading: false,
     },
-    reducers: {},
+    reducers: {
+        setTrade: (state, action) => {
+            if(state.trade_item.includes(action.payload)){
+                state.trade_item = state.trade_item.filter(val => val !== action.payload);
+            } else {
+                state.trade_item.push(action.payload);
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getProductApi.fulfilled, (state, action) => {
@@ -117,7 +141,7 @@ export const product = createSlice({
                     state.product_info.isScrab = true;
                 };
             })
-            .addCase(setTradeProductApi.fulfilled, (state, action) => {
+            .addCase(getTradeProductApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
             })
             .addCase(getMyScrabListApi.fulfilled, (state, action) => {
@@ -129,8 +153,13 @@ export const product = createSlice({
 export const api = {
     getProductApi,
     setProductScrabApi,
-    setTradeProductApi,
+    getTradeProductApi,
     getMyScrabListApi,
+    setTradeApi,
 };
+
+export const { 
+    setTrade,
+} = product.actions;
 
 export default product.reducer;

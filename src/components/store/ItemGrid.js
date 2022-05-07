@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements/index';
 import { history } from '../../redux/configureStore';
+import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
 
 const ItemGrid = ({item_list}) => {
     const location = useLocation();
     const onGoCreateItem = () => {
-        history.push('/registerproduct')
+        history.push('/registerproduct');
     };
 
     return (
@@ -22,16 +23,28 @@ const ItemGrid = ({item_list}) => {
                 size="24px"
                 letterSpacing="-1px"
             />
-            <Grid gridBox margin="20px 0">
-                {item_list && item_list.map((v, i) => {
-                    return  <ItemImage 
-                                key={i}
-                                {...v}
-                            />       
-                })}
-                {location.pathname==='/mypage' && item_list.length !== 9 && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
-            </Grid>
-        </Grid>
+            {location.pathname==='/mypage' && 
+                <Grid gridBox margin="20px 0">
+                    {item_list && item_list.map((v, i) => {
+                        return  <ItemImage 
+                                    key={i}
+                                    {...v}
+                                />       
+                    })}
+                    {item_list.length !== (0 || 9) && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
+                </Grid>
+            }
+            {location.pathname==='/trade' &&
+                <Grid gridBox margin="20px 0">
+                    {item_list && item_list.map((v, i) => {
+                        return  <TradeMyItem 
+                                    key={i}
+                                    {...v}
+                                />       
+                    })}
+                </Grid>
+            }
+        </Grid> 
     )
 };
 

@@ -11,16 +11,16 @@ const TradeItemCard = ({sellerImages, sellerNickName}) => {
                 <ImageWrap src={sellerImages}/>
             </ImageOutter>
             <Grid
-                overflow
                 is_flex
                 is_column
                 gap="10px"
+                is_overflow
             >
                 <Grid
-                    overflow
                     is_flex
                     is_column
                     gap="5px"
+                    is_overflow
                 >
                     <Text 
                         text={sellerNickName}

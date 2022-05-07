@@ -39,7 +39,7 @@ const DetailBottom = (props) => {
             dispatch(setModal(true));
             return;
         };
-        dispatch(productActions.setTradeProductApi({itemId, userId}));
+        dispatch(productActions.getTradeProductApi({itemId, userId}));
     };
 
     const onDoChat = () => {

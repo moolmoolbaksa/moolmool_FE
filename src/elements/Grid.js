@@ -71,7 +71,7 @@ Grid.defaultProp = {
 	justify: false,
 	is_column: "row",
 	is_flex: false,
-	overflow: false,
+	is_overflow: false,
 };
 
 const GridBox = styled.div`
