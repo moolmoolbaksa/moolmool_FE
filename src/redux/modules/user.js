@@ -56,7 +56,7 @@ const setFirstUserInfoApi = createAsyncThunk(
                     Authorization: `${localStorage.getItem('token')}`,
                 }
             });
-            history.replace('/');
+            history.replace('/welcome');
             console.log(response)
         } catch (error) {
             console.log("setFirstUserInfoApi error: ", error);

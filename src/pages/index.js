@@ -1,6 +1,6 @@
 import Detail from "./Detail";
 import Mall from "./Mall";
-import Change from "./Change";
+import Trade from "./Trade";
 import Main from "./Main";
 import Notification from "./Notification";
 import Mypage from "./Mypage";
@@ -13,7 +13,7 @@ import Scrab from "./Scrab";
 export { 
     Detail,
     Mall,
-    Change,
+    Trade,
     Main,
     Notification,
     Mypage,

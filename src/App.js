@@ -14,7 +14,7 @@ import {
 import { 
   Detail,
   Mall,
-  Change,
+  Trade,
   Main,
   Mypage,
   Notification,
@@ -63,7 +63,7 @@ function App() {
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/scrab" component={Scrab} />
         <Route exact path="/mall/:id" component={Mall} />
-        <Route exact path="/change" component={Change} />
+        <Route exact path="/trade" component={Trade} />
         <Route exact path="/mypage" component={Mypage} />
         <Route exact path="/editmyinfo" component={EditMyInfo} />
         <Route exact path="/noti" component={Notification}/>

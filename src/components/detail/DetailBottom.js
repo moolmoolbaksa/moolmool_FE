@@ -34,7 +34,7 @@ const DetailBottom = (props) => {
         }
     };
 
-    const onDoChange = () => {
+    const onDoTrade = () => {
         if(!is_login){
             dispatch(setModal(true));
             return;
@@ -87,7 +87,7 @@ const DetailBottom = (props) => {
                         margin="0 0 0 16px"
                     /> 
                     <Button 
-                        onClick={onDoChange}
+                        onClick={onDoTrade}
                         text="교환신청"
                         color="black"
                         size="20px" 

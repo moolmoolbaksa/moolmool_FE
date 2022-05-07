@@ -23,7 +23,7 @@ const ItemGrid = ({item_list}) => {
                 letterSpacing="-1px"
             />
             <Grid gridBox margin="20px 0">
-                {item_list.map((v, i) => {
+                {item_list && item_list.map((v, i) => {
                     return  <ItemImage 
                                 key={i}
                                 {...v}
