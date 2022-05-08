@@ -140,10 +140,9 @@ const DetailBottom = (props) => {
 };
 
 const Container = styled.div`
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    padding: 18px 16px;
+    padding: 10px 16px 2px;
+    margin-bottom: 65px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -152,7 +151,6 @@ const Container = styled.div`
 
 const HeartOuter = styled.div`
     position: relative;
-    z-index: 10;
     user-select: none;
     height: auto;
     svg {

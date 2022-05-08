@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { setModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
@@ -10,7 +10,21 @@ import { useLocation } from 'react-router-dom';
 const NotiModal = ({type}) => {
     const location = useLocation();
     const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
+    const is_modal = useSelector(state => state.modal.is_modal);
+    
+    useEffect(() => {
+        if(is_modal){
+            setIsOpen(true);
+        } else {
+            setTimeout(() => setIsOpen(false), 200);
+        }
+    }, [is_modal]);
 
+    if(!isOpen){
+        return null;
+    };
+    
     const onClose = () => {
         dispatch(setModal(false));
         if(location.pathname==='/trade') history.push('/');
@@ -19,7 +33,7 @@ const NotiModal = ({type}) => {
     if(type==='trade'){
         return (
             <ModalBackground>
-                <ModalContainer>
+                <ModalContainer is_modal={is_modal}>
                     <Content>
                         <span class="material-symbols-outlined">
                             published_with_changes
@@ -52,8 +66,19 @@ const NotiModal = ({type}) => {
 
     return (
         <ModalBackground>
-            <ModalContainer>
-                <Content>로그인 모달</Content>
+            <ModalContainer is_modal={is_modal}>
+                <Content>
+                    <span className="material-symbols-outlined">
+                        login
+                    </span>
+                    <Grid>
+                        <Text
+                            text="로그인 후 이용가능합니다"
+                            textAlign="center"
+                            size="24px"
+                        />
+                    </Grid>
+                </Content>
                 <BtnWrap>
                     <Button 
                         onClick={onClose}
@@ -75,7 +100,31 @@ const NotiModal = ({type}) => {
     );
 };
 
+const FadeIn = keyframes`
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -30%);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+`;
+
+const FadeOut = keyframes`
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    100%{
+        opacity: 0;
+        transform: translate(-50%, -30%);
+    }
+`;
+
 const ModalBackground = styled.div`
+    /* display: ${props => props.display}; */
+    /* transition: display 0.3s ease-out; */
     position: absolute;
     z-index: 10000;
     left: 0;
@@ -95,6 +144,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
+    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out alternate;
 `;
 
 const Content = styled.div`
@@ -126,6 +176,7 @@ const Button = styled.button`
     color: white;
     font-size: 20px;
     font-weight: bold;
+    cursor: pointer;
     background-color: ${props => props.background};
     border-radius:${props => props.radius};
 `;

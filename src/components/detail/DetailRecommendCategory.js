@@ -32,7 +32,7 @@ const Container = styled.div`
     display: flex;
     gap: 5px;
     margin-top: 5px;
-    margin-bottom: 86px;
+    /* margin-bottom: 65px; */
     padding: 5px 16px 0;
     border-top: 1px #f5f5f5 solid;
 `;

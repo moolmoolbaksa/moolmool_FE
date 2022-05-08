@@ -15,6 +15,7 @@ import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import StatusLabel from '../components/shared/StatusLabel';
+import TabBar from '../components/TabBar';
 
 
 
@@ -55,6 +56,7 @@ const Detail = (props) => {
                     <DetailRecommendCategory/>
                 </Wrap>
             <DetailBottom />
+            <TabBar />
         </Container>
     );
 };
