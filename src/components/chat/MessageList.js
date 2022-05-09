@@ -11,9 +11,7 @@ height:80vh;
 const MessageList = (props) => {
     
     return(
-        <React.Fragment>
-
-        </React.Fragment>
+        <Base>{props.children}</Base>
     );
         
     

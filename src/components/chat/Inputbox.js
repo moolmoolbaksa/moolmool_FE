@@ -49,6 +49,8 @@ const Inputbox = (props) => {
           { "Authorization": `${localStorage.getItem('token')}` },
           JSON.stringify(text)
         );
+                setMessage("");
+        messageInput.current.value="";
       })
     //     try {
     //       if (!token) {
@@ -102,13 +104,13 @@ const Inputbox = (props) => {
 
     const handleMessage=(e)=>{
         setMessage(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     }
     
     return(
         <Base>
-            <input type="text" ref={messageInput} onChange={handleMessage}></input>
-            <Button background="orange" text="전송" onClick={onSend}></Button>
+            <input style={{width:'400px'}} placeholder="메시지를 입력해주세요" type="text" ref={messageInput} onChange={handleMessage}></input>
+            <Button width='50px' background="orange" text="전송" onClick={onSend}></Button>
         </Base>
     );
         

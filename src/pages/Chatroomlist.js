@@ -20,24 +20,12 @@ flex-direction: column;
 `;
 // http://13.125.220.67:8080
 const Chatroomlist = (props) => {
-    // let sock = new SockJS('http://13.124.0.71/ws-stomp');
-    // let ws = Stomp.over(sock);
 
-    // const stompConnect=()=>{
-    //     try{
-
-    //     }
-    //     catch (err) {
-
-    //     };
-    // }
     const [roomlist,setRoomlist]=useState([]);
 
 React.useEffect(()=>{
     ChatAPI.getChatRoom()
     .then((res)=>{
-        console.log(res);
-        console.log(res.data);
         setRoomlist(res.data);
     })
     .catch((error)=>{

@@ -114,14 +114,14 @@ const Main = (props) => {
             open={openFilter}
             onClose={Drawers}
             
-            
+
             >
               <div style={{width:'250px'}}>
                 <List>
-                  {['전체','category1','category2','category3','category4','category5','category6','category7'].map((text,index)=>(
+                  {['전체','가전제품','여성의류','생활용품','욕실용품','주방용품','서적/음반','게임/취미',"뷰티/미용","기타"].map((text,index)=>(
                     <ListItem key={text}>
                     <ListItemIcon>
-                      <MailIcon/>
+                      
                     </ListItemIcon>
                     <ListItemText primary={text} onClick={()=>{
                       setfilter(text);

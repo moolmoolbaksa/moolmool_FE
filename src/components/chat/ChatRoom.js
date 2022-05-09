@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Image } from '../../elements';
+import { Image,Button } from '../../elements';
 import { history } from '../../redux/configureStore';
+import { ChatAPI } from '../../shared/api';
 const Base = styled.div`
     display: flex;
     justify-content: space-between;
@@ -51,19 +52,32 @@ const SentAt = styled.time``;
 
 const ChatRoom = (props) => {
 
+  const exitroom=()=>{
+    ChatAPI.exitRoom(roomId)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
     const {roomId, nickname,lastmessage, lastmessagesentAt, profile, message}=props;
     return(
-        <Base onClick={()=>{history.push(`/chat/${roomId}`)}}>
+        <Base >
             <AvatarWrapper>
                 <Image src={profile}>
                 </Image>
             </AvatarWrapper>
             <Content >
+                <div onClick={()=>{history.push(`/chat/${roomId}`)}}>
                 <Username>{nickname}</Username>
                 <LastMessage>{message}</LastMessage>
                 <SentAtWrapper>
                     <SentAt>2021-05-06</SentAt>
                 </SentAtWrapper>
+                </div>
+                <Button text='채팅방 나가기' onClick={exitroom}></Button>
             </Content>
         </Base>
 

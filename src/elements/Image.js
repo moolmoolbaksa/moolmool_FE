@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const {shape, src, size, margin, onClick, children} = props;
+    const {shape, src, size, margin, onClick, children, vhvw} = props;
   
     const styles = {
         src,
@@ -31,7 +31,17 @@ const Image = (props) => {
             </SlideOutter>
         )
     }
+    if(shape==="square" && vhvw)
+    {
+        return (
+            <Squarevhvwwrap>
+                <Squarevhvw {...styles} onClick={onClick}></Squarevhvw>
+            </Squarevhvwwrap>
+        )
 
+    }
+
+    
     return (
         <React.Fragment>
             <ImageDefault {...styles} onClick={onClick}></ImageDefault>
@@ -106,5 +116,21 @@ const ImageCircle = styled.div`
 
     cursor: pointer;
 `;
+const Squarevhvwwrap=styled.div`
+
+    padding:1vh;
+    width:200px;
+`;
+
+const Squarevhvw = styled.div`
+  height: 13vh;
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+  background-position:center;
+  box-sizing:border-box;
+  border-radius:10px;
+`;
+
+
 export default Image;
 

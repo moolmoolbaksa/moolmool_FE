@@ -88,7 +88,7 @@ export const ChatAPI = {
 
 	// 방 접속하기
 	enterRoom: (roomId) =>
-		api.get(`/chat/room/${roomId}`, {
+	chatapi.get(`/chat/room/${roomId}`, {
 		headers: {
 			Authorization:  `${localStorage.getItem('token')}`,
 		},
@@ -96,9 +96,16 @@ export const ChatAPI = {
 
 	// 이전 메세지 가져오기
 	getMessage: (roomId) =>
-		api.get(`/api/chat/rooms/${roomId}/messages`, {
+	chatapi.get(`/chat/room/${roomId}?page=`, {
 		headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+			Authorization: `${localStorage.getItem("token")}`,
 		},
 		}),
+	
+	exitRoom: (roomId) =>
+		chatapi.get(`chat/room/${roomId}/exit`, {
+			headers: {
+				Authorization: `${localStorage.getItem("token")}`,
+			},
+			}),
 };
