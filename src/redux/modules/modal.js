@@ -3,17 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const modal = createSlice({
     name: 'modal',
     initialState: {
-        is_modal: false,
+        is_login_modal: false,
+        is_delete_modal: false,
     },
     reducers: {
-        setModal: (state, action) => {
-            state.is_modal = action.payload;
+        setLoginModal: (state, action) => {
+            state.is_login_modal = action.payload;
         },
+        setDeleteModal: (state, action) => {
+            state.is_delete_modal = action.payload;
+        }
     },
 });
 
 export const { 
-    setModal,
+    setLoginModal,
+    setDeleteModal,
 } = modal.actions;
 
 export default modal.reducer;

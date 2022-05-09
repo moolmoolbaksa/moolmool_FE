@@ -7,7 +7,7 @@ import { api as productActions } from '../redux/modules/product';
 import LocationBar from '../components/LocationBar';
 import TradeItemCard from '../components/trade/TradeItemCard';
 import ItemGrid from '../components/store/ItemGrid';
-import NotiModal from '../components/modal/NotiModal';
+import LoginModal from '../components/modal/LoginModal';
 import { setModal } from '../redux/modules/modal';
 
 const Trade = (props) => {
@@ -18,7 +18,7 @@ const Trade = (props) => {
     
     const onDoTrade = () => {
         dispatch(productActions.setTradeApi());
-        dispatch(setModal(true));
+        // dispatch(setModal(true));
     };
 
     return (
@@ -39,7 +39,7 @@ const Trade = (props) => {
             >
                 교환신청하기
             </Button>
-            {is_modal && <NotiModal type="trade"/>}
+            {is_modal && <LoginModal type="trade"/>}
         </Grid>
     );
 };

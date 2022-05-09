@@ -9,22 +9,21 @@ import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as userApi } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
-import { setModal } from '../redux/modules/modal';
-import NotiModal from './modal/NotiModal';
+import { setLoginModal } from '../redux/modules/modal';
 
 const TabBar = (props) => {
     const dispatch = useDispatch();
     const is_login = useSelector(state => state.user.is_login);
 
     const goMypage = () => {
-        if(!is_login) return dispatch(setModal(true));
+        if(!is_login) return dispatch(setLoginModal(true));
         dispatch(userApi.getMyInfoApi());
         history.push('/mypage');
         window.scrollTo(0, 0);
     };
 
     const goRegipage =()=>{
-        if(!is_login) return dispatch(setModal(true));
+        if(!is_login) return dispatch(setLoginModal(true));
         history.push('/registerproduct');
         window.scrollTo(0, 0);
     };

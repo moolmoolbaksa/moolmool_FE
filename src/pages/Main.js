@@ -25,7 +25,7 @@ import { ItemAPI } from '../shared/api';
 import { set } from 'lodash';
 import { useSelector } from 'react-redux';
 import TabBar from '../components/TabBar';
-import NotiModal from '../components/modal/NotiModal';
+import LoginModal from '../components/modal/LoginModal';
 // Instantiation
 
 
@@ -156,7 +156,7 @@ const Main = (props) => {
 
             }
             <TabBar />
-            <NotiModal />
+            <LoginModal />
         </React.Fragment>
         
         

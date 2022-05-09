@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Button, Text } from '../../elements/index';
-import { setModal } from '../../redux/modules/modal';
+import { setDeleteModal, setLoginModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
-import NotiModal from '../modal/NotiModal';
+import LoginModal from '../modal/LoginModal';
+import DeleteModal from '../modal/DeleteModal';
 import {ChatAPI} from '../../shared/api';
 
 const DetailBottom = (props) => {
@@ -13,7 +14,6 @@ const DetailBottom = (props) => {
     
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
-    const is_modal = useSelector(state => state.modal.is_modal);
     const {userId, nickname, isScrab, itemId, scrabCnt} = useSelector(state => state.product.product_info);
     
     const btnRef = useRef();
@@ -37,7 +37,7 @@ const DetailBottom = (props) => {
 
     const onDoTrade = () => {
         if(!is_login){
-            dispatch(setModal(true));
+            dispatch(setLoginModal(true));
             return;
         };
         dispatch(productActions.getTradeProductApi({itemId, userId}));
@@ -45,7 +45,7 @@ const DetailBottom = (props) => {
 
     const onDoChat = () => {
         if(!is_login){
-            dispatch(setModal(true));
+            dispatch(setLoginModal(true));
             return;
         }
         ChatAPI.addChatRoom(userId)
@@ -61,7 +61,7 @@ const DetailBottom = (props) => {
     };
 
     const onDeleteProduct = () => {
-        dispatch(productActions.deleteProductApi(itemId));
+        dispatch(setDeleteModal(true));
     };
     
     return (
@@ -138,7 +138,8 @@ const DetailBottom = (props) => {
                     }
                 </Grid>
             </Container>
-            {is_modal && <NotiModal />}
+            <LoginModal />
+            <DeleteModal itemId={itemId}/>
         </>
     );
 };

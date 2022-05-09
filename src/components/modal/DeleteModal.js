@@ -2,97 +2,66 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../../redux/configureStore';
-import { setModal } from '../../redux/modules/modal';
+import { setDeleteModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
-import { useLocation } from 'react-router-dom';
+import { ReactComponent as CheckIcon } from '../../images/체크.svg';
+import { api as productActions } from '../../redux/modules/product';
 
-const NotiModal = ({type}) => {
-    const location = useLocation();
+const DeleteModal = ({itemId}) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    const is_modal = useSelector(state => state.modal.is_modal);
+    const is_delete_modal = useSelector(state => state.modal.is_delete_modal);
     
     useEffect(() => {
-        if(is_modal){
+        if(is_delete_modal){
             setIsOpen(true);
         } else {
             setTimeout(() => setIsOpen(false), 200);
         }
-    }, [is_modal]);
+    }, [is_delete_modal]);
 
     if(!isOpen){
         return null;
     };
     
     const onClose = () => {
-        dispatch(setModal(false));
-        if(location.pathname==='/trade') history.push('/');
+        dispatch(setDeleteModal(false));
     };
 
-    if(type==='trade'){
-        return (
-            <ModalBackground>
-                <ModalContainer is_modal={is_modal}>
-                    <Content>
-                        <span class="material-symbols-outlined">
-                            published_with_changes
-                        </span>
-                        <Grid>
-                            <Text
-                                text="물물교환"
-                                textAlign="center"
-                                size="24px"
-                                bold="bold"
-                            />
-                            <Text
-                                text="신청이 완료되었습니다."
-                                textAlign="center"
-                                size="24px"
-                            />
-                        </Grid>
-                    </Content>
-                    <BtnWrap>
-                        <OneButton
-                            onClick={onClose}
-                        >
-                            확인
-                        </OneButton>
-                   </BtnWrap>
-                </ModalContainer>
-            </ModalBackground>
-        );
+    const onDeleteProduct = () => {
+        dispatch(setDeleteModal(false));
+        dispatch(productActions.deleteProductApi(itemId));
     };
 
     return (
         <ModalBackground>
-            <ModalContainer is_modal={is_modal}>
+            <ModalContainer is_modal={is_delete_modal}>
                 <Content>
-                    <span className="material-symbols-outlined">
-                        login
-                    </span>
+                    <StyledCheckIcon width="70" height="70" fill="#0095B7"/>
                     <Grid>
                         <Text
-                            text="로그인 후 이용가능합니다"
+                            text="삭제 하시겠습니까?"
                             textAlign="center"
-                            size="24px"
+                            letterSpacing="-0.67px"
+                            size="22px"
+                            bold="bold"
                         />
                     </Grid>
                 </Content>
                 <BtnWrap>
                     <Button 
                         onClick={onClose}
-                        background="#C4C4C4"
+                        background="#0095B7"
                         radius="0 0 0 20px"
                     >
-                        닫기
+                        취소
                     </Button>
                     <Button 
-                        onClick={() => {history.push('/login')}}
-                        background="#0095B7"
+                        onClick={onDeleteProduct}
+                        background="#C4C4C4"
                         radius="0 0 20px 0"
                     >
-                        로그인하러가기
+                        확인
                     </Button>
                </BtnWrap>
             </ModalContainer>
@@ -120,13 +89,10 @@ const FadeOut = keyframes`
         opacity: 0;
         transform: translate(-50%, -30%);
         pointer-events: none;
-        
     }
 `;
 
 const ModalBackground = styled.div`
-    /* display: ${props => props.display}; */
-    /* transition: display 0.3s ease-out; */
     position: absolute;
     z-index: 10000;
     left: 0;
@@ -149,13 +115,14 @@ const ModalContainer = styled.div`
     animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out alternate;
 `;
 
+const StyledCheckIcon = styled(CheckIcon)``;
+
 const Content = styled.div`
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 50px 0 30px;
-    gap: 30px;
+    padding: 20px 0 10px;
+    gap: 10px;
     
     & span {
         text-indent: -9999;
@@ -194,4 +161,4 @@ const OneButton = styled.button`
     cursor: pointer;
 `;
 
-export default NotiModal;
+export default DeleteModal;
