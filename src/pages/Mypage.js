@@ -9,24 +9,23 @@ import TouchSlide from '../components/TouchSlide';
 import { Grid } from '../elements/index';
 import DetailBottom from '../components/detail/DetailBottom';
 import LocationBar from '../components/LocationBar';
+import TabBar from '../components/TabBar';
 
 const Mypage = (props) => {
     const {user_info, item_list, myScrabList} = useSelector(state => state.user);
    
     return (
         <>
-        <LocationBar title="마이페이지"/>
-        <Container
-            padding="0 16px"
-            position="relative"
-        >
-            <MypageTop user_info={user_info}/>
-            <ItemGrid item_list={item_list}/>
-            <TouchSlide title="찜한 상품" myScrabList={myScrabList}/>
-            {/* <TouchSlide title="나의 교환내역"/> */}
-            {/* <IconTabs /> */}
-        </Container>
-        <DetailBottom />
+            <LocationBar title="마이페이지"/>
+            <Container
+                padding="0 16px"
+                position="relative"
+            >
+                <MypageTop user_info={user_info}/>
+                <ItemGrid item_list={item_list}/>
+                <TouchSlide title="찜한 상품" myScrabList={myScrabList}/>
+            </Container>
+            <TabBar/>
         </>
     );
 };

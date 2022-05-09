@@ -7,17 +7,17 @@ import { Grid } from '../elements/index';
 import DetailBottom from '../components/detail/DetailBottom';
 
 const Mall = (props) => {
-    const user_info = useSelector(state => state.user.other);
-    const item_list = useSelector(state => state.user.other_item_list);
-
+    const {other_item_list, ...other_info} = useSelector(state => state.user.other);
+    // const item_list = useSelector(state => state.user.other_item_list);
+    console.log(other_item_list, other_info)
     return (
         <Grid>   
             <Grid
                 padding="0 16px"
                 position="relative" 
             >
-                <MypageTop user_info={user_info}/>
-                <ItemGrid item_list={item_list}/>
+                <MypageTop user_info={other_info}/>
+                <ItemGrid item_list={other_item_list} type="mall"/>
             </Grid>
             <DetailBottom/>
         </Grid> 

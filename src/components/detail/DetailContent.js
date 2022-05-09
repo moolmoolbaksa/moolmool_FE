@@ -14,7 +14,6 @@ const DetailContent = (props) => {
         date,
         contents,
         viewCnt,
-        scrabCnt,
     } = product_info;
    
     return (
@@ -52,29 +51,23 @@ const DetailContent = (props) => {
                 <Text 
                     text={`조회 ${viewCnt}`}
                     size="12px"
+                    lineHeight="12px"
                     letterSpacing="-1px"
-                    width="fit-content"
+                    width="max-content"
                     color="lightgray"
-                />
-                <Text 
-                    text={`찜 ${scrabCnt ? scrabCnt : '0'}`}
-                    size="12px"
-                    letterSpacing="-1px"
-                    color="lightgray"
-                    width="fit-content"
-                    textAlign="center"
                 />
                 <Grid
                     flex
                 >
-                    <LocationIcon fill="lightgray"/>
+                    <LocationIcon width="18" height="18" fill="lightgray"/>
                     <Text 
-                    text="1.9km"
-                    size="12px"
-                    width="fit-content"
-                    color="lightgray"
-                    margin="0 0 0 -3px"
-                />
+                        text="1.9km"
+                        size="12px"
+                        lineHeight="12px"
+                        width="max-content"
+                        color="lightgray"
+                        margin="0 0 0 -3px"
+                    />
                 </Grid>
             </Grid>
         </Container>
@@ -82,7 +75,6 @@ const DetailContent = (props) => {
 };
 
 const Container = styled.div`
-    margin-bottom: 86px;
     flex-grow: 1;
     padding: 10px 16px 0px;
     border-top: 1px #f5f5f5 solid;

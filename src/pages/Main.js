@@ -24,6 +24,8 @@ import { ItemAPI } from '../shared/api';
 
 import { set } from 'lodash';
 import { useSelector } from 'react-redux';
+import TabBar from '../components/TabBar';
+import LoginModal from '../components/modal/LoginModal';
 // Instantiation
 
 
@@ -153,8 +155,8 @@ const Main = (props) => {
               })
 
             }
-            
-            <IconTabs/>
+            <TabBar />
+            <LoginModal />
         </React.Fragment>
         
         
