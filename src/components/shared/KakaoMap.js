@@ -5,7 +5,7 @@ import DaumPostcode from "react-daum-postcode";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import { setAddress } from "../../redux/modules/user";
-import { Input, Grid, Text } from "../../elements/index";
+import { Grid, Text, Button } from "../../elements/index";
 import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 import { ReactComponent as GlassIcon } from "../../images/돋보기.svg";
 
@@ -15,9 +15,9 @@ const postCodeStyle = {
     display: "block",
     position: "relative",
     width: "100%",
-    minHeight: "100%",
+    height: "100%",
     zIndex: "1000",
-    padding: "0 16px",
+    zndex: "10000",
 };
 
 const KakaoMap = () => {
@@ -169,7 +169,28 @@ const KakaoMap = () => {
                     />
                 </NowLocation>
             </Grid>
-            {isPopupOpen && <Grid height="100vh" position="absolute" width="100%" flex><StyledPost  style={postCodeStyle} onComplete={handleComplete} /></Grid>}
+            {isPopupOpen && <Grid 
+                                height="100vh"
+                                position="absolute"    
+                                width="100%" 
+                                is_flex
+                                is_column
+                            >
+                                <StyledPost  
+                                    style={postCodeStyle} 
+                                    onComplete={handleComplete} 
+                                />
+                                <Button 
+                                    text="닫기"
+                                    background="#ffca39"
+                                    size="18px"
+                                    height="60px"
+                                    bold="bold"
+                                    onClick={() => {setIsPopupOpen(false)}}
+                                
+                                />
+                            </Grid>
+            }
         </>
     );
 };

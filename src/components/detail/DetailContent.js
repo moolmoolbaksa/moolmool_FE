@@ -85,6 +85,7 @@ const Container = styled.div`
     margin-bottom: 86px;
     flex-grow: 1;
     padding: 10px 16px 0px;
+    border-top: 1px #f5f5f5 solid;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

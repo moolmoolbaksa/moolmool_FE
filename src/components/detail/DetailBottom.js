@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { Grid, Button } from '../../elements/index';
 import { setModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
-import LoginNoti from '../modal/LoginNoti';
+import NotiModal from '../modal/NotiModal';
 import {ChatAPI} from '../../shared/api';
+
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
     
@@ -14,7 +15,7 @@ const DetailBottom = (props) => {
     const is_login = useSelector(state => state.user.is_login);
     const is_modal = useSelector(state => state.modal.is_modal);
     const {userId, nickname, isScrab, itemId} = useSelector(state => state.product.product_info);
-    console.log(userId)
+    
     const btnRef = useRef();
 
     useEffect(() => {
@@ -34,12 +35,12 @@ const DetailBottom = (props) => {
         }
     };
 
-    const onDoChange = () => {
+    const onDoTrade = () => {
         if(!is_login){
             dispatch(setModal(true));
             return;
         };
-        dispatch(productActions.setTradeProductApi(itemId, userId));
+        dispatch(productActions.getTradeProductApi({itemId, userId}));
     };
 
     const onDoChat = () => {
@@ -57,9 +58,6 @@ const DetailBottom = (props) => {
             console.log('error check');
             console.log('userid:'+userId);
         })
-
-
-
     };
     
     return (
@@ -87,31 +85,44 @@ const DetailBottom = (props) => {
                     is_flex
                     gap="5px"
                     width="100%"
-                >
-                    <Button 
-                        onClick={onDoChat}
-                        text="채팅보내기"
-                        color="white"
-                        size="20px" 
-                        radius="3px"
-                        height="50px"
-                        bold="bold"
-                        background="#0095b7"   
-                        margin="0 0 0 16px"
-                    /> 
-                    <Button 
-                        onClick={onDoChange}
-                        text="교환신청"
-                        color="black"
-                        size="20px" 
-                        radius="3px"
-                        bold="bold"
-                        height="50px"
-                        background="#ffca39"   
-                    /> 
+                >   
+                    {my_nickname === nickname
+                        ?   <Button 
+                                onClick={onDoChat}
+                                text="삭제하기"
+                                color="white"
+                                size="20px" 
+                                radius="3px"
+                                height="50px"
+                                bold="bold"
+                                background="#666666"   
+                                margin="0 0 0 16px"
+                            />
+                        :   <><Button 
+                                onClick={onDoChat}
+                                text="채팅보내기"
+                                color="white"
+                                size="20px" 
+                                radius="3px"
+                                height="50px"
+                                bold="bold"
+                                background="#0095b7"   
+                                margin="0 0 0 16px"
+                            /> 
+                            <Button 
+                                onClick={onDoTrade}
+                                text="교환신청"
+                                color="black"
+                                size="20px" 
+                                radius="3px"
+                                bold="bold"
+                                height="50px"
+                                background="#ffca39"   
+                            /></>
+                    }
                 </Grid>
             </Container>
-            {is_modal && <LoginNoti />}
+            {is_modal && <NotiModal />}
         </>
     );
 };

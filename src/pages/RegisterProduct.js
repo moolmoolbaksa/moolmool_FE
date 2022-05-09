@@ -149,6 +149,8 @@ const RegisterProduct = (props) => {
             console.log(error);
         })
     }
+
+    console.log(preview)
     return (
         <React.Fragment>
             <h1>바꿀래요?</h1>

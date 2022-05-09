@@ -13,11 +13,12 @@ const LocationBar = ({ title, transparent }) => {
 
     if(transparent){
         return (
-            <ArrowContainer onClick={() => {history.goBack()}}>
+            <ArrowContainer onClick={() => {history.push('/')}}>
                 <ArrowIcon width="40" height="40"/>
             </ArrowContainer>
         )
-    }
+    };
+
     return (
         <Container>
             <Wrap flex>

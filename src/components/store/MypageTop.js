@@ -37,7 +37,7 @@ const MypageTop = ({user_info}) => {
                         <Span>Lv. {degree}</Span>
                     </Grid>
                     <Text 
-                        text={address}
+                        text={address.split(' ').splice(0, 2).join(' ')}
                         color="gray"
                         letterSpacing="-1px"
                     />
@@ -54,7 +54,6 @@ const MypageTop = ({user_info}) => {
 const Container = styled.div`
     display: flex;
     padding: 15px 0px;
-    margin-bottom: 20px;
     border-bottom: 1px lightgray solid;
 `;
 
