@@ -9,9 +9,7 @@ import { Image } from '../../elements';
 const NotiMessage = (props) => {
     
     return(
-        <React.Fragment>
-
-        </React.Fragment>
+        <div></div>
     );
         
     

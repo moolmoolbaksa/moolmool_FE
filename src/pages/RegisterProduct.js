@@ -6,6 +6,7 @@ import ImageSlide from '../components/ImageSlide';
 import ScrollHorizontal from 'react-scroll-horizontal';
 import IconTabs from '../components/IconTabs';
 import Noti from '../components/Registerproduct/Noti';
+import CategoryNoti from '../components/Registerproduct/CategoryNoti';
 import { ItemAPI } from '../shared/api';
 
 
@@ -19,13 +20,16 @@ const RegisterProduct = (props) => {
     
     
     const categorys_list=[
-        {id:1, value:"category1"},
-        {id:2, value:"category2"},
-        {id:3, value:"category3"},
-        {id:4, value:"category4"},
-        {id:5, value:"category5"},
-        {id:6, value:"category6"},
-        {id:7, value:"category7"}
+        {id:1, value:"가전제품"},
+        {id:2, value:"여성의류"},
+        {id:3, value:"남성의류"},
+        {id:4, value:"생활용품"},
+        {id:5, value:"욕실용품"},
+        {id:6, value:"주방용품"},
+        {id:7, value:"서적/음반"},
+        {id:8, value:"게임/취미"},
+        {id:9, value:"뷰티/미용"},
+        {id:10, value:"기타"},
     ];
     const type_list=[
         {id:1, value:"상관없음"},
@@ -158,7 +162,7 @@ const RegisterProduct = (props) => {
 
 
         <Button height='100px' text='+카테고리 선택하기' onClick={openCategory}></Button>
-        
+        <CategoryNoti></CategoryNoti>
         {categoryOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {categoryOpen?
         
@@ -255,7 +259,7 @@ const RegisterProduct = (props) => {
             <div style={{margin: '20px 0px 20px 0px', display:'flex'}}>
             <Text text='물품 거래 주의사항을 모두확인했으며 이에 동의합니다.'></Text><input type='checkbox'/>
             </div>
-            <Button height='40px' radius='4px' background='black' color='white' text='바꿀래요' onClick={submit}></Button>
+            <Button height='40px' radius='4px' background='#FFCA39' color='black' text='바꿀래요' onClick={submit}></Button>
         </div>
         
         <IconTabs></IconTabs>
