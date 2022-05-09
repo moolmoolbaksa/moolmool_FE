@@ -18,7 +18,9 @@ const Inputbox = (props) => {
     const messageInput =useRef(null);
     const [message,setMessage]=useState("");
     const roomId=useParams();
-    console.log(roomId);
+    // console.log(roomId);
+    const Sentroomid=parseInt(roomId.roomid);
+    
     React.useEffect(()=>{
 
 
@@ -39,7 +41,7 @@ const Inputbox = (props) => {
         console.log("connected");
         console.log(client.ws.readyState);
         const text = {
-                  roomId: roomId.roomid,
+                  roomId: Sentroomid,
                   message: message,
                   isRead: true,
                   type: 'TALK',

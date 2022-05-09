@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 
 import Tradecard from '../components/tradehistory/Tradecard';
 import LocationBar from '../components/LocationBar';
+import { ItemAPI } from '../shared/api';
 // Instantiation
 
 
@@ -19,6 +20,17 @@ const Tradehistory = (props) => {
   };
   const [tradelist,setTradelist]=React.useState([]);
 
+
+  React.useEffect(()=>{
+    ItemAPI.getMyhistory()
+    .then((res)=>{
+        console.log(res);
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+
+  },[])
 const ReceivedTrade=()=>{
     //api
     console.log('received data set');
@@ -30,9 +42,10 @@ const SentTrade=()=>{
     console.log('Sent data set');
     //setTradelist
 }
+    const tooltip='교환중'
     return (
         <React.Fragment>
-            <LocationBar title="나의 교환내역"/>
+            <LocationBar title="나의 교환내역" />
             <Tabs
                 onChange={handleChange}
                 value={value}
@@ -40,7 +53,7 @@ const SentTrade=()=>{
                 selectionFollowsFocus
             >
                 <Tab sx={{width:'50%', fontWeight:'bold'}}label="받은 교환" onClick={ReceivedTrade} />
-                <Tab sx={{width:'50%', fontWeight:'bold'}} label="신청한 완료" onClick={SentTrade} />        
+                <Tab sx={{width:'50%', fontWeight:'bold'}} label="신청한 교환" onClick={SentTrade} />        
             </Tabs>
             {/* map함수 tradelist.map */}
             <Tradecard/>

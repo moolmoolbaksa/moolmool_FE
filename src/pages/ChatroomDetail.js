@@ -11,6 +11,7 @@ import { ChatAPI } from '../shared/api';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useSelector } from 'react-redux';
+
 const Base=styled.div`
 position:relative;
 height:100vh;
@@ -21,20 +22,22 @@ const ChatroomDetail = (props) => {
     const {nickname, profile} = useSelector(state => state.user.user_info);
     const [listmessage,setListmessage]=React.useState([]);
     const roomid=useParams();
-    console.log('detail page roomid: '+roomid.roomid);
+    // console.log(roomid);
+    // console.log('detail page roomid: '+roomid.roomid);
     const apiroomid=roomid.roomid;
+    
 
     
     React.useEffect(()=>{
         ChatAPI.getMessage(apiroomid)
-    .then((res)=>{
+        .then((res)=>{
         console.log(res);
         console.log('detail page roomid'+apiroomid);
         setListmessage((arr)=>[...arr,res.data]);
-    })
-    .catch((error)=>{
+        })
+     .catch((error)=>{
         console.log(error);
-        // console.log('detail page roomid'+apiroomid);
+        
     })
     
     },[])
@@ -42,18 +45,21 @@ const ChatroomDetail = (props) => {
         let sock = new SockJS('http://13.124.0.71/ws-stomp');
         let client = Stomp.over(sock);
         console.log(client.ws.readyState);
-  
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
-          client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
-              const newMessage = JSON.parse(data.body);
-              console.log(client.ws.readyState);
-              console.log(data.body);
-              // setListmessage((previous)=>[...previous,newdata]);
+          window.alert("got message with body ");
+          const data={
+              roomId:roomid.roomid,
+            type:"IN"
           }
+          client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
+            JSON.stringify(data)
           );
-        })
+          window.alert('room in')
+          console.log('send room in');
+        });
+   
     
         return()=>{
        
@@ -61,19 +67,6 @@ const ChatroomDetail = (props) => {
     }
     },[])
 
-
-
-    
-    // ChatAPI.getMessage(apiroomid)
-    // .then((res)=>{
-    //     console.log(res);
-    //     console.log('detail page roomid'+apiroomid);
-    //     // setListmessage((arr)=>[...arr,res.data]);
-    // })
-    // .catch((error)=>{
-    //     console.log(error);
-    //     console.log('detail page roomid'+apiroomid);
-    // })
 
     return(
         <Base>

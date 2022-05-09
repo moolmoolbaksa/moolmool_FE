@@ -66,7 +66,12 @@ export const ItemAPI = {
       'Content-Type': 'multipart/form-data',
       "Authorization": `${localStorage.getItem('token')}`,
     },
-  })
+  }),
+  getMyhistory: ()=>api.get('/api/myhistory',{
+    headers: {
+      "Authorization": `${localStorage.getItem('token')}`,
+    },
+  }),
   
 }
 

@@ -62,7 +62,8 @@ const ChatRoom = (props) => {
     })
   }
 
-    const {roomId, nickname,lastmessage, lastmessagesentAt, profile, message}=props;
+    const {id, roomId, nickname,lastmessage, lastmessagesentAt, profile, message}=props;
+    console.log(roomId);
     return(
         <Base >
             <AvatarWrapper>
