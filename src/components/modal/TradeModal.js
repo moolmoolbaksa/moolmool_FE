@@ -2,47 +2,48 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setDeleteModal } from '../../redux/modules/modal';
+import { setTradeModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as CheckIcon } from '../../images/체크.svg';
 import { api as productActions } from '../../redux/modules/product';
 
-const DeleteModal = ({itemId}) => {
+const TradeModal = () => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    const is_delete_modal = useSelector(state => state.modal.is_delete_modal);
-    
+    const is_trade_modal = useSelector(state => state.modal.is_trade_modal);
+    console.log(is_trade_modal)
     useEffect(() => {
-        if(is_delete_modal){
+        if(is_trade_modal){
             setIsOpen(true);
         } else {
             setTimeout(() => setIsOpen(false), 200);
         }
-    }, [is_delete_modal]);
+    }, [is_trade_modal]);
 
     if(!isOpen){
         return null;
     };
     
     const onClose = () => {
-        dispatch(setDeleteModal(false));
+        dispatch(setTradeModal(false));
     };
 
-    const onDeleteProduct = () => {
-        dispatch(setDeleteModal(false));
-        dispatch(productActions.deleteProductApi(itemId));
+    const onTradeProduct = () => {
+        dispatch(setTradeModal(false));
+        dispatch(productActions.setTradeApi());
     };
 
     return (
         <ModalBackground>
-            <ModalContainer is_modal={is_delete_modal}>
+            <ModalContainer is_modal={is_trade_modal}>
                 <Content>
                     <StyledCheckIcon width="70" height="70" fill="#0095B7"/>
                     <Grid>
                         <Text
-                            text="삭제 하시겠습니까?"
+                            text="교환신청 하시겠습니까?"
                             textAlign="center"
-                            letterSpacing="-0.67px"
+                            letterSpacing="-1px"
+                            wordSpacing="-2px"
                             size="22px"
                             bold="bold"
                         />
@@ -51,14 +52,14 @@ const DeleteModal = ({itemId}) => {
                 <BtnWrap>
                     <Button 
                         onClick={onClose}
-                        background="#0095B7"
+                        background="#C4C4C4"
                         radius="0 0 0 20px"
                     >
                         취소
                     </Button>
                     <Button 
-                        onClick={onDeleteProduct}
-                        background="#C4C4C4"
+                        onClick={onTradeProduct}
+                        background="#0095B7"
                         radius="0 0 20px 0"
                     >
                         확인
@@ -150,4 +151,4 @@ const Button = styled.button`
     border-radius:${props => props.radius};
 `;
 
-export default DeleteModal;
+export default TradeModal;

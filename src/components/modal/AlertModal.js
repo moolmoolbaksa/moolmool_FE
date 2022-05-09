@@ -2,68 +2,59 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setDeleteModal } from '../../redux/modules/modal';
+import { setTradeModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as CheckIcon } from '../../images/체크.svg';
 import { api as productActions } from '../../redux/modules/product';
 
-const DeleteModal = ({itemId}) => {
+const AlertModal = () => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    const is_delete_modal = useSelector(state => state.modal.is_delete_modal);
-    
+    const is_alert_modal = useSelector(state => state.modal.is_alert_modal);
+ 
     useEffect(() => {
-        if(is_delete_modal){
+        if(is_alert_modal){
             setIsOpen(true);
         } else {
             setTimeout(() => setIsOpen(false), 200);
         }
-    }, [is_delete_modal]);
+    }, [is_alert_modal]);
 
     if(!isOpen){
         return null;
     };
     
     const onClose = () => {
-        dispatch(setDeleteModal(false));
-    };
-
-    const onDeleteProduct = () => {
-        dispatch(setDeleteModal(false));
-        dispatch(productActions.deleteProductApi(itemId));
+        dispatch(setTradeModal(false));
     };
 
     return (
         <ModalBackground>
-            <ModalContainer is_modal={is_delete_modal}>
+            <ModalContainer is_modal={is_alert_modal}>
                 <Content>
-                    <StyledCheckIcon width="70" height="70" fill="#0095B7"/>
+                    <Round>
+                        <span className="material-symbols-outlined">
+                            priority_high
+                        </span>
+                    </Round>
                     <Grid>
                         <Text
-                            text="삭제 하시겠습니까?"
+                            text="아이템을 선택해주세요."
                             textAlign="center"
-                            letterSpacing="-0.67px"
-                            size="22px"
+                            letterSpacing="-1px"
+                            wordSpacing="-2px"
+                            size="20px"
                             bold="bold"
                         />
                     </Grid>
                 </Content>
                 <BtnWrap>
-                    <Button 
-                        onClick={onClose}
-                        background="#0095B7"
-                        radius="0 0 0 20px"
-                    >
-                        취소
-                    </Button>
-                    <Button 
-                        onClick={onDeleteProduct}
-                        background="#C4C4C4"
-                        radius="0 0 20px 0"
-                    >
-                        확인
-                    </Button>
-               </BtnWrap>
+                        <OneButton
+                            onClick={onClose}
+                        >
+                            확인
+                        </OneButton>
+                   </BtnWrap>
             </ModalContainer>
         </ModalBackground>
     );
@@ -115,14 +106,12 @@ const ModalContainer = styled.div`
     animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out alternate;
 `;
 
-const StyledCheckIcon = styled(CheckIcon)``;
-
 const Content = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 0 10px;
-    gap: 10px;
+    padding: 30px 0 20px;
+    gap: 15px;
     
     & span {
         text-indent: -9999;
@@ -135,19 +124,33 @@ const BtnWrap = styled.div`
     display: flex;
 `;
 
-const Button = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 50%;
+const OneButton = styled.button`
     border: none;
     color: white;
     font-size: 20px;
     font-weight: bold;
+    border-radius: 0 0 20px 20px;
+    width: 100%;
+    background-color: #0095B7;
     cursor: pointer;
-    background-color: ${props => props.background};
-    border-radius:${props => props.radius};
 `;
 
-export default DeleteModal;
+const Round = styled.div`
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    background-color: #ffca39;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    & span {
+        text-indent: -9999;
+        font-size: 30px;
+        color: white;
+        text-align: center;
+    }
+`;
+
+export default AlertModal;

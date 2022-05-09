@@ -107,6 +107,7 @@ export const setTradeApi = createAsyncThunk(
                     Authorization: localStorage.getItem('token'),
                 }
             });
+            history.replace('/');
         } catch (error) {
             console.log("setTradeApi: ", error);
             alert('setTradeApi error');

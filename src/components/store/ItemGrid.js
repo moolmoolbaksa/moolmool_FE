@@ -68,7 +68,7 @@ const ItemGrid = ({item_list, type}) => {
                                 {...v}
                             />       
                 })}
-                {item_list.length !== (0 || 9) && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
+                {item_list && item_list.length !== (0 || 9) && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
             </Grid>
         </Grid> 
     );
