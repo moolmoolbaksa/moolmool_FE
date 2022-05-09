@@ -1,28 +1,35 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Text } from '../elements/index';
 import { history } from '../redux/configureStore';
 import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
+import { setPreview } from '../redux/modules/user';
 
 const LocationBar = ({ title, transparent }) => {
-    const is_login = useSelector(state => state.user.is_login);
+    const dispatch = useDispatch();
     const location = useLocation();
+    const is_login = useSelector(state => state.user.is_login);
+
+    const onGoBack = () => {
+        if(location.pathname==='/editmyinfo') dispatch(setPreview(''));
+        history.goBack();
+    };
 
     if(transparent){
         return (
-            <ArrowContainer onClick={() => {history.push('/')}}>
+            <ArrowContainer onClick={onGoBack}>
                 <ArrowIcon width="40" height="40"/>
             </ArrowContainer>
-        )
+        );
     };
 
     return (
         <Container>
             <Wrap flex>
-                <ArrowIcon onClick={() => {history.goBack()}} width="27" height="27"/>
+                <ArrowIcon onClick={onGoBack} width="27" height="27"/>
                 <Text 
                     text={title}
                     size="22px"
@@ -32,12 +39,7 @@ const LocationBar = ({ title, transparent }) => {
             </Wrap>
             {is_login && location.pathname === '/mypage'
                 &&  <StyledLink to="/editmyinfo">
-                        수정
-                    </StyledLink>
-            }
-            {is_login && location.pathname === '/editmyinfo'
-                &&  <StyledLink to="/mypage">
-                        완료
+                        프로필 수정
                     </StyledLink>
             }
         </Container>
@@ -71,9 +73,13 @@ const Wrap = styled.div`
 `
 const StyledLink = styled(Link)`
     text-decoration: none;
+    border-bottom: 1px black solid;
+    line-height: 14px;
     color: black;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
+    letter-spacing: -.67px;
+    word-spacing: -.67px;
     cursor: pointer;
 `;
 

@@ -108,6 +108,33 @@ const getMyInfoApi = createAsyncThunk(
     }
 );
 
+const updateMyInfoApi = createAsyncThunk(
+    'user/updateMyInfoApi',
+    async ({nickname, storeInfo, profile}, thunkAPI) => {
+        
+        const formData = new FormData();
+        
+        formData.append('nickname', nickname);
+        formData.append('profile', profile);
+        formData.append('address', 'zzz');
+        formData.append('storeInfo', storeInfo);
+        // for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+        try {
+            const response = await axios.put('http://13.124.0.71/api/mypage',formData,{
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                    // 'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.log("updateMyInfoApi: ", error);
+            alert('updateMyInfoApi error');
+        };
+    }
+);
+
 const getCounterUserInfoApi = createAsyncThunk(
     'user/getCounterUserInfoApi',
     async (userId) => {
@@ -142,12 +169,12 @@ export const user = createSlice({
             address: "",
             degree: "",
             grade: "",
+            other_item_list: [],
         },
         address: "",
         item_list: [],
         myScrabList: [],
-        other_item_list: [],
-        preview: "http://kaihuastudio.com/common/img/default_profile.png",
+        preview: "",
         is_login: false,
     },
     reducers: {
@@ -179,10 +206,16 @@ export const user = createSlice({
                 state.item_list = itemList;
                 state.myScrabList = myScrabList;
             })
+            // .addCase(updateMyInfoApi.fulfilled, (state, action) => {
+            //     const {itemList, myScrabList, ...user_info} = action.payload;
+            //     state.user_info = user_info;
+            //     state.item_list = itemList;
+            //     state.myScrabList = myScrabList;
+            // })
             .addCase(getCounterUserInfoApi.fulfilled, (state, action) => {
                 const {itemList, ...other_info} = action.payload;
                 state.other = other_info;
-                state.other_item_list = itemList;
+                state.other.other_item_list = itemList;
             })
     }
 });
@@ -198,6 +231,7 @@ export const api = {
     kakaoLoginApi,
     setFirstUserInfoApi,
     getMyInfoApi,
+    updateMyInfoApi,
     getCounterUserInfoApi,
 };
 

@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 
 import { Image, Grid, Text } from '../../elements/index';
 import { api as userActions } from '../../redux/modules/user';
-import { api as productActions } from '../../redux/modules/product';
 import { history } from '../../redux/configureStore';
 
-const SellerBar = (props) => {
+const OpponentInfo = (props) => {
     const dispatch = useDispatch();
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const {
@@ -16,8 +15,6 @@ const SellerBar = (props) => {
         nickname,
         profile,
         userId,
-        bagInfos,
-        itemId,
     } = useSelector(state => state.product.product_info);
 
     const onGoUserMall = () => {
@@ -26,10 +23,6 @@ const SellerBar = (props) => {
             return;
         };
         dispatch(userActions.getCounterUserInfoApi(userId));
-    };
-
-    const onGoDetail = (e) => {
-        dispatch(productActions.getProductApi(e.target.dataset.id));
     };
 
     return (
@@ -66,41 +59,13 @@ const SellerBar = (props) => {
                         />
                     </Grid>
                 </Grid>
+                <StyledLink 
+                    to='#'
+                    onClick={onGoUserMall}
+                >
+                    구경하기
+                </StyledLink>
             </InfoContainer>
-            {bagInfos.length && 
-                <ItemContainer>
-                    <Grid
-                        flex
-                    >
-                        <Text 
-                            text={`${nickname} 님의 다른물건`}
-                            size="13px"
-                            letterSpacing="-1px"
-                            bold="bold"
-                            width="max-content"
-                        />
-                        <StyledLink 
-                            to='#'
-                            onClick={onGoUserMall}
-                        >
-                            더보기
-                        </StyledLink>
-                    </Grid>
-                    <Grid is_flex margin="10px 0 0 0">
-                        {bagInfos && bagInfos.map((v, i) => {
-                            return <Image 
-                                        shape="circle"
-                                        onClick={onGoDetail}
-                                        key={v.bagItemId}
-                                        itemId={v.bagItemId}
-                                        src={v.bagImg}
-                                        size="36"
-                                        margin="0 7px 0 0"
-                                    />
-                        })}
-                    </Grid>
-                </ItemContainer>
-            }
         </>
     );
 };
@@ -108,12 +73,8 @@ const SellerBar = (props) => {
 const InfoContainer = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 11px 16px;
-    border-bottom: 1px #f5f5f5 solid;
-`;
-
-const ItemContainer = styled.div`
-    padding: 8px 16px;
 `;
 
 const StyledLink = styled(Link)`
@@ -127,5 +88,5 @@ const StyledLink = styled(Link)`
     cursor: pointer;
 `;
 
-export default SellerBar;
+export default OpponentInfo;
 

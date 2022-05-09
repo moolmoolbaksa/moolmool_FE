@@ -157,10 +157,10 @@ const KakaoMap = () => {
                     onClick={openPostCode}
                 >
                     지번, 도로명, 건물명으로 검색
-                    <GlassIcon />
+                    <GlassIcon width="25" height="25"/>
                 </SearchAddress>
                 <NowLocation ref={locationRef}>
-                    <LocationIcon />
+                    <LocationIcon width="18" height="18"/>
                     <Text 
                         text="현재 위치로 설정하기"
                         letterSpacing="-1px"
@@ -256,6 +256,7 @@ const SearchAddress = styled.div`
 
 const NowLocation = styled.div`
     display: flex;
+    align-items: center;
     cursor: pointer;
 `;
 

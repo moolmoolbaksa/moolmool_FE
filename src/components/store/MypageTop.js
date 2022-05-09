@@ -37,7 +37,7 @@ const MypageTop = ({user_info}) => {
                         <Span>Lv. {degree}</Span>
                     </Grid>
                     <Text 
-                        text={address.split(' ').splice(0, 2).join(' ')}
+                        text={address ? address.split(' ').splice(0, 3).join(' ') : '주소를 설정해주세요.'}
                         color="gray"
                         letterSpacing="-1px"
                     />
