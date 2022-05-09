@@ -27,6 +27,7 @@ React.useEffect(()=>{
     ChatAPI.getChatRoom()
     .then((res)=>{
         setRoomlist(res.data);
+        console.log(res.data);
     })
     .catch((error)=>{
         console.log(error);
@@ -41,7 +42,7 @@ React.useEffect(()=>{
             {
               roomlist.map((room,idx)=>{
                 console.log(room);
-                return <ChatRoom  key={idx} roomId={room.roomId} message={room.message} nickname={room.nickname} profile={room.profile}/>;
+                return <ChatRoom  key={idx} id={room.id} roomId={room.roomId} message={room.message} nickname={room.nickname} profile={room.profile}/>;
               })
             }
                 {/* <RoomList roomlist={roomlist}></RoomList> */}

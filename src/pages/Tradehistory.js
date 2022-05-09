@@ -8,6 +8,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 import Tradecard from '../components/tradehistory/Tradecard';
+import LocationBar from '../components/LocationBar';
 // Instantiation
 
 
@@ -20,15 +21,17 @@ const Tradehistory = (props) => {
 
     return (
         <React.Fragment>
+            <LocationBar text="나의 교환내역"/>
             <Tabs
                 onChange={handleChange}
                 value={value}
                 aria-label="Tabs where selection follows focus"
                 selectionFollowsFocus
             >
-                <Tab label="Item One" />
-                <Tab label="교환 완료" />        
+                <Tab sx={{width:'50%', fontWeight:'bold'}}label="받은 교환" />
+                <Tab sx={{width:'50%', fontWeight:'bold'}} label="신청한 완료" />        
             </Tabs>
+            {/* map함수 */}
             <Tradecard/>
             <Tradecard/>
             <Tradecard/>
