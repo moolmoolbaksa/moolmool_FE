@@ -1,17 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import Chip from '@mui/material/Chip';
 import { Text, Grid, Input, Button,Image } from '../../elements/index';
 
 const Tradecard = (props) => {
-    const {image, title, contents}=props;
+    const {nickname,image, title, contents,tooltip}=props;
     const onGoDetail = () => {
     };
+    
 
     return (
         <React.Fragment>
             <Cardwrap>
-
+                <Tradetitle>
+                    {/* <p>{nickname}님과의 교환</p> */}
+                    <p>우아악님과의 교환 &nbsp; </p>
+                    <Chip label="교환중" color="primary" size='small'/>
+                </Tradetitle>
                 <Background>
                     <Image shape='square' size='13' src={image} onClick={onGoDetail} padding='20px' vhvw={true}></Image>
                     
@@ -51,7 +56,10 @@ const Titletext=styled.p`
 const Cardwrap=styled.div`
 border-bottom: 1px solid grey;
 `;
-
+const Tradetitle=styled.div`
+    display:flex;
+    margin:10px 0px 0px 10px;
+`;
 const Background=styled.div`
 
 display:flex;

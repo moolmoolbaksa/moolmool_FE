@@ -17,21 +17,32 @@ const Tradehistory = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [tradelist,setTradelist]=React.useState([]);
 
+const ReceivedTrade=()=>{
+    //api
+    console.log('received data set');
+    //setTradelist
+}
 
+const SentTrade=()=>{
+    //api
+    console.log('Sent data set');
+    //setTradelist
+}
     return (
         <React.Fragment>
-            <LocationBar text="나의 교환내역"/>
+            <LocationBar title="나의 교환내역"/>
             <Tabs
                 onChange={handleChange}
                 value={value}
                 aria-label="Tabs where selection follows focus"
                 selectionFollowsFocus
             >
-                <Tab sx={{width:'50%', fontWeight:'bold'}}label="받은 교환" />
-                <Tab sx={{width:'50%', fontWeight:'bold'}} label="신청한 완료" />        
+                <Tab sx={{width:'50%', fontWeight:'bold'}}label="받은 교환" onClick={ReceivedTrade} />
+                <Tab sx={{width:'50%', fontWeight:'bold'}} label="신청한 완료" onClick={SentTrade} />        
             </Tabs>
-            {/* map함수 */}
+            {/* map함수 tradelist.map */}
             <Tradecard/>
             <Tradecard/>
             <Tradecard/>
