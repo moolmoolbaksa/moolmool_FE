@@ -119,6 +119,8 @@ const FadeOut = keyframes`
     100%{
         opacity: 0;
         transform: translate(-50%, -30%);
+        pointer-events: none;
+        
     }
 `;
 

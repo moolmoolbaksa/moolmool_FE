@@ -26,6 +26,23 @@ export const getProductApi = createAsyncThunk(
     }
 );
 
+export const deleteProductApi = createAsyncThunk(
+    'product/deleteProductApi',
+    async (itemId) => {
+        try {
+            await axios.delete(`http://13.124.0.71/api/items/${itemId}`,{
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                }
+            });
+            history.push('/');
+        } catch (error) {
+            console.log("deleteProductApi: ", error);
+            alert('deleteProductApi error');
+        }
+    }
+)
+
 export const setProductScrabApi = createAsyncThunk(
     'product/setProductScrabApi',
     async (itemId) => {
@@ -158,6 +175,7 @@ export const product = createSlice({
 
 export const api = {
     getProductApi,
+    deleteProductApi,
     setProductScrabApi,
     getTradeProductApi,
     getMyScrabListApi,

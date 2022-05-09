@@ -157,7 +157,7 @@ const KakaoMap = () => {
                     onClick={openPostCode}
                 >
                     지번, 도로명, 건물명으로 검색
-                    <GlassIcon />
+                    <GlassIcon width="25" height="25"/>
                 </SearchAddress>
                 <NowLocation ref={locationRef}>
                     <LocationIcon />

@@ -59,6 +59,10 @@ const DetailBottom = (props) => {
             console.log('userid:'+userId);
         })
     };
+
+    const onDeleteProduct = () => {
+        dispatch(productActions.deleteProductApi(itemId));
+    };
     
     return (
         <>
@@ -100,7 +104,7 @@ const DetailBottom = (props) => {
                 >   
                     {my_nickname === nickname
                         ?   <Button 
-                                onClick={onDoChat}
+                                onClick={onDeleteProduct}
                                 text="삭제하기"
                                 color="white"
                                 size="20px" 

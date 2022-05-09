@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const TransMethod = (props) => {
     const type = useSelector(state => state.product.product_info.type);
-    console.log(type)
+ 
     return (
         <Container>
             {type === '상관없음'
