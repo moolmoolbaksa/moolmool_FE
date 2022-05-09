@@ -68,7 +68,12 @@ const ItemGrid = ({item_list, type}) => {
                                 {...v}
                             />       
                 })}
-                {item_list && item_list.length !== (0 || 9) && <PlusItem onClick={onGoCreateItem}>+</PlusItem>}
+                {item_list && item_list.length !== (0 || 9) 
+                    &&  <PlusItem onClick={onGoCreateItem}>
+                            <span className="material-symbols-outlined">
+                                add_circle
+                            </span>
+                        </PlusItem>}
             </Grid>
         </Grid> 
     );
@@ -77,13 +82,18 @@ const ItemGrid = ({item_list, type}) => {
 const PlusItem = styled.div`
     width: 100%;
     height: 100%;
-    border: 1px gray solid;
+    border: 2px lightgray solid;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 30px;
     cursor: pointer;
+    & span {
+        text-indent: -9999;
+        color: lightgray;
+        font-size: 30px;
+    }
 `;
 
 export default ItemGrid;

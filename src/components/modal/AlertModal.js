@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setTradeModal } from '../../redux/modules/modal';
+import { setAlertModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
-import { ReactComponent as CheckIcon } from '../../images/체크.svg';
-import { api as productActions } from '../../redux/modules/product';
 
 const AlertModal = () => {
     const dispatch = useDispatch();
@@ -25,7 +23,7 @@ const AlertModal = () => {
     };
     
     const onClose = () => {
-        dispatch(setTradeModal(false));
+        dispatch(setAlertModal(false));
     };
 
     return (
