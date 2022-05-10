@@ -7,6 +7,7 @@ import logger from 'redux-logger';
 import userSlice from './modules/user';
 import productSlice from './modules/product';
 import modalSlice from './modules/modal';
+import chatSlice from './modules/chat';
 
 
 export const history = createBrowserHistory();
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   user: userSlice,
   product: productSlice,
   modal: modalSlice,
+  chat: chatSlice,
   router: connectRouter(history),
 });
 

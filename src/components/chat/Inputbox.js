@@ -7,7 +7,7 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useParams } from 'react-router-dom';
 import { ReactReduxContext } from 'react-redux';
-
+import {useDispatch,useSelector} from 'react-redux';
 // 전송소켓 작성
 
 
@@ -18,7 +18,10 @@ const Inputbox = (props) => {
     const messageInput =useRef(null);
     const [message,setMessage]=useState("");
     const roomId=useParams();
-    // console.log(roomId);
+    
+    const roomtype=useSelector(state=>state.chat.Currentroom.type);
+    let isRead=roomtype==="NORMAL"?false:true;
+
     const Sentroomid=parseInt(roomId.roomid);
     
     React.useEffect(()=>{
@@ -43,7 +46,7 @@ const Inputbox = (props) => {
         const text = {
                   roomId: Sentroomid,
                   message: message,
-                  isRead: true,
+                  isRead: isRead,
                   type: 'TALK',
                 }
         client.send(

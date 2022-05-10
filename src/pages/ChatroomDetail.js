@@ -4,13 +4,14 @@ import LocationBar from '../components/LocationBar';
 import Inputbox from '../components/chat/Inputbox';
 import MessageList from '../components/chat/MessageList';
 import NotiMessage from '../components/chat/NotiMessage';
-import ReceviedMessage from '../components/chat/ReceviedMessage';
-import Sentmessage from '../components/chat/Sentmessage';
+
 import {useParams } from "react-router-dom";
 import { ChatAPI } from '../shared/api';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+
+import {useDispatch, useSelector} from 'react-redux';
 
 const Base=styled.div`
 position:relative;
@@ -19,36 +20,37 @@ height:100vh;
 
 
 const ChatroomDetail = (props) => {
-    const {nickname, profile} = useSelector(state => state.user.user_info);
-    const [listmessage,setListmessage]=React.useState([]);
+
     const roomid=useParams();
-    // console.log(roomid);
-    // console.log('detail page roomid: '+roomid.roomid);
-    const apiroomid=roomid.roomid;
+
+    const Opponent=useSelector(state=>state.chat.Opponent);
+    const currentroom=useSelector(state=>state.chat.Currentroom);
+
+    console.log(Opponent);
     
+    // 내프로필은 필요없는걸로
+    // const {nickname, profile} = useSelector(state => state.user.user_info);
 
     
-    React.useEffect(()=>{
-        ChatAPI.getMessage(apiroomid)
-        .then((res)=>{
-        console.log(res);
-        console.log('detail page roomid'+apiroomid);
-        setListmessage((arr)=>[...arr,res.data]);
-        })
-     .catch((error)=>{
-        console.log(error);
-        
-    })
+    //params parameter
+    const apiroomid=roomid.roomid;
     
-    },[])
+    //history props
+    const opponentId=Opponent.userId;
+    const opponentProfile=Opponent.profile;
+    const opponentNickname=Opponent.nickname;
+    
+    
+    
     React.useEffect(()=>{
+
+        //입장할때 IN 들어왔다는 메시지 Send
         let sock = new SockJS('http://13.124.0.71/ws-stomp');
         let client = Stomp.over(sock);
         console.log(client.ws.readyState);
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
-          window.alert("got message with body ");
           const data={
               roomId:roomid.roomid,
             type:"IN"
@@ -56,12 +58,20 @@ const ChatroomDetail = (props) => {
           client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
             JSON.stringify(data)
           );
-          window.alert('room in')
-          console.log('send room in');
+        //   window.alert('room in')
+        //   console.log('send room in');
         });
    
     
         return()=>{
+            const data={
+                roomId:roomid.roomid,
+                type:"OUT"
+            }
+            client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
+            JSON.stringify(data)
+          );
+            //방퇴장할때 OUT 했다는 메시지 Send
        
 
     }
@@ -71,13 +81,7 @@ const ChatroomDetail = (props) => {
     return(
         <Base>
             <LocationBar title="Username" />
-            <MessageList>
-                <ReceviedMessage/>
-                <Sentmessage/>
-                <Sentmessage/>
-                <Sentmessage/>
-                <ReceviedMessage/>
-            </MessageList>
+            <MessageList/>
             <Inputbox ></Inputbox>
         </Base>
     );

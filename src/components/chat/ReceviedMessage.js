@@ -8,12 +8,12 @@ import { Image } from '../../elements';
 
 
 const ReceviedMessage = (props) => {
-    
+    const {message, isRead,profile,nickname}=props;
     return(
         <Messagewrap>
-            <Image2 size='36' shape='circle'></Image2>
+            <Image2 size='36' shape='circle' src={profile}></Image2>
             <ChatRecived>
-                <Messagetext>recevied message</Messagetext>
+                <Messagetext>{message}</Messagetext>
             </ChatRecived>
         </Messagewrap>
     );
