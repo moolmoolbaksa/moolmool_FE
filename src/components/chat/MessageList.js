@@ -18,7 +18,8 @@ overflow:auto;
 `;
 
 
-
+        let sock = new SockJS('http://13.124.0.71/ws-stomp');
+        let client = Stomp.over(sock);
 const MessageList = (props) => {
     const dispatch=useDispatch();
 
@@ -49,8 +50,7 @@ const MessageList = (props) => {
     },[])
     React.useEffect(()=>{
 
-        let sock = new SockJS('http://13.124.0.71/ws-stomp');
-        let client = Stomp.over(sock);
+        
         console.log(client.ws.readyState);
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
@@ -62,11 +62,11 @@ const MessageList = (props) => {
               console.log(data.body);
               const messageFromServer=JSON.parse(data.body);
               // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-                if(messageFromServer.type=="TALK")
+                if(messageFromServer.type==="TALK")
                 {
                     dispatch(addMessage(messageFromServer))
                 }
-                else if(messageFromServer.type=="FULL")
+                else if(messageFromServer.type==="FULL")
                 {
                     dispatch(changeRoomtype("FULL"));
                 }
@@ -84,9 +84,6 @@ const MessageList = (props) => {
 
         messageref.current.scrollTop=messageref.current.scrollHeight;
         return()=>{
-    
-            
-
     }
     },[messages])
     
@@ -94,7 +91,7 @@ const MessageList = (props) => {
         <Base ref={messageref}>
         {/* {   listmessage.sort((a,b)=>a.messageId-b.messageId) */}
         {    messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
-            message.senderId==Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={opponentProfile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
+            message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={opponentProfile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
             
 
         }

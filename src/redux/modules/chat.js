@@ -4,22 +4,7 @@ import axios from "axios";
 import { history } from "../configureStore";
 import { response } from "../../shared/mock";
 
-const loginCheckApi = createAsyncThunk(
-    'user/loginCheckApi',
-    async (thunkAPI) => {
-        try {
-            const response = await axios.get('http://13.124.0.71/user/check',{
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                }
-            });
-            return response.data
-        } catch (error) {
-            console.log("loginCheck error: ", error);
-            alert('logincheck error');
-        }
-    }
-);
+
 // const rommlist={date: "2022-05-10T19:13:00.766",
 // isRead: true,
 // message: "ㅏ",
