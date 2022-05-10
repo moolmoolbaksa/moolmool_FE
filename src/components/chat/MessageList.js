@@ -94,7 +94,7 @@ const MessageList = (props) => {
         <Base ref={messageref}>
         {/* {   listmessage.sort((a,b)=>a.messageId-b.messageId) */}
         {    messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
-            message.senderId==opponentId?(<ReceviedMessage key={'keyid'+message.messageId} profile={opponentProfile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
+            message.senderId==Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={opponentProfile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
             
 
         }
