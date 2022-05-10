@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Image,Button } from '../../elements';
 import { history } from '../../redux/configureStore';
 import { ChatAPI } from '../../shared/api';
+import {useDispatch,useSelector} from 'react-redux';
+import {enterRoom} from '../../redux/modules/chat';
 const Base = styled.div`
     display: flex;
     justify-content: space-between;
@@ -52,6 +54,8 @@ const SentAt = styled.time``;
 
 const ChatRoom = (props) => {
 
+  const dispatch=useDispatch();
+  
   const exitroom=()=>{
     ChatAPI.exitRoom(roomId)
     .then((res)=>{
@@ -62,7 +66,7 @@ const ChatRoom = (props) => {
     })
   }
 
-    const {id, roomId, nickname,lastmessage, lastmessagesentAt, profile, message}=props;
+    const {userId, roomId, nickname,  profile, message}=props;
     console.log(roomId);
     return(
         <Base >
@@ -71,14 +75,19 @@ const ChatRoom = (props) => {
                 </Image>
             </AvatarWrapper>
             <Content >
-                <div onClick={()=>{history.push(`/chat/${roomId}`)}}>
+                <div onClick={()=>{
+                  history.push({pathname: `/chat/${roomId}`,state: {userId:userId,profile:profile,nickname:nickname}})
+                  dispatch(enterRoom({roomId:roomId,nickname:nickname, userId:userId, profile:profile}))
+                    }
+                  
+                  }>
                 <Username>{nickname}</Username>
                 <LastMessage>{message}</LastMessage>
                 <SentAtWrapper>
                     <SentAt>2021-05-06</SentAt>
                 </SentAtWrapper>
                 </div>
-                <Button text='채팅방 나가기' onClick={exitroom}></Button>
+                {/* <Button text='채팅방 나가기' onClick={exitroom}></Button> */}
             </Content>
         </Base>
 

@@ -300,5 +300,22 @@ const Emptyline=styled.hr`
 width:90%;
 background-color:#F5F5F5;
 margin:0 auto;
-`
+`;
+const PlusItem = styled.label`
+    width: 100%;
+    height: 100%;
+    border: 2px lightgray solid;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    & span {
+        text-indent: -9999;
+        color: lightgray;
+        font-size: 30px;
+    }
+`;
+
 export default RegisterProduct;

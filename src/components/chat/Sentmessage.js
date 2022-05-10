@@ -7,11 +7,12 @@ import { Image } from '../../elements';
 
 
 const Sentmessage = (props) => {
+    const {message}=props;
     
     return(
         <Messagewrap>
             <ChatSender>
-                <Messagetext>안녕하세요</Messagetext>
+                <Messagetext>{message}</Messagetext>
             </ChatSender>
         </Messagewrap>
     );
