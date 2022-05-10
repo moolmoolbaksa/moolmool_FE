@@ -6,6 +6,7 @@ import { Grid, Button, Text } from '../../elements/index';
 import { setDeleteModal, setLoginModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
+import { ReactComponent as HeartIconRed } from '../../images/하트(빨강).svg';
 import LoginModal from '../modal/LoginModal';
 import DeleteModal from '../modal/DeleteModal';
 import {ChatAPI} from '../../shared/api';
@@ -70,7 +71,8 @@ const DetailBottom = (props) => {
             <Container bg={my_nickname === nickname}>
                 <Wrap>
                     <HeartOuter onClick={clickHeart}>
-                        <HeartIcon ref={btnRef} fill="red"/>
+                        <HeartIcon ref={btnRef}/>
+                        {/* <HeartIconRed ref={btnRef}/> */}
                         {scrabCnt !== 0
                             &&  <Text 
                                     text={scrabCnt ? scrabCnt : '0'}

@@ -101,7 +101,7 @@ export const setTradeApi = createAsyncThunk(
     async (_,thunkAPI) => {
         const {userId, itemId} = thunkAPI.getState().product.product_info;
         const myItemIds = thunkAPI.getState().product.trade_item;
-        console.log(userId, itemId, myItemIds)
+        console.log({userId, itemId, myItemIds})
         try {
             await axios.post(`http://13.124.0.71/api/trade`,{userId, itemId, myItemIds},{
                 headers: {

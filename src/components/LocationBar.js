@@ -34,6 +34,7 @@ const LocationBar = ({ title, transparent }) => {
                     text={title}
                     size="22px"
                     bold="bold"
+                    letterSpacing="-1px"
                     width="max-content"
                 />
             </Wrap>

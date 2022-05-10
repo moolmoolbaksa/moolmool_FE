@@ -56,7 +56,6 @@ const Detail = (props) => {
                     <DetailRecommendCategory/>
                 </Wrap>
             <DetailBottom />
-            {/* <TabBar /> */}
         </Container>
     );
 };

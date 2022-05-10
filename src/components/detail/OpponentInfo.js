@@ -63,7 +63,7 @@ const OpponentInfo = (props) => {
                     to='#'
                     onClick={onGoUserMall}
                 >
-                    구경하기
+                    보따리 구경하기
                 </StyledLink>
             </InfoContainer>
         </>
@@ -80,10 +80,11 @@ const InfoContainer = styled.div`
 const StyledLink = styled(Link)`
     text-decoration: none;
     font-size: 13px;
-    line-height: 12.5px;
+    line-height: 15px;
     text-align: right;
     color: #9d9d9d;
     letter-spacing: -1px;
+    word-spacing: -1px;
     border-bottom: 1px #9d9d9d solid;
     cursor: pointer;
 `;
