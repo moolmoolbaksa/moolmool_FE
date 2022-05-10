@@ -15,7 +15,7 @@ const Trade = (props) => {
 
     const {myImages, ...opponent_info} = useSelector(state => state.product.barter_info);
     const trade_item = useSelector(state => state.product.trade_item);
-    
+    console.log(myImages)
     const onDoTrade = () => {
         if(!trade_item.length) return dispatch(setAlertModal(true));
         dispatch(setTradeModal(true));

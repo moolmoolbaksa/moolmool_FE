@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import KakaoMap from '../../components/shared/KakaoMap';
 
 import { Grid, Text, Button } from '../../elements/index';
@@ -9,13 +9,19 @@ import { api as userActions } from '../../redux/modules/user';
 
 const Address = (props) => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const {road_address, general_address} = useSelector(state => state.user.address);
 
     const onUpdateAddress = () => {
-        // if(referrer[referrer.length-1]) return dispatch();
+        if(location.state){
+            dispatch(userActions.setFirstUserInfoApi(general_address));
+            history.goBack();
+            return;
+        }
         dispatch(userActions.setFirstUserInfoApi(general_address));
+        history.replace('/welcome');
     };
-    
+ 
     return (
         <Grid
             height="100%"
@@ -104,8 +110,7 @@ const Address = (props) => {
                     bold="bold"
                     size="18px"
                     color="black"
-                    // text={referrer[referrer.length-1] === 'editmyinfo' ? '이 위치로 재설정' : "이 위치로 설정"}
-                    text="이 위치로 설정"
+                    text={location.state ? '이 위치로 재설정' : "이 위치로 설정"}
                 />
             </Grid>
         </Grid>

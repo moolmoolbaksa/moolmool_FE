@@ -7,48 +7,70 @@ import { Grid, Text } from '../elements/index';
 import { setPreview } from '../redux/modules/user';
 import { ReactComponent as LocationIcon } from '../images/좌표.svg';
 import { api as userActions } from '../redux/modules/user';
+import { history } from '../redux/configureStore';
 
 const EditMyInfo = (props) => {
     const dispatch = useDispatch();
+    const {nickname, storeInfo, address} = useSelector(state => state.user.user_info);
     const profile = useSelector(state => state.user.user_info.profile);
     const preview = useSelector(state => state.user.preview);
-    const {nickname, store_info, address} = useSelector(state => state.user.user_info);
     const inputRef = useRef();
-    
-    const [_nickname, setNickname] = useState(nickname);
-    const [_storeInfo, setStoreInfo] = useState(store_info ? store_info : '');
-    const [ a ,setA] = useState('');
-    console.log(a);
+
+    const [editInfo, setEditInfo] = useState({
+        nickname,
+        storeInfo: storeInfo ? storeInfo : '',
+        address,
+        profile: '',
+    });
+
     const selectFile = (e) => {
         let reader = new FileReader();
-
-        reader.onload = function(e) {
-            dispatch(setPreview(e.target.result));
-            dispatch(setA(e.target.result));
-        };
+        setEditInfo({
+            ...editInfo,
+            profile: inputRef.current.files[0]
+        });
         reader.readAsDataURL(inputRef.current.files[0]);
+        reader.onload = function(e) {
+            dispatch(setPreview(e.target.result));        
+        };
     };
 
     const onChangeNickname = (e) => {
         if(e.target.value.length > 5){
-            setNickname(e.target.value.substring(0, 5));
+            setEditInfo({
+                ...editInfo,
+                nickname: e.target.value.substring(0, 5)
+            });
             return;
         }
-        setNickname(e.target.value);
+        setEditInfo({
+            ...editInfo,
+            nickname: e.target.value
+        });
     };
 
     const onChangeStoreInfo = (e) => {
         if(e.target.value.length > 30){
-            setStoreInfo(e.target.value.substring(0, 30));
+            setEditInfo({
+                ...editInfo,
+                storeInfo: e.target.value.substring(0, 30)
+            });
             return;
         }
-        setStoreInfo(e.target.value);
+        setEditInfo({
+            ...editInfo,
+            storeInfo: e.target.value
+        });
     };
     
     const onEditMyInfo = () => {
-        dispatch(userActions.updateMyInfoApi({nickname: _nickname, storeInfo: _storeInfo, profile: a}));
+        const formData = new FormData();
+        for(let key in editInfo){
+            formData.append(key, editInfo[key]);
+        }
+        dispatch(userActions.updateMyInfoApi(formData));
     };
-
+    
     return (
         <>
             <LocationBar title="마이페이지"/>
@@ -69,6 +91,7 @@ const EditMyInfo = (props) => {
                             onChange={selectFile}
                             ref={inputRef}
                             type="file"
+                            accept="image/*"
                             id="profile_img" 
                         />
                         <label htmlFor='profile_img'></label>
@@ -88,12 +111,12 @@ const EditMyInfo = (props) => {
                             margin="0 0 5px"
                             color="#9D9D9D"
                         />
-                        <TextLength>{_nickname.length}/5</TextLength>
+                        <TextLength>{editInfo.nickname.length}/5</TextLength>
                     </Grid>
                     <Input
                         type="text"
                         onChange={onChangeNickname}
-                        value={_nickname}
+                        value={editInfo.nickname}
                         padding="10px"
                     />
                 </Grid>
@@ -113,7 +136,7 @@ const EditMyInfo = (props) => {
                             placeholder={address}
                             padding="10px"
                         />
-                        <StyledLocationIcon width="30" height="30"/>
+                        <StyledLocationIcon width="30" height="30" onClick={() => {history.push({pathname: '/address', state:{is_edit: true}})}}/>
                     </Grid>
                 </Grid>
                 <Grid>
@@ -124,13 +147,13 @@ const EditMyInfo = (props) => {
                             margin="0 0 5px"
                             color="#9D9D9D"
                         />
-                        <TextLength>{_storeInfo.length ? _storeInfo.length : 0}/30</TextLength>
+                        <TextLength>{editInfo.storeInfo.length}/30</TextLength>
                     </Grid>
                     <Input
                         type="text"
                         onChange={onChangeStoreInfo}
-                        value={_storeInfo}
-                        placeholder={!_storeInfo ? '나의 보따리 소개를 적어주세요.' : ''}
+                        value={editInfo.storeInfo}
+                        placeholder={!editInfo.storeInfo ? '나의 보따리 소개를 적어주세요.' : ''}
                         padding="10px"
                     />
                 </Grid>

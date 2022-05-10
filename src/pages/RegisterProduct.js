@@ -143,7 +143,7 @@ const RegisterProduct = (props) => {
             formData.append("images", fileslist[i]);
             console.log('uploading files');
         }
-        console.log()
+    
         ItemAPI.registerItem(formData)
         .then((res)=>
         {
