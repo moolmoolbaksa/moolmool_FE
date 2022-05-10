@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Grid, Button, Text } from '../../elements/index';
 import { setDeleteModal, setLoginModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
+import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import LoginModal from '../modal/LoginModal';
 import DeleteModal from '../modal/DeleteModal';
 import {ChatAPI} from '../../shared/api';
@@ -66,74 +67,60 @@ const DetailBottom = (props) => {
     
     return (
         <>
-            <Container>
-                <Grid 
-                    is_flex
-                    is_column
-                    justify="center"
-                    align="center" 
-                >
+            <Container bg={my_nickname === nickname}>
+                <Wrap>
                     <HeartOuter onClick={clickHeart}>
-                        <svg
-                            aria-label="좋아요 버튼"
-                            ref={btnRef}
-                            fill="white"
-                            height="30"
-                            role="img"
-                            viewBox="0 0 48 48"
-                            width="30"
-                        >
-                            <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
-                        </svg>
+                        <HeartIcon ref={btnRef} fill="red"/>
+                        {scrabCnt !== 0
+                            &&  <Text 
+                                    text={scrabCnt ? scrabCnt : '0'}
+                                    size="12px"
+                                    lineHeight="10px"
+                                    width="fit-content"
+                                    textAlign="center"
+                                />
+                        }
                     </HeartOuter>
-                    {scrabCnt !== 0
-                        &&  <Text 
-                                text={scrabCnt ? scrabCnt : '0'}
-                                size="12px"
-                                letterSpacing="-1px"
-                                color="lightgray"
-                                width="fit-content"
-                                textAlign="center"
-                            />
-                    }
-                </Grid>
+                </Wrap>
                 <Grid
                     is_flex
-                    gap="5px"
-                    width="100%"
+                    width="85%"
                 >   
                     {my_nickname === nickname
-                        ?   <Button 
+                        ?   <><Button 
                                 onClick={onDeleteProduct}
-                                text="삭제하기"
-                                color="white"
+                                text="삭제"
                                 size="20px" 
                                 radius="3px"
-                                height="50px"
+                                height="60px"
                                 bold="bold"
-                                background="#666666"   
-                                margin="0 0 0 16px"
+                                background="#E8E8E8"   
                             />
+                            <Button 
+                                // onClick={onDoTrade}
+                                text="수정"
+                                color="white"
+                                size="20px" 
+                                bold="bold"
+                                height="60px"
+                                background="#0095b7"   
+                            /></>
                         :   <><Button 
                                 onClick={onDoChat}
                                 text="채팅보내기"
-                                color="white"
                                 size="20px" 
-                                radius="3px"
-                                height="50px"
+                                height="60px"
                                 bold="bold"
-                                background="#0095b7"   
-                                margin="0 0 0 16px"
+                                background="#FFD467"   
                             /> 
                             <Button 
                                 onClick={onDoTrade}
                                 text="교환신청"
-                                color="black"
+                                color="white"
                                 size="20px" 
-                                radius="3px"
                                 bold="bold"
-                                height="50px"
-                                background="#ffca39"   
+                                height="60px"
+                                background="#0095b7"   
                             /></>
                     }
                 </Grid>
@@ -146,18 +133,28 @@ const DetailBottom = (props) => {
 
 const Container = styled.div`
     width: 100%;
-    padding: 10px 16px 2px;
-    margin-bottom: 65px;
+    margin: 10px 0 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: ${props => props.bg ? "#E8E8E8" : "#FFD467"};
+`;
+
+const Wrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    border-right: 2px #666666 solid;
 `;
 
 const HeartOuter = styled.div`
     position: relative;
-    user-select: none;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
     svg {
         cursor: pointer;
     }

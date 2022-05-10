@@ -36,7 +36,6 @@ const kakaoLoginApi = createAsyncThunk(
             } else {
                 history.replace('/');
             }
-            console.log(response)
         } catch (error) {
             console.log("kakaologin error: ", error);
             alert('kakaologin error');
@@ -70,7 +69,6 @@ const getMyInfoApi = createAsyncThunk(
                     Authorization: localStorage.getItem('token'),
                 }
             });
-            console.log(response)
             return response.data;
         } catch (error) {
             console.log("getMyInfo: ", error);

@@ -49,9 +49,9 @@ const LocationBar = ({ title, transparent }) => {
 const Container = styled.div`
     display: flex;
     align-items: center;
-    padding: 15px 16px;
+    padding: 15px 16px 15px 8px;
     justify-content: space-between;
-    background-color: #ffca39;
+    background-color: transparent;
 `;
 
 const ArrowContainer = styled.div`
