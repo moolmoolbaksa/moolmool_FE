@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import DaumPostcode from "react-daum-postcode";
 import _ from "lodash";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAddress } from "../../redux/modules/user";
 import { Grid, Text, Button } from "../../elements/index";
 import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
@@ -22,6 +22,8 @@ const postCodeStyle = {
 
 const KakaoMap = () => {
     const dispatch = useDispatch();
+    // const first_address = useSelector(state => state.user.address?.general_address)
+    // const [first, setFirst] = useState(useSelector(state => state.user.address.general_address));
     const locationRef = useRef();
     
     const [state, setState] = useState({
@@ -29,9 +31,11 @@ const KakaoMap = () => {
         errMSg: null,
     });
 
+    
+
     const [isAddress, setIsAddress] = useState("");
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+    // console.log(isAddress, state, first_address, first)
     const openPostCode = () => {
         setIsPopupOpen(true);
     };
@@ -134,7 +138,7 @@ const KakaoMap = () => {
 
         locationRef.current.addEventListener('click', () => {
             // map.setCenter(state.center);
-            window.location.reload();
+            // setIsAddress(first);
         });
     }, [isAddress]);
     

@@ -7,7 +7,7 @@ const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
     async (thunkAPI) => {
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/user/check`,{
+            const response = await axios.get(`http://13.124.0.71/user/check`,{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
@@ -24,7 +24,7 @@ const kakaoLoginApi = createAsyncThunk(
     'user/kakaoLogin',
     async (code, thunkAPI) => {
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/user/kakao?code=${code}`);
+            const response = await axios.get(`http://13.124.0.71/user/kakao?code=${code}`);
    
             const token = response.headers.authorization;
             localStorage.setItem("token", token)
@@ -48,7 +48,7 @@ const setFirstUserInfoApi = createAsyncThunk(
     'user/setFirstUserInfoApi',
     async (address) => {
         try {
-            await axios.put(`http://13.125.220.67:8080/user/info`,{address},{
+            await axios.put(`http://13.124.0.71/user/info`,{address},{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
@@ -65,7 +65,7 @@ const getMyInfoApi = createAsyncThunk(
     'user/getMyInfo',
     async () => {
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/api/mypage`,{
+            const response = await axios.get(`http://13.124.0.71/api/mypage`,{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
@@ -83,7 +83,7 @@ const updateMyInfoApi = createAsyncThunk(
     'user/updateMyInfoApi',
     async (formData, thunkAPI) => {
         try {
-            const response = await axios.post(`http://13.125.220.67:8080/api/mypage`,formData,{
+            const response = await axios.post(`http://13.124.0.71/api/mypage`,formData,{
                 headers: {
                     'Content-Type' : 'multipart/form-data',
                     Authorization: localStorage.getItem('token')
@@ -104,7 +104,7 @@ const getCounterUserInfoApi = createAsyncThunk(
     async (userId) => {
         console.log(userId)
         try {
-            const response = await axios.get(`http://13.125.220.67:8080/api/store/${userId}`);
+            const response = await axios.get(`http://13.124.0.71/api/store/${userId}`);
             history.push(`/mall/${userId}`);
             console.log(response)
             return response.data;
