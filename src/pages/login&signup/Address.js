@@ -17,7 +17,7 @@ const Address = (props) => {
             dispatch(userActions.setFirstUserInfoApi(general_address));
             history.goBack();
             return;
-        }
+        };
         dispatch(userActions.setFirstUserInfoApi(general_address));
         history.replace('/welcome');
     };

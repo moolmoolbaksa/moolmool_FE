@@ -30,12 +30,10 @@ const KakaoMap = () => {
         center: "",
         errMSg: null,
     });
-
-    
-
+    const [render, setRender] = useState({});
     const [isAddress, setIsAddress] = useState("");
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    // console.log(isAddress, state, first_address, first)
+  
     const openPostCode = () => {
         setIsPopupOpen(true);
     };
@@ -72,21 +70,21 @@ const KakaoMap = () => {
             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
             navigator.geolocation.getCurrentPosition(function(position) {
                 
-                var lat = position.coords.latitude, // 위도
+                let lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude; // 경도
                 
-                var locPosition = new kakao.maps.LatLng(lat, lon) // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                let locPosition = new kakao.maps.LatLng(lat, lon) // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                 map.setCenter(locPosition);
                 setState(v => ({...v, center: locPosition}));
             });
             
         } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-            var locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+            let locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
             setState(v => ({...v, errMSg: '실시간 위치를 파악할 수 없어요.'}))
             map.setCenter(locPosition);
         }
-
-        var marker = new kakao.maps.Marker({ 
+        
+        let marker = new kakao.maps.Marker({ 
             // 지도 중심좌표에 마커를 생성합니다 
             position: map.getCenter() 
         }); 
@@ -95,7 +93,7 @@ const KakaoMap = () => {
 
         kakao.maps.event.addListener(map, 'center_changed', function() {
             // 지도의 중심좌표를 얻어옵니다 
-            var latlng = map.getCenter(); 
+            let latlng = map.getCenter(); 
             marker.setPosition(latlng);
         });
 
@@ -113,7 +111,7 @@ const KakaoMap = () => {
             geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
         }, 500));
 
-        var geocoder = new kakao.maps.services.Geocoder();
+        let geocoder = new kakao.maps.services.Geocoder();
 
         if(isAddress){
             geocoder.addressSearch(isAddress, function(result, status) {
@@ -121,7 +119,7 @@ const KakaoMap = () => {
                 // 정상적으로 검색이 완료됐으면 
                 if (status === kakao.maps.services.Status.OK) {
 
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
                     // 결과값으로 받은 위치를 마커로 표시합니다
                     // new kakao.maps.Marker({
@@ -135,12 +133,15 @@ const KakaoMap = () => {
                 } 
             });
         };
-
+        
         locationRef.current.addEventListener('click', () => {
             // map.setCenter(state.center);
             // setIsAddress(first);
-        });
-    }, [isAddress]);
+            setRender({...render})
+            });
+        }, [isAddress, render]);
+        
+        console.log(locationRef.current)
     
     return (
         <>
