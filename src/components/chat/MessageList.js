@@ -27,6 +27,7 @@ const MessageList = (props) => {
     const messageref=React.useRef(null);
 
     const apiroomid=parseInt(roomid.roomid);
+
     console.log()
     console.log(typeof(apiroomid));    
     React.useEffect(()=>{
@@ -40,6 +41,7 @@ const MessageList = (props) => {
         console.log(error);
     })
     },[])
+    
     React.useEffect(()=>{
 
         console.log(`/sub/chat/room/${apiroomid}`)
