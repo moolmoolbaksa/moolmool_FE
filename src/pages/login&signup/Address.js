@@ -1,11 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import KakaoMap from '../../components/shared/KakaoMap';
 
 import { Grid, Text, Button } from '../../elements/index';
 import { history } from '../../redux/configureStore';
-import { api as userActions } from '../../redux/modules/user';
+import { api as userActions, setAddress } from '../../redux/modules/user';
+import { ReactComponent as ArrowIcon } from '../../images/화살표.svg';
 
 const Address = (props) => {
     const dispatch = useDispatch();
@@ -14,14 +16,19 @@ const Address = (props) => {
 
     const onUpdateAddress = () => {
         if(location.state){
-            dispatch(userActions.setFirstUserInfoApi(general_address));
+            // dispatch(userActions.setFirstUserInfoApi(general_address));
             history.goBack();
             return;
         };
         dispatch(userActions.setFirstUserInfoApi(general_address));
         history.replace('/welcome');
     };
- 
+    
+    const onGoBack = () => {
+        history.goBack();
+        dispatch(setAddress(''));
+    };
+
     return (
         <Grid
             height="100%"
@@ -35,13 +42,19 @@ const Address = (props) => {
                 is_column
                 gap="18px"
             >   
-                <Text 
-                    text="내 위치 설정"
-                    size="24px"
-                    letterSpacing="-.96px"
-                    bold="bold"
-                    textAlign="center"
+                <Grid
+                    position="relative"
+                    flex
+                >
+                    {location.state && <StyledArrowIcon onClick={onGoBack} width="30" height="30"/>}
+                    <Text 
+                        text="내 위치 설정"
+                        size="24px"
+                        letterSpacing="-.96px"
+                        bold="bold"
+                        textAlign="center"
                     />
+                </Grid>
                 <Grid
                     margin="0 0 18px 0"
                 >
@@ -116,5 +129,10 @@ const Address = (props) => {
         </Grid>
     );
 };
+
+const StyledArrowIcon = styled(ArrowIcon)`
+    position: absolute;
+    left: 10px;
+`;
 
 export default Address;

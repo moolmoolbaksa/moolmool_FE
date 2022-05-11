@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Text } from '../elements/index';
 import { history } from '../redux/configureStore';
 import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
-import { setPreview } from '../redux/modules/user';
+import { setAddress, setPreview } from '../redux/modules/user';
 
 const LocationBar = ({ title, transparent }) => {
     const dispatch = useDispatch();
@@ -14,7 +14,10 @@ const LocationBar = ({ title, transparent }) => {
     const is_login = useSelector(state => state.user.is_login);
 
     const onGoBack = () => {
-        if(location.pathname==='/editmyinfo') dispatch(setPreview(''));
+        if(location.pathname==='/editmyinfo'){
+            dispatch(setPreview(''));
+            dispatch(setAddress(''));
+        }
         history.goBack();
     };
 
