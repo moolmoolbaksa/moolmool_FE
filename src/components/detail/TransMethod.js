@@ -39,8 +39,8 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 13px;
+    right: 13px;
     gap: 5px;
 `;
 
@@ -48,7 +48,7 @@ const Round = styled.div`
     width: 35px;
     height: 35px;
     border-radius: 50px;
-    background-color: #0095B7;
+    background-color: #FFD467;
     position: relative;
     display: flex;
     align-items: center;

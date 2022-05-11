@@ -11,7 +11,7 @@ const TradeModal = () => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const is_trade_modal = useSelector(state => state.modal.is_trade_modal);
-    console.log(is_trade_modal)
+    
     useEffect(() => {
         if(is_trade_modal){
             setIsOpen(true);

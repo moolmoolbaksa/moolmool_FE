@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
-
 
 // http://13.125.220.67:8080
 const api = axios.create({

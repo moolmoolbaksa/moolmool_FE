@@ -2,13 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { history } from "../configureStore";
-import { response } from "../../shared/mock";
 
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
     async (thunkAPI) => {
         try {
-            const response = await axios.get('http://13.124.0.71/user/check',{
+            const response = await axios.get(`http://13.124.0.71/user/check`,{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
@@ -37,7 +36,6 @@ const kakaoLoginApi = createAsyncThunk(
             } else {
                 history.replace('/');
             }
-            console.log(response)
         } catch (error) {
             console.log("kakaologin error: ", error);
             alert('kakaologin error');
@@ -48,15 +46,13 @@ const kakaoLoginApi = createAsyncThunk(
 const setFirstUserInfoApi = createAsyncThunk(
     'user/setFirstUserInfoApi',
     async (address) => {
-        console.log(address)
         try {
-            const response = await axios.put('http://13.124.0.71/user/info',{address},{
+            await axios.put(`http://13.124.0.71/user/info`,{address},{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
             });
-            history.replace('/welcome');
-            console.log(response)
+            return address;
         } catch (error) {
             console.log("setFirstUserInfoApi error: ", error);
             alert('setFirstUserInfoApi error');
@@ -64,42 +60,15 @@ const setFirstUserInfoApi = createAsyncThunk(
     }
 );
 
-// const setFirstUserInfoApi = createAsyncThunk(
-//     'user/setFristUserInfo',
-//     async (preview, introduce) => {
-//         const token = localStorage.getItem("token");
-//         const formData = new FormData();
-//         formData.append('profile', preview);
-//         formData.append('storeInfo', introduce);
-//         formData.append('address', '');
-//         try {
-//             const response = await axios.put(`http://13.124.0.71/user/info`,formData,{
-//                 headers: {
-//                     Authorization: token,
-//                     // 'Content-Type' : 'multipart/form-data'
-//                 }
-//             });
-//             console.log(response)
-//             // if(response.data.ok){
-//             //     history.replace('/');
-//             // }
-//         } catch (error) {
-//             console.log("setFirstUserInfo: ", error);
-//             alert('setFirstUserInfo error');
-//         }
-//     }
-// );
-
 const getMyInfoApi = createAsyncThunk(
     'user/getMyInfo',
     async () => {
         try {
-            const response = await axios.get('http://13.124.0.71/api/mypage',{
+            const response = await axios.get(`http://13.124.0.71/api/mypage`,{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
             });
-            console.log(response)
             return response.data;
         } catch (error) {
             console.log("getMyInfo: ", error);
@@ -110,24 +79,17 @@ const getMyInfoApi = createAsyncThunk(
 
 const updateMyInfoApi = createAsyncThunk(
     'user/updateMyInfoApi',
-    async ({nickname, storeInfo, profile}, thunkAPI) => {
-        
-        const formData = new FormData();
-        
-        formData.append('nickname', nickname);
-        formData.append('profile', profile);
-        formData.append('address', 'zzz');
-        formData.append('storeInfo', storeInfo);
-        // for (let key of formData.keys()) { console.log(key, ":", formData.get(key)); }
+    async (formData, thunkAPI) => {
         try {
-            const response = await axios.put('http://13.124.0.71/api/mypage',formData,{
+            const response = await axios.post(`http://13.124.0.71/api/mypage`,formData,{
                 headers: {
-                    Authorization: localStorage.getItem('token'),
-                    // 'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type' : 'multipart/form-data',
+                    Authorization: localStorage.getItem('token')
+                    
                 }
             });
-            console.log(response)
-            return response.data;
+            history.push('/mypage');
+            return response.data.result;
         } catch (error) {
             console.log("updateMyInfoApi: ", error);
             alert('updateMyInfoApi error');
@@ -157,7 +119,7 @@ export const user = createSlice({
         user_info: {
             nickname: "",
             profile: "",
-            store_info: "",
+            storeInfo: "",
             address: "",
             degree: "",
             grade: "",
@@ -165,7 +127,7 @@ export const user = createSlice({
         other: {
             nickname: "",
             profile: "",
-            store_info: "",
+            storeInfo: "",
             address: "",
             degree: "",
             grade: "",
@@ -174,24 +136,16 @@ export const user = createSlice({
         address: "",
         item_list: [],
         myScrabList: [],
-        preview: "",
+        preview: null,
         is_login: false,
     },
     reducers: {
-        setUser: (state, action) => {
-            state.user.nickname = action.payload.nickname;
-            state.user.profile = action.payload.profile;
-            state.is_login = true;
-        },
         setPreview: (state, action) => {
             state.preview = action.payload;
         },
-        setIntroduce: (state, action) => {
-            state.user.store_info = action.payload;
-        },
         setAddress: (state, action) => {
             state.address = action.payload;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -206,12 +160,24 @@ export const user = createSlice({
                 state.item_list = itemList;
                 state.myScrabList = myScrabList;
             })
-            // .addCase(updateMyInfoApi.fulfilled, (state, action) => {
-            //     const {itemList, myScrabList, ...user_info} = action.payload;
-            //     state.user_info = user_info;
-            //     state.item_list = itemList;
-            //     state.myScrabList = myScrabList;
-            // })
+            .addCase(setFirstUserInfoApi.fulfilled, (state, action) => {
+                state.user_info.address = action.payload;
+            })
+            .addCase(updateMyInfoApi.fulfilled, (state, action) => {
+                const {profile, ...other} = action.payload;
+                if(profile === 'empty'){
+                    state.user_info = {
+                        ...state.user_info,
+                        ...other
+                    };
+                } else {
+                    state.user_info = {
+                        ...state.user_info,
+                        ...other,
+                        profile
+                    };
+                };
+            })
             .addCase(getCounterUserInfoApi.fulfilled, (state, action) => {
                 const {itemList, ...other_info} = action.payload;
                 state.other = other_info;
@@ -222,7 +188,6 @@ export const user = createSlice({
 
 export const { 
     setPreview,
-    setIntroduce,
     setAddress,
 } = user.actions;
 
