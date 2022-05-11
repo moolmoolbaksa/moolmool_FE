@@ -41,13 +41,21 @@ const ChatroomDetail = (props) => {
     const opponentNickname=Opponent.nickname;
     
     
-    
+    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let client = Stomp.over(sock);
     React.useEffect(()=>{
 
         //입장할때 IN 들어왔다는 메시지 Send
-        let sock = new SockJS('http://13.124.0.71/ws-stomp');
-        let client = Stomp.over(sock);
-        console.log(client.ws.readyState);
+        // console.log(client.ws.readyState);
+        //   const data={
+        //       roomId:roomid.roomid,
+        //     type:"IN"
+        //   }
+        //   client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
+        //     JSON.stringify(data)
+        //   );
+
+        // console.log(client.ws.readyState);
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
@@ -58,8 +66,8 @@ const ChatroomDetail = (props) => {
           client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
             JSON.stringify(data)
           );
-        //   window.alert('room in')
-        //   console.log('send room in');
+          window.alert('room in')
+          console.log('send room in');
         });
    
     
@@ -70,7 +78,8 @@ const ChatroomDetail = (props) => {
             }
             client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
             JSON.stringify(data)
-          );
+            );
+            client.disconnect();
             //방퇴장할때 OUT 했다는 메시지 Send
        
 

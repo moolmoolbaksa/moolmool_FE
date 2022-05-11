@@ -20,26 +20,24 @@ overflow:auto;
 
         let sock = new SockJS('http://13.124.0.71/ws-stomp');
         let client = Stomp.over(sock);
-const MessageList = (props) => {
-    const dispatch=useDispatch();
+        const MessageList = (props) => {
+        const dispatch=useDispatch();
 
 
-    const {premessages, opponentId, opponentProfile}=props;
-    const roomid=useParams();
-    const [listmessage,setListmessage]=useState([]);
+        const roomid=useParams();
 
-    const Opponent=useSelector(state=>state.chat.Opponent);
-    const currentroom=useSelector(state=>state.chat.Currentroom);
-    const messages=useSelector(state=>state.chat.messages);
+        const Opponent=useSelector(state=>state.chat.Opponent);
+        const messages=useSelector(state=>state.chat.messages);
     
     const messageref=React.useRef(null);
 
     const apiroomid=parseInt(roomid.roomid);
-    
-    console.log(typeof(apiroomid));    React.useEffect(()=>{
+    console.log()
+    console.log(typeof(apiroomid));    
+    React.useEffect(()=>{
         ChatAPI.getMessage(apiroomid)
         .then((res)=>{
-        console.log(res);
+        // console.log(res);
         dispatch(getPreviousMessages(res.data));
         
         })
@@ -49,15 +47,13 @@ const MessageList = (props) => {
     },[])
     React.useEffect(()=>{
 
-        
-        console.log(client.ws.readyState);
+        console.log(`/sub/chat/room/${apiroomid}`)
+        // console.log(client.ws.readyState);
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
           client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
-              const newMessage = JSON.parse(data.body);
               console.log(client.ws.readyState);
-              
               console.log(data.body);
               const messageFromServer=JSON.parse(data.body);
               // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
@@ -69,7 +65,7 @@ const MessageList = (props) => {
                 {
                     dispatch(changeRoomtype("FULL"));
                 }
-          },{"Authorization": `${localStorage.getItem('token')}`}
+          }
           );
         });
     
@@ -90,7 +86,7 @@ const MessageList = (props) => {
         <Base ref={messageref}>
         {/* {   listmessage.sort((a,b)=>a.messageId-b.messageId) */}
         {    messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
-            message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={opponentProfile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
+            message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
             
 
         }

@@ -41,7 +41,7 @@ export const chat = createSlice({
             state.Roomlist=action.payload;
         },
         enterRoom:(state,action)=>{
-            console.log(action.payload);
+            // console.log(action.payload);
             //현재방정보 입력
             state.Currentroom.roomId=action.payload.roomId;
             state.Currentroom.userId=action.payload.userId;
@@ -49,12 +49,12 @@ export const chat = createSlice({
             state.Opponent.userId=action.payload.userId;
             state.Opponent.profile=action.payload.profile;
             state.Opponent.nickname=action.payload.nickname;
-            console.log(action.payload);
+            // console.log(action.payload);
 
         },
         getPreviousMessages:(state,action)=>{
             state.messages=action.payload;
-            console.log(state.messages);
+            // console.log(state.messages);
         },
         addMessage:(state,action)=>{
             state.messages.unshift(action.payload);
