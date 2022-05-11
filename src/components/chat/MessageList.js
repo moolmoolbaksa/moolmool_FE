@@ -34,10 +34,9 @@ const MessageList = (props) => {
     
     const messageref=React.useRef(null);
 
-
-    const apiroomid=roomid.roomid;
-
-    React.useEffect(()=>{
+    const apiroomid=parseInt(roomid.roomid);
+    
+    console.log(typeof(apiroomid));    React.useEffect(()=>{
         ChatAPI.getMessage(apiroomid)
         .then((res)=>{
         console.log(res);
