@@ -11,8 +11,8 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useLocation } from 'react-router-dom';
 
-import {useDispatch, useSelector} from 'react-redux';
-
+import { useDispatch, useSelector} from 'react-redux';
+import {getPreviousMessages,addMessage,changeRoomtype} from '../redux/modules/chat';
 const Base=styled.div`
 position:relative;
 height:100vh;
@@ -20,7 +20,7 @@ height:100vh;
 
 
 const ChatroomDetail = (props) => {
-
+    const dispatch=useDispatch();
     const roomid=useParams();
 
     const Opponent=useSelector(state=>state.chat.Opponent);
@@ -68,6 +68,22 @@ const ChatroomDetail = (props) => {
           );
           window.alert('room in')
           console.log('send room in');
+          console.log(client.ws.readyState);
+        client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
+            console.log(client.ws.readyState);
+            console.log(data.body);
+            const messageFromServer=JSON.parse(data.body);
+            // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
+              if(messageFromServer.type==="TALK")
+              {
+                dispatch(addMessage(messageFromServer))
+              }
+              else if(messageFromServer.type==="FULL")
+              {
+                  dispatch(changeRoomtype("FULL"));
+              }
+        }
+        );
         });
    
     
