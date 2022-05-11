@@ -38,7 +38,7 @@ const TradeItemCard = ({sellerImages}) => {
                         </span>
                     </Grid>
                     <Text 
-                        text="아왜안되냐고고고고고고곡고고고"
+                        text={title}
                         size="20px"
                         bold="bold"
                     />
