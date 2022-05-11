@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import DaumPostcode from "react-daum-postcode";
 import _ from "lodash";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAddress } from "../../redux/modules/user";
 import { Grid, Text, Button } from "../../elements/index";
 import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
@@ -17,14 +17,10 @@ const postCodeStyle = {
     width: "100%",
     height: "100%",
     zIndex: "1000",
-    zndex: "10000",
 };
 
 const KakaoMap = () => {
     const dispatch = useDispatch();
-    // const first_address = useSelector(state => state.user.address?.general_address)
-    // const [first, setFirst] = useState(useSelector(state => state.user.address.general_address));
-    const locationRef = useRef();
     
     const [state, setState] = useState({
         center: "",
@@ -57,6 +53,7 @@ const KakaoMap = () => {
     };
     
     useEffect(() => {
+        console.log('실행')
         const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -133,16 +130,13 @@ const KakaoMap = () => {
                 } 
             });
         };
-        
-        locationRef.current.addEventListener('click', () => {
-            // map.setCenter(state.center);
-            // setIsAddress(first);
-            setRender({...render})
-            });
         }, [isAddress, render]);
         
-        console.log(locationRef.current)
-    
+        const onResetLocation = () => {
+            setRender({...render});
+            setIsAddress('');
+        };
+
     return (
         <>
             <MapContainer>
@@ -164,7 +158,7 @@ const KakaoMap = () => {
                     지번, 도로명, 건물명으로 검색
                     <GlassIcon width="25" height="25"/>
                 </SearchAddress>
-                <NowLocation ref={locationRef}>
+                <NowLocation onClick={onResetLocation}>
                     <LocationIcon width="18" height="18"/>
                     <Text 
                         text="현재 위치로 설정하기"

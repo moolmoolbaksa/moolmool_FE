@@ -1,14 +1,23 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements/index';
 import { history } from '../../redux/configureStore';
+import { api as ProductActions } from '../../redux/modules/product';
 import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
 
 const ItemGrid = ({item_list, type}) => {
+    const dispatch = useDispatch();
+
     const onGoCreateItem = () => {
         history.push('/registerproduct');
+    };
+
+    const onGoScrabPage = () => {
+        dispatch(ProductActions.getMyScrabListApi());
     };
     
     if(type==='trade'){
@@ -48,6 +57,39 @@ const ItemGrid = ({item_list, type}) => {
                     })}
                 </Grid>
             </Grid> 
+        );
+    };
+
+    if(type==='scrab'){
+        return (
+            <>
+                <Grid
+                    padding="10px 0 0 0"
+                    flex
+                >
+                    <Text 
+                        text="찜한 상품"
+                        bold="bold"
+                        size="24px"
+                        letterSpacing="-1px"
+                        width="max-content"
+                    />
+                    <StyledLink
+                        to="/scrab"
+                        onClick={onGoScrabPage}
+                    >
+                        더보기
+                    </StyledLink>
+                </Grid>
+                <Grid gridBox margin="20px 0">
+                    {item_list && item_list.map((v, i) => {
+                        return  <ItemImage 
+                                    key={i}
+                                    {...v}
+                                />       
+                    })}
+                </Grid>
+            </>
         );
     };
 
@@ -135,6 +177,17 @@ const PlusZone = styled.div`
     width: 100%;
     border: 2px #ffca39 solid;
     border-radius: 5px;
+    cursor: pointer;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 12.5px;
+    text-align: right;
+    color: black;
+    letter-spacing: -1px;
+    border-bottom: 1px #9d9d9d solid;
     cursor: pointer;
 `;
 

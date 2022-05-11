@@ -32,6 +32,7 @@ overflow:auto;
     const messageref=React.useRef(null);
 
     const apiroomid=parseInt(roomid.roomid);
+
     console.log()
     console.log(typeof(apiroomid));    
     React.useEffect(()=>{
@@ -45,6 +46,7 @@ overflow:auto;
         console.log(error);
     })
     },[])
+    
     React.useEffect(()=>{
 
         console.log(`/sub/chat/room/${apiroomid}`)

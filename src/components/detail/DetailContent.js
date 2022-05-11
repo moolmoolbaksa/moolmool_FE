@@ -27,18 +27,20 @@ const DetailContent = (props) => {
                         text={title}
                         bold="bold"
                         size="18px"
-                        width="max-content"
+                        width="85%"
                     />
                     <Text 
                         text={timeForToday(date)}
                         size="12px"
                         letterSpacing="-1px"
                         color="lightgray"
-                        width="max-content"
+                        textAlign="right"
+                        width="15%"
                         padding="0 0 5px 0"
                     />
                 </Grid>
                 <Text 
+                    multi="4"
                     text={contents}
                 />
             </Grid>

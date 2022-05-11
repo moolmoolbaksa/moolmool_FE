@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import ItemGrid from '../components/store/ItemGrid';
 import MypageTop from '../components/store/MypageTop';
-import TouchSlide from '../components/TouchSlide';
 import LocationBar from '../components/LocationBar';
 import TabBar from '../components/TabBar';
 
@@ -20,7 +19,7 @@ const Mypage = (props) => {
             >
                 <MypageTop user_info={user_info}/>
                 <ItemGrid item_list={item_list}/>
-                <TouchSlide title="찜한 상품" myScrabList={myScrabList}/>
+                <ItemGrid item_list={myScrabList} type="scrab"/>
             </Container>
             <TabBar/>
         </>

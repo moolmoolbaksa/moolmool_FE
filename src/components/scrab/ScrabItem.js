@@ -26,8 +26,10 @@ const ScrabItem = ({itemId, title, contents, image}) => {
                     size="18px"
                     bold="bold"
                 />
-                <Text 
+                <Text
+                    multi="2"
                     text={contents}
+                    color="#9D9D9D"
                 />
             </Wrap>
         </Container>
@@ -35,24 +37,26 @@ const ScrabItem = ({itemId, title, contents, image}) => {
 };
 
 const Container = styled.div`
-    /* border: 1px red solid; */
     width: 100%;
     display: flex;
     gap: 10px;
+    padding: 0 5px;
+    border-bottom: 2px #9D9D9D solid;
+    padding-bottom: 15px;
 `;
 
 const Wrap = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 5px;
+    padding-top: 5px;
     overflow: hidden;
 `;
 
 const Image = styled.div`
-    height: 100px;
-    min-width: 100px;
+    height: 90px;
+    min-width: 90px;
     border-radius: 5px;
     background: url('${props => props.src}');
     background-size: cover;

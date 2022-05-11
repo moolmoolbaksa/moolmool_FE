@@ -11,15 +11,17 @@ import { history } from '../redux/configureStore';
 
 const EditMyInfo = (props) => {
     const dispatch = useDispatch();
+    
     const {nickname, storeInfo, address} = useSelector(state => state.user.user_info);
+    const map_address = useSelector(state => state.user.address);
     const profile = useSelector(state => state.user.user_info.profile);
     const preview = useSelector(state => state.user.preview);
     const inputRef = useRef();
-
+  
     const [editInfo, setEditInfo] = useState({
         nickname,
         storeInfo: storeInfo ? storeInfo : '',
-        address,
+        address: map_address ? map_address.general_address : address,
         profile: '',
     });
 
@@ -133,7 +135,7 @@ const EditMyInfo = (props) => {
                         <Input
                             type="text"
                             disabled
-                            placeholder={address}
+                            placeholder={map_address ? map_address.general_address : address}
                             padding="10px"
                         />
                         <StyledLocationIcon width="30" height="30" onClick={() => {history.push({pathname: '/address', state:{is_edit: true}})}}/>
