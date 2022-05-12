@@ -135,6 +135,7 @@ export const user = createSlice({
             other_item_list: [],
         },
         address: "",
+        latlng: "",
         item_list: [],
         myScrabList: [],
         preview: null,
@@ -151,6 +152,9 @@ export const user = createSlice({
         setAddress: (state, action) => {
             state.address = action.payload;
         },
+        setLatlng: (state, action) => {
+            state.latlng = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -196,6 +200,7 @@ export const {
     setPreview,
     setAddress,
     setLoading,
+    setLatlng,
 } = user.actions;
 
 export const api = {
