@@ -11,7 +11,7 @@ import Rating from "./Rating";
 import Scrab from "./Scrab";
 import Chatroomlist from "./Chatroomlist";
 import ChatroomDetail from "./ChatroomDetail";
-
+import Decidetrade from "./Decidetrade"
 export { 
     Detail,
     Mall,
@@ -26,4 +26,5 @@ export {
     Scrab,
     Chatroomlist,
     ChatroomDetail,
+    Decidetrade,
 };

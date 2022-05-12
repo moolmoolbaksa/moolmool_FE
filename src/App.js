@@ -25,6 +25,7 @@ import {
   Scrab,
   Chatroomlist,
   ChatroomDetail,
+  Decidetrade,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
@@ -73,6 +74,8 @@ function App() {
         <Route exact path="/rating" component={Rating}/>
         <Route exact path="/chat" component={Chatroomlist}/>
         <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
+        <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
+        
       </Container>
     </ConnectedRouter>
   );

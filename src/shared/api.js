@@ -3,6 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // http://13.125.220.67:8080
+// "http://13.124.0.71",
 const api = axios.create({
   baseURL: "http://13.124.0.71",
 });
@@ -11,60 +12,27 @@ const chatapi = axios.create({
 	baseURL: "http://13.124.0.71",
   });
 
-export const UserAPI = {
-	login: (formLogin) => api.post("/user/login", formLogin),
-	
-	signup: (id, nickname, pw, pwcheck) =>
-		api.post("/api/register", {
-		username: id,
-		nickName: nickname,
-		password: pw,
-		passwordCheck: pwcheck,
-		}),
 
-	idcheck: (email) => api.post("api/idCheck", { username: email }),
-
-	nicknamecheck: (nickname) => api.post("api/nickName", { nickName: nickname }),
-
-	islogin: () =>
-		api.get("/api/isLogin", {
-		headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-		},
-		}),
-
-	getAllUser: () =>
-		api.get("/api/users", {
-		headers: {
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-		},
-		}),
-
-	editimage: (file) =>
-		api.put("api/userImage", file, {
-		headers: {
-			"Content-Type": "multipart/form-data",
-			Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-		},
-		}),
-
-  //
-};
-export const ItemAPI = {
-
+export const ItemAPI = 
+{
+	//메인 아이템조회
   getItems: (category_string) => api.get(`${category_string}`, {
     headers: {
       "Authorization": `${localStorage.getItem('token')}`,
     },
   }),
+  // 메인 로그인 없이 아이템 조회
   getItemswitoutlogin: (category_string) => api.get(`${category_string}`),
 
+  // 교환 물품 등록
   registerItem: (Formitem) => api.post('/api/items',Formitem, {
     headers: {
       'Content-Type': 'multipart/form-data',
       "Authorization": `${localStorage.getItem('token')}`,
     },
   }),
+
+  //교환내역 불러오기
   getMyhistory: ()=>api.get('/api/myhistory',{
     headers: {
       "Authorization": `${localStorage.getItem('token')}`,
@@ -112,4 +80,37 @@ export const ChatAPI = {
 				Authorization: `${localStorage.getItem("token")}`,
 			},
 			}),
+};
+// /api/trade/decision?barterId=거래내역아이디
+export const HistoryAPI = {
+	//교환내역 불러오기
+	getMyhistory: ()=>api.get('/api/myhistory',{
+    headers: {
+      "Authorization": `${localStorage.getItem('token')}`,
+    },
+  }),
+  	//교환 수락
+  	acceptTrade: (barterid)=>api.post(`/api/trade/decision?baterId=${barterid}`,{
+    headers: {
+      "Authorization": `${localStorage.getItem('token')}`,
+    },
+  }),
+  	//교환 거절
+  	rejectTrade: (barterid)=>api.delete(`/api/trade/decision?baterId=${barterid}`,{
+		headers: {
+		  "Authorization": `${localStorage.getItem('token')}`,
+		},
+	  }),
+	//교환 완료하기
+	completeTrade: (barterid)=>api.put(`/api/myhistory/handshake?baterId=${barterid}`,{
+		headers: {
+		  "Authorization": `${localStorage.getItem('token')}`,
+		},
+	  }),
+	//교환 취소하기
+	cancelTrade: (barterid)=>api.delete(`/api/myhistory?barterId=${barterid}`,{
+		headers: {
+		  "Authorization": `${localStorage.getItem('token')}`,
+		},
+	  }),
 };

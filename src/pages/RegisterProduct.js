@@ -8,8 +8,8 @@ import IconTabs from '../components/IconTabs';
 import Noti from '../components/Registerproduct/Noti';
 import CategoryNoti from '../components/Registerproduct/CategoryNoti';
 import { ItemAPI } from '../shared/api';
-
-
+import LocationBar from '../components/LocationBar';
+import Checkbox from '@mui/material/Checkbox';
 
 
 const Imageitem = ({src})=>{
@@ -20,16 +20,21 @@ const RegisterProduct = (props) => {
     
     
     const categorys_list=[
-        {id:1, value:"가전제품"},
-        {id:2, value:"여성의류"},
-        {id:3, value:"남성의류"},
-        {id:4, value:"생활용품"},
-        {id:5, value:"욕실용품"},
-        {id:6, value:"주방용품"},
-        {id:7, value:"서적/음반"},
-        {id:8, value:"게임/취미"},
-        {id:9, value:"뷰티/미용"},
-        {id:10, value:"기타"},
+        {id:1, value:"디지털기기"},
+        {id:2, value:"생활가전"},
+        {id:3, value:"가구/인테리어"},
+        {id:4, value:"유아동"},
+        {id:5, value:"유아도서"},
+        {id:6, value:"생활/가공식품"},
+        {id:7, value:"스포츠/레저"},
+        {id:8, value:"여성잡화"},
+        {id:9, value:"여성의류"},
+        {id:10, value:"남성패션/잡화"},
+        {id:11, value:"게임/취미"},
+        {id:12, value:"뷰티/미용"},
+        {id:13, value:"반려동물용품"},
+        {id:14, value:"도서/티켓/음반"},
+        {id:15, value:"식물"},
     ];
     const type_list=[
         {id:1, value:"상관없음"},
@@ -117,6 +122,7 @@ const RegisterProduct = (props) => {
         if(e.target.checked)
         {
             setFavors(favors=>[...favors,e.target.value]);
+            console.log(e.target.value);
         }
         else
         {   
@@ -154,15 +160,15 @@ const RegisterProduct = (props) => {
         })
     }
 
-    console.log(preview)
+    // console.log(preview)
     return (
         <React.Fragment>
-            <h1>바꿀래요?</h1>
-            <Noti></Noti>
+        <LocationBar title="상품 등록"/>
+        <Noti></Noti>
 
 
         <Button height='100px' text='+카테고리 선택하기' onClick={openCategory}></Button>
-        <CategoryNoti></CategoryNoti>
+        {/* <CategoryNoti></CategoryNoti> */}
         {categoryOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {categoryOpen?
         
@@ -214,7 +220,7 @@ const RegisterProduct = (props) => {
         {favorsOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {favorsOpen?
         
-        <div style={{display:'flex', flexWrap:'wrap'}}>
+        <FavorBox>
             {
                 categorys_list.map((p,idx)=>{
                     return(
@@ -222,17 +228,15 @@ const RegisterProduct = (props) => {
                     <input name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} checked={null} onClick={handleFavor}/>
                     <label htmlFor={p.value} key={`favors_label_${idx}`}
                     >
-                            
-                            {p.value}
+                    {p.value}        
+                           
                     </label>
+                    
                 </div>);
                 })
                               
             }
-            
-            
-            
-            </div>:""}
+        </FavorBox>:""}
         
         <Empty/>
 
@@ -261,10 +265,7 @@ const RegisterProduct = (props) => {
             </div>
             <Button height='40px' radius='4px' background='#FFCA39' color='black' text='바꿀래요' onClick={submit}></Button>
         </div>
-        
-        <IconTabs></IconTabs>
-        
-        
+
         </React.Fragment>
         
         
@@ -292,14 +293,14 @@ const UploadLabel=styled.label`
 
 `;
 const Empty=styled.div`
-width:100%;
-background-color:#F5F5F5;
-height:10px;
+    width:100%;
+    background-color:#F5F5F5;
+    height:10px;
 `
 const Emptyline=styled.hr`
-width:90%;
-background-color:#F5F5F5;
-margin:0 auto;
+    width:90%;
+    background-color:#F5F5F5;
+    margin:0 auto;
 `;
 const PlusItem = styled.label`
     width: 100%;
@@ -316,6 +317,27 @@ const PlusItem = styled.label`
         color: lightgray;
         font-size: 30px;
     }
+`;
+const FavorBox=styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 10px;
+`;
+
+
+const Label = styled.label`
+  background: red;
+  display: inline-block;
+  padding: 0.5rem;
+  align-items:center;
+//   height:0.1rem;
+`;
+
+const Inputtest = styled.input`
+  &:checked + ${Label} {
+    background: blue;
+  }
+  display:none;
 `;
 
 export default RegisterProduct;
