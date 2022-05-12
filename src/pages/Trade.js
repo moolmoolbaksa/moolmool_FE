@@ -14,13 +14,14 @@ const Trade = (props) => {
     const dispatch = useDispatch();
 
     const {myImages, ...opponent_info} = useSelector(state => state.product.barter_info);
+    const {nickname, degree, title, contents} = useSelector(state => state.product.product_info);
     const trade_item = useSelector(state => state.product.trade_item);
     
     const onDoTrade = () => {
         if(!trade_item.length) return dispatch(setAlertModal(true));
         dispatch(setTradeModal(true));
     };
-
+    console.log(opponent_info)
     return (
         <Grid
             height="100%"
@@ -31,7 +32,13 @@ const Trade = (props) => {
                 position="relative"
                 padding="0 16px"
             >
-                <TradeItemCard {...opponent_info}/>
+                <TradeItemCard
+                    nickname={nickname}
+                    degree={degree}
+                    title={title}
+                    contents={contents}
+                    image={opponent_info.sellerImages}
+                />
                 <ItemGrid type="trade" item_list={myImages}/>
             </Grid>
             <Button

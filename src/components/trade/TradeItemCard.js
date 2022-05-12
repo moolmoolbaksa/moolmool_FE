@@ -1,15 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../../elements/index';
 
-const TradeItemCard = ({sellerImages}) => {
-    const {nickname, degree, title, contents} = useSelector(state => state.product.product_info)
+const TradeItemCard = ({nickname, degree, title, contents, image}) => {
     return (
         <Container>
             <ImageOutter>
-                <ImageWrap src={sellerImages}/>
+                <ImageWrap src={image}/>
             </ImageOutter>
             <Grid
                 is_flex
@@ -54,10 +52,11 @@ const TradeItemCard = ({sellerImages}) => {
 };
 
 const Container = styled.div`
-    margin: 16px 0;
+    padding: 20px 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: 15px;
+    border-bottom: 1px #c4c4c4 solid;
 
     & span {
         position: relative;

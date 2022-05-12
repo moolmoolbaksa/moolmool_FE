@@ -90,7 +90,6 @@ const GridBox = styled.div`
 	${props => (props.is_flex ? `display:flex` : '')};
 	${props => (props.cursor ? `cursor:pointer` : '')};
 	${props => (props.overflow ? `overflow: hidden` : '')};
-	/* border: 1px red solid; */
 `;
 
 const ParentsGridbox = styled.div`

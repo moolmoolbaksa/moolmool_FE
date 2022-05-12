@@ -26,6 +26,7 @@ import { set } from 'lodash';
 import { useSelector } from 'react-redux';
 import TabBar from '../components/TabBar';
 import LoginModal from '../components/modal/LoginModal';
+import { history } from '../redux/configureStore';
 // Instantiation
 
 
@@ -105,7 +106,7 @@ const Main = (props) => {
                     </IconButton>
                             <SearchIcon />
                     <Badge badgeContent={4} color="success">
-                        <MailIcon color="action" />
+                        <MailIcon color="action" onClick={() => {history.push('/noti')}}/>
                     </Badge>
 
                 </Toolbar>
