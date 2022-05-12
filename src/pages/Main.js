@@ -23,24 +23,27 @@ import { ItemAPI } from '../shared/api';
 
 
 import { set } from 'lodash';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TabBar from '../components/TabBar';
 import LoginModal from '../components/modal/LoginModal';
 import { history } from '../redux/configureStore';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { setLoading } from '../redux/modules/user';
+import Loading from '../components/shared/Loading';
 // Instantiation
 
 
 const Main = (props) => {
+  const dispatch = useDispatch();
   const is_token = localStorage.getItem("token");
-  // console.log(localStorage.getItem('token'));
+  const is_loading = useSelector(state => state.user.is_loading);
   const [filter,setfilter] = useState('전체');
   const [openFilter,setopenfilter] = useState(false);
   // console.log(filter);
   const [cardList, setCardlist]=useState([]);
   const {nickname, profile} = useSelector(state => state.user.user_info);
-  
+  console.log(is_loading)
   useEffect(() => {
     const sock = new SockJS('http://13.124.0.71/ws-stomp');
     const client = Stomp.over(sock);
@@ -57,7 +60,6 @@ const Main = (props) => {
       client.disconnect();
     }
   }, []);
-
 
   React.useEffect(()=>{
     let category_string=null;
@@ -83,7 +85,6 @@ const Main = (props) => {
       setCardlist(res.data);
       console.log(is_token);
       console.log('getItemswitoutlogin');
-
     })
     .catch((error)=>{
       console.log(error);
@@ -98,7 +99,7 @@ const Main = (props) => {
       console.log(res);
       setCardlist(res.data);
       console.log('getItems');
-
+      dispatch(setLoading(false));
     })
     .catch((error)=>{
       console.log(error);
@@ -106,8 +107,6 @@ const Main = (props) => {
       console.log('getItems');
     })
   }
-
-
   },[openFilter])
 
   const Drawers =()=>{
@@ -179,11 +178,8 @@ const Main = (props) => {
             }
             <TabBar />
             <LoginModal />
+            {is_loading && <Loading />}
         </React.Fragment>
-        
-        
-        
-
     );
 };
 

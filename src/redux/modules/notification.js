@@ -76,7 +76,11 @@ export const notification = createSlice({
 
         }
     },
-    reducers: {},
+    reducers: {
+        setNoti: (state, action) => {
+            state.noti_list.unshift(action.payload); 
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getNotiApi.fulfilled, (state, action) => {
@@ -96,7 +100,8 @@ export const api = {
     getBarterNotiApi,
 };
 
-// export const { 
-// } = notification.actions;
+export const { 
+    setNoti,
+} = notification.actions;
 
 export default notification.reducer;

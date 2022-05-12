@@ -14,8 +14,9 @@ import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as userApi } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
-import { setLoginModal } from '../redux/modules/modal';
+import { setAlertModal, setLoginModal } from '../redux/modules/modal';
 import { useLocation } from 'react-router-dom';
+import AlertModal from '../components/modal/AlertModal';
 
 const TabBar = (props) => {
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const TabBar = (props) => {
     };
 
     return (
+        <>
         <Container>
             <Wrap onClick={goHome}>
                 {location.pathname === '/'
@@ -54,7 +56,7 @@ const TabBar = (props) => {
                     color={location.pathname === '/' ? '#FFD467' : 'black'}
                 />
             </Wrap>
-            <Wrap>
+            <Wrap onClick={() => {dispatch(setAlertModal(true))}}>
                 {location.pathname === '/search'
                     ? <SearchIconYellow/>
                     : <SearchIcon/>
@@ -96,6 +98,8 @@ const TabBar = (props) => {
                 <span>마이페이지</span>
             </Wrap>
         </Container>
+        <AlertModal type/>
+        </>
     );
 };
 

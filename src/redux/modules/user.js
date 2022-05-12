@@ -139,8 +139,12 @@ export const user = createSlice({
         myScrabList: [],
         preview: null,
         is_login: false,
+        is_loading: true,
     },
     reducers: {
+        setLoading: (state, action) => {
+            state.is_loading = action.payload;
+        },
         setPreview: (state, action) => {
             state.preview = action.payload;
         },
@@ -191,6 +195,7 @@ export const user = createSlice({
 export const { 
     setPreview,
     setAddress,
+    setLoading,
 } = user.actions;
 
 export const api = {

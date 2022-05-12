@@ -37,7 +37,7 @@ const MypageTop = ({user_info}) => {
                         <Span>Lv. {degree}</Span>
                     </Grid>
                     <Text 
-                        text={address ? address.split(' ').splice(0, 3).join(' ') : '주소를 설정해주세요.'}
+                        text={address ? address.split(' ').splice(0, 2).join(' ') : '주소를 설정해주세요.'}
                         color="gray"
                         letterSpacing="-1px"
                     />
@@ -63,6 +63,6 @@ const Span = styled.div`
     padding-top: 7px;
     letter-spacing: -1px;
     margin-left: 5px;
-`
+`;
 
 export default MypageTop;

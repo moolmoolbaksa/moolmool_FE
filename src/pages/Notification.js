@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import LocationBar from '../components/LocationBar';
-import { api as notiActions } from '../redux/modules/notification';
+import { api as notiActions, setNoti } from '../redux/modules/notification';
 import { Grid } from '../elements/index';
 import Noticard from '../components/Notification/Noticard';
 import SockJS from 'sockjs-client';
@@ -18,20 +18,20 @@ const Notification = (props) => {
 		dispatch(notiActions.getNotiApi());
 	}, []);
 
-	useEffect(() => {
-		const sock = new SockJS('http://13.124.0.71/ws-stomp');
-    	const client = Stomp.over(sock);
+	const sock = new SockJS('http://13.124.0.71/ws-stomp');
+    const client = Stomp.over(sock);
 
+	useEffect(() => {
 		client.connect({"Authorization": localStorage.getItem('token')}, () => {
 			client.subscribe(`/sub/notification/${userId}`, (data) => {
 				const response = JSON.parse(data.body);
-				console.log(response)
-				})
+				dispatch(setNoti(response.data));
+				});
       		}
     	);
 
 		return () => {
-		client.disconnect();
+			client.disconnect();
 		}
   	}, []);
 
