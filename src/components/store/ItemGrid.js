@@ -46,7 +46,7 @@ const ItemGrid = ({item_list, type}) => {
     if(type==='mall'){
         return (
             <Grid
-                padding="20px 0 0 0"
+                // padding="20px 0 0 0"
             >
                 <Grid gridBox margin="20px 0">
                     {item_list && item_list.map((v, i) => {

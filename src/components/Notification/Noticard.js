@@ -1,30 +1,43 @@
 import React from "react";
-import {Grid, Text, Image} from "../../elements/index";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-const Noticard = (props) => {
+import { api as notiActions } from "../../redux/modules/notification";
 
-    const {image_url, user_name, post_id} = props;
-    console.log(props.image_url);
-    console.log(props.user_name);
-    return (
-      <Grid padding="16px" is_flex bg="#ffffff" margin="8px 0px">
-        <Grid width="auto" margin="0px 8px 0px 0px">
-          <Image src={image_url} size={85} shape="square" />
-        </Grid>
-        <Grid>
-        <b>{user_name}</b>님이 게시글에 댓글을 남겼습니다 :)!{" "}
-          {/* <Text>
-            <b>{user_name}</b>님이 게시글에 댓글을 남겼습니다 :)!{" "}
-          </Text> */}
-        </Grid>
-      </Grid>
+const Noticard = ({notificationId, isRead, type, nickname, changeId}) => {    
+    const dispatch = useDispatch();
+
+	const onNotiClick = () => {
+		switch(type){
+			case 'BARTER':
+				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));
+				break;
+			default:
+				//chat
+				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));
+		};
+	};
+	
+	return (
+		<Container 
+			isRead={isRead}
+			onClick={onNotiClick}
+		>
+			{type === 'CHAT' && `${nickname}님에게서 채팅이 왔어요!`}
+			{type === 'BARTER' && `${nickname}님에게서 교환 신청이 왔어요!`}
+			{type === 'ETC' && `반가워요! ${nickname}님의 회원가입을 축하드려요`}
+			{type === 'SCORE' && `기타등등`}
+		</Container>
     );
 }
 
-Noticard.defaultProps = {
-  image_url: "http://via.placeholder.com/400x300",
-  user_name:"",
-  post_id:"",
-};
+const Container = styled.div`
+	font-size: 16px;
+	font-weight: bold;
+	letter-spacing: -.67px;
+	padding: 20px 0;
+	border-bottom: 1px #c4c4c4 solid;
+	color: ${props => props.isRead ? '#c4c4c4' : 'black'};
+`;
 
 export default Noticard;

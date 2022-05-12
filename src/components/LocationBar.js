@@ -17,7 +17,8 @@ const LocationBar = ({ title, transparent }) => {
         if(location.pathname==='/editmyinfo'){
             dispatch(setPreview(''));
             dispatch(setAddress(''));
-        }
+        };
+        
         history.goBack();
     };
 
@@ -31,7 +32,7 @@ const LocationBar = ({ title, transparent }) => {
 
     return (
         <Container>
-            <Wrap flex>
+            <Wrap>
                 <ArrowIcon onClick={onGoBack} width="27" height="27"/>
                 <Text 
                     text={title}
@@ -65,10 +66,13 @@ const ArrowContainer = styled.div`
     z-index: 100;
     cursor: pointer;
 `;
+
 const Wrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+
     & span {
         text-indent: -9999;
         padding-bottom: 2px;
