@@ -71,8 +71,10 @@ const DetailBottom = (props) => {
             <Container bg={my_nickname === nickname}>
                 <Wrap>
                     <HeartOuter onClick={clickHeart}>
-                        <HeartIcon ref={btnRef}/>
-                        {/* <HeartIconRed ref={btnRef}/> */}
+                        {isScrab 
+                            ? <HeartIconRed ref={btnRef}/>
+                            : <HeartIcon ref={btnRef}/>
+                        }
                         {scrabCnt !== 0
                             &&  <Text 
                                     text={scrabCnt ? scrabCnt : '0'}

@@ -12,6 +12,9 @@ import Scrab from "./Scrab";
 import Chatroomlist from "./Chatroomlist";
 import ChatroomDetail from "./ChatroomDetail";
 import Decidetrade from "./Decidetrade"
+import TradeProposal from "./TradeProposal";
+import TradeCheck from "./TradeCheck";
+
 export { 
     Detail,
     Mall,
@@ -26,5 +29,10 @@ export {
     Scrab,
     Chatroomlist,
     ChatroomDetail,
+<<<<<<< HEAD
     Decidetrade,
+=======
+    TradeProposal,
+    TradeCheck,
+>>>>>>> b1a878759a4a240f5620a50c78378e2c9919dcd3
 };

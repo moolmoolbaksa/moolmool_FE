@@ -26,6 +26,8 @@ import {
   Chatroomlist,
   ChatroomDetail,
   Decidetrade,
+  TradeProposal,
+  TradeCheck,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
@@ -70,6 +72,8 @@ function App() {
         <Route exact path="/mypage" component={Mypage} />
         <Route exact path="/editmyinfo" component={EditMyInfo} />
         <Route exact path="/noti" component={Notification}/>
+        <Route exact path="/trproposal" component={TradeProposal}/>
+        <Route exact path="/trcheck" component={TradeCheck}/>
         <Route exact path="/trhistory" component={Tradehistory}/>
         <Route exact path="/rating" component={Rating}/>
         <Route exact path="/chat" component={Chatroomlist}/>

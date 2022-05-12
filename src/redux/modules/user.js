@@ -118,6 +118,7 @@ export const user = createSlice({
     initialState: {
         user_info: {
             nickname: "",
+            userId: "",
             profile: "",
             storeInfo: "",
             address: "",
@@ -152,6 +153,7 @@ export const user = createSlice({
             .addCase(loginCheckApi.fulfilled, (state, action) => {
                 state.user_info.nickname = action.payload.nickname;
                 state.user_info.profile = action.payload.profile;
+                state.user_info.userId = action.payload.userId;
                 state.is_login = true;
             })
             .addCase(getMyInfoApi.fulfilled, (state, action) => {

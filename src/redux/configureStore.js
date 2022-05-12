@@ -8,7 +8,9 @@ import userSlice from './modules/user';
 import productSlice from './modules/product';
 import modalSlice from './modules/modal';
 import chatSlice from './modules/chat';
-import tradehistorySlice from './modules/tradehistory'
+import notiSlice from './modules/notification';
+import tradehistorySlice from './modules/tradehistory';
+
 
 export const history = createBrowserHistory();
 
@@ -18,6 +20,7 @@ const rootReducer = combineReducers({
   modal: modalSlice,
   chat: chatSlice,
   tradehistory: tradehistorySlice,
+  notification: notiSlice,
   router: connectRouter(history),
 });
 
