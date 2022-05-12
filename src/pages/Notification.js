@@ -6,14 +6,34 @@ import LocationBar from '../components/LocationBar';
 import { api as notiActions } from '../redux/modules/notification';
 import { Grid } from '../elements/index';
 import Noticard from '../components/Notification/Noticard';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 const Notification = (props) => {
 	const dispatch = useDispatch();
+	const userId = useSelector(state => state.user.user_info.userId);
 	const noti_list = useSelector(state => state.notification.noti_list);
-	console.log(noti_list)
+	console.log(noti_list, userId)
 	useEffect(() => {
 		dispatch(notiActions.getNotiApi());
 	}, []);
+
+	useEffect(() => {
+		const sock = new SockJS('http://13.124.0.71/ws-stomp');
+    	const client = Stomp.over(sock);
+
+		client.connect({"Authorization": localStorage.getItem('token')}, () => {
+			client.subscribe(`/sub/notification/${userId}`, (data) => {
+				const response = JSON.parse(data.body);
+				console.log(response)
+				})
+      		}
+    	);
+
+		return () => {
+		client.disconnect();
+		}
+  	}, []);
 
     return (
 		<Grid

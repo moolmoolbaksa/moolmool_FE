@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import styled from 'styled-components';
 import { styled, alpha } from '@mui/material/styles';
 import { Button,Image } from '../elements/index';
@@ -27,6 +27,8 @@ import { useSelector } from 'react-redux';
 import TabBar from '../components/TabBar';
 import LoginModal from '../components/modal/LoginModal';
 import { history } from '../redux/configureStore';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 // Instantiation
 
 
@@ -39,6 +41,24 @@ const Main = (props) => {
   const [cardList, setCardlist]=useState([]);
   const {nickname, profile} = useSelector(state => state.user.user_info);
   
+  useEffect(() => {
+    const sock = new SockJS('http://13.124.0.71/ws-stomp');
+    const client = Stomp.over(sock);
+
+    client.connect({"Authorization": localStorage.getItem('token')}, () => {
+        client.subscribe(`/pub/notification`, (data) => {
+          const unread_noti = JSON.parse(data.body);
+          console.log(unread_noti)
+        })
+      }
+    );
+
+    return () => {
+      client.disconnect();
+    }
+  }, []);
+
+
   React.useEffect(()=>{
     let category_string=null;
     
@@ -89,6 +109,7 @@ const Main = (props) => {
 
 
   },[openFilter])
+
   const Drawers =()=>{
     if(openFilter)
     {setopenfilter(false);}
