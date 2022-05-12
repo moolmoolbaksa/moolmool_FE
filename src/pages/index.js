@@ -29,10 +29,7 @@ export {
     Scrab,
     Chatroomlist,
     ChatroomDetail,
-<<<<<<< HEAD
     Decidetrade,
-=======
     TradeProposal,
     TradeCheck,
->>>>>>> b1a878759a4a240f5620a50c78378e2c9919dcd3
 };
