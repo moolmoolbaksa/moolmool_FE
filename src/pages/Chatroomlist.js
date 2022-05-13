@@ -21,7 +21,7 @@ React.useEffect(()=>{
     ChatAPI.getChatRoom()
     .then((res)=>{
         // console.log(res);
-        // console.log(res.data);
+        console.log(res.data);
         dispatch(setRoomlist(res.data));
         
     })

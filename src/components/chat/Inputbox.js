@@ -22,7 +22,7 @@ const Inputbox = (props) => {
     let isRead=roomtype==="NORMAL"?false:true;
 
     const Sentroomid=parseInt(roomId.roomid);
-    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let sock = new SockJS('https://13.125.220.67:443/wss-stomp');
       let client = Stomp.over(sock);
     React.useEffect(()=>{
 

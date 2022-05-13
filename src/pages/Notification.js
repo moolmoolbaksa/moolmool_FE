@@ -18,7 +18,7 @@ const Notification = (props) => {
 		dispatch(notiActions.getNotiApi());
 	}, []);
 
-	const sock = new SockJS('https://13.125.220.67:8080/ws-stomp');
+	const sock = new SockJS('https://13.125.220.67:443/wss-stomp');
     const client = Stomp.over(sock);
 
 	useEffect(() => {
