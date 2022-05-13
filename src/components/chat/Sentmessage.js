@@ -14,7 +14,7 @@ const Sentmessage = ({message}) => {
 const ChatSender = styled.div`
     position: relative;
     
-    width: 300px;
+    max-width: 300px;
     background-color: #0095B7;
     border-radius: 5px 0px 5px 5px;
     margin: 20px 20px 0px 0px;

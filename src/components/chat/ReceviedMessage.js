@@ -20,7 +20,7 @@ const Messagewrap = styled.div`
 
 const ChatRecived = styled.div`
     position: relative;
-    width: 300px;
+    max-width: 300px;
     background-color: #FFD467;
     border-radius: 0px 5px 5px 5px;
     margin: 5px 0px 0px 10px;
