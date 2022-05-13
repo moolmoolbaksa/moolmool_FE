@@ -25,7 +25,7 @@ const Tradecard = (props) => {
         {
             return (<Buttonwrap>
                 <Button background='#9D9D9D'  color='white' height='40px' margin='10px 10px 10px 10px' text='교환 수정' ></Button>
-                <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소' ></Button>
+                <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소' onClick={handleCancelTrade} ></Button>
                 </Buttonwrap>);
         }
         else if(status==1 && myPosition==="seller")
@@ -39,14 +39,14 @@ const Tradecard = (props) => {
         {
             return (<Buttonwrap>
                 <Button background='#9D9D9D'  color='white' height='40px' margin='10px 10px 10px 10px' text='교환 완료하기' onClick={handleComplete}></Button>
-                <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소하기' onClick={handleReject} ></Button>
+                <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소하기' onClick={handleCancelTrade} ></Button>
                 </Buttonwrap>);
         }
         else if(status==2 && isTrade===true)
         {
             return (<Buttonwrap>
-                <Button background='#9D9D9D'  color='white' height='40px' margin='10px 10px 10px 10px' text='완료 대기' onClick={handleCancelComplete}></Button>
-                <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소하기' onClick={handleReject} ></Button>
+                <Button background='#9D9D9D'  color='white' height='40px' margin='10px 10px 10px 10px' text='완료 취소(대기중)' onClick={handleCancelComplete}></Button>
+                <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소하기' onClick={handleCancelTrade} ></Button>
                 </Buttonwrap>);
         }
         else if(status==3 && isScore===false)
@@ -66,13 +66,13 @@ const Tradecard = (props) => {
     
     const handleAccept=()=>{
         dispatch(acceptTrade({barterId:barterId,myPosition:myPosition}));
-        // HistoryAPI.acceptTrade(barterId)
-        // .then((res)=>{
-        //     console.log(res);
-        // })
-        // .catch((error)=>{
-        //     console.log(error);
-        // })
+        HistoryAPI.acceptTrade(barterId)
+        .then((res)=>{
+            console.log(res);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
 
     }
     const handleReject=()=>{
@@ -89,18 +89,31 @@ const Tradecard = (props) => {
     const handleComplete=()=>{
         dispatch(completeTrade({barterId:barterId,myPosition:myPosition}));
 
-        // HistoryAPI.completeTrade(barterId)
-        // .then((res)=>{
-        //     console.log(res);
-        // })
-        // .catch((error)=>{
-        //     console.log(error)
-        // })
+        HistoryAPI.completeTrade(barterId)
+        .then((res)=>{
+            console.log(res);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
         
     }
     const handleCancelComplete=()=>{
-        dispatch(completeTrade({barterId:barterId,myPosition:myPosition}))
+        dispatch(completeTrade({barterId:barterId,myPosition:myPosition}));
+        
 
+    }
+    const handleCancelTrade=()=>{
+        dispatch(delHistory({barterId:barterId,myPosition:myPosition}));
+        HistoryAPI.cancelTrade(barterId)
+        .then((res)=>{
+            console.log(res);
+
+        })
+        .catch((error)=>{
+            console.log(error);
+
+        })
     }
       
       return (

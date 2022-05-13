@@ -91,11 +91,11 @@ export const HistoryAPI = {
     },
   }),
   	//교환 수락
-  	acceptTrade: (barterid)=>api.post(`/api/trade/decision?baterId=${barterid}`,{
-    headers: {
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  }),
+  	acceptTrade: (barterid)=>api.put(`/api/trade/decision?baterId=${barterid}`,{},{
+		headers: {
+		  "Authorization": `${localStorage.getItem('token')}`,
+		},
+	  }),
   	//교환 거절
   	rejectTrade: (barterid)=>api.delete(`/api/trade/decision?baterId=${barterid}`,{
 		headers: {
@@ -103,7 +103,7 @@ export const HistoryAPI = {
 		},
 	  }),
 	//교환 완료하기
-	completeTrade: (barterid)=>api.put(`/api/myhistory/handshake?baterId=${barterid}`,{
+	completeTrade: (barterid)=>api.put(`/api/myhistory/handshake?barterId=${barterid}`,{},{
 		headers: {
 		  "Authorization": `${localStorage.getItem('token')}`,
 		},
