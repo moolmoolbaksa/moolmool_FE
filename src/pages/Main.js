@@ -44,9 +44,10 @@ const Main = (props) => {
 	useEffect(() => {
 		if(is_token){
 			client.connect({"Authorization": localStorage.getItem('token')}, () => {
+				// client.subscribe(`/user/sub/notification/`,() => {},{"Authorization" : localStorage.getItem('token')});
 				client.subscribe(`/sub/notification/${userId}`, (data) => {
+					console.log(data.body)
 					const unread_noti = JSON.parse(data.body);
-					console.log(unread_noti)
 					dispatch(setUnreadNoti(unread_noti.notificationCnt));
 				}, {"Authorization" : localStorage.getItem('token')})
 				client.send(`/pub/notification`, {"Authorization" : localStorage.getItem('token')},{});

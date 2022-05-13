@@ -7,8 +7,9 @@ import { Text } from '../elements/index';
 import { history } from '../redux/configureStore';
 import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
 import { setAddress, setPreview } from '../redux/modules/user';
+import { resetTrade } from '../redux/modules/product';
 
-const LocationBar = ({ title, transparent }) => {
+const LocationBar = ({ title, transparent, chat }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const is_login = useSelector(state => state.user.is_login);
@@ -18,10 +19,12 @@ const LocationBar = ({ title, transparent }) => {
             dispatch(setPreview(''));
             dispatch(setAddress(''));
         };
-        
+        if(location.pathname==='/trade'){
+            dispatch(resetTrade());
+        };
         history.goBack();
     };
-
+   
     if(transparent){
         return (
             <ArrowContainer onClick={onGoBack}>
@@ -33,7 +36,7 @@ const LocationBar = ({ title, transparent }) => {
     return (
         <Container>
             <Wrap>
-                <ArrowIcon onClick={onGoBack} width="27" height="27"/>
+                <StyledArrowIcon onClick={onGoBack} width="27" height="27"/>
                 <Text 
                     text={title}
                     size="22px"
@@ -78,7 +81,8 @@ const Wrap = styled.div`
         padding-bottom: 2px;
         cursor: pointer;
     }
-`
+`;
+
 const StyledLink = styled(Link)`
     text-decoration: none;
     border-bottom: 1px black solid;
@@ -88,6 +92,10 @@ const StyledLink = styled(Link)`
     font-size: 12px;
     letter-spacing: -.67px;
     word-spacing: -.67px;
+    cursor: pointer;
+`;
+
+const StyledArrowIcon = styled(ArrowIcon)`
     cursor: pointer;
 `;
 
