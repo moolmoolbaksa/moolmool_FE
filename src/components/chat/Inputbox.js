@@ -16,9 +16,10 @@ const Inputbox = (props) => {
     let isRead=roomtype==="NORMAL"?false:true;
 
     const Sentroomid=parseInt(roomId.roomid);
+
     let sock = new SockJS('http://13.124.0.71/ws-stomp');
     let client = Stomp.over(sock);
-    
+
     const onSend = async () => {
       	console.log("connected");
         console.log(client.ws.readyState);

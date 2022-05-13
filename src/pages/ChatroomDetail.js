@@ -79,7 +79,7 @@ const ChatroomDetail = (props) => {
               {
                   dispatch(changeRoomtype("FULL"));
               }
-        },{"Authorization": `${localStorage.getItem('token')}`}
+        }, {"Authorization": localStorage.getItem('token')}
         );
         });
    
