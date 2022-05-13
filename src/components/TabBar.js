@@ -39,6 +39,10 @@ const TabBar = (props) => {
         history.push('/');
         window.scrollTo(0, 0);
     };
+    const goChat =()=>{
+        history.push('/chat');
+        window.scrollTo(0, 0);
+    };
 
     return (
         <Container>
@@ -76,12 +80,12 @@ const TabBar = (props) => {
                     size="12px"
                 />
             </Wrap>
-            <Wrap>
+            <Wrap onClick={goChat}>
                 {location.pathname === '/chat'
                     ? <ChatIconYellow/>
                     : <ChatIcon/>
                 }
-                <Text 
+                <Text
                     text="채팅"
                     textAlign="center"
                     size="12px"

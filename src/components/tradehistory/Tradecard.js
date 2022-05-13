@@ -45,7 +45,7 @@ const Tradecard = (props) => {
         else if(status==2 && isTrade===true)
         {
             return (<Buttonwrap>
-                <Button background='#9D9D9D'  color='white' height='40px' margin='10px 10px 10px 10px' text='완료 취소' onClick={handleCancelComplete}></Button>
+                <Button background='#9D9D9D'  color='white' height='40px' margin='10px 10px 10px 10px' text='완료 대기' onClick={handleCancelComplete}></Button>
                 <Button background='#FFCA39' height='40px' margin='10px 10px 10px 10px' text='교환 취소하기' onClick={handleReject} ></Button>
                 </Buttonwrap>);
         }
@@ -87,7 +87,7 @@ const Tradecard = (props) => {
         dispatch(delHistory({barterId:barterId,myPosition:myPosition}));
     }
     const handleComplete=()=>{
-        // dispatch(completeTrade({barterId:barterId,myPosition:myPosition}));
+        dispatch(completeTrade({barterId:barterId,myPosition:myPosition}));
 
         // HistoryAPI.completeTrade(barterId)
         // .then((res)=>{
