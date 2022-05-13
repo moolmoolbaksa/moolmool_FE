@@ -41,7 +41,7 @@ const ChatroomDetail = (props) => {
     const opponentNickname=Opponent.nickname;
     
     
-    let sock = new SockJS('https://13.125.220.67:8080/wss-stomp');
+    let sock = new SockJS('https://13.125.220.67:443/wss-stomp');
     let client = Stomp.over(sock);
     React.useEffect(()=>{
 
