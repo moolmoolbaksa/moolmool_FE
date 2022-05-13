@@ -1,12 +1,10 @@
-
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState={
     tradehistory: [],
     Senthistory:[],
     Recivedhistory:[],
-}
-
+};
 
 export const tradehistory = createSlice({
     name: 'tradehistory',
@@ -33,11 +31,7 @@ export const tradehistory = createSlice({
             state.Senthistory.forEach(history=>action.payload.barterId===history.barterId?history.isTrade=true:""))
             :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.isTrade=true:""));  
         },
-
-
-        
     },
-
     extraReducers: (builder) => {
         // builder
         //     .addCase(loginCheckApi.fulfilled, (state, action) => {

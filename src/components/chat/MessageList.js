@@ -15,10 +15,7 @@ import {getPreviousMessages,addMessage,changeRoomtype} from '../../redux/modules
 const MessageList = (props) => {
         
     const dispatch=useDispatch();
-    
-    let sock = new SockJS('https://13.125.220.67:443/wss-stomp');
-    let client = Stomp.over(sock);
-    
+        
     const roomid=useParams();
     const Opponent=useSelector(state=>state.chat.Opponent);
     const messages=useSelector(state=>state.chat.messages);

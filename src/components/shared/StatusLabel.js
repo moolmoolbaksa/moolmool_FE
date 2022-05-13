@@ -22,7 +22,7 @@ const StatusLabel = ({status}) => {
 };
 
 const Container = styled.div`
-    background-color: #0095b7;
+    background-color: #2B9ECF;
     position: absolute;
     z-index: 100;
     bottom: 13px;
