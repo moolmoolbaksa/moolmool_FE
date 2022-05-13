@@ -72,11 +72,17 @@ export const notification = createSlice({
             image: '',
             barterItem: [],
         },
-        score_info: {
-
+        score_info: {},
+        unread_noti: 0,
+    },
+    reducers: {
+        setNoti: (state, action) => {
+            state.noti_list = [action.payload, ...state.noti_list]; 
+        },
+        setUnreadNoti: (state, action) => {
+            state.unread_noti = action.payload;
         }
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getNotiApi.fulfilled, (state, action) => {
@@ -96,7 +102,9 @@ export const api = {
     getBarterNotiApi,
 };
 
-// export const { 
-// } = notification.actions;
+export const { 
+    setNoti,
+    setUnreadNoti,
+} = notification.actions;
 
 export default notification.reducer;

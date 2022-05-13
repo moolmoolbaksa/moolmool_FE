@@ -95,13 +95,4 @@ const ImageWrap = styled.div`
     background-size: cover;
 `;
 
-const TwoLine = styled.div`
-    word-wrap:break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; 
-    -webkit-box-orient: vertical;
-`
-
 export default TradeItemCard;
