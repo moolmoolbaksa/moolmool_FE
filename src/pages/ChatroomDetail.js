@@ -59,20 +59,10 @@ const ChatroomDetail = (props) => {
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
-          const data={
-              roomId:roomid.roomid,
-            type:"IN"
-          }
-          client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
-            JSON.stringify(data)
-          );
-          window.alert('room in')
-          console.log('send room in');
-          console.log(client.ws.readyState);
-        client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
+          client.subscribe(`/sub/chat/room/${apiroomid}`, function(messagefs) {
             console.log(client.ws.readyState);
             console.log(data.body);
-            const messageFromServer=JSON.parse(data.body);
+            const messageFromServer=JSON.parse(messagefs.body);
             // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
               if(messageFromServer.type==="TALK")
               {
@@ -84,6 +74,17 @@ const ChatroomDetail = (props) => {
               }
         }, {"Authorization": localStorage.getItem('token')}
         );
+          const data={
+              roomId:roomid.roomid,
+            type:"IN"
+          }
+          client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
+            JSON.stringify(data)
+          );
+          window.alert('room in')
+          console.log('send room in');
+          console.log(client.ws.readyState);
+        
         });
    
     
