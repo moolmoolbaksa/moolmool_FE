@@ -39,7 +39,7 @@ const Main = (props) => {
 	const [cardList, setCardlist]=useState([]);
 	//test
 	//test12
-	const sock = new SockJS('https://13.125.220.67:443/wss-stomp');
+	const sock = new SockJS('http://13.124.0.71/ws-stomp');
 	const client = Stomp.over(sock);
   	
 	useEffect(() => {
