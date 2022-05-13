@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { Grid } from '../../elements/index';
-import Logo from '../../images/logo 1.png';
+import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 
 const Login = (props) => {  
     const REDIRECT_URI = `${process.env.REACT_APP_URL}/auth/kakao/callback`;
@@ -17,13 +17,7 @@ const Login = (props) => {
             gap="155px"
             justify="center"
         >   
-            <img 
-                src={Logo}
-                alt="로고 이미지"
-                height="53px"
-                width="199px"
-                style={{margin: "0 auto"}}
-            />
+            <StyledLogo />
             <Grid
                 padding="0 16px"
                 is_flex
@@ -61,6 +55,10 @@ const KakaoBtn = styled.a`
     border-radius: 5px;
     font-weight: 500;
     cursor: pointer;
+`;
+
+const StyledLogo = styled(LogoIcon)`
+    margin: 0 auto;
 `;
 
 export default Login;
