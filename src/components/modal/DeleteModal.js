@@ -18,6 +18,10 @@ const DeleteModal = ({itemId}) => {
         } else {
             setTimeout(() => setIsOpen(false), 200);
         }
+
+        // return () => {
+        //     setIsOpen(false)
+        // }
     }, [is_delete_modal]);
 
     if(!isOpen){

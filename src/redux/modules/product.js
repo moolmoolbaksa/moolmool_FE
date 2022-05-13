@@ -149,6 +149,9 @@ export const product = createSlice({
             } else {
                 state.trade_item.push(action.payload);
             }
+        },
+        resetTrade: (state, action) => {
+            state.trade_item = [];
         }
     },
     extraReducers: (builder) => {
@@ -185,6 +188,7 @@ export const api = {
 
 export const { 
     setTrade,
+    resetTrade,
 } = product.actions;
 
 export default product.reducer;

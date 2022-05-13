@@ -107,9 +107,14 @@ const MessageList = (props) => {
         
     
 };
-const Base=styled.div`
-height:80vh;
-overflow:auto;
+const Base = styled.div`
+    height: calc(100% - 130px);
+    padding: 0 16px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
 `;
 
 

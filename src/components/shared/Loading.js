@@ -1,19 +1,14 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import Logo from '../../images/logo 1.png';
+import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 
 const Loading = (props) => {
     return (
         <Container>
             <Wrap>
                 <span>똑똑한 교환 생활</span>
-                <img 
-                    src={Logo}
-                    alt="로고 이미지"
-                    height="53px"
-                    width="199px"
-                />
+                <LogoIcon/>
                 <Spinner className='loader' />
             </Wrap>
         </Container>
