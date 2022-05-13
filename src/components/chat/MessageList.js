@@ -45,42 +45,7 @@ const MessageList = (props) => {
     React.useEffect(()=>{
 
         console.log(`/sub/chat/room/${apiroomid}`)
-        // console.log(client.ws.readyState);
-        // client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
-        //     console.log(client.ws.readyState);
-        //     console.log(data.body);
-        //     const messageFromServer=JSON.parse(data.body);
-        //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-        //       if(messageFromServer.type==="TALK")
-        //       {
-        //           dispatch(addMessage(messageFromServer))
-        //       }
-        //       else if(messageFromServer.type==="FULL")
-        //       {
-        //           dispatch(changeRoomtype("FULL"));
-        //       }
-        // }
-        // );
-        // client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
-        //   console.log("connected");
-        //   console.log(client.ws.readyState);
-        //   client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
-        //       console.log(client.ws.readyState);
-        //       console.log(data.body);
-        //       const messageFromServer=JSON.parse(data.body);
-        //       // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-        //         if(messageFromServer.type==="TALK")
-        //         {
-        //             dispatch(addMessage(messageFromServer))
-        //         }
-        //         else if(messageFromServer.type==="FULL")
-        //         {
-        //             dispatch(changeRoomtype("FULL"));
-        //         }
-        //   },
-        //   );
-        // });
-    
+          
         
         return()=>{
        
@@ -107,9 +72,14 @@ const MessageList = (props) => {
         
     
 };
-const Base=styled.div`
-height:80vh;
-overflow:auto;
+const Base = styled.div`
+    height: calc(100% - 130px);
+    padding: 0 16px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
 `;
 
 

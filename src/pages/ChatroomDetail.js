@@ -13,11 +13,8 @@ import { useLocation } from 'react-router-dom';
 
 import { useDispatch, useSelector} from 'react-redux';
 import {getPreviousMessages,addMessage,changeRoomtype} from '../redux/modules/chat';
-const Base=styled.div`
-position:relative;
-height:100vh;
-`;
-
+import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
+import { history } from '../redux/configureStore';
 
 const ChatroomDetail = (props) => {
     const dispatch=useDispatch();
@@ -44,24 +41,12 @@ const ChatroomDetail = (props) => {
     let sock = new SockJS('http://13.124.0.71/ws-stomp');
     let client = Stomp.over(sock);
     React.useEffect(()=>{
-
-        //입장할때 IN 들어왔다는 메시지 Send
-        // console.log(client.ws.readyState);
-        //   const data={
-        //       roomId:roomid.roomid,
-        //     type:"IN"
-        //   }
-        //   client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
-        //     JSON.stringify(data)
-        //   );
-
-        // console.log(client.ws.readyState);
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
           client.subscribe(`/sub/chat/room/${apiroomid}`, function(messagefs) {
             console.log(client.ws.readyState);
-            console.log(data.body);
+            console.log(messagefs.body);
             const messageFromServer=JSON.parse(messagefs.body);
             // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
               if(messageFromServer.type==="TALK")
@@ -81,7 +66,7 @@ const ChatroomDetail = (props) => {
           client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
             JSON.stringify(data)
           );
-          window.alert('room in')
+        //   window.alert('room in')
           console.log('send room in');
           console.log(client.ws.readyState);
         
@@ -96,7 +81,7 @@ const ChatroomDetail = (props) => {
             client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
             JSON.stringify(data)
             );
-            client.disconnect();
+            client.disconnect(()=>{client.unsubscribe('sub-0')},{"Authorization": `${localStorage.getItem('token')}`});
             //방퇴장할때 OUT 했다는 메시지 Send
        
 
@@ -106,75 +91,37 @@ const ChatroomDetail = (props) => {
 
     return(
         <Base>
-            <LocationBar title="Username" />
+            <Wrap>
+                <StyledArrowIcon onClick={() => {history.goBack()}} width="27" height="27"/>
+                <span>{Opponent.nickname}</span>
+            </Wrap>
             <MessageList/>
-            <Inputbox ></Inputbox>
+            <Inputbox client={client} ></Inputbox>
         </Base>
-    );
-        
-    
+    );  
 };
-const Meesagebox=styled.div`
-    // diplay:flex;
-    // poistion:relative;
-    // justify-content:flex-end;
+
+const Base = styled.div`
+    height: 100%;
 `;
 
-const Messagewrap=styled.div`
-    diplay:flex;
-    poistion:relative;
-    justify-contents:flex-end;
-    margin:0px 30px;
+const Wrap = styled.div`
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-`;
-const ChatboxSender=styled.div`
-	position: relative;
-	background: #cfd575;
-    & :after{
-        left: 100%;
-        top: 50%;
-        border: solid transparent;
-        content: "";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-        border-color: rgba(207, 213, 117, 0);
-        border-left-color: #cfd575;
-        border-width: 30px;
-        margin-top: -30px;
-
+    & span {
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: -.67px;
     }
 `;
-const ChatSender=styled.div`
-    position:relative;
-    
-    width:300px;
-    height:80px;
-    background-color:#0095B7;
-    border-radius:20px 0px 20px 20px;
-    margin:30px 0px;
-    & :after{
-        content:'';
-        position:absolute;
-        left:100%;
-        top:0%;
-        
-        border-top: 10px solid #0095B7;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-left: 10px solid #0095B7;
 
-        
-    }
+const StyledArrowIcon = styled(ArrowIcon)`
+    position: absolute;
+    left: 8px;
+    cursor: pointer;
 `;
-const Messagetext=styled.p`
-    position:absolute;
-    width: inherit;
-    height: inherit;
-    margin: 0;
-    padding: 5%;
-`;
-
 
 export default ChatroomDetail;

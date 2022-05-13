@@ -3,6 +3,8 @@ import { combineReducers } from "redux";
 import { connectRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import logger from 'redux-logger';
+import storageSession from 'redux-persist/lib/storage/session';
+import { persistReducer } from 'redux-persist';
 
 import userSlice from './modules/user';
 import productSlice from './modules/product';
@@ -10,7 +12,6 @@ import modalSlice from './modules/modal';
 import chatSlice from './modules/chat';
 import notiSlice from './modules/notification';
 import tradehistorySlice from './modules/tradehistory';
-
 
 export const history = createBrowserHistory();
 
@@ -24,9 +25,16 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
 });
 
+const persistConfig = {
+  key: 'root',
+  storage: storageSession,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger),
   devTools: process.env.NODE_ENV !== 'production',
 });
 
