@@ -21,6 +21,7 @@ const Grid = props => {
 		is_flex,
 		cursor,
 		overflow,
+		borderB,
 	} = props;
 
 	const styles = {
@@ -40,6 +41,7 @@ const Grid = props => {
 		is_flex,
 		cursor,
 		overflow,
+		borderB,
 	};
 
 	if (gridBox) {
@@ -72,6 +74,7 @@ Grid.defaultProp = {
 	is_column: "row",
 	is_flex: false,
 	is_overflow: false,
+	borderB: false,
 };
 
 const GridBox = styled.div`
@@ -90,6 +93,7 @@ const GridBox = styled.div`
 	${props => (props.is_flex ? `display:flex` : '')};
 	${props => (props.cursor ? `cursor:pointer` : '')};
 	${props => (props.overflow ? `overflow: hidden` : '')};
+	${props => (props.borderB ? `border-bottom: ${props.borderB}` : '')};
 `;
 
 const ParentsGridbox = styled.div`
