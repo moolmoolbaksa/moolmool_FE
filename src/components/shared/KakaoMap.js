@@ -4,7 +4,7 @@ import styled from "styled-components";
 import DaumPostcode from "react-daum-postcode";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
-import { setAddress } from "../../redux/modules/user";
+import { setAddress, setLatlng } from "../../redux/modules/user";
 import { Grid, Text, Button } from "../../elements/index";
 import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 import { ReactComponent as GlassIcon } from "../../images/돋보기.svg";
@@ -53,7 +53,6 @@ const KakaoMap = () => {
     };
     
     useEffect(() => {
-        console.log('실행')
         const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -88,7 +87,7 @@ const KakaoMap = () => {
         // 지도에 마커를 표시합니다
         marker.setMap(map);
 
-        kakao.maps.event.addListener(map, 'center_changed', function() {
+        kakao.maps.event.addListener(map, 'center_changed', () => {
             // 지도의 중심좌표를 얻어옵니다 
             let latlng = map.getCenter(); 
             marker.setPosition(latlng);
@@ -103,6 +102,7 @@ const KakaoMap = () => {
                     const road_address = result[0].road_address?.address_name;
                     const general_address = result[0].address?.address_name;
                     dispatch(setAddress({road_address, general_address}));
+                    // dispatch(setLatlng({La: latlng.La, Ma: latlng.Ma}));
                 }
             }
             geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
@@ -130,12 +130,12 @@ const KakaoMap = () => {
                 } 
             });
         };
-        }, [isAddress, render]);
+    }, [isAddress, render]);
         
-        const onResetLocation = () => {
-            setRender({...render});
-            setIsAddress('');
-        };
+    const onResetLocation = () => {
+        setRender({...render});
+        setIsAddress('');
+    };
 
     return (
         <>

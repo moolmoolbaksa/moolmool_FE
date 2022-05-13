@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const {shape, src, size, margin, onClick, children, itemId,vhvw} = props;
+    const {shape, src, size, margin, onClick, children, itemId, vhvw} = props;
   
     const styles = {
         src,

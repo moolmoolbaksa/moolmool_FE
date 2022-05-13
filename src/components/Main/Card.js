@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import {Image } from '../../elements/index';
+import { Grid, Text } from '../../elements/index';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -9,109 +9,114 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import IconButton from '@mui/material/IconButton';
 import { api as productActions } from '../../redux/modules/product';
 import { useDispatch } from 'react-redux';
-import Image2 from '../../elements/Image2';;
+import Image2 from '../../elements/Image2';
 
-const Card = (props) => {
+import { ReactComponent as HeartIcon } from '../../images/하트.svg';
+import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
+
+const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}) => {
     const dispatch = useDispatch();
-    // const btnRef = useRef();
-    const {itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}=props;
-    
+  
     const onGoDetail = () => {
         dispatch(productActions.getProductApi(itemId));
     };
 
     return (
-        <React.Fragment>
-            <Background>
-                <Image shape='square' size='13' src={image} onClick={onGoDetail} padding='20px' vhvw={true}></Image>
-                
-                <Info>
-                    <InfoText>
-                        <Title>
-                            <Titletext>{title}</Titletext>                     
-                        </Title>
-                        
-                        <Description>{contents}</Description>
-                    </InfoText>
-                    <div style={{display:'flex',justifyContent:'flex-end', alignContent:'flex-end', margin:'0px 10px 0px 0px'}}>
-
-                            <FavoriteBorderOutlinedIcon sx={{color:'red'}}/>{scrabCnt} &nbsp;
-                            <VisibilityOutlinedIcon sx={{color:'blue'}}/> {viewCnt} &nbsp;
-                            <LocationOnOutlinedIcon sx={{color:'red'}}/> {address}
-                     </div>
-                </Info>
-                
-                
-                
-
-
-                
-                
-                    
-
-            </Background>
-        </React.Fragment>
-        
-        
-        
-
+        <Container>
+            <ImageOutter onClick={onGoDetail}>
+                <ImageWrap src={image}/>
+            </ImageOutter>
+            <Grid
+                is_flex
+                is_column
+                justify="space-between"
+            >
+                <Grid
+                    is_flex
+                    is_column
+                    gap="8px"
+                >
+                    <Text 
+                        onClick={onGoDetail}
+                        text={title}
+                        size="16px"
+                        bold="bold"
+                        letterSpacing="-1px"
+                        wordSpacing="-1px"
+                    />
+                    <Text 
+                        onClick={onGoDetail}
+                        multi="3"
+                        text={contents}
+                        color="#9D9D9D"
+                    /> 
+                </Grid>
+                <IconWrap>
+                    <Grid is_flex align="center" gap="2px">
+                        <span className="material-symbols-outlined">
+                            favorite
+                        </span>
+                        <span className='num'>{scrabCnt}</span>
+                    </Grid>
+                    <Grid is_flex align="center" gap="2px">
+                        <span className="material-symbols-outlined">
+                            visibility
+                        </span>
+                        <span className='num'>{viewCnt}</span>
+                    </Grid>
+                </IconWrap>
+            </Grid>
+        </Container>
     );
 };
 
 export default Card;
-const Titletext=styled.p`
-    display:block;
-    font-size:1.2rem;
-    font-weight:900;
-    margin:0px 0px 10px 0px;
+
+const Container = styled.div`
+    padding: 15px 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
+    gap: 15px;
+    border-bottom: 1px #c4c4c4 solid;
 `;
 
-
-const Background=styled.div`
-
-display:flex;
-background: #FFFFFF;
-box-sizing:content-box;
-height:15vh;
-border-bottom: 1px solid grey;
-margin:0px 0px 5px 0px;
+const ImageOutter = styled.div`
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: calc(10 / 10 * 100%);
 `;
 
-
-
-const Info=styled.div`
-width: 100%;
-height: 20%;
-margin:0px 0px 0px 1vh;
+const ImageWrap = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+	height: 100%;
+    background: url('${props => props.src}');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
 `;
 
-const InfoText=styled.div`
-    height:12vh;
-    padding:10px;
+const IconWrap = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+
+    & span {
+        position: relative;
+        color: #9d9d9d;
+        font-size: 18px;
+        vertical-align: middle;
+    }
+    & span.num {
+        text-align: 18px;
+        font-size: 14px;
+    }
 `;
-
-const Title=styled.div`
-// position: absolute;
-display:flex;
-font-family: 'DM Serif Display';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-& ::before{
-    content:'  ';
-}
-// line-height: 25px;`;
-
-const Description=styled.h2`
-
-/* Open Sans / 16 sp • Body 2 */
-font-family: 'Open Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 0.8rem;
-// line-height: 25px;
-/* or 156% */`;
-
 
 
 
