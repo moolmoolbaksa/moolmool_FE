@@ -38,6 +38,7 @@ const Main = (props) => {
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
 	//test
+	//test12
 	const sock = new SockJS('https://13.125.220.67:8080/ws-stomp');
 	const client = Stomp.over(sock);
   	
