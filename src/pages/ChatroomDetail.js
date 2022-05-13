@@ -41,35 +41,13 @@ const ChatroomDetail = (props) => {
     let sock = new SockJS('http://13.124.0.71/ws-stomp');
     let client = Stomp.over(sock);
     React.useEffect(()=>{
-
-        //입장할때 IN 들어왔다는 메시지 Send
-        // console.log(client.ws.readyState);
-        //   const data={
-        //       roomId:roomid.roomid,
-        //     type:"IN"
-        //   }
-        //   client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
-        //     JSON.stringify(data)
-        //   );
-
-        // console.log(client.ws.readyState);
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");
           console.log(client.ws.readyState);
-          const data={
-              roomId:roomid.roomid,
-            type:"IN"
-          }
-          client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
-            JSON.stringify(data)
-          );
-        //   window.alert('room in')
-          console.log('send room in');
-          console.log(client.ws.readyState);
-        client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
+          client.subscribe(`/sub/chat/room/${apiroomid}`, function(messagefs) {
             console.log(client.ws.readyState);
-            console.log(data.body);
-            const messageFromServer=JSON.parse(data.body);
+            console.log(messagefs.body);
+            const messageFromServer=JSON.parse(messagefs.body);
             // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
               if(messageFromServer.type==="TALK")
               {
@@ -81,6 +59,17 @@ const ChatroomDetail = (props) => {
               }
         }, {"Authorization": localStorage.getItem('token')}
         );
+          const data={
+              roomId:roomid.roomid,
+            type:"IN"
+          }
+          client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
+            JSON.stringify(data)
+          );
+        //   window.alert('room in')
+          console.log('send room in');
+          console.log(client.ws.readyState);
+        
         });
    
     
@@ -92,7 +81,7 @@ const ChatroomDetail = (props) => {
             client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},
             JSON.stringify(data)
             );
-            client.disconnect();
+            client.disconnect(()=>{client.unsubscribe('sub-0')},{"Authorization": `${localStorage.getItem('token')}`});
             //방퇴장할때 OUT 했다는 메시지 Send
        
 
@@ -107,7 +96,7 @@ const ChatroomDetail = (props) => {
                 <span>{Opponent.nickname}</span>
             </Wrap>
             <MessageList/>
-            <Inputbox ></Inputbox>
+            <Inputbox client={client} ></Inputbox>
         </Base>
     );  
 };

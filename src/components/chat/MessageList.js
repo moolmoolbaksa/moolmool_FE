@@ -15,7 +15,10 @@ import {getPreviousMessages,addMessage,changeRoomtype} from '../../redux/modules
 const MessageList = (props) => {
         
     const dispatch=useDispatch();
-        
+
+    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let client = Stomp.over(sock);
+
     const roomid=useParams();
     const Opponent=useSelector(state=>state.chat.Opponent);
     const messages=useSelector(state=>state.chat.messages);
@@ -42,42 +45,7 @@ const MessageList = (props) => {
     React.useEffect(()=>{
 
         console.log(`/sub/chat/room/${apiroomid}`)
-        // console.log(client.ws.readyState);
-        // client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
-        //     console.log(client.ws.readyState);
-        //     console.log(data.body);
-        //     const messageFromServer=JSON.parse(data.body);
-        //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-        //       if(messageFromServer.type==="TALK")
-        //       {
-        //           dispatch(addMessage(messageFromServer))
-        //       }
-        //       else if(messageFromServer.type==="FULL")
-        //       {
-        //           dispatch(changeRoomtype("FULL"));
-        //       }
-        // }
-        // );
-        // client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
-        //   console.log("connected");
-        //   console.log(client.ws.readyState);
-        //   client.subscribe(`/sub/chat/room/${apiroomid}`, function(data) {
-        //       console.log(client.ws.readyState);
-        //       console.log(data.body);
-        //       const messageFromServer=JSON.parse(data.body);
-        //       // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-        //         if(messageFromServer.type==="TALK")
-        //         {
-        //             dispatch(addMessage(messageFromServer))
-        //         }
-        //         else if(messageFromServer.type==="FULL")
-        //         {
-        //             dispatch(changeRoomtype("FULL"));
-        //         }
-        //   },
-        //   );
-        // });
-    
+          
         
         return()=>{
        
