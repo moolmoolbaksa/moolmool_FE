@@ -38,10 +38,11 @@ const ChatRecived = styled.div`
     }
 `;
 
-const Messagetext = styled.p`
+const Messagetext = styled.div`
     width: inherit;
     height: inherit;
     padding: 10px 20px;
+    word-break: break-all;
     user-select: text;
 `;
 

@@ -38,6 +38,7 @@ const Messagetext = styled.p`
     margin: 0;
     padding: 10px 20px;
     color: white;
+    word-break: break-all;
     user-select: text;
 `;
 
