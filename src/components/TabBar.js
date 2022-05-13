@@ -98,7 +98,7 @@ const TabBar = (props) => {
                 <span>마이페이지</span>
             </Wrap>
         </Container>
-        <AlertModal type/>
+        <AlertModal type="soon"/>
         </>
     );
 };

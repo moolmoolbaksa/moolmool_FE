@@ -13,7 +13,7 @@ const Notification = (props) => {
 	const dispatch = useDispatch();
 	const userId = useSelector(state => state.user.user_info.userId);
 	const noti_list = useSelector(state => state.notification.noti_list);
-	console.log(noti_list, userId)
+	
 	useEffect(() => {
 		dispatch(notiActions.getNotiApi());
 	}, []);
@@ -25,8 +25,8 @@ const Notification = (props) => {
 		client.connect({"Authorization": localStorage.getItem('token')}, () => {
 			client.subscribe(`/sub/notification/${userId}`, (data) => {
 				const response = JSON.parse(data.body);
-				dispatch(setNoti(response.data));
-				});
+				dispatch(setNoti(response));
+				}, {"Authorization": localStorage.getItem('token')});
       		}
     	);
 

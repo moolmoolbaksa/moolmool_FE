@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAlertModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
 
-const AlertModal = (type) => {
+const AlertModal = ({type}) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const is_alert_modal = useSelector(state => state.modal.is_alert_modal);
@@ -26,12 +26,12 @@ const AlertModal = (type) => {
         dispatch(setAlertModal(false));
     };
 
-    if(type){
+    if(type==="soon"){
         return (
             <ModalBackground>
                 <ModalContainer is_modal={is_alert_modal}>
                     <Content>
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                             rocket_launch
                         </span>
                         <Grid>
@@ -154,7 +154,8 @@ const Content = styled.div`
         text-indent: -9999;
         font-size: 100px;
     }
-    & span.material-symbols-outlined{
+    
+    & > span.material-symbols-outlined{
         text-indent: -9999;
         font-size: 70px;
         color: #0095B7;

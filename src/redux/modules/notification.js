@@ -72,14 +72,16 @@ export const notification = createSlice({
             image: '',
             barterItem: [],
         },
-        score_info: {
-
-        }
+        score_info: {},
+        unread_noti: 0,
     },
     reducers: {
         setNoti: (state, action) => {
-            state.noti_list.unshift(action.payload); 
+            state.noti_list = [action.payload, ...state.noti_list]; 
         },
+        setUnreadNoti: (state, action) => {
+            state.unread_noti = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -102,6 +104,7 @@ export const api = {
 
 export const { 
     setNoti,
+    setUnreadNoti,
 } = notification.actions;
 
 export default notification.reducer;

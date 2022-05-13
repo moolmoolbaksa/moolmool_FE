@@ -20,6 +20,8 @@ import { ItemAPI } from '../shared/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { setLoading } from '../redux/modules/user';
+import { setUnreadNoti } from '../redux/modules/notification';
+import { setAlertModal } from '../redux/modules/modal';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
@@ -27,9 +29,11 @@ const Main = (props) => {
 	const dispatch = useDispatch();
 	const is_token = localStorage.getItem("token");
 	
+	const userId = useSelector(state => state.user.user_info.userId);
 	const is_loading = useSelector(state => state.user.is_loading);
 	const {nickname, profile} = useSelector(state => state.user.user_info);
-	
+	const unread_noti = useSelector(state => state.notification.unread_noti);
+
 	const [filter,setfilter] = useState('전체');
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
@@ -38,17 +42,21 @@ const Main = (props) => {
 	const client = Stomp.over(sock);
   	
 	useEffect(() => {
-		client.connect({"Authorization": localStorage.getItem('token')}, () => {
-			client.subscribe(`/pub/notification`, (data) => {
-				const unread_noti = JSON.parse(data.body);
-				console.log(unread_noti)
-			})
-		});
+		if(is_token){
+			client.connect({"Authorization": localStorage.getItem('token')}, () => {
+				client.subscribe(`/sub/notification/${userId}`, (data) => {
+					const unread_noti = JSON.parse(data.body);
+					console.log(unread_noti)
+					dispatch(setUnreadNoti(unread_noti.notificationCnt));
+				}, {"Authorization" : localStorage.getItem('token')})
+				client.send(`/pub/notification`, {"Authorization" : localStorage.getItem('token')},{});
+			});
 
-		return () => {
-			client.disconnect();
+			return () => {
+				client.disconnect();
+			}
 		}
-  	}, []);
+  	}, [userId]);
 
   	React.useEffect(()=>{
 		let category_string = null;
@@ -68,6 +76,7 @@ const Main = (props) => {
 				setCardlist(res.data);
 				console.log(is_token);
 				console.log('getItemswitoutlogin');
+				dispatch(setLoading(false));
 			})
 			.catch((error)=>{
 				console.log(error);
@@ -113,8 +122,11 @@ const Main = (props) => {
 						flex
 						gap="15px"
 					>
-						<SearchIcon width="25" height="25"/>
-						<NotiIcon onClick={() => {history.push('/noti')}}/>
+						<SearchIcon width="25" height="25" onClick={() => {dispatch(setAlertModal(true))}}/>
+						<NotiWrap>
+							<NotiIcon onClick={() => {history.push('/noti')}}/>
+							{unread_noti !== 0 && <NotiNum />}
+						</NotiWrap>
 					</Grid>
 				</Grid>
 				<Grid
@@ -124,10 +136,10 @@ const Main = (props) => {
 					gap="10px"
 					borderB="1px #dadada solid"
 				>
-					<Image size='50' src={profile}/>
+					<Image size='50' src={profile ? profile : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjj5IrkGRH6VDUgnUiMCjY2Npu5S8fDew1Q&usqp=CAU'}/>
 					<Grid>
 						<Text 
-							text={`안녕하세요, ${nickname}님`}
+							text={`안녕하세요, ${nickname ? nickname : '방문자'}님`}
 							letterSpacing="-1px"
 						/>
 						<Text 
@@ -185,6 +197,22 @@ const CardWrap = styled.div`
     &::-webkit-scrollbar {
         display: none; /* Chrome, Safari and Opera */
     }
+`;
+
+const NotiWrap = styled.div`
+	position: relative;
+	display: flex;
+	align-items: center;
+`;
+
+const NotiNum = styled.div`
+	position: absolute;
+	top: 4px;
+	right: -1px;
+	width: 7px;
+	height: 7px;
+	background-color: red;
+	border-radius: 10px;
 `;
 
 export default Main;
