@@ -38,13 +38,13 @@ const Main = (props) => {
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
  
-	const sock = new SockJS('http://13.124.0.71/ws-stomp');
+	const sock = new SockJS('https://13.125.220.67:8080/ws-stomp');
 	const client = Stomp.over(sock);
   	
 	useEffect(() => {
 		if(is_token){
 			client.connect({"Authorization": localStorage.getItem('token')}, () => {
-				client.subscribe(`/sub/notification/${userId}`, (data) => {
+				client.subscribe(`/sub/notification`, (data) => {
 					const unread_noti = JSON.parse(data.body);
 					console.log(unread_noti)
 					dispatch(setUnreadNoti(unread_noti.notificationCnt));
