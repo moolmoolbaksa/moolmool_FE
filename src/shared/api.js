@@ -2,15 +2,15 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-// http://13.125.220.67:8080 //이승재
+// https://13.125.220.67:8080 //이승재
 // "http://13.124.0.71", //황석준
 // 13.125.220.67:8080 //엄성훈
 const api = axios.create({
-  baseURL: "https://13.125.220.67:8080",
+  baseURL: "https://13.125.220.67:443",
 });
 
 const chatapi = axios.create({
-	baseURL: "https://13.125.220.67:8080",
+	baseURL: "https://13.125.220.67:443",
   });
 
 
