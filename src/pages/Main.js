@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
@@ -125,7 +125,7 @@ const Main = (props) => {
 						<SearchIcon width="25" height="25" onClick={() => {dispatch(setAlertModal(true))}}/>
 						<NotiWrap>
 							<NotiIcon onClick={() => {history.push('/noti')}}/>
-							{unread_noti !== 0 && <NotiNum />}
+							{unread_noti !== 0 && <NotiSign />}
 						</NotiWrap>
 					</Grid>
 				</Grid>
@@ -189,6 +189,18 @@ const Main = (props) => {
     );
 };
 
+const BlinkSign = keyframes`
+	0% {
+		opacity: 0;
+	}
+	50%{
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+`;
+
 const CardWrap = styled.div`
 	height: calc(100% - 200px);
 	padding: 0 16px;
@@ -205,7 +217,7 @@ const NotiWrap = styled.div`
 	align-items: center;
 `;
 
-const NotiNum = styled.div`
+const NotiSign = styled.div`
 	position: absolute;
 	top: 4px;
 	right: -1px;
@@ -213,6 +225,7 @@ const NotiNum = styled.div`
 	height: 7px;
 	background-color: red;
 	border-radius: 10px;
+	animation: ${BlinkSign} 3s infinite ease-out;
 `;
 
 export default Main;
