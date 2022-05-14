@@ -22,6 +22,10 @@ const LocationBar = ({ title, transparent, chat }) => {
         if(location.pathname==='/trade'){
             dispatch(resetTrade());
         };
+        if(location.pathname==='/mypage'){
+            history.push('/');
+            return;
+        };
         history.goBack();
     };
    

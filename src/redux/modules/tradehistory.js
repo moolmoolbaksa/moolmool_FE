@@ -4,6 +4,16 @@ const initialState={
     tradehistory: [],
     Senthistory:[],
     Recivedhistory:[],
+    Checkhistory: {
+        userId: '',
+        nickname: '',
+        degree: '',
+        title: '',
+        contents: '',
+        image: '',
+        opponentNickname: '',
+        barterItem: [],
+    },
 };
 
 export const tradehistory = createSlice({
@@ -14,6 +24,9 @@ export const tradehistory = createSlice({
             state.Senthistory = action.payload.filter(v => v.myPosition === 'buyer');
             state.Recivedhistory = action.payload.filter(v => v.myPosition === 'seller');
         },
+        getCheckHistory:(state, action) => {
+            state.Checkhistory = action.payload;
+        },
         delHistory:(state,action)=>{
             action.payload.myPosition==="buyer"?
             state.Senthistory=state.Senthistory.filter(history => (history.barterId !== action.payload.barterId))
@@ -22,9 +35,7 @@ export const tradehistory = createSlice({
         acceptTrade:(state,action)=>{
             action.payload.myPosition==="buyer"?(
             state.Senthistory.forEach(history=>action.payload.barterId===history.barterId?history.status+=1:""))
-            :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.status+=1:""));
-
-            
+            :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.status+=1:""));  
         },
         completeTrade:(state,action)=>{
             action.payload.myPosition==="buyer"?(
@@ -47,7 +58,7 @@ export const {
     delHistory,
     completeTrade,
     acceptTrade,
-
+    getCheckHistory,
 } = tradehistory.actions;
 
 export default tradehistory.reducer;

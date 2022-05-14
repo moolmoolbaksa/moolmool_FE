@@ -25,6 +25,7 @@ const Notification = (props) => {
 		client.connect({"Authorization": localStorage.getItem('token')}, () => {
 			client.subscribe(`/sub/notification/${userId}`, (data) => {
 				const response = JSON.parse(data.body);
+				console.log(response)
 				dispatch(setNoti(response));
 				}, {"Authorization": localStorage.getItem('token')});
       		}
