@@ -37,8 +37,7 @@ const Main = (props) => {
 	const [filter,setfilter] = useState('전체');
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
-	//test
-	//test12
+
 	const sock = new SockJS('http://13.124.0.71/ws-stomp');
 	const client = Stomp.over(sock);
   	
@@ -49,7 +48,7 @@ const Main = (props) => {
 				client.subscribe(`/sub/notification/${userId}`, (data) => {
 					console.log(data.body)
 					const unread_noti = JSON.parse(data.body);
-					dispatch(setUnreadNoti(unread_noti.notificationCnt));
+					dispatch(setUnreadNoti(unread_noti.NotificationCnt));
 				}, {"Authorization" : localStorage.getItem('token')})
 				client.send(`/pub/notification`, {"Authorization" : localStorage.getItem('token')},{});
 			});

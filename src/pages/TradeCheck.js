@@ -11,28 +11,27 @@ import TabBar from '../components/TabBar';
 const TradeCheck = (props) => {
     const dispatch = useDispatch();
 
-    const {myImages, ...opponent_info} = useSelector(state => state.product.barter_info);
-    const trade_item = useSelector(state => state.product.trade_item);
-    
+    const {barterItem, ...other_info} = useSelector(state => state.tradehistory.Checkhistory);
+    // console.log(barterItem, other_info)
     return (
         <Grid
             height="100%"
         >
-            <LocationBar title="님과의 교환" />
+            <LocationBar title='교환 신청 내역' />
             <Grid
                 height="calc(100%-60px)"
                 position="relative"
                 padding="0 16px"
             >
-                <TradeItemCard/>
+                <TradeItemCard {...other_info}/>
                 <Text 
-                    text={`님의 교환 제시 물건`}
+                    text='제시된 물건'
                     size="20px"
                     bold="bold"
                     margin="20px 0 0 0"
                     wordSpacing="-1px"
                 />
-                <ItemGrid type="mall" item_list={myImages}/>
+                <ItemGrid type="mall" item_list={barterItem}/>
             </Grid>
             <TabBar />
         </Grid>
