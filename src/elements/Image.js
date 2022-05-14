@@ -68,7 +68,7 @@ const ImageDefault = styled.div`
 `;
 
 const AspectOutter = styled.div`
-    --size: ${(props) => props.size}px;
+    --size: ${(props) => props.size}rem;
     width: var(--size);
     height: var(--size);
     border-radius:4px;
@@ -120,11 +120,12 @@ const ImageCircle = styled.div`
 const Squarevhvwwrap=styled.div`
 
     padding:1vh;
-    width:200px;
+    // width:200px;
 `;
 
 const Squarevhvw = styled.div`
-  height: 13vh;
+  height: 6rem;
+  width: 6rem;
   background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position:center;

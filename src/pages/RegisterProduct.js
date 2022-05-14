@@ -10,6 +10,7 @@ import CategoryNoti from '../components/Registerproduct/CategoryNoti';
 import { ItemAPI } from '../shared/api';
 import LocationBar from '../components/LocationBar';
 import Checkbox from '@mui/material/Checkbox';
+import { history } from '../redux/configureStore';
 
 
 const Imageitem = ({src})=>{
@@ -17,7 +18,6 @@ const Imageitem = ({src})=>{
 };
 
 const RegisterProduct = (props) => {
-    
     
     const categorys_list=[
         {id:1, value:"디지털기기"},
@@ -154,10 +154,12 @@ const RegisterProduct = (props) => {
         .then((res)=>
         {
             console.log(res);
+            history.push('/')
         })
         .catch((error)=>{
             console.log(error);
         })
+        
     }
 
     // console.log(preview)
@@ -172,11 +174,11 @@ const RegisterProduct = (props) => {
         {categoryOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {categoryOpen?
         
-        <div style={{display:'flex', flexWrap:'wrap'}}>
+        <FavorBox >
             {
                 categorys_list.map((p,idx)=>{
                     return(
-                <div key={`category_div_${idx}`}> 
+                <div  key={`category_div_${idx}`}> 
                     <input name="category" key={`category_input_${idx}`} id={p.value} type="radio" value={p.value} checked={null} onClick={handleCategory}/>
                     <label htmlFor={p.value} key={`category_label_${idx}`}
                     >
@@ -190,7 +192,7 @@ const RegisterProduct = (props) => {
             
             
             
-            </div>:""}
+            </FavorBox>:""}
         <Empty/>
 
         <Input border='none' size='50px' placeholder='제목을 입력해주세요 (최대 30자)' type='text'  margin='0px' width='100%' onChange={handleTitle}></Input>
@@ -208,7 +210,7 @@ const RegisterProduct = (props) => {
                 return <ImageSlide   idx={idx} key={idx} src={n} can_delete></ImageSlide>;
             
           })}
-          <UploadLabel htmlFor="raised-button-file">+</UploadLabel>
+          <PlusItem htmlFor="raised-button-file">+</PlusItem>
             <input onChange={selectfile} accept="image/*" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}} />
           </Imagelist>
         </Grid>
@@ -275,10 +277,13 @@ const RegisterProduct = (props) => {
 };
 const Imagelist=styled.div`
     display:flex;
-    overflow:scroll;
-    &.no-scroll::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
-    }
+    height:150px;
+    overflow:auto;
+    // &.no-scroll::-webkit-scrollbar {
+    // display: none; /* Chrome, Safari and Opera */
+    // }
+    // justify-content: center;
+    align-items: center;
     flex-wrap: nowrap;
 `;
 const UploadLabel=styled.label`
@@ -303,8 +308,8 @@ const Emptyline=styled.hr`
     margin:0 auto;
 `;
 const PlusItem = styled.label`
-    width: 100%;
-    height: 100%;
+    width: 6rem;
+    height: 6rem;
     border: 2px lightgray solid;
     border-radius: 5px;
     display: flex;

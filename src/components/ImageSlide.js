@@ -8,8 +8,10 @@ const ImageSlide = (props) => {
     
     return (
         <DeleteOuter>
-            <DeleteButton onClick={_onclick}><BsTrash/></DeleteButton>
-            <Image shape="square" size="50" src={props.src} margin="10px"></Image>
+            
+            <Image vhvw shape="square" size="6" src={props.src} margin="10px">
+                <DeleteButton onClick={_onclick}><BsTrash/></DeleteButton>
+            </Image>
             
         </DeleteOuter>
         
