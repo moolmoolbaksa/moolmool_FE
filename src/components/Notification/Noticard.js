@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { history } from "../../redux/configureStore";
 
 import { api as notiActions } from "../../redux/modules/notification";
 
@@ -12,6 +13,9 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId}) => {
 			case 'BARTER':
 				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));
 				break;
+			case 'CHAT':
+				history.push('/chat');
+			break;
 			default:
 				//chat
 				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Text, Grid } from '../../elements/index';
 import { HistoryAPI } from '../../shared/api';
 import { useDispatch } from 'react-redux';
-import { delHistory, completeTrade, acceptTrade } from '../../redux/modules/tradehistory';
+import { delHistory, completeTrade, acceptTrade, getCheckHistory } from '../../redux/modules/tradehistory';
 import { history } from '../../redux/configureStore';
 
 const Tradecard = (props) => {
@@ -16,11 +16,12 @@ const Tradecard = (props) => {
         HistoryAPI.getTradeCheck(barterId)
             .then((res)=>{
                 console.log(res);
+                dispatch(getCheckHistory(res.data));
             })
             .catch((error)=>{
                 console.log(error);
             })
-        // history.push('/trcheck');
+        history.push('/trcheck');
     };
 
     const buttonSetting = () => {

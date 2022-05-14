@@ -89,7 +89,7 @@ export const HistoryAPI = {
 		},
   	}),
 	//거래확인 불러오기
-	getTradeCheck: (barterId) => api.get(`/api/trade/decision?barterId=${barterId}`,{
+	getTradeCheck: (barterId) => api.get(`/api/trade/decision?baterId=${barterId}`,{
 		headers: {
 			"Authorization": `${localStorage.getItem('token')}`,
 		},
