@@ -6,11 +6,11 @@ axios.defaults.withCredentials = true;
 // "http://13.124.0.71", //황석준
 // 13.125.220.67:8080 //엄성훈
 const api = axios.create({
-  baseURL: "http://13.124.0.71",
+  baseURL: "http://13.125.220.67:8080",
 });
 
 const chatapi = axios.create({
-	baseURL: "http://13.124.0.71",
+	baseURL: "http://13.125.220.67:8080",
   });
 
 
@@ -66,7 +66,6 @@ export const ChatAPI = {
 			Authorization:  `${localStorage.getItem('token')}`,
 		},
 		}),
-
 	// 이전 메세지 가져오기
 	getMessage: (roomId) =>
 	chatapi.get(`/chat/room/${roomId}?page=`, {
@@ -74,7 +73,6 @@ export const ChatAPI = {
 			Authorization: `${localStorage.getItem("token")}`,
 		},
 		}),
-	
 	exitRoom: (roomId) =>
 		chatapi.get(`chat/room/${roomId}/exit`, {
 			headers: {
@@ -86,10 +84,16 @@ export const ChatAPI = {
 export const HistoryAPI = {
 	//교환내역 불러오기
 	getMyhistory: ()=>api.get('/api/myhistory',{
-    headers: {
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  }),
+		headers: {
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+  	}),
+	//거래확인 불러오기
+	getTradeCheck: (barterId) => api.get(`/api/trade/decision?barterId=${barterId}`,{
+		headers: {
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+  	}),
   	//교환 수락
   	acceptTrade: (barterid)=>api.put(`/api/trade/decision?baterId=${barterid}`,{},{
 		headers: {

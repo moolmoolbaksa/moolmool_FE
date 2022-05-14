@@ -20,7 +20,7 @@ const Messagewrap = styled.div`
 
 const ChatRecived = styled.div`
     position: relative;
-    width: 300px;
+    max-width: 300px;
     background-color: #FFD467;
     border-radius: 0px 5px 5px 5px;
     margin: 5px 0px 0px 10px;
@@ -38,10 +38,11 @@ const ChatRecived = styled.div`
     }
 `;
 
-const Messagetext = styled.p`
+const Messagetext = styled.div`
     width: inherit;
     height: inherit;
     padding: 10px 20px;
+    word-break: break-all;
     user-select: text;
 `;
 
