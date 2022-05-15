@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
@@ -54,38 +54,47 @@ function App() {
   useEffect(() => {
     if(is_token) dispatch(userActions.loginCheckApi());
   }, []);
+
+  const theme = {
+    palette: {
+      blue: '#0095b7',
+      yellow: '#FFD467',
+      gray: '#E8E8E8'
+    }
+  };
   
   return (
     <ConnectedRouter history={history}>
-      <Container>
-        <Route exact path="/" component={Main} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/auth/kakao/callback" component={LoginProgress} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/address" component={Address} />
-        <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/registerproduct" component={RegisterProduct} />
-        <Route exact path="/detail/:id" component={Detail} />
-        <Route exact path="/scrab" component={Scrab} />
-        <Route exact path="/mall/:id" component={Mall} />
-        <Route exact path="/trade" component={Trade} />
-        <Route exact path="/mypage" component={Mypage} />
-        <Route exact path="/editmyinfo" component={EditMyInfo} />
-        <Route exact path="/noti" component={Notification}/>
-        <Route exact path="/trproposal" component={TradeProposal}/>
-        <Route exact path="/trcheck" component={TradeCheck}/>
-        <Route exact path="/trhistory" component={Tradehistory}/>
-        <Route exact path="/rating" component={Rating}/>
-        <Route exact path="/chat" component={Chatroomlist}/>
-        <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
-        <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
-        
-      </Container>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/auth/kakao/callback" component={LoginProgress} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/address" component={Address} />
+          <Route exact path="/welcome" component={Welcome} />
+          <Route exact path="/registerproduct" component={RegisterProduct} />
+          <Route exact path="/detail/:id" component={Detail} />
+          <Route exact path="/scrab" component={Scrab} />
+          <Route exact path="/mall/:id" component={Mall} />
+          <Route exact path="/trade" component={Trade} />
+          <Route exact path="/mypage" component={Mypage} />
+          <Route exact path="/editmyinfo" component={EditMyInfo} />
+          <Route exact path="/noti" component={Notification}/>
+          <Route exact path="/trproposal" component={TradeProposal}/>
+          <Route exact path="/trcheck" component={TradeCheck}/>
+          <Route exact path="/trhistory" component={Tradehistory}/>
+          <Route exact path="/rating" component={Rating}/>
+          <Route exact path="/chat" component={Chatroomlist}/>
+          <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
+          <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
+        </GlobalStyle>
+      </ThemeProvider>
     </ConnectedRouter>
   );
 };
 
-const Container = styled.div`
+const GlobalStyle = styled.div`
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   position: relative;

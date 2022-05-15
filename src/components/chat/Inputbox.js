@@ -49,21 +49,18 @@ const Inputbox = (props) => {
     return(
         <Base>
             <Input 
-				placeholder="메시지를 입력해주세요" 
-				type="text" 
-				ref={messageInput} 
-				onChange={handleMessage} 
-				onKeyDown={onDoEnter}
+              placeholder="메시지를 입력해주세요" 
+              type="text" 
+              ref={messageInput} 
+              onChange={handleMessage} 
+              onKeyDown={onDoEnter}
             />
             <Button 
-				width="20%" 
-				background="#FFD467" 
-				radius="5px"
-				text="전송"
-				size="16px" 
-				bold="bold"
-				onClick={onSend}
-            />
+              background="yellow" 
+              radius="5px"
+              size="16px" 
+              onClick={onSend}
+            >전송</Button>
         </Base>
     );
 };

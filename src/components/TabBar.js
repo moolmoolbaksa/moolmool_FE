@@ -141,7 +141,7 @@ const CreateBtn = styled.button`
     bottom: 20px;
     width: 50px;
     height: 50px;
-    background: #FFD467;
+    background: ${props => props.theme.palette.yellow};
     border: none;
     border-radius: 50px;
     display: flex;

@@ -20,6 +20,7 @@
     "lodash": "^4.17.21",
     "logger": "^0.0.1",
     "net": "^1.0.2",
+    "polished": "^4.2.2",
     "react": "17.0.2",
     "react-burger-menu": "2.7.1",
     "react-chat-bubble": "^0.8.7",
