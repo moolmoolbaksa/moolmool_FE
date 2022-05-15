@@ -61,7 +61,7 @@ const DetailBottom = (props) => {
             console.log('userid:'+userId);
         })
     };
-    console.log(props)
+
     const onDeleteProduct = () => {
         dispatch(setDeleteModal(true));
     };

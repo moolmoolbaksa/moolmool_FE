@@ -169,7 +169,7 @@ const RegisterProduct = (props) => {
         <Noti></Noti>
 
 
-        <Button height='100px' text='+카테고리 선택하기' onClick={openCategory}></Button>
+        <Button height='100px' background='white' onClick={openCategory}>+카테고리 선택하기</Button>
         {/* <CategoryNoti></CategoryNoti> */}
         {categoryOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {categoryOpen?
@@ -217,7 +217,7 @@ const RegisterProduct = (props) => {
         
         <Empty/>
         
-        <Button height='50px' text='+선호하는 교환품목' onClick={openFavors}></Button>
+        <Button height='50px' background='white' onClick={openFavors}>+선호하는 교환품목</Button>
         
         {favorsOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {favorsOpen?
@@ -242,7 +242,7 @@ const RegisterProduct = (props) => {
         
         <Empty/>
 
-        <Button height='50px' text='선호하는 거래조건' onClick={openType}></Button>
+        <Button height='50px' background='white' onClick={openType}>선호하는 거래조건</Button>
         
         {typeOpen?(<Emptyline/>):""}
         {
@@ -265,7 +265,7 @@ const RegisterProduct = (props) => {
             <div style={{margin: '20px 0px 20px 0px', display:'flex'}}>
             <Text text='물품 거래 주의사항을 모두확인했으며 이에 동의합니다.'></Text><input type='checkbox'/>
             </div>
-            <Button height='40px' radius='4px' background='#FFCA39' color='black' text='바꿀래요' onClick={submit}></Button>
+            <Button height='40px' radius='4px' background='yellow' color='black' onClick={submit}>바꿀래요</Button>
         </div>
 
         </React.Fragment>

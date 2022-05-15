@@ -59,7 +59,8 @@ function App() {
     palette: {
       blue: '#0095b7',
       yellow: '#FFD467',
-      gray: '#E8E8E8'
+      gray: '#E8E8E8',
+      white: '#ffffff'
     }
   };
   

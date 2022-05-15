@@ -40,6 +40,7 @@ const TabBar = (props) => {
         history.push('/');
         window.scrollTo(0, 0);
     };
+    
     const goChat =()=>{
         history.push('/chat');
         window.scrollTo(0, 0);
