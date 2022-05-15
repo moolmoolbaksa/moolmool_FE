@@ -171,6 +171,9 @@ export const product = createSlice({
             .addCase(getTradeProductApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
             })
+            .addCase(setTradeApi.fulfilled, (state, action) => {
+                state.trade_item = [];
+            })
             .addCase(getMyScrabListApi.fulfilled, (state, action) => {
                 state.scrab_list = action.payload;
             })
