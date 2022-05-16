@@ -52,8 +52,8 @@ const KakaoBtn = styled.a`
     color: black;
     text-align: center;
     line-height: 49px;
-    border-radius: 5px;
-    font-weight: 500;
+    border-radius: 50px;
+    font-weight: bold;
     cursor: pointer;
 `;
 

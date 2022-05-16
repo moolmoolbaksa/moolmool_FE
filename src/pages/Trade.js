@@ -21,7 +21,7 @@ const Trade = (props) => {
         if(!trade_item.length) return dispatch(setAlertModal(true));
         dispatch(setTradeModal(true));
     };
-    console.log(opponent_info)
+    
     return (
         <Grid
             height="100%"

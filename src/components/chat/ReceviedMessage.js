@@ -21,7 +21,7 @@ const Messagewrap = styled.div`
 const ChatRecived = styled.div`
     position: relative;
     max-width: 300px;
-    background-color: #FFD467;
+    background-color: ${props => props.theme.palette.yellow};
     border-radius: 0px 5px 5px 5px;
     margin: 5px 0px 0px 10px;
     
@@ -31,8 +31,8 @@ const ChatRecived = styled.div`
         right: 100%;
         top: 0%;
         
-        border-top: 5px solid #FFD467;
-        border-right: 5px solid #FFD467;
+        border-top: 5px solid ${props => props.theme.palette.yellow};
+        border-right: 5px solid ${props => props.theme.palette.yellow};
         border-bottom: 5px solid transparent;
         border-left: 5px solid transparent;        
     }

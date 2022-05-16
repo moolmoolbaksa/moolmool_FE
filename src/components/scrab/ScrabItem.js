@@ -23,11 +23,12 @@ const ScrabItem = ({itemId, title, contents, image}) => {
                 <Text
                     onClick={onGoDetail}
                     text={title}
-                    size="18px"
+                    size="16px"
                     bold="bold"
                 />
                 <Text
                     multi="2"
+                    size="12px"
                     text={contents}
                     color="#9D9D9D"
                 />
@@ -38,26 +39,28 @@ const ScrabItem = ({itemId, title, contents, image}) => {
 
 const Container = styled.div`
     width: 100%;
+    height: 90px;
     display: flex;
     gap: 10px;
-    padding: 0 5px;
-    border-bottom: 2px #9D9D9D solid;
-    padding-bottom: 15px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const Wrap = styled.div`
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding-top: 5px;
+    gap: 10px;
+    justify-content: center;
     overflow: hidden;
 `;
 
 const Image = styled.div`
     height: 90px;
     min-width: 90px;
-    border-radius: 5px;
+    border-radius: 10px 0px 0px 10px;
     background: url('${props => props.src}');
     background-size: cover;
     background-repeat: no-repeat;

@@ -13,11 +13,13 @@ const TradeModal = () => {
     const is_trade_modal = useSelector(state => state.modal.is_trade_modal);
     
     useEffect(() => {
+        let timeout;
         if(is_trade_modal){
             setIsOpen(true);
         } else {
-            setTimeout(() => setIsOpen(false), 200);
-        }
+            timeout = setTimeout(() => setIsOpen(false), 200);
+        };
+        return () => clearTimeout(timeout);
     }, [is_trade_modal]);
 
     if(!isOpen){
