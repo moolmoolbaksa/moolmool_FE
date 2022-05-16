@@ -38,7 +38,7 @@ const Main = (props) => {
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
 
-	const sock = new SockJS('http://13.125.220.67:8080/ws-stomp');
+	const sock = new SockJS('http://13.124.0.71/ws-stomp');
 	const client = Stomp.over(sock);
   	
 	useEffect(() => {

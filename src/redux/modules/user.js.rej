@@ -1,0 +1,10 @@
+diff a/src/redux/modules/user.js b/src/redux/modules/user.js	(rejected hunks)
+@@ -24,7 +24,7 @@
+     'user/kakaoLogin',
+     async (code, thunkAPI) => {
+         try {
+-            const response = await axios.get(`https://langho968.shop/user/kakao?code=${code}`);
++            const response = await axios.get(`http://13.124.0.71/user/kakao?code=${code}`);
+    
+             const token = response.headers.authorization;
+             localStorage.setItem("token", token)
