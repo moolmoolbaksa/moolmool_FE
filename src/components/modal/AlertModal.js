@@ -11,11 +11,13 @@ const AlertModal = ({type}) => {
     const is_alert_modal = useSelector(state => state.modal.is_alert_modal);
  
     useEffect(() => {
+        let timeout;
         if(is_alert_modal){
             setIsOpen(true);
         } else {
             setTimeout(() => setIsOpen(false), 200);
-        }
+        };
+        return () => clearTimeout(timeout);
     }, [is_alert_modal]);
 
     if(!isOpen){

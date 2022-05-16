@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import ItemGrid from '../components/store/ItemGrid';
@@ -7,10 +7,16 @@ import MypageTop from '../components/store/MypageTop';
 import LocationBar from '../components/LocationBar';
 import TabBar from '../components/TabBar';
 import { history } from '../redux/configureStore';
+import { api as userActions } from '../redux/modules/user';
 
 const Mypage = (props) => {
+    const dispatch = useDispatch();
     const {user_info, item_list, myScrabList} = useSelector(state => state.user);
 
+    useEffect(() => {
+        dispatch(userActions.getMyInfoApi());
+    }, []);
+    
     return (
         <>
             <LocationBar title="마이페이지"/>

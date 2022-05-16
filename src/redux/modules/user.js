@@ -5,7 +5,7 @@ import { history } from "../configureStore";
 
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi',
-    async (thunkAPI) => {
+    async () => {
         try {
             const response = await axios.get(`https://langho968.shop/user/check`,{
                 headers: {

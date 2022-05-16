@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Grid } from '../elements/index';
+import { api as ProductActions } from '../redux/modules/product';
 import LocationBar from '../components/LocationBar';
 import ScrabItem from '../components/scrab/ScrabItem';
-import { useSelector } from 'react-redux';
-import Loading from '../components/shared/Loading';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Scrab = (props) => {
+    const dispatch = useDispatch();
     const scrab_list = useSelector(state => state.product.scrab_list);
-    console.log(scrab_list);
+    
+    useEffect(() => {
+        dispatch(ProductActions.getMyScrabListApi());
+    }, []);
+    
     return(
-        <Grid
-            height="100%"
-        >
+        <Container>
             <LocationBar title="찜목록"/>
-            <Grid
-                padding="12px 16px"
+            <ScrabWrap
+                padding="16px 16px 0"
                 is_flex
                 is_column
                 gap="10px"            
@@ -27,9 +29,27 @@ const Scrab = (props) => {
                                 {...v}
                             />
                 })}  
-            </Grid>
-        </Grid>
+            </ScrabWrap>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    height: 100%;
+    background-color: #f5f5f5;
+`;
+
+const ScrabWrap = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 10px 16px 0px;
+    gap: 10px; 
+    height: calc(100% - 70px);
+    overflow: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
+`;
 
 export default Scrab;
