@@ -38,11 +38,7 @@ const Main = (props) => {
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
 
-<<<<<<< HEAD
 	const sock = new SockJS('https://langho968.shop/wss-stomp');
-=======
-	const sock = new SockJS('http://13.125.220.67:8080/ws-stomp');
->>>>>>> master
 	const client = Stomp.over(sock);
   	
 	useEffect(() => {
