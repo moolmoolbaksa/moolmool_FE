@@ -153,7 +153,7 @@ const Main = (props) => {
 					</Grid>
 				</Grid>
 				<Drawer
-					PaperProps={{ style: { height: "500px",}}}
+					PaperProps={{ style: {height: "500px"}}}
 					open={openFilter}
 					onClose={Drawers}
 				>
