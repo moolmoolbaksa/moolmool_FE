@@ -10,7 +10,7 @@ import {
   LoginProgress,
   Welcome,
   Address,
-} from './pages/login&signup/index';
+} from './pages/login/index';
 import { 
   Detail,
   Mall,
