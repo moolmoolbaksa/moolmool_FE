@@ -9,27 +9,28 @@ const ImageSlide = (props) => {
     return (
         <DeleteOuter>
             
-            <Image vhvw shape="square" size="6" src={props.src} margin="10px">
-                <DeleteButton onClick={_onclick}><BsTrash/></DeleteButton>
-            </Image>
-            
-        </DeleteOuter>
-        
+            <Image vhvw shape="square" size="6" src={props.src} margin="10px"></Image>
+            <DeleteButton onClick={_onclick}><BsTrash/></DeleteButton>
+            </DeleteOuter>
+
 
     );
 };
 const DeleteOuter=styled.div`
     position:relative;
+    
 `;
 const DeleteButton=styled.button`
     display:block;    
     position:absolute;
-    width:20px;
-    height:20px;
-    border-radius:10px;
+    width:25px;
+    height:25px;
+    border-radius:25px;
     border:2px solid blue;
-    left:40px;
-    bottom:40px;
+    align-items:center;
+    right:0;
+    top:0;
+    
     
     
 `

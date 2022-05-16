@@ -38,7 +38,7 @@ const ChatroomDetail = (props) => {
     const opponentNickname=Opponent.nickname;
     
     
-    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let sock = new SockJS('https://langho968.shop/wss-stomp');
     let client = Stomp.over(sock);
     React.useEffect(()=>{
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {

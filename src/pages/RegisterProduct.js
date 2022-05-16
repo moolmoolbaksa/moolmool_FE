@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { Text, Grid, Input, Button,Image } from '../elements/index';
 import ImageSlide from '../components/ImageSlide';
@@ -222,7 +222,7 @@ const RegisterProduct = (props) => {
         {favorsOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
         {favorsOpen?
         
-        <FavorBox>
+        <FavorBox open={favorsOpen}>
             {
                 categorys_list.map((p,idx)=>{
                     return(
@@ -275,6 +275,24 @@ const RegisterProduct = (props) => {
 
     );
 };
+const favorboxanimation=keyframes`
+    0%{ 
+        background:red;
+        height:50%;
+    }
+    100%{
+        background:blue;
+        height:100%;
+    }
+`;
+const FavorBox=styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 10px;
+    max-height: ${categoryOpen=>categoryOpen?"auto":"0"};
+   
+    z-index: 9999;
+`;
 const Imagelist=styled.div`
     display:flex;
     height:150px;
@@ -323,11 +341,7 @@ const PlusItem = styled.label`
         font-size: 30px;
     }
 `;
-const FavorBox=styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 0 10px;
-`;
+
 
 
 const Label = styled.label`
