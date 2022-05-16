@@ -19,7 +19,9 @@ const OpponentInfo = (props) => {
 
     const onGoUserMall = () => {
         if(my_nickname === nickname){
+            dispatch(userActions.getMyInfoApi());
             history.push('/mypage');
+            window.scrollTo(0, 0);
             return;
         };
         dispatch(userActions.getCounterUserInfoApi(userId));
