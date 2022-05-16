@@ -63,7 +63,7 @@ export const notification = createSlice({
     name: 'notification',
     initialState: {
         noti_list: [],
-        barter_info: {
+        noti_barter: {
             userId: '',
             nickname: '',
             degree: '',
@@ -90,7 +90,7 @@ export const notification = createSlice({
                 state.noti_list = action.payload;
             })
             .addCase(getBarterNotiApi.fulfilled, (state, action) => {
-                state.barter_info = action.payload;
+                state.noti_barter = action.payload;
             })
             .addCase(getScoreNotiApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;

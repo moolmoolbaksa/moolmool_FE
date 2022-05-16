@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { ThemeConsumer } from 'styled-components';
 
 import { Grid, Button, Text } from '../../elements/index';
 import { setDeleteModal, setLoginModal } from '../../redux/modules/modal';
@@ -20,13 +20,13 @@ const DetailBottom = (props) => {
     
     const btnRef = useRef();
 
-    useEffect(() => {
-        if (isScrab) {
-          btnRef.current.setAttribute("fill", "#ed4956");
-        } else {
-          btnRef.current.setAttribute("fill", "#bdbdbd");
-        }
-    }, [isScrab]);
+    // useEffect(() => {
+    //     if (isScrab) {
+    //       btnRef.current.setAttribute("fill", "#ed4956");
+    //     } else {
+    //       btnRef.current.setAttribute("fill", "#bdbdbd");
+    //     }
+    // }, [isScrab]);
 
     const clickHeart = () => {
         if(nickname === my_nickname) return;
@@ -89,43 +89,41 @@ const DetailBottom = (props) => {
                 <Grid
                     is_flex
                     width="85%"
+                    height= "60px"
                 >   
                     {my_nickname === nickname
-                        ?   <><Button 
-                                onClick={onDeleteProduct}
-                                text="삭제"
-                                size="20px" 
-                                radius="3px"
-                                height="60px"
-                                bold="bold"
-                                background="#E8E8E8"   
-                            />
-                            <Button 
-                                // onClick={onDoTrade}
-                                text="수정"
-                                color="white"
-                                size="20px" 
-                                bold="bold"
-                                height="60px"
-                                background="#0095b7"   
-                            /></>
-                        :   <><Button 
-                                onClick={onDoChat}
-                                text="채팅보내기"
-                                size="20px" 
-                                height="60px"
-                                bold="bold"
-                                background="#FFD467"   
-                            /> 
-                            <Button 
-                                onClick={onDoTrade}
-                                text="교환신청"
-                                color="white"
-                                size="20px" 
-                                bold="bold"
-                                height="60px"
-                                background="#0095b7"   
-                            /></>
+                        ?   <>
+                                <Button 
+                                    onClick={onDeleteProduct}
+                                    background="gray"   
+                                >
+                                    삭제
+                                </Button>
+                                <Button 
+                                    // onClick={onDoTrade}
+                                    color="white"
+                                    background="yellow"   
+                                >
+                                    수정
+                                </Button>
+                            </>
+                        :   <>
+                                <Button 
+                                    onClick={onDoChat}
+                                    background="yellow"
+                                    // background={}
+                                    size="19px"
+                                >
+                                    채팅보내기
+                                </Button> 
+                                <Button 
+                                    onClick={onDoTrade}
+                                    color="white"
+                                    background="blue"   
+                                >
+                                    교환신청
+                                </Button>
+                            </>
                     }
                 </Grid>
             </Container>
@@ -140,7 +138,7 @@ const Container = styled.div`
     margin: 10px 0 0;
     display: flex;
     align-items: center;
-    background-color: ${props => props.bg ? "#E8E8E8" : "#FFD467"};
+    background-color: ${props => props.bg ? props.theme.palette.gray : props.theme.palette.yellow};
 `;
 
 const Wrap = styled.div`

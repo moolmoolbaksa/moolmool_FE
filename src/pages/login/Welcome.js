@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Text, Grid, Button } from '../../elements/index';
+import { Text, Grid } from '../../elements/index';
 import { ReactComponent as WelcomeBackground} from '../../images/최초로그인환영.svg';
+import { history } from '../../redux/configureStore';
 
 const Welcome = (props) => {
     const nickname = useSelector(state => state.user.user_info.nickname);
@@ -39,7 +40,7 @@ const Welcome = (props) => {
                 <Grid
                     padding="0 16px"
                 >
-                    <StyledLink to="/">시작하기</StyledLink>
+                    <StyledLink to="#" onClick={() => {history.replace('/')}}>시작하기</StyledLink>
                 </Grid>
             </Grid>
         </Container>

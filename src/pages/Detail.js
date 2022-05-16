@@ -15,9 +15,6 @@ import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import StatusLabel from '../components/shared/StatusLabel';
-import TabBar from '../components/TabBar';
-
-
 
 const Detail = (props) => {
     const {images, status} = useSelector(state => state.product.product_info);
@@ -29,7 +26,7 @@ const Detail = (props) => {
         slidesToShow: 1, 
         slidesToScroll: 1,
     };
-  
+
     return (
         <Container>
                 <LocationBar transparent/>

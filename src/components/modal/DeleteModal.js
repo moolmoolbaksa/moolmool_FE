@@ -13,15 +13,13 @@ const DeleteModal = ({itemId}) => {
     const is_delete_modal = useSelector(state => state.modal.is_delete_modal);
     
     useEffect(() => {
+        let timeout;
         if(is_delete_modal){
             setIsOpen(true);
         } else {
             setTimeout(() => setIsOpen(false), 200);
-        }
-
-        // return () => {
-        //     setIsOpen(false)
-        // }
+        };
+        return () => clearTimeout(timeout);
     }, [is_delete_modal]);
 
     if(!isOpen){

@@ -12,7 +12,7 @@ import { ReactComponent as MyIconYellow } from "../images/마이페이지(노랑
 import { ReactComponent as PlusIcon } from "../images/플러스.svg";
 import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { api as userApi } from '../redux/modules/user';
+import { api as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 import { setAlertModal, setLoginModal } from '../redux/modules/modal';
 import { useLocation } from 'react-router-dom';
@@ -25,7 +25,6 @@ const TabBar = (props) => {
 
     const goMypage = () => {
         if(!is_login) return dispatch(setLoginModal(true));
-        dispatch(userApi.getMyInfoApi());
         history.push('/mypage');
         window.scrollTo(0, 0);
     };
@@ -40,6 +39,7 @@ const TabBar = (props) => {
         history.push('/');
         window.scrollTo(0, 0);
     };
+    
     const goChat =()=>{
         history.push('/chat');
         window.scrollTo(0, 0);
@@ -141,7 +141,7 @@ const CreateBtn = styled.button`
     bottom: 20px;
     width: 50px;
     height: 50px;
-    background: #FFD467;
+    background: ${props => props.theme.palette.yellow};
     border: none;
     border-radius: 50px;
     display: flex;

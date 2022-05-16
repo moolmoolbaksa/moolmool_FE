@@ -1,75 +1,47 @@
 import React from "react";
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Button = (props) => {
-    const {
-        margin,
-        onClick,
-        width,
-        height,
-        size,
-        color,
-        bold,
-        background,
-        text,
-        lineHeight,
-        radius,
-        border,
-        padding,
-    } = props;
-    
-    const styles = {
-        margin,
-        width,
-        height,
-        size,
-        color,
-        bold,
-        background,
-        lineHeight,
-        radius,
-        border,
-        padding,
-    }
-   
+const Button = ({children, onClick,...rest}) => {
     return (
-        <Btn
-            {...styles}
+        <StyledButton
+            {...rest}
             onClick={onClick}
         >
-            {text}
-        </Btn>
+            {children}
+        </StyledButton>
     );
 };
 
 Button.defaultProps = {
     background: "#fff",
-    margin: false,
-    width: "100%",
-    height: "100%",
-    size: "14px",
-    color: "black",
-    bold: false,
-    radius: null,
-    lineHeight: "initial",
-    border: "none",
-    padding: false,
-}
+    onClick: () => {},
+};
 
-const Btn = styled.button`
-    margin: ${props => props.margin};
-    padding: ${props => props.padding};
-    width: ${props => props.width};
-    height: ${props => props.height};
-    font-size: ${props => props.size};
-    color: ${props => props.color};
-    font-weight: ${props => props.bold};
-    background: ${props => props.background};
-    line-height: ${props => props.lineHeight};
-    border-radius: ${props => props.radius};
-    border: ${props => props.border};
+const StyledButton = styled.button`
+        
+    /* 공통 스타일 */
+    flex: auto;
+    line-height: inherit;
+    outline: none;
+    border: none;
+    font-weight: bold;
     letter-spacing: -0.67px;
     cursor: pointer;
+
+    /* 배경 색상 */
+    ${props => {
+        const selected = props.theme.palette[props.background];
+        return css`
+            background: ${selected};
+        `;
+    }}
+
+    /* 조정 스타일 */
+    width: ${props => props.width ? props.width : '100%'};
+    height: ${props => props.height ? props.height : '100%'};
+    font-size: ${props => props.size ? props.size : '20px'};
+    color: ${props => props.color ? props.color : 'black'};
+    border-radius: ${props => props.radius ? props.radius : '0px'};
 `;
 
 export default Button;

@@ -1,23 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements/index';
 import { history } from '../../redux/configureStore';
-import { api as ProductActions } from '../../redux/modules/product';
 import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
 
 const ItemGrid = ({item_list, type}) => {
-    const dispatch = useDispatch();
-
     const onGoCreateItem = () => {
         history.push('/registerproduct');
     };
 
     const onGoScrabPage = () => {
-        dispatch(ProductActions.getMyScrabListApi());
+        history.push('/scrab');
     };
     
     if(type==='trade'){
@@ -81,14 +77,26 @@ const ItemGrid = ({item_list, type}) => {
                         더보기
                     </StyledLink>
                 </Grid>
-                <Grid gridBox margin="20px 0">
-                    {item_list && item_list.map((v, i) => {
-                        return  <ItemImage 
-                                    key={i}
-                                    {...v}
-                                />       
-                    })}
-                </Grid>
+                {item_list.length !== 0
+                    ?   <Grid gridBox margin="20px 0">
+                            {item_list && item_list.map((v, i) => {
+                                return  <ItemImage 
+                                            key={i}
+                                            {...v}
+                                        />       
+                            })}
+                        </Grid>
+                    :   <EmptyZone>
+                            <Text 
+                                text="찜한 상품이 없습니다."
+                                textAlign="center"
+                                size="16px"
+                                color="#ffca39"
+                                bold="bold"
+                                padding="50px 0"
+                            />
+                        </EmptyZone>
+                }
             </>
         );
     };
@@ -178,6 +186,13 @@ const PlusZone = styled.div`
     border: 2px #ffca39 solid;
     border-radius: 5px;
     cursor: pointer;
+`;
+
+const EmptyZone = styled.div`
+    width: 100%;
+    border: 2px #ffca39 solid;
+    border-radius: 5px;
+    margin: 16px 0;
 `;
 
 const StyledLink = styled(Link)`

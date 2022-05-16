@@ -1,7 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { Text } from '../elements/index';
 import { history } from '../redux/configureStore';
@@ -9,24 +9,29 @@ import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
 import { setAddress, setPreview } from '../redux/modules/user';
 import { resetTrade } from '../redux/modules/product';
 
-const LocationBar = ({ title, transparent, chat }) => {
+const LocationBar = ({ title, transparent }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const is_login = useSelector(state => state.user.is_login);
 
     const onGoBack = () => {
-        if(location.pathname==='/editmyinfo'){
-            dispatch(setPreview(''));
-            dispatch(setAddress(''));
+        const page = location.pathname;
+        switch(page){
+            case '/editmyinfo':
+                dispatch(setPreview(''));
+                dispatch(setAddress(''));
+                history.goBack();
+                break;
+            case '/trade':
+                dispatch(resetTrade());
+                history.goBack();
+                break;
+            case '/mypage':
+                history.push('/');
+                break;
+            default:
+                history.goBack();
         };
-        if(location.pathname==='/trade'){
-            dispatch(resetTrade());
-        };
-        if(location.pathname==='/mypage'){
-            history.push('/');
-            return;
-        };
-        history.goBack();
     };
    
     if(transparent){
@@ -38,23 +43,26 @@ const LocationBar = ({ title, transparent, chat }) => {
     };
 
     return (
-        <Container>
-            <Wrap>
-                <StyledArrowIcon onClick={onGoBack} width="27" height="27"/>
-                <Text 
-                    text={title}
-                    size="22px"
-                    bold="bold"
-                    letterSpacing="-1px"
-                    width="max-content"
-                />
-            </Wrap>
-            {is_login && location.pathname === '/mypage'
-                &&  <StyledLink to="/editmyinfo">
-                        프로필 수정
-                    </StyledLink>
-            }
-        </Container>
+        <>
+            <Container>
+                <Wrap>
+                    <StyledArrowIcon onClick={onGoBack} width="27" height="27"/>
+                    <Text 
+                        text={title}
+                        size="20px"
+                        bold="bold"
+                        letterSpacing="-1px"
+                        width="max-content"
+                    />
+                </Wrap>
+                {is_login && location.pathname === '/mypage'
+                    &&  <StyledLink to="/editmyinfo">
+                            프로필 수정
+                        </StyledLink>
+                }
+            </Container>
+        {/* <Shadow/> */}
+        </>
     );
 };
 
@@ -63,7 +71,7 @@ const Container = styled.div`
     align-items: center;
     padding: 15px 16px 15px 8px;
     justify-content: space-between;
-    background-color: transparent;
+    background-color: white;
 `;
 
 const ArrowContainer = styled.div`
@@ -101,6 +109,12 @@ const StyledLink = styled(Link)`
 
 const StyledArrowIcon = styled(ArrowIcon)`
     cursor: pointer;
+`;
+
+const Shadow = styled.div`
+  width: 100%;
+  height: 10px;
+  background: url('https://res.kurly.com/pc/service/common/1902/bg_1x9.png') repeat-x 0 100%;
 `;
 
 export default LocationBar;
