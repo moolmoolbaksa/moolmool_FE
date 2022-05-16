@@ -32,40 +32,10 @@ const LoginModal = ({type}) => {
         if(location.pathname==='/trade') history.push('/');
     };
 
-    if(type==='trade'){
-        return (
-            <ModalBackground>
-                <ModalContainer is_modal={is_login_modal}>
-                    <Content>
-                        <span class="material-symbols-outlined">
-                            published_with_changes
-                        </span>
-                        <Grid>
-                            <Text
-                                text="물물교환"
-                                textAlign="center"
-                                size="24px"
-                                bold="bold"
-                            />
-                            <Text
-                                text="신청이 완료되었습니다."
-                                textAlign="center"
-                                size="24px"
-                            />
-                        </Grid>
-                    </Content>
-                    <BtnWrap>
-                        <OneButton
-                            onClick={onClose}
-                        >
-                            확인
-                        </OneButton>
-                   </BtnWrap>
-                </ModalContainer>
-            </ModalBackground>
-        );
-    };
-
+    const onLogin = () => {
+        dispatch(setLoginModal(false));
+        history.push('/login');
+    }
     return (
         <ModalBackground>
             <ModalContainer is_modal={is_login_modal}>
@@ -90,7 +60,7 @@ const LoginModal = ({type}) => {
                         닫기
                     </Button>
                     <Button 
-                        onClick={() => {history.push('/login')}}
+                        onClick={onLogin}
                         background="#0095B7"
                         radius="0 0 20px 0"
                     >
