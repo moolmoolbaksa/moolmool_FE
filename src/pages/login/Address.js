@@ -120,13 +120,10 @@ const Address = (props) => {
                 <Button
                     onClick={onUpdateAddress}
                     height="50px"
-                    radius="5px"
-                    background="rgb(255,202,57)"
-                    bold="bold"
+                    background="yellow"
                     size="18px"
-                    color="black"
-                    text={location.state ? '이 위치로 재설정' : "이 위치로 설정"}
-                />
+                    radius="5px"
+                >{location.state ? '이 위치로 재설정' : "이 위치로 설정"}</Button>
             </Grid>
         </Grid>
     );

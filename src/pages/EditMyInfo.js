@@ -74,107 +74,116 @@ const EditMyInfo = (props) => {
     };
     
     return (
-        <>
+        <Grid
+            height="100%"
+        >
             <LocationBar title="마이페이지"/>
-            <Grid
-                padding="40px 16px 0"
-                height="calc(100vh - 60px)"
-                is_flex
-                is_column
-                // justify="center"
-                gap="25px"
-            >
-                <FileBox>
-                    <Preview 
-                        src={preview || profile}
-                    />
-                    <Wrap>
-                        <input 
-                            onChange={selectFile}
-                            ref={inputRef}
-                            type="file"
-                            accept="image/*"
-                            id="profile_img" 
+            <Container>
+                <Grid is_flex is_column gap="25px" padding="0 16px">
+                    <FileBox>
+                        <Preview 
+                            src={preview || profile}
                         />
-                        <label htmlFor='profile_img'></label>
-                        <Round onChange={selectFile}>
-                            <span className="material-symbols-outlined">
-                                android_camera
-                            </span>
-                        </Round>
-                    </Wrap>
-                </FileBox>
-            
-                <Grid>
-                <Grid flex>
-                        <Text 
-                            text="닉네임"
-                            size="16px"
-                            margin="0 0 5px"
-                            color="#9D9D9D"
-                        />
-                        <TextLength>{editInfo.nickname.length}/5</TextLength>
-                    </Grid>
-                    <Input
-                        type="text"
-                        onChange={onChangeNickname}
-                        value={editInfo.nickname}
-                        padding="10px"
-                    />
-                </Grid>
-                <Grid>
-                    <Text 
-                        text="거주지"
-                        size="16px"
-                        margin="0 0 5px"
-                        color="#9D9D9D"
-                        />
-                    <Grid
-                        flex
-                    >
+                        <Wrap>
+                            <input 
+                                onChange={selectFile}
+                                ref={inputRef}
+                                type="file"
+                                accept="image/*"
+                                id="profile_img" 
+                            />
+                            <label htmlFor='profile_img'></label>
+                            <Round onChange={selectFile}>
+                                <span className="material-symbols-outlined">
+                                    android_camera
+                                </span>
+                            </Round>
+                        </Wrap>
+                    </FileBox>
+                    <Grid>
+                        <Grid flex>
+                            <Text 
+                                text="닉네임"
+                                size="16px"
+                                margin="0 0 5px"
+                                color="#9D9D9D"
+                            />
+                            <TextLength>{editInfo.nickname.length}/5</TextLength>
+                        </Grid>
                         <Input
                             type="text"
-                            disabled
-                            placeholder={map_address ? map_address.general_address : address}
+                            onChange={onChangeNickname}
+                            value={editInfo.nickname}
                             padding="10px"
                         />
-                        <StyledLocationIcon width="30" height="30" onClick={() => {history.push({pathname: '/address', state:{is_edit: true}})}}/>
                     </Grid>
-                </Grid>
-                <Grid>
-                    <Grid flex>
+                    <Grid>
                         <Text 
-                            text="보따리 소개"
+                            text="거주지"
                             size="16px"
                             margin="0 0 5px"
                             color="#9D9D9D"
                         />
-                        <TextLength>{editInfo.storeInfo.length}/30</TextLength>
+                        <Grid
+                            flex
+                        >
+                            <Input
+                                type="text"
+                                disabled
+                                placeholder={map_address ? map_address.general_address : address}
+                                padding="10px"
+                            />
+                            <StyledLocationIcon width="30" height="30" onClick={() => {history.push({pathname: '/address', state:{is_edit: true}})}}/>
+                        </Grid>
                     </Grid>
-                    <Input
-                        type="text"
-                        onChange={onChangeStoreInfo}
-                        value={editInfo.storeInfo}
-                        placeholder={!editInfo.storeInfo ? '나의 보따리 소개를 적어주세요.' : ''}
-                        padding="10px"
-                    />
+                    <Grid margin="0 0 25px">
+                        <Grid flex>
+                            <Text 
+                                text="보따리 소개"
+                                size="16px"
+                                margin="0 0 5px"
+                                color="#9D9D9D"
+                            />
+                            <TextLength>{editInfo.storeInfo.length}/30</TextLength>
+                        </Grid>
+                        <Input
+                            type="text"
+                            onChange={onChangeStoreInfo}
+                            value={editInfo.storeInfo}
+                            placeholder={!editInfo.storeInfo ? '나의 보따리 소개를 적어주세요.' : ''}
+                            padding="10px"
+                        />
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Button
-                onClick={onEditMyInfo}
-            >
-                완료
-            </Button>
-        </>
+                <Button
+                    onClick={onEditMyInfo}
+                >
+                    완료
+                </Button>
+            </Container>
+        </Grid>
     );
 };
+
+const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    height: calc(100% - 57px);
+    padding: 20px 0 0;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    };
+    /* gap: 25px; */
+`;
 
 const FileBox = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 200px;
+    min-height: 200px;
 `;
 
 const Wrap = styled.div`
@@ -185,8 +194,7 @@ const Wrap = styled.div`
 
     & input {
         display: none;
-    }
-
+    };
     & label {
         position: absolute;
         z-index: 1;
@@ -195,11 +203,12 @@ const Wrap = styled.div`
         border-radius: 200px;
         cursor: pointer;
         background-color: transparent;
-    }
+    };
 `;
 
 const Preview = styled.div`
     position: absolute;
+    top: 0;
     width: 200px;
     height: 200px;
     border-radius: 200px;
@@ -225,7 +234,7 @@ const Round = styled.div`
         color: white;
         text-indent: -9999;
         font-size: 25px;
-    }
+    };
 `;
 
 const Input = styled.input`
@@ -247,10 +256,9 @@ const StyledLocationIcon = styled(LocationIcon)`
 `;
 
 const Button = styled.div`
-    position: absolute;
-    bottom: 0;
+    margin-top: auto;
     width: 100%;
-    background-color: #ffca39;
+    background-color: ${props => props.theme.palette.yellow};
     padding: 16px;
     font-size: 18px;
     font-weight: bold;
