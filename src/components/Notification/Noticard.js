@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { history } from "../../redux/configureStore";
 
@@ -9,6 +9,7 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId}) => {
     const dispatch = useDispatch();
 
 	const onNotiClick = () => {
+		console.log(notificationId, changeId)
 		switch(type){
 			case 'BARTER':
 				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));

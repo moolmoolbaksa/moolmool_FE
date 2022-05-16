@@ -12,9 +12,7 @@ import AlertModal from '../components/modal/AlertModal';
 import TabBar from '../components/TabBar';
 
 const TradeProposal = (props) => {
-    const dispatch = useDispatch();
-
-    const {barterItem, ...item_info} = useSelector(state => state.notification.barter_info);
+    const {barterItem, ...item_info} = useSelector(state => state.notification.noti_barter);
     console.log(barterItem, item_info)
     return (
         <Grid
