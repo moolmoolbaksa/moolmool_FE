@@ -13,27 +13,31 @@ const Notification = (props) => {
 	const dispatch = useDispatch();
 	const userId = useSelector(state => state.user.user_info.userId);
 	const noti_list = useSelector(state => state.notification.noti_list);
-	
+	const is_token = localStorage.getItem("token");
+
 	useEffect(() => {
-		dispatch(notiActions.getNotiApi());
+		if(is_token){
+			dispatch(notiActions.getNotiApi());
+		};
 	}, []);
 
-	const sock = new SockJS('http://13.124.0.71/ws-stomp');
+	const sock = new SockJS('http://13.125.220.67:8080/ws-stomp');
     const client = Stomp.over(sock);
 
 	useEffect(() => {
-		client.connect({"Authorization": localStorage.getItem('token')}, () => {
-			client.subscribe(`/sub/notification/${userId}`, (data) => {
-				const response = JSON.parse(data.body);
-				console.log(response)
-				dispatch(setNoti(response));
-				}, {"Authorization": localStorage.getItem('token')});
-      		}
-    	);
-
-		return () => {
-			client.disconnect();
-		}
+		if(is_token){
+			client.connect({"Authorization": localStorage.getItem('token')}, () => {
+				client.subscribe(`/sub/notification/${userId}`, (data) => {
+					const response = JSON.parse(data.body);
+					console.log(response);
+					dispatch(setNoti(response));
+					}, {"Authorization": localStorage.getItem('token')});
+				}
+			);
+			return () => {
+				client.disconnect();
+			};
+		};
   	}, []);
 
     return (
@@ -42,7 +46,7 @@ const Notification = (props) => {
 		>
 			<LocationBar title="알림"/>
 			<Container>
-				{noti_list.map(v => {
+				{is_token && noti_list.map(v => {
 					return 	<Noticard
 								key={v.notificationId}
 								{...v}
@@ -54,19 +58,18 @@ const Notification = (props) => {
 }
 
 const Container = styled.div`
-	padding: 0 16px;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 10px;
+	padding: 16px 16px 0;
 	height: calc(100% - 60px);
 	padding-bottom: 10px;
+	background-color: #f5f5f5;
 	overflow-y: scroll;
 	-ms-overflow-style: none; /* IE and Edge */
     &::-webkit-scrollbar {
         display: none; /* Chrome, Safari and Opera */
     }
-
-	& div:nth-child(1){
-		border-top: 1.5px #c4c4c4 solid;
-	}
-	// 스크롤 주기
 `;
 
 // const NotiCard = styled.div`

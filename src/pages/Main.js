@@ -38,7 +38,7 @@ const Main = (props) => {
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
 
-	const sock = new SockJS('http://13.124.0.71/ws-stomp');
+	const sock = new SockJS('http://13.125.220.67:8080/ws-stomp');
 	const client = Stomp.over(sock);
   	
 	useEffect(() => {
@@ -55,8 +55,8 @@ const Main = (props) => {
 
 			return () => {
 				client.disconnect();
-			}
-		}
+			};
+		};
   	}, [userId]);
 
   	React.useEffect(()=>{
@@ -98,7 +98,7 @@ const Main = (props) => {
 			console.log(category_string);
 			console.log('getItems');
 			})
-		}
+		};
   	}, [openFilter]);
 
 	const Drawers = () => {
@@ -133,7 +133,7 @@ const Main = (props) => {
 				<Grid
 					is_flex
 					align="center"
-					padding="10px 16px 15px"
+					padding="0px 16px 15px"
 					gap="10px"
 					borderB="1px #dadada solid"
 				>

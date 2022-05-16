@@ -58,7 +58,8 @@ const Inputbox = (props) => {
             <Button 
               background="yellow" 
               radius="5px"
-              size="16px" 
+              size="16px"
+              width="20%" 
               onClick={onSend}
             >전송</Button>
         </Base>
@@ -74,6 +75,7 @@ const Base = styled.div`
 	bottom: 0;
 	padding: 10px 16px;
 	margin-bottom: 5px;
+  
 `;
 
 const Input = styled.input`

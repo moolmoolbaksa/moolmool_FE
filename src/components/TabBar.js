@@ -25,7 +25,6 @@ const TabBar = (props) => {
 
     const goMypage = () => {
         if(!is_login) return dispatch(setLoginModal(true));
-        dispatch(userActions.getMyInfoApi());
         history.push('/mypage');
         window.scrollTo(0, 0);
     };

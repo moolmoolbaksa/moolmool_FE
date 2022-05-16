@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css } from 'styled-components';
 
 const Button = ({children, onClick,...rest}) => {
-
     return (
         <StyledButton
             {...rest}
@@ -27,7 +26,6 @@ const StyledButton = styled.button`
     border: none;
     font-weight: bold;
     letter-spacing: -0.67px;
-    width: 100%;
     cursor: pointer;
 
     /* 배경 색상 */
@@ -39,6 +37,7 @@ const StyledButton = styled.button`
     }}
 
     /* 조정 스타일 */
+    width: ${props => props.width ? props.width : '100%'};
     height: ${props => props.height ? props.height : '100%'};
     font-size: ${props => props.size ? props.size : '20px'};
     color: ${props => props.color ? props.color : 'black'};

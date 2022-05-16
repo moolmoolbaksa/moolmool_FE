@@ -40,9 +40,11 @@ const Container = styled.div`
 	font-size: 16px;
 	font-weight: bold;
 	letter-spacing: -.67px;
-	padding: 20px 0;
-	border-bottom: 1px #c4c4c4 solid;
+	padding: 20px 10px;
 	color: ${props => props.isRead ? '#c4c4c4' : 'black'};
+	border-radius: 10px;
+    background-color: white;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2);
 `;
 
 export default Noticard;
