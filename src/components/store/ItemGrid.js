@@ -72,7 +72,7 @@ const ItemGrid = ({item_list, type}) => {
                     />
                     <StyledLink
                         to="/scrab"
-                        onClick={onGoScrabPage}
+                        // onClick={onGoScrabPage}
                     >
                         더보기
                     </StyledLink>

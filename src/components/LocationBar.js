@@ -20,16 +20,23 @@ const LocationBar = ({ title, transparent }) => {
             case '/editmyinfo':
                 dispatch(setPreview(''));
                 dispatch(setAddress(''));
+                console.log(page);
+                console.log('goback check');
                 history.goBack();
                 break;
             case '/trade':
                 dispatch(resetTrade());
+                console.log('goback check1');
                 history.goBack();
                 break;
             case '/mypage':
+                console.log(page);
+                console.log('goback check2');
                 history.push('/');
                 break;
             default:
+                console.log(page);
+                console.log('goback check3');
                 history.goBack();
         };
     };

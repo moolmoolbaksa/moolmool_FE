@@ -122,7 +122,7 @@ const Tradecard = (props) => {
                 </Tradetitle>
                 <Wrap onClick={onGoDetail}>
                     <ImageOutter>
-                        <ImageWrap src={myPosition === "buyer" ? barterItem[0].itemImg : myItem[0].itemImg} onClick={onGoDetail}/>
+                        <ImageWrap src={myPosition === "buyer" ? barterItem[0].itemImg : myItem[0].itemImg} />
                     </ImageOutter>
                     <Grid
                         is_flex
