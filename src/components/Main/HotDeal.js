@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import HotItem from './HotItem';
 import { Text } from '../../elements';
-import { response } from '../../shared/mock';
+import { useDispatch, useSelector } from 'react-redux';
+import { api as itemActions } from '../../redux/modules/item';
 
 const HotDeal = (props) => {
+    const dispatch = useDispatch();
+    const star_item_list = useSelector(state => state.item.star_item_list);
+   
+    useEffect(() => {
+        dispatch(itemActions.getStarItemAPi());
+    }, []);
+
     return (
         <>
             <Text 
@@ -18,9 +26,9 @@ const HotDeal = (props) => {
                 width="max-content"
             />
             <Container>
-                {response.list.map((v, i) => {
+                {star_item_list.map((v, i) => {
                     return <HotItem 
-                                key={i}
+                                key={v.itemId}
                                 {...v}
                             />
                 })}

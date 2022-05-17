@@ -1,20 +1,28 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements';
+import { api as productActions } from '../../redux/modules/product';
 
-const HotItem = ({image}) => {
+const HotItem = ({image, contents, title, itemId}) => {
+    const dispatch = useDispatch();
+  
+    const onGoDetail = () => {
+        dispatch(productActions.getProductApi(itemId));
+    };
+
     return (
-        <Container>
+        <Container onClick={onGoDetail}>
             <StyledImage src={image} />
             <Grid is_flex is_column padding="10px 10px 15px" gap="5px">
                 <Text 
-                    text="새차 내놓습니다."
+                    text={title}
                     bold="bold"
                     size="16px"  
                 />
                 <Text 
-                    text="새차 내놓습니다. 다른 차가 생겨서 필요가 없네우,,"
+                    text={contents}
                     color="#9d9d9d"
                 />
             </Grid>
