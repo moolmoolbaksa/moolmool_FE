@@ -6,6 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { Image, Grid, Text } from '../elements/index';
 import Card from '../components/Main/Card'
@@ -166,23 +167,31 @@ const Main = (props) => {
 						/>
 					</Grid>
 				</Grid>
+
 				<Drawer
-					PaperProps={{ style: {height: "500px"}}}
+					PaperProps={{ style: {height: "60vh"}}}
 					open={openFilter}
 					onClose={Drawers}
 				>
-					<div style={{width:'250px'}}>
+					<div style={{width:'55vw'}}>
 						<List>
-							{['전체','가전제품','여성의류','생활용품','욕실용품','주방용품','서적/음반','게임/취미',"뷰티/미용","기타"].map((text,index)=>(
-								<ListItem key={text}>
-								<ListItemIcon>
-								
-								</ListItemIcon>
-								<ListItemText primary={text} onClick={()=>{
-								setfilter(text);
-								console.log(text);
+							<ListItem style={{background:'#FFD467'}} key='default' onClick={()=>{
 								setopenfilter(false);
-								}}/>
+								}} >
+								<ListItemIcon style={{color:'white'}}><ArrowBackIosNewIcon/></ListItemIcon>
+								<ListItemText style={{color:'white'}} primary='카테고리' />
+							</ListItem>
+							{['전체',"디지털기기","생활가전","가구/인테리어",
+							"유아동","유아도서","생활/가공식품","스포츠/레저",
+							"여성잡화","여성의류","남성패션/잡화","게임/취미",
+							"뷰티/미용","반려동물용품","도서/티켓/음반","식물"]
+							.map((text,index)=>(
+								<ListItem key={text}>
+									<ListItemText primary={text} onClick={()=>{
+									setfilter(text);
+									console.log(text);
+									setopenfilter(false);
+									}}/>
 								</ListItem>
 							))}
 						</List>
