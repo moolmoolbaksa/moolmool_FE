@@ -34,9 +34,9 @@ const Image = (props) => {
     if(shape==="square" && vhvw)
     {
         return (
-            <Squarevhvwwrap>
-                <Squarevhvw {...styles} onClick={onClick}></Squarevhvw>
-            </Squarevhvwwrap>
+            
+            <Squarevhvw {...styles} onClick={onClick}></Squarevhvw>
+
         )
 
     }
@@ -117,13 +117,10 @@ const ImageCircle = styled.div`
 
     cursor: pointer;
 `;
-const Squarevhvwwrap=styled.div`
 
-    padding:1vh;
-    // width:200px;
-`;
 
 const Squarevhvw = styled.div`
+  position:relative;
   height: 6rem;
   width: 6rem;
   background-image: url("${(props) => props.src}");

@@ -17,9 +17,9 @@ const TradeProposal = (props) => {
     const {barterItem, ...item_info} = useSelector(state => state.notification.noti_barter);
     const baterId=useParams();
     console.log(barterItem, item_info)
-    
+    console.log(baterId);
     const acceptTrade=()=>{
-        HistoryAPI.acceptTrade(baterId)
+        HistoryAPI.acceptTrade(baterId.baterid)
         .then((res)=>{
             console.log(res);
             window.alert('교환 수락하셨습니다.');

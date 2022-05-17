@@ -16,6 +16,7 @@ const Chatroomlist = (props) => {
         ChatAPI.getChatRoom()
             .then((res)=>{
                 dispatch(setRoomlist(res.data));
+                console.log(res.data);
             })
             .catch((error)=>{
                 console.log(error);
