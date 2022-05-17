@@ -10,14 +10,15 @@ import { ReactComponent as HeartIconRed } from '../../images/하트(빨강).svg'
 import LoginModal from '../modal/LoginModal';
 import DeleteModal from '../modal/DeleteModal';
 import {ChatAPI} from '../../shared/api';
+import { history } from '../../redux/configureStore';
+import { enterRoom } from '../../redux/modules/chat'
 
 const DetailBottom = (props) => {
     const dispatch = useDispatch();
-    
+    const Roomlist = useSelector(state => state.chat.Roomlist);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
-    const {userId, nickname, isScrab, itemId, scrabCnt} = useSelector(state => state.product.product_info);
-    
+    const {userId, nickname, isScrab, itemId, scrabCnt,profile} = useSelector(state => state.product.product_info);
     const btnRef = useRef();
 
     // useEffect(() => {
@@ -27,7 +28,6 @@ const DetailBottom = (props) => {
     //       btnRef.current.setAttribute("fill", "#bdbdbd");
     //     }
     // }, [isScrab]);
-
     const clickHeart = () => {
         if(nickname === my_nickname) return;
         if(is_login){
@@ -36,7 +36,7 @@ const DetailBottom = (props) => {
             window.alert('로그인 후 이용해주세요')
         }
     };
-
+    
     const onDoTrade = () => {
         if(!is_login){
             dispatch(setLoginModal(true));
@@ -50,10 +50,27 @@ const DetailBottom = (props) => {
             dispatch(setLoginModal(true));
             return;
         }
+        for (let element of Roomlist){
+            console.log(element);
+            if(element.userId===userId)
+           {
+               console.log(element.userId);
+               console.log(userId);
+               console.log(element.roomId);
+                
+                dispatch(enterRoom({roomId:element.roomId, nickname:nickname, userId:userId, profile:profile}));
+                history.push(`/chat/${element.roomId}`);
+                break;
+                //랑호:3 진현:1 roomid:13
+           }
+        }
         ChatAPI.addChatRoom(userId)
         .then((res)=>{
             console.log(res);
             console.log('userid:'+userId);
+            dispatch(enterRoom({roomId:res.data, nickname:nickname, userId:userId, profile:profile}));
+            history.push(`/chat/${res.data}`);
+
         })
         .catch((error)=>{
             console.log(error);

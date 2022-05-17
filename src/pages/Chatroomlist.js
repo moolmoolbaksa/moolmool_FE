@@ -12,16 +12,16 @@ const Chatroomlist = (props) => {
     const dispatch = useDispatch();
     const Roomlist = useSelector(state => state.chat.Roomlist);
 
-    React.useEffect(()=>{
-        ChatAPI.getChatRoom()
-            .then((res)=>{
-                dispatch(setRoomlist(res.data));
-                console.log(res.data);
-            })
-            .catch((error)=>{
-                console.log(error);
-            });
-    }, []);
+    // React.useEffect(()=>{
+    //     ChatAPI.getChatRoom()
+    //         .then((res)=>{
+    //             dispatch(setRoomlist(res.data));
+    //             console.log(res.data);
+    //         })
+    //         .catch((error)=>{
+    //             console.log(error);
+    //         });
+    // }, []);
 
     return(
         <Base>

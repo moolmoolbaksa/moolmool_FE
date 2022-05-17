@@ -16,7 +16,9 @@ import { ReactComponent as HambergerIcon } from '../images/햄버거.svg';
 import { ReactComponent as NotiIcon } from '../images/종.svg';
 import { ReactComponent as SearchIcon } from '../images/돋보기.svg';
 
-import { ItemAPI } from '../shared/api';
+import { ItemAPI,ChatAPI } from '../shared/api';
+import { setRoomlist } from '../redux/modules/chat';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { setLoading } from '../redux/modules/user';
@@ -24,6 +26,7 @@ import { setUnreadNoti } from '../redux/modules/notification';
 import { setAlertModal } from '../redux/modules/modal';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+
 
 const Main = (props) => {
 	const dispatch = useDispatch();
@@ -58,6 +61,17 @@ const Main = (props) => {
 			};
 		};
   	}, [userId]);
+	React.useEffect(()=>{
+		ChatAPI.getChatRoom()
+            .then((res)=>{
+                dispatch(setRoomlist(res.data));
+                console.log(res.data);
+            })
+            .catch((error)=>{
+                console.log(error);
+            });
+    }, []);
+	
 
   	React.useEffect(()=>{
 		let category_string = null;
