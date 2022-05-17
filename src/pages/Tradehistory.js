@@ -72,7 +72,9 @@ const Tradehistory = (props) => {
                                 /> 
                     })}
                 </TabPanel>
-                <TabPanel sx={{padding: '0', height: 'calc(100% - 170px)', overflowY: 'auto'}} value="sent">
+                <TabPanel sx={{'&::-webkit-scrollbar': {width: '20px'},'&::-webkit-scrollbar-thumb': {
+      backgroundColor: `rgba(0, 0, 0, 0.05)`,
+    }, padding: '0', height: 'calc(100% - 170px)', overflowY: 'auto'}} value="sent">
                     {Sentlist.map((p,idx) => { 
                         return  <Tradecard 
                                     key={`trade_${p.barterId}`} 
