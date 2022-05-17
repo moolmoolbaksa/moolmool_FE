@@ -61,7 +61,6 @@ Text.defaultProps = {
     bold: "normal",
     color: "black",
     lineHeight: "initial",
-    letterSpacing: "normal",
     padding: false,
     margin: false,
     width: "100%",
@@ -75,13 +74,13 @@ const ElText = styled.div`
     font-weight: ${props => props.bold};
     color: ${props => props.color};
     line-height: ${props => props.lineHeight};
-    letter-spacing: ${props => props.letterSpacing};
     padding: ${props => props.padding};
     margin: ${props => props.margin};
     width: ${props => props.width};
     text-align: ${props => props.textAlign};
     border-bottom: ${props => props.borderB};
-    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : '')};
+    ${props => (props.wordSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67%`)};
+    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : `word-spacing: -0.67%`)};
     ${props => (props.maxWidth ? `max-width:${props.maxWidth}` : '')};
     overflow: hidden;
     white-space: nowrap;

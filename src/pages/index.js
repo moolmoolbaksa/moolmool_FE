@@ -14,6 +14,7 @@ import ChatroomDetail from "./ChatroomDetail";
 import Decidetrade from "./Decidetrade"
 import TradeProposal from "./TradeProposal";
 import TradeCheck from "./TradeCheck";
+import Search from "./Search";
 
 export { 
     Detail,
@@ -32,4 +33,5 @@ export {
     Decidetrade,
     TradeProposal,
     TradeCheck,
+    Search,
 };

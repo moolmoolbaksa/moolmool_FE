@@ -112,7 +112,7 @@ const Main = (props) => {
 						flex
 						gap="15px"
 					>
-						<SearchIcon width="25" height="25" onClick={() => {dispatch(setAlertModal(true))}}/>
+						<SearchIcon width="25" height="25" onClick={() => {history.push('/search')}}/>
 						<NotiWrap>
 							<NotiIcon onClick={() => {history.push('/noti')}}/>
 							{unread_noti !== 0 && <NotiSign />}
@@ -194,7 +194,6 @@ const BlinkSign = keyframes`
 
 const CardWrap = styled.div`
 	height: calc(100% - 200px);
-	/* padding: 0 16px; */
 	overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     &::-webkit-scrollbar {

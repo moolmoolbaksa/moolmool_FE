@@ -15,6 +15,7 @@ const HotDeal = (props) => {
                 letterSpacing="-1px"
                 wordSpacing="-1px"
                 margin="15px 16px"
+                width="max-content"
             />
             <Container>
                 {response.list.map((v, i) => {
@@ -45,10 +46,6 @@ const Container = styled.div`
     };
 
     scroll-behavior: smooth;
-`;
-
-const HotItemWrap = styled.div`
-    display: flex;
 `;
 
 export default HotDeal;

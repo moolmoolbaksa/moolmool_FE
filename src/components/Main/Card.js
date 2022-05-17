@@ -104,6 +104,7 @@ const IconWrap = styled.div`
         color: #9d9d9d;
         font-size: 18px;
         vertical-align: middle;
+        text-indent: -9999;
     }
     & span.num {
         text-align: 18px;

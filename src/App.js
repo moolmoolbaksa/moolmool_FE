@@ -28,6 +28,7 @@ import {
   Decidetrade,
   TradeProposal,
   TradeCheck,
+  Search,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
@@ -89,6 +90,7 @@ function App() {
           <Route exact path="/chat" component={Chatroomlist}/>
           <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
           <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
+          <Route exact path="/search" component={Search}/>
         </GlobalStyle>
       </ThemeProvider>
     </ConnectedRouter>
