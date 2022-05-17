@@ -8,17 +8,14 @@ import { Grid, Text, Button } from '../../elements/index';
 import { history } from '../../redux/configureStore';
 import { api as userActions, setAddress } from '../../redux/modules/user';
 import { ReactComponent as ArrowIcon } from '../../images/화살표.svg';
-import { getDistance } from '../../shared/distance';
 
 const Address = (props) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const {road_address, general_address} = useSelector(state => state.user.address);
-    // const latlng = useSelector(state => state.user.latlng);
    
     const onUpdateAddress = () => {
         if(location.state){
-            // dispatch(userActions.setFirstUserInfoApi(general_address));
             history.goBack();
             return;
         };
