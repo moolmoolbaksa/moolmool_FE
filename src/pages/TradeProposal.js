@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../elements/index';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import TradeItemCard from '../components/trade/TradeItemCard';
 import ItemGrid from '../components/store/ItemGrid';
@@ -10,10 +10,37 @@ import { setAlertModal, setTradeModal } from '../redux/modules/modal';
 import TradeModal from '../components/modal/TradeModal';
 import AlertModal from '../components/modal/AlertModal';
 import TabBar from '../components/TabBar';
-
+import { useParams } from 'react-router-dom';
+import { HistoryAPI } from '../shared/api';
+import { history } from '../redux/configureStore';
 const TradeProposal = (props) => {
     const {barterItem, ...item_info} = useSelector(state => state.notification.noti_barter);
+    const baterId=useParams();
     console.log(barterItem, item_info)
+    
+    const acceptTrade=()=>{
+        HistoryAPI.acceptTrade(baterId)
+        .then((res)=>{
+            console.log(res);
+            window.alert('교환 수락하셨습니다.');
+            history.goBack();
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+
+    }
+    const rejectTrade=()=>{
+        HistoryAPI.rejectTrade(baterId)
+        .then((res)=>{
+            console.log(res);
+            window.alert('교환을 거절하셨습니다.');
+            history.goBack();
+        })
+
+
+    }
+
     return (
         <Grid
             height="100%"
@@ -35,10 +62,10 @@ const TradeProposal = (props) => {
                 <ItemGrid type="mall" item_list={barterItem}/>
             </Grid>
             <ButtonWrap>
-                <ButtonA>
+                <ButtonA onClick={acceptTrade}>
                     교환 수락
                 </ButtonA>
-                <ButtonB>
+                <ButtonB onClick={rejectTrade}>
                     교환 거절
                 </ButtonB>
             </ButtonWrap>

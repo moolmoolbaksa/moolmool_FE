@@ -30,7 +30,7 @@ export const getBarterNotiApi = createAsyncThunk(
                     Authorization: localStorage.getItem('token'),
                 }
             });
-            history.push('/trproposal');
+            history.push(`/trproposal/${changeId}`);
             console.log(response)
             return response.data;
         } catch (error) {
