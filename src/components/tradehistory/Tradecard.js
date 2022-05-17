@@ -27,36 +27,37 @@ const Tradecard = (props) => {
     const buttonSetting = () => {
         if(status===1 && myPosition==="buyer"){
             return  <Buttonwrap>
-                        <LeftBtn>교환 수정</LeftBtn>
-                        <RightBtn onClick={handleCancelTrade}>교환 취소</RightBtn>
+                        <LeftBtn onClick={handleCancelTrade}>교환 취소</LeftBtn>
+                        <RightBtn>교환 수정</RightBtn>
                     </Buttonwrap>
         }
         else if(status===1 && myPosition==="seller"){
             return  <Buttonwrap>
-                        <LeftBtn onClick={handleAccept}>수락</LeftBtn>
-                        <RightBtn onClick={handleReject}>거절</RightBtn>
+                        <LeftBtn onClick={handleReject}>거절</LeftBtn>
+                        <RightBtn onClick={handleAccept}>수락</RightBtn>
+
                     </Buttonwrap>
         }
         else if(status===2 && isTrade===false){
             return  <Buttonwrap>
-                        <LeftBtn onClick={handleComplete}>교환 완료하기</LeftBtn>
-                        <RightBtn onClick={handleCancelTrade}>교환 취소하기</RightBtn>
+                        <LeftBtn onClick={handleCancelTrade}>교환 취소하기</LeftBtn>
+                        <RightBtn onClick={handleComplete}>교환 완료하기</RightBtn>
                     </Buttonwrap>
         }
         else if(status===2 && isTrade===true){
             return  <Buttonwrap>
-                        <LeftBtn onClick={handleComplete}>완료 취소(대기중)</LeftBtn>
-                        <RightBtn onClick={handleCancelTrade}>교환 취소하기</RightBtn>
+                        <LeftBtn onClick={handleCancelTrade}>교환 취소하기</LeftBtn>
+                        <RightBtn onClick={handleComplete}>완료 취소(대기중)</RightBtn>
                     </Buttonwrap>
         }
         else if(status===3 && isScore===false){
             return  <Buttonwrap>
-                        <LeftBtn onClick={handleAccept}>평가하기</LeftBtn>
+                        <RightBtn onClick={handleAccept}>평가하기</RightBtn>
                     </Buttonwrap>
         }
         else if(status===3 && isScore===true){
             return  <Buttonwrap>
-                        <LeftBtn onClick={handleAccept}>평가완료</LeftBtn>
+                        <RightBtn onClick={handleAccept}>평가완료</RightBtn>
                     </Buttonwrap>
         }   
     };
