@@ -16,6 +16,7 @@ const Text = (props) => {
         textAlign,
         borderB,
         onClick,
+        maxWidth,
         multi,
     } = props;
 
@@ -29,6 +30,7 @@ const Text = (props) => {
         padding,
         margin,
         width,
+        maxWidth,
         textAlign,
         borderB,
         multi,
@@ -80,6 +82,7 @@ const ElText = styled.div`
     text-align: ${props => props.textAlign};
     border-bottom: ${props => props.borderB};
     ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : '')};
+    ${props => (props.maxWidth ? `max-width:${props.maxWidth}` : '')};
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -2,15 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../../elements/index';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-
-import IconButton from '@mui/material/IconButton';
 import { api as productActions } from '../../redux/modules/product';
 import { useDispatch } from 'react-redux';
-import Image2 from '../../elements/Image2';
-
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
 
@@ -73,7 +66,7 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
 export default Card;
 
 const Container = styled.div`
-    padding: 15px 0;
+    padding: 15px 16px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
     gap: 15px;
