@@ -27,6 +27,7 @@ import { setUnreadNoti } from '../redux/modules/notification';
 import { setAlertModal } from '../redux/modules/modal';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import HotDeal from '../components/Main/HotDeal';
 
 
 const Main = (props) => {
@@ -77,41 +78,29 @@ const Main = (props) => {
   	React.useEffect(()=>{
 		let category_string = null;
 
-		if(filter=='전체'){
-		category_string = '/items?category';
-		//   console.log(category_string)
+		if(filter==='전체'){
+			category_string = '/items?category';
 		} else {
-		category_string=`/items?category=${filter}`;
-		//   console.log(category_string)
-		}
+			category_string=`/items?category=${filter}`;
+		};
 
 		if(!is_token){
 			ItemAPI.getItemswitoutlogin(category_string)
 			.then((res)=>{
-				console.log(res);
 				setCardlist(res.data);
-				console.log(is_token);
-				console.log('getItemswitoutlogin');
 				dispatch(setLoading(false));
 			})
 			.catch((error)=>{
 				console.log(error);
-				console.log(category_string);
-				console.log(is_token);
-				console.log('getItemswitoutlogin');
 			})
 		} else {
 			ItemAPI.getItems(category_string)
 			.then((res)=>{
-			console.log(res);
-			setCardlist(res.data);
-			console.log('getItems');
-			dispatch(setLoading(false));
+				setCardlist(res.data);
+				dispatch(setLoading(false));
 			})
 			.catch((error)=>{
-			console.log(error);
-			console.log(category_string);
-			console.log('getItems');
+				console.log(error);
 			})
 		};
   	}, [openFilter]);
@@ -138,7 +127,7 @@ const Main = (props) => {
 						flex
 						gap="15px"
 					>
-						<SearchIcon width="25" height="25" onClick={() => {dispatch(setAlertModal(true))}}/>
+						<SearchIcon width="25" height="25" onClick={() => {history.push('/search')}}/>
 						<NotiWrap>
 							<NotiIcon onClick={() => {history.push('/noti')}}/>
 							{unread_noti !== 0 && <NotiSign />}
@@ -198,6 +187,7 @@ const Main = (props) => {
 					</div>
 				</Drawer>
 				<CardWrap>
+					<HotDeal />
 					{cardList.map((p, idx) => { 
 						return 	<Card 
 									key={p.itemId} 
@@ -227,7 +217,6 @@ const BlinkSign = keyframes`
 
 const CardWrap = styled.div`
 	height: calc(100% - 200px);
-	padding: 0 16px;
 	overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     &::-webkit-scrollbar {

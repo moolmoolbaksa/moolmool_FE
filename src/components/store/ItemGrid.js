@@ -70,12 +70,13 @@ const ItemGrid = ({item_list, type}) => {
                         letterSpacing="-1px"
                         width="max-content"
                     />
-                    <StyledLink
-                        to="/scrab"
-                        // onClick={onGoScrabPage}
-                    >
-                        더보기
-                    </StyledLink>
+                    {item_list.length >= 3
+                        &&  <StyledLink
+                                to="/scrab"
+                            >
+                                더보기
+                            </StyledLink>
+                    }
                 </Grid>
                 {item_list.length !== 0
                     ?   <Grid gridBox margin="20px 0">
