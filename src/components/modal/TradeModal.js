@@ -115,7 +115,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
-    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out alternate;
+    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out;
 `;
 
 const StyledCheckIcon = styled(CheckIcon)``;
