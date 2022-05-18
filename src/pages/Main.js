@@ -101,6 +101,8 @@ const Main = (props) => {
 			})
 			.catch((error)=>{
 				console.log(error);
+				localStorage.removeItem('token');
+            	history.push('/login');
 			})
 		};
   	}, [openFilter]);

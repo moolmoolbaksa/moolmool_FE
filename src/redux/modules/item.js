@@ -1,20 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { history } from "../configureStore";
 
 export const getStarItemAPi = createAsyncThunk(
     'item/getStarItemAPi',
     async (search,thunkAPI) => {
-        console.log(search)
         try {
-            const response = await axios.get(`http://13.124.0.71/api/items/star`,{
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                }
-            });
+            let response;
+            if(thunkAPI.getState().user.is_login){
+                response = await axios.get(`http://13.124.0.71/api/items/star`,{
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    }
+                });
+            } else {
+                response = await axios.get(`http://13.124.0.71/api/items/star`);
+            }
             return response.data;
         } catch (error) {
             console.log("getStarItemAPi: ", error);
-            alert('getStarItemAPi error');
+            // alert('getStarItemAPi error');
+            localStorage.removeItem('token');
+            history.push('/login');
         };
     }
 );

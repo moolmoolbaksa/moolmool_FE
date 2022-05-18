@@ -20,21 +20,6 @@ export const response = {
             status: "교환대기",
             productId: 13,
         },
-        {
-            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            status: "교환대기",
-            productId: 14,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1614715838608-dd527c46231d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Z2xhc3Nlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-            status: "교환대기",
-            productId: 15,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            status: "교환대기",
-            productId: 16,
-        }
     ],
     mypage: {
         nickname: '나무늘보',
