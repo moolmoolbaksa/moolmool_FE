@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { response } from '../shared/mock';
@@ -6,7 +6,13 @@ import { response } from '../shared/mock';
 const Test = (props) => {
     const wrapRef = useRef();
     const dotRef = useRef([]);
-    
+    let start_x, end_x;
+    let curPos = 0;
+
+    useEffect(() => {
+        dotRef.current[0].classList.add('btn-style');
+    }, []);
+
     const onClickSlide = (e) => {
         const idx = dotRef.current.indexOf(e.target);
         wrapRef.current.style.transform = `translate(-${idx}00%)`;
@@ -15,11 +21,30 @@ const Test = (props) => {
     };
 
     const touchStart = (e) => {
-        console.log('zzz')
+        start_x = e.touches[0].pageX;
     };
 
     const touchEnd = (e) => {
-        console.log('ㅗㅜㅑ')
+        end_x = e.changedTouches[0].pageX;
+        start_x > end_x ? next() : prev();
+    };
+
+    function prev(){
+        if(curPos > 0){
+            curPos = curPos - 1;
+            wrapRef.current.style.transform = `translate(-${curPos*100}%)`;
+            dotRef.current.map(v => v.classList.remove('btn-style'));
+            dotRef.current[curPos].classList.add('btn-style');  
+        };
+    };
+
+    function next(){
+        if(curPos < response.list.length){
+            curPos = curPos + 1;
+            wrapRef.current.style.transform = `translate(-${curPos*100}%)`;
+            dotRef.current.map(v => v.classList.remove('btn-style'));
+            dotRef.current[curPos].classList.add('btn-style');
+        };
     };
 
     return (
