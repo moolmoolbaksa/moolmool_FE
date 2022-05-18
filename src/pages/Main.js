@@ -42,8 +42,6 @@ const Main = (props) => {
 	const [filter,setfilter] = useState('전체');
 	const [openFilter,setopenfilter] = useState(false);
 	const [cardList, setCardlist]=useState([]);
-
-
 	const sock = new SockJS('https://langho968.shop/wss-stomp');
 	const client = Stomp.over(sock);
   	
