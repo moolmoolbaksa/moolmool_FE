@@ -59,13 +59,13 @@ const CheckLabel = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25px;
-    height: 25px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background-color: ${props => props.theme.palette.yellow};
     span {
         color: black;
-        font-size: 18px;
+        font-size: 19px;
         font-weight: bold;
     };
 `;
