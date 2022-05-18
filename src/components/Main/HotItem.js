@@ -75,7 +75,6 @@ const RankLabel = styled.div`
         color: white;
         font-weight: bold;
         font-size: 18px;
-        padding-bottom: 2px; // 저급하게 가운데 정렬한 것 같애,,
     };
 `;
 
