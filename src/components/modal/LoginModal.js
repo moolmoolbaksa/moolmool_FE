@@ -96,8 +96,6 @@ const FadeOut = keyframes`
 `;
 
 const ModalBackground = styled.div`
-    /* display: ${props => props.display}; */
-    /* transition: display 0.3s ease-out; */
     position: absolute;
     z-index: 10000;
     left: 0;
@@ -117,7 +115,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
-    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out alternate;
+    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out;
 `;
 
 const Content = styled.div`

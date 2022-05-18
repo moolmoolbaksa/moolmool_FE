@@ -33,6 +33,7 @@ const MessageList = (props) => {
         .then((res)=>{
         console.log(res);
         dispatch(getPreviousMessages(res.data));
+        console.log(res.data);
         
         })
         .catch((error)=>{

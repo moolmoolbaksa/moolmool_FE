@@ -104,7 +104,7 @@ const ElInput = styled.input`
   outline: none;
   border: none;
   &::placeholder {
-    font-size: 16px;
+    font-size:  ${props => props.size};
     color: rgb(157,157,157);
     line-height: 22.6px;
     font-weight: 500;
@@ -131,7 +131,7 @@ const MultiInput = styled.textarea`
   border-radius: 3px;
   outline: none;
   &::placeholder {
-    font-size: 14px;
+    font-size:  ${props => props.size};
     color: #90a4ae;
   }
   resize:none;

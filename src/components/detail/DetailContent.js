@@ -14,6 +14,7 @@ const DetailContent = (props) => {
         date,
         contents,
         viewCnt,
+        address,
     } = product_info;
    
     return (
@@ -63,7 +64,7 @@ const DetailContent = (props) => {
                 >
                     <LocationIcon width="18" height="18" fill="lightgray"/>
                     <Text 
-                        text="1.9km"
+                        text={address}
                         size="12px"
                         lineHeight="12px"
                         width="max-content"

@@ -8,40 +8,40 @@ axios.defaults.withCredentials = true;
 // https://langho968.shop
 
 const api = axios.create({
-  baseURL: "https://langho968.shop",
+  	baseURL: "https://langho968.shop",
 });
 
 const chatapi = axios.create({
 	baseURL: "https://langho968.shop",
-  });
+});
 
 
-export const ItemAPI = 
-{
+export const ItemAPI = {
+	
 	//메인 아이템조회
-  getItems: (category_string) => api.get(`${category_string}`, {
-    headers: {
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  }),
-  // 메인 로그인 없이 아이템 조회
-  getItemswitoutlogin: (category_string) => api.get(`${category_string}`),
+ 	getItems: (category_string) => api.get(`${category_string}`, {
+		headers: {
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+  	}),
 
-  // 교환 물품 등록
-  registerItem: (Formitem) => api.post('/api/items',Formitem, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  }),
+	// 메인 로그인 없이 아이템 조회
+	getItemswitoutlogin: (category_string) => api.get(`${category_string}`),
 
-  //교환내역 불러오기
-  getMyhistory: ()=>api.get('/api/myhistory',{
-    headers: {
-      "Authorization": `${localStorage.getItem('token')}`,
-    },
-  }),
-  
+	// 교환 물품 등록
+	registerItem: (Formitem) => api.post('/api/items',Formitem, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+	}),
+
+  	//교환내역 불러오기
+	getMyhistory: ()=>api.get('/api/myhistory',{
+		headers: {
+			"Authorization": `${localStorage.getItem('token')}`,
+		},
+	}),
 }
 
 export const ChatAPI = {

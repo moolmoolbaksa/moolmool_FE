@@ -28,11 +28,13 @@ import {
   Decidetrade,
   TradeProposal,
   TradeCheck,
+  Search,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
 
 function App() {
+
   const dispatch = useDispatch();
 
   const handleResize = () => {
@@ -82,13 +84,14 @@ function App() {
           <Route exact path="/mypage" component={Mypage} />
           <Route exact path="/editmyinfo" component={EditMyInfo} />
           <Route exact path="/noti" component={Notification}/>
-          <Route exact path="/trproposal" component={TradeProposal}/>
+          <Route exact path="/trproposal/:baterid" component={TradeProposal}/>
           <Route exact path="/trcheck" component={TradeCheck}/>
           <Route exact path="/trhistory" component={Tradehistory}/>
           <Route exact path="/rating" component={Rating}/>
           <Route exact path="/chat" component={Chatroomlist}/>
           <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
           <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
+          <Route exact path="/search" component={Search}/>
         </GlobalStyle>
       </ThemeProvider>
     </ConnectedRouter>

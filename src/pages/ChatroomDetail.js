@@ -33,10 +33,7 @@ const ChatroomDetail = (props) => {
     const apiroomid=roomid.roomid;
     
     //history props
-    const opponentId=Opponent.userId;
-    const opponentProfile=Opponent.profile;
-    const opponentNickname=Opponent.nickname;
-    
+       
     
     let sock = new SockJS('https://langho968.shop/wss-stomp');
     let client = Stomp.over(sock);
@@ -60,7 +57,7 @@ const ChatroomDetail = (props) => {
         }, {"Authorization": localStorage.getItem('token')}
         );
           const data={
-              roomId:roomid.roomid,
+            roomId:roomid.roomid,
             type:"IN"
           }
           client.send(`/pub/chat/connect-status`,{"Authorization": `${localStorage.getItem('token')}`},

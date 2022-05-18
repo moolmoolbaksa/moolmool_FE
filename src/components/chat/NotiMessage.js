@@ -5,7 +5,7 @@ import { Image } from '../../elements';
 
 
 
-
+///알림용 메시지 작성할래말래??
 const NotiMessage = (props) => {
     
     return(

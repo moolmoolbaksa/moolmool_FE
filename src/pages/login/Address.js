@@ -8,17 +8,14 @@ import { Grid, Text, Button } from '../../elements/index';
 import { history } from '../../redux/configureStore';
 import { api as userActions, setAddress } from '../../redux/modules/user';
 import { ReactComponent as ArrowIcon } from '../../images/화살표.svg';
-import { getDistance } from '../../shared/distance';
 
 const Address = (props) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const {road_address, general_address} = useSelector(state => state.user.address);
-    // const latlng = useSelector(state => state.user.latlng);
    
     const onUpdateAddress = () => {
         if(location.state){
-            // dispatch(userActions.setFirstUserInfoApi(general_address));
             history.goBack();
             return;
         };
@@ -120,13 +117,10 @@ const Address = (props) => {
                 <Button
                     onClick={onUpdateAddress}
                     height="50px"
-                    radius="5px"
-                    background="rgb(255,202,57)"
-                    bold="bold"
+                    background="yellow"
                     size="18px"
-                    color="black"
-                    text={location.state ? '이 위치로 재설정' : "이 위치로 설정"}
-                />
+                    radius="5px"
+                >{location.state ? '이 위치로 재설정' : "이 위치로 설정"}</Button>
             </Grid>
         </Grid>
     );

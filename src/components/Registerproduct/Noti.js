@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Text, Grid } from '../../elements/index';
+import { Text, Grid,Button } from '../../elements/index';
 import Modal from '@mui/material/Modal';
-import { Button } from '@mui/material';
+
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -33,8 +34,8 @@ const Noti = (props) => {
 
     return (
         <React.Fragment>
-            <div style={{position:'relative' ,display: 'flex', height:'50px', background: '#F5F5F5', justifyContent:'flex-end'}}>
-                <Button onClick={openModal}>물물교환 전 확인해 주세요!</Button>
+            <div style={{position:'relative' ,display: 'flex', height:'50px', background: '#F5F5F5', justifyContent:'center'}}>
+                <Button size='0.8rem' deco='underline' color='#979797' onClick={openModal}>물물교환 전 반드시 확인해 주세요!</Button>
             
             <Modal
                 open={isModalOpen}
