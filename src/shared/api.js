@@ -120,4 +120,10 @@ export const HistoryAPI = {
 		  "Authorization": `${localStorage.getItem('token')}`,
 		},
 	  }),
+	  gobackCompleteTrade: (barterid)=>api.put(`/api/myhistory/cancel?barterId=${barterid}`,{},{
+		headers: {
+		  "Authorization": `${localStorage.getItem('token')}`,
+		},
+	  }),
+
 };

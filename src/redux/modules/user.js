@@ -168,7 +168,7 @@ export const user = createSlice({
             })
             .addCase(getMyInfoApi.fulfilled, (state, action) => {
                 const {itemList, myScrabList, ...user_info} = action.payload;
-                state.user_info = user_info;
+                state.user_info = {...state.user_info, ...user_info};
                 state.item_list = itemList;
                 state.myScrabList = myScrabList;
             })
