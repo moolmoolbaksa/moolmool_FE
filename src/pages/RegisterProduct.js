@@ -175,7 +175,7 @@ const RegisterProduct = (props) => {
 
 	<Categorywrap>
 		<input id="dropdown" type="checkbox" style={{display:"none"}}/>
-		<Toggle height='1rem 1rem' htmlFor="dropdown"  onClick={openCategory}>
+		<Toggle padding='1rem 1rem' htmlFor="dropdown"  onClick={openCategory}>
 			<ToggleName>{category}</ToggleName>
 			<IoIosArrowUp/>
 		</Toggle>
@@ -250,7 +250,7 @@ const RegisterProduct = (props) => {
 		</Toggle>
 		
 
-	{typeOpen?(<Emptyline margin='1.5rem auto'/>):""}
+	{typeOpen?(<Emptyline margin='1.5rem 0'/>):""}
 	{
 		typeOpen?
 		(<TypeBox>
@@ -271,7 +271,7 @@ const RegisterProduct = (props) => {
 			<IoIosArrowUp/>
 	</Toggle>
 	<Tip>Tip) 선호 품목을 선택해주시면 교환이 훨씬 수월해져요!</Tip>
-	{favorsOpen?<Emptyline style={{margin:'0px 10px 10px 10px'}}/>:""}
+	{favorsOpen?<Emptyline margin='1.5rem 0' />:""}
 	{favorsOpen?
 	<>
 	<FavorBox>
@@ -304,7 +304,8 @@ const RegisterProduct = (props) => {
 };
 const Base=styled.div`
     background: white;
-		position:relative;
+	position:relative;
+    max-width:420px;
 `;
 const Imagelist=styled.div`
 	display:flex;
@@ -329,8 +330,9 @@ const Empty=styled.div`
 `
 const Emptyline=styled.hr`
   margin:${props=>props.margin?props.margin:"0 auto"};
-	width:90vw;
-  background-color:#F5F5F5;
+    width:90vw;
+    max-width:420px;
+    background-color:#F5F5F5;
 	
 `;
 const PlusItem = styled.label`
@@ -352,7 +354,7 @@ const PlusItem = styled.label`
 `;
 const Categorywrap=styled.div`
     position:relative;
-    width:100vw;
+    width:100%;
 `;
 const Toggle=styled.label`
 		position:relative;
@@ -360,10 +362,11 @@ const Toggle=styled.label`
     display: flex;
     justify-content: space-between;
     font-size:1.2rem;
-
+    
     text-align:left; 
     background:white;
     width:inherit;
+    
     border:none;
     & > p{
         font-size:1.2rem;    
