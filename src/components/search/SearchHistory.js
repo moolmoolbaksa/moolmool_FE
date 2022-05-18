@@ -39,7 +39,7 @@ const Container = styled.div`
 const HistoryWrap = styled.div`
     width: 100%;
     display: flex;
-    gap: 15px;
+    gap: 7px;
     overflow-x: scroll;
     white-space: nowrap;
     flex-wrap: nowrap;

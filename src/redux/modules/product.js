@@ -21,7 +21,9 @@ export const getProductApi = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.log("getProductApi: ", error);
-            alert('getProductApi error');
+            // alert('getProductApi error');
+            localStorage.removeItem('token');
+            history.push('/login');
         }
     }
 );

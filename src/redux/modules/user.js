@@ -15,7 +15,8 @@ const loginCheckApi = createAsyncThunk(
             return response.data
         } catch (error) {
             console.log("loginCheck error: ", error);
-            alert('logincheck error');
+            // alert('logincheck error');
+            localStorage.removeItem('token');
         }
     }
 );
