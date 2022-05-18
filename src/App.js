@@ -32,6 +32,7 @@ import {
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
+import Test from './pages/Test';
 
 function App() {
 
@@ -92,6 +93,7 @@ function App() {
           <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
           <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
           <Route exact path="/search" component={Search}/>
+          <Route exact path="/test" component={Test}/>
         </GlobalStyle>
       </ThemeProvider>
     </ConnectedRouter>
