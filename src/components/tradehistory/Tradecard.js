@@ -3,13 +3,16 @@ import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements/index';
 import { HistoryAPI } from '../../shared/api';
-import { useDispatch } from 'react-redux';
-import { delHistory, completeTrade, acceptTrade, getCheckHistory } from '../../redux/modules/tradehistory';
+import { useDispatch, useSelector } from 'react-redux';
+import { delHistory, completeTrade, acceptTrade, getCheckHistory,cancelCompleteTrade } from '../../redux/modules/tradehistory';
 import { history } from '../../redux/configureStore';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
 
 const Tradecard = (props) => {
     const {barterId, barterItem, date, isScore, isTrade, myItem, myPosition, profile, status, userId, usernickname } = props;
-    
+    const myid=useSelector(state=>state.user.user_info.userId);
     const dispatch = useDispatch();
     
     const onGoDetail = () => {
@@ -35,7 +38,6 @@ const Tradecard = (props) => {
             return  <Buttonwrap>
                         <LeftBtn onClick={handleReject}>거절</LeftBtn>
                         <RightBtn onClick={handleAccept}>수락</RightBtn>
-
                     </Buttonwrap>
         }
         else if(status===2 && isTrade===false){
@@ -47,7 +49,7 @@ const Tradecard = (props) => {
         else if(status===2 && isTrade===true){
             return  <Buttonwrap>
                         <LeftBtn onClick={handleCancelTrade}>교환 취소하기</LeftBtn>
-                        <RightBtn onClick={handleComplete}>완료 취소(대기중)</RightBtn>
+                        <RightBtn onClick={handleCancelComplete}>완료 취소(대기중)</RightBtn>
                     </Buttonwrap>
         }
         else if(status===3 && isScore===false){
@@ -97,7 +99,14 @@ const Tradecard = (props) => {
         
     }
     const handleCancelComplete=()=>{
-        dispatch(completeTrade({barterId:barterId,myPosition:myPosition}));
+        dispatch(cancelCompleteTrade({barterId:barterId,myPosition:myPosition}));
+        HistoryAPI.gobackCompleteTrade(barterId)
+        .then((res)=>{
+            console.log(res);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
         
 
     }
@@ -113,6 +122,41 @@ const Tradecard = (props) => {
 
         })
     }
+    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let client = Stomp.over(sock);
+
+    //stomp update... 
+    // var client = Stomp.over(function(){
+    //   return new SockJS('http://13.124.0.71/ws-stomp')
+    // });
+    // // var client = Stomp.client('http://localhost:3000/ws-stomp');
+    
+    // client.webSocketFactory= function () {
+    //   return new WebSocket("ws://13.124.0.71/ws-stomp");
+    // };
+    
+    React.useEffect(()=>{
+        client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
+          console.log("connected");
+          console.log(client.ws.readyState);
+          client.subscribe(`/sub/barter/${myid}`, function(messagefs) {
+            console.log(client.ws.readyState);
+            console.log(messagefs.body);
+            const messageFromServer=JSON.parse(messagefs.body);
+            console.log(messageFromServer);
+            dispatch(acceptTrade({barterId:barterId,myPosition:myPosition}));
+            window.alert('상대방이 교환을 완료하였습니다.')
+
+        }, {"Authorization": localStorage.getItem('token')}
+        );
+        });
+   
+    
+        return()=>{
+            client.disconnect(()=>{client.unsubscribe('sub-0')},{"Authorization": `${localStorage.getItem('token')}`});   
+    }
+    },[])
+
       
     return (
         <Container>

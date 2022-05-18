@@ -33,10 +33,20 @@ const ChatroomDetail = (props) => {
     const apiroomid=roomid.roomid;
     
     //history props
-       
     
     let sock = new SockJS('http://13.124.0.71/ws-stomp');
     let client = Stomp.over(sock);
+
+    //stomp update... 
+    // var client = Stomp.over(function(){
+    //   return new SockJS('http://13.124.0.71/ws-stomp')
+    // });
+    // // var client = Stomp.client('http://localhost:3000/ws-stomp');
+    
+    // client.webSocketFactory= function () {
+    //   return new WebSocket("ws://13.124.0.71/ws-stomp");
+    // };
+    
     React.useEffect(()=>{
         client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
           console.log("connected");

@@ -22,7 +22,7 @@ const MypageTop = ({user_info}) => {
                 is_flex
                 is_column
                 gap="10px"
-                overflow
+                overflow="true"
             >
                 <div>
                     <Grid

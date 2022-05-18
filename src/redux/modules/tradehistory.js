@@ -42,6 +42,11 @@ export const tradehistory = createSlice({
             state.Senthistory.forEach(history=>action.payload.barterId===history.barterId?history.isTrade=true:""))
             :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.isTrade=true:""));  
         },
+        cancelCompleteTrade:(state,action)=>{
+            action.payload.myPosition==="buyer"?(
+            state.Senthistory.forEach(history=>action.payload.barterId===history.barterId?history.isTrade=false:""))
+            :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.isTrade=false:""));  
+        },
     },
     extraReducers: (builder) => {
         // builder
@@ -59,6 +64,7 @@ export const {
     completeTrade,
     acceptTrade,
     getCheckHistory,
+    cancelCompleteTrade,
 } = tradehistory.actions;
 
 export default tradehistory.reducer;
