@@ -17,6 +17,7 @@ const loginCheckApi = createAsyncThunk(
             console.log("loginCheck error: ", error);
             // alert('logincheck error');
             localStorage.removeItem('token');
+            history.push('/login');
         }
     }
 );

@@ -8,13 +8,13 @@ export const getStarItemAPi = createAsyncThunk(
         try {
             let response;
             if(thunkAPI.getState().user.is_login){
-                response = await axios.get(`http://13.124.0.71/api/items/star`,{
+                response = await axios.get(`https://langho968.shop/api/items/star`,{
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     }
                 });
             } else {
-                response = await axios.get(`http://13.124.0.71/api/items/star`);
+                response = await axios.get(`https://langho968.shop/api/items/star`);
             }
             return response.data;
         } catch (error) {
