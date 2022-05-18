@@ -27,8 +27,9 @@ const HotDeal = (props) => {
             />
             <Container>
                 {star_item_list.map((v, i) => {
-                    return <HotItem 
+                    return  <HotItem 
                                 key={v.itemId}
+                                rank={i+1}
                                 {...v}
                             />
                 })}
