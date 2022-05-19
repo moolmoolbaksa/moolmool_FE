@@ -5,7 +5,7 @@ import { history } from '../configureStore';
 
 export const getNotiApi = createAsyncThunk('notification/getNotiApi', async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_SERVER_URL}/api/notifications`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notifications`, {
             headers: {
                 Authorization: localStorage.getItem('token'),
             },
@@ -23,7 +23,7 @@ export const getBarterNotiApi = createAsyncThunk(
     async ({ notificationId, changeId }) => {
         try {
             const response = await axios.get(
-                `${process.env.REACT_SERVER_URL}/api/notification/${notificationId}/decision?baterId=${changeId}`,
+                `${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/decision?baterId=${changeId}`,
                 {
                     headers: {
                         Authorization: localStorage.getItem('token'),
@@ -43,7 +43,7 @@ export const getBarterNotiApi = createAsyncThunk(
 export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, chageId }) => {
     try {
         const response = await axios.get(
-            `${process.env.REACT_SERVER_URL}/api/notification/${notificationId}/score?barterId=${chageId}`,
+            `${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/score?barterId=${chageId}`,
             {
                 headers: {
                     Authorization: localStorage.getItem('token'),
