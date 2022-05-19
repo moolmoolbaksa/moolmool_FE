@@ -18,6 +18,7 @@ export const getProductApi = createAsyncThunk(
                 response = await axios.get(`http://13.124.0.71/api/items/${itemId}`);
             }
             history.push(`/detail/${itemId}`);
+            console.log(response);
             return response.data;
         } catch (error) {
             console.log("getProductApi: ", error);

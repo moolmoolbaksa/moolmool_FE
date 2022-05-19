@@ -21,6 +21,12 @@ const TradeMyItem = ({itemId, image}) => {
                 is_check={checkItem}
                 src={image}
             />
+            {checkItem &&   <CheckLabel>
+                                <span className="material-symbols-outlined">
+                                    done
+                                </span>
+                            </CheckLabel>
+            }
         </ImageOutter>
     );
 };
@@ -37,20 +43,31 @@ const ImageInner = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    background: ${props => !props.is_check ? 'linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),' : ''} url('${props => props.src}');
+    background: ${props => props.is_check ? 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),' : ''} url('${props => props.src}');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     border-radius: 5px;
-    border: ${props => props.is_check ? '5px #0095B7 solid' : ''};
     cursor: pointer;
+`;
 
-    &:hover {
-        background: url('${props => props.src}'), linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+const CheckLabel = styled.div`
+    position: absolute;
+    z-index: 1;
+    top: 5%;
+    right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: ${props => props.theme.palette.yellow};
+    span {
+        color: black;
+        font-size: 19px;
+        font-weight: bold;
+    };
 `;
 
 export default TradeMyItem;
