@@ -4,7 +4,7 @@ import { history } from "../configureStore";
 
 export const getStarItemAPi = createAsyncThunk(
     'item/getStarItemAPi',
-    async (search,thunkAPI) => {
+    async (_, thunkAPI) => {
         try {
             let response;
             if(thunkAPI.getState().user.is_login){

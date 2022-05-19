@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { ReactComponent as HomeIcon } from "../images/홈.svg";
 import { ReactComponent as HomeIconYellow } from "../images/홈(노랑).svg";
@@ -12,13 +12,12 @@ import { ReactComponent as MyIconYellow } from "../images/마이페이지(노랑
 import { ReactComponent as PlusIcon } from "../images/플러스.svg";
 import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { api as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 import { setAlertModal, setLoginModal } from '../redux/modules/modal';
 import { useLocation } from 'react-router-dom';
 import AlertModal from '../components/modal/AlertModal';
 
-const TabBar = (props) => {
+const TabBar = ({position}) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const is_login = useSelector(state => state.user.is_login);
@@ -47,7 +46,7 @@ const TabBar = (props) => {
 
     return (
         <>
-        <Container>
+        <Container position={position}>
             <Wrap onClick={goHome}>
                 {location.pathname === '/'
                     ? <HomeIconYellow/>
@@ -60,13 +59,13 @@ const TabBar = (props) => {
                     color={location.pathname === '/' ? '#FFD467' : 'black'}
                 />
             </Wrap>
-            <Wrap onClick={() => {dispatch(setAlertModal(true))}}>
+            <Wrap onClick={() => {history.push('/search')}}>
                 {location.pathname === '/search'
                     ? <SearchIconYellow/>
                     : <SearchIcon/>
                 }
                 <Text 
-                    text="무료나눔"
+                    text="검색"
                     textAlign="center"
                     size="12px"
                     color={location.pathname === '/search' ? '#FFD467' : 'black'}
@@ -108,8 +107,13 @@ const TabBar = (props) => {
 };
 
 const Container = styled.div`
-    position: absolute;
-    bottom: 0;
+    ${props => 
+        !props.position 
+            ?   `   position: absolute;
+                    bottom: 0;
+                `
+            :   ''
+    };
     width: 100%;
     height: 60px;
     display: flex;

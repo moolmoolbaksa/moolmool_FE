@@ -2,28 +2,30 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { Grid, Text } from '../../elements/index';
+import { Text } from '../../elements/index';
 import {ReactComponent as RecommendIcon} from '../../images/추천.svg';
 
 const DetailRecommendCategory = (props) => {
     const favored = useSelector(state => state.product.product_info.favored);
     
+    if(!favored[0]){
+        return null;
+    };
+
     return (
         <Container>
-            <RecommendIcon width="50" height="50"/>
-            <Grid
-                padding="5px 0 0 0"
-            >
+            <StyledRecommendIcon width="50" height="50"/>
+            <Wrap>
                 <Text 
                     text="이런 물건이면 더 좋아요!"
-                    size="16px"
+                    size="14px"
                     bold="bold"
-                    letterSpacing="-0.67px"
                 />
                 <Text 
                     text={favored.join(', ')}
+                    size="12px"
                 />
-            </Grid>
+            </Wrap>
         </Container>
     )
 };
@@ -31,10 +33,20 @@ const DetailRecommendCategory = (props) => {
 const Container = styled.div`
     display: flex;
     gap: 5px;
-    margin-top: 5px;
-    /* margin-bottom: 65px; */
-    padding: 5px 16px 0;
+    padding: 0px 16px 0px 7px;
     border-top: 1px #f5f5f5 solid;
+`;
+
+const Wrap = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+    justify-content: center;
+    overflow: hidden;
+`;
+
+const StyledRecommendIcon = styled(RecommendIcon)`
+    min-width: 50px;
 `;
 
 export default DetailRecommendCategory;

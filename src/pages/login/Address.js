@@ -9,61 +9,40 @@ import { history } from '../../redux/configureStore';
 import { api as userActions, setAddress } from '../../redux/modules/user';
 import { ReactComponent as ArrowIcon } from '../../images/화살표.svg';
 
-const Address = (props) => {
+const Address = props => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const {road_address, general_address} = useSelector(state => state.user.address);
-   
+    const { road_address, general_address } = useSelector(state => state.user.address);
+
     const onUpdateAddress = () => {
-        if(location.state){
+        if (location.state) {
             history.goBack();
             return;
-        };
+        }
         dispatch(userActions.setFirstUserInfoApi(general_address));
         history.replace('/welcome');
     };
-    
+
     const onGoBack = () => {
         history.goBack();
         dispatch(setAddress(''));
     };
 
     return (
-        <Grid
-            height="100%"
-            is_flex
-            is_column
-            justify="center"
-            position="relative"
-        >
-            <Grid
-                is_flex
-                is_column
-                gap="18px"
-            >   
-                <Grid
-                    position="relative"
-                    flex
-                >
-                    {location.state && <StyledArrowIcon onClick={onGoBack} width="30" height="30"/>}
-                    <Text 
-                        text="내 위치 설정"
-                        size="24px"
-                        letterSpacing="-.96px"
-                        bold="bold"
-                        textAlign="center"
-                    />
+        <Grid height="100%" is_flex is_column justify="center" position="relative">
+            <Grid is_flex is_column gap="18px">
+                <Grid position="relative" flex>
+                    {location.state && <StyledArrowIcon onClick={onGoBack} width="30" height="30" />}
+                    <Text text="내 위치 설정" size="24px" letterSpacing="-.96px" bold="bold" textAlign="center" />
                 </Grid>
-                <Grid
-                    margin="0 0 18px 0"
-                >
-                    <Text 
+                <Grid margin="0 0 18px 0">
+                    <Text
                         text="물물박사는 지역기반 교환 서비스에요."
                         letterSpacing="-.56px"
                         bold="500"
                         textAlign="center"
                     />
-                    <Text 
+                    <Text
                         text="위치 정보를 입력해서 첫 교환을 시작해 보세요!"
                         letterSpacing="-.56px"
                         bold="500"
@@ -71,23 +50,13 @@ const Address = (props) => {
                     />
                 </Grid>
             </Grid>
-            <KakaoMap/>
-            <Grid
-                padding="0 16px"
-            >
-                <Grid
-                    margin="20px 0px"
-                    height="43px"
-                >
-                    {road_address && 
+            <KakaoMap />
+            <Grid padding="0 16px">
+                <Grid margin="20px 0px" height="43px">
+                    {road_address && (
                         <>
-                            <Text 
-                                text={road_address}
-                                size="20px"
-                                letterSpacing="-1px"
-                                bold="bold"
-                            />
-                            <Text 
+                            <Text text={road_address} size="20px" letterSpacing="-1px" bold="bold" />
+                            <Text
                                 text={`지번주소) ${general_address}`}
                                 size="12px"
                                 letterSpacing="-1px"
@@ -95,32 +64,17 @@ const Address = (props) => {
                                 color="rgb(102, 102, 102)"
                             />
                         </>
-                    }
-                    {!road_address && 
+                    )}
+                    {!road_address && (
                         <>
-                            <Text 
-                                text={general_address}
-                                size="20px"
-                                letterSpacing="-1px"
-                                bold="bold"
-                            />
-                            <Text 
-                                text=""
-                                size="12px"
-                                letterSpacing="-1px"
-                                bold="500"
-                                color="rgb(102, 102, 102)"
-                            />
+                            <Text text={general_address} size="20px" letterSpacing="-1px" bold="bold" />
+                            <Text text="" size="12px" letterSpacing="-1px" bold="500" color="rgb(102, 102, 102)" />
                         </>
-                    }
+                    )}
                 </Grid>
-                <Button
-                    onClick={onUpdateAddress}
-                    height="50px"
-                    background="yellow"
-                    size="18px"
-                    radius="5px"
-                >{location.state ? '이 위치로 재설정' : "이 위치로 설정"}</Button>
+                <Button onClick={onUpdateAddress} height="50px" background="yellow" size="18px" radius="5px">
+                    {location.state ? '이 위치로 재설정' : '이 위치로 설정'}
+                </Button>
             </Grid>
         </Grid>
     );
