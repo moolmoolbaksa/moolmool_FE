@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const {shape, src, size, margin, onClick, children, itemId, vhvw} = props;
+    const {shape, src, size, margin, onClick, children, itemId, vhvw,} = props;
   
     const styles = {
         src,
@@ -121,13 +121,14 @@ const ImageCircle = styled.div`
 
 const Squarevhvw = styled.div`
   position:relative;
-  height: 6rem;
-  width: 6rem;
+  height: ${props=>props.size?`${props.size}rem`:"6rem"};
+  width: ${props=>props.size?`${props.size}rem`:"6rem"};
   background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position:center;
   box-sizing:border-box;
   border-radius:10px;
+  ${props=>props.vhvwvalue?props.vhvwvalue:'asdasd'};
 `;
 
 
