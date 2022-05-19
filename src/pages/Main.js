@@ -189,7 +189,7 @@ const Main = (props) => {
 					</div>
 				</Drawer>
 				<CardWrap>
-					<HotDeal />
+					{/* <HotDeal /> */}
 					{cardList.map((p, idx) => { 
 						return 	<Card 
 									key={p.itemId} 
