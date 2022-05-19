@@ -7,13 +7,13 @@ export const getProductApi = createAsyncThunk('product/getProductApi', async (it
     try {
         let response;
         if (thunkAPI.getState().user.is_login) {
-            response = await axios.get(`${process.env.REACT_SERVER_URL}/api/items/${itemId}`, {
+            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/${itemId}`, {
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 },
             });
         } else {
-            response = await axios.get(`${process.env.REACT_SERVER_URL}/api/items/${itemId}`);
+            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/${itemId}`);
         }
         history.push(`/detail/${itemId}`);
         console.log(response);
@@ -28,7 +28,7 @@ export const getProductApi = createAsyncThunk('product/getProductApi', async (it
 
 export const deleteProductApi = createAsyncThunk('product/deleteProductApi', async itemId => {
     try {
-        await axios.delete(`${process.env.REACT_SERVER_URL}/api/items/${itemId}`, {
+        await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/items/${itemId}`, {
             headers: {
                 Authorization: localStorage.getItem('token'),
             },
@@ -43,7 +43,7 @@ export const deleteProductApi = createAsyncThunk('product/deleteProductApi', asy
 export const setProductScrabApi = createAsyncThunk('product/setProductScrabApi', async itemId => {
     try {
         await axios.post(
-            `${process.env.REACT_SERVER_URL}/api/${itemId}/scrabs`,
+            `${process.env.REACT_APP_SERVER_URL}/api/${itemId}/scrabs`,
             {},
             {
                 headers: {
@@ -59,7 +59,7 @@ export const setProductScrabApi = createAsyncThunk('product/setProductScrabApi',
 
 export const getMyScrabListApi = createAsyncThunk('product/getMyScrabListApi', async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_SERVER_URL}/api/mypage/scrab`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/mypage/scrab`, {
             headers: {
                 Authorization: localStorage.getItem('token'),
             },
@@ -75,7 +75,7 @@ export const getMyScrabListApi = createAsyncThunk('product/getMyScrabListApi', a
 export const getTradeProductApi = createAsyncThunk('product/setTradeProductApi', async ({ itemId, userId }) => {
     try {
         const response = await axios.get(
-            `${process.env.REACT_SERVER_URL}/api/trade?itemId=${itemId}&userId=${userId}`,
+            `${process.env.REACT_APP_SERVER_URL}/api/trade?itemId=${itemId}&userId=${userId}`,
             {
                 headers: {
                     Authorization: localStorage.getItem('token'),
@@ -97,7 +97,7 @@ export const setTradeApi = createAsyncThunk('propduct/setTradeApi', async (_, th
     console.log({ userId, itemId, myItemIds });
     try {
         await axios.post(
-            `${process.env.REACT_SERVER_URL}/api/trade`,
+            `${process.env.REACT_APP_SERVER_URL}/api/trade`,
             { userId, itemId, myItemIds },
             {
                 headers: {
