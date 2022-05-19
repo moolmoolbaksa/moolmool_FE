@@ -384,7 +384,7 @@ const CategoryParentbox=styled.div`
     display:flex;
     justify-content:center;
     
-    width:100vw;
+    width:100%;
     height: 40vh;
 
 
@@ -399,7 +399,7 @@ const CategoryParentbox=styled.div`
 const Categorybox=styled.div`
     font-size:1.2rem;
     box-sizing: border-box;
-    width:85vw;
+    width:85%;
         
     display: grid;
     overflow:auto;

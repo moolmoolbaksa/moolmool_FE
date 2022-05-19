@@ -4,17 +4,31 @@ import styled from 'styled-components';
 import { Text, Grid } from '../../elements/index';
 import { HistoryAPI } from '../../shared/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { delHistory, completeTrade, acceptTrade, getCheckHistory,cancelCompleteTrade } from '../../redux/modules/tradehistory';
+import { delHistory, completeTrade, acceptTrade, getCheckHistory,cancelCompleteTrade,setOppentisTrade } from '../../redux/modules/tradehistory';
 import { history } from '../../redux/configureStore';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
+import RatingModal from './RatingModal';
 
 
 const Tradecard = (props) => {
-    const {barterId, barterItem, date, isScore, isTrade, myItem, myPosition, profile, status, userId, usernickname } = props;
+    const {barterId, barterItem, date, isScore, isTrade, myItem, myPosition, profile, status, userId, usernickname,userIsTrade } = props;
     const myid=useSelector(state=>state.user.user_info.userId);
     const dispatch = useDispatch();
-    
+    const statusLbel1=()=>{
+      if(status===1)
+      {
+        return <StatusLabel>교환수락 대기중</StatusLabel>
+      }
+      else if(status===2 && userIsTrade===false)
+      {
+        return <><StatusLabel>교환중</StatusLabel>
+        <StatusLabel color=" #FFCA39">상대방 기다리는중</StatusLabel></>
+        
+      }
+      else if(status===3)
+      {
+        return <StatusLabel color="red">교환완료</StatusLabel>
+      }
+    };
     const onGoDetail = () => {
         HistoryAPI.getTradeCheck(barterId)
             .then((res)=>{
@@ -46,24 +60,30 @@ const Tradecard = (props) => {
                         <RightBtn onClick={handleComplete}>교환 완료하기</RightBtn>
                     </Buttonwrap>
         }
-        else if(status===2 && isTrade===true){
+        else if(status===2 && isTrade===true &&userIsTrade===false){
             return  <Buttonwrap>
                         <LeftBtn onClick={handleCancelTrade}>교환 취소하기</LeftBtn>
-                        <RightBtn onClick={handleCancelComplete}>완료 취소(대기중)</RightBtn>
+                        <RightBtn onClick={handleCancelComplete}>완료 취소</RightBtn>
                     </Buttonwrap>
         }
-        else if(status===3 && isScore===false){
+        else if(status===3 && isScore===false && userIsTrade===true){
             return  <Buttonwrap>
-                        <RightBtn onClick={handleAccept}>평가하기</RightBtn>
+                        <RatingModal 
+                          barterId={barterId} 
+                          userId={userId} 
+                          nickcname={usernickname} 
+                          src={myPosition === "buyer" ? barterItem[0].itemImg : myItem[0].itemImg}
+                          myPosition={myPosition}
+                          >
+                         </RatingModal>
                     </Buttonwrap>
         }
-        else if(status===3 && isScore===true){
+        else if(isScore===true){
             return  <Buttonwrap>
-                        <RightBtn onClick={handleAccept}>평가완료</RightBtn>
+                        <LeftBtn disabled>평가완료</LeftBtn>
                     </Buttonwrap>
         }   
     };
-    
     const handleAccept=()=>{
         dispatch(acceptTrade({barterId:barterId,myPosition:myPosition}));
         HistoryAPI.acceptTrade(barterId)
@@ -74,7 +94,6 @@ const Tradecard = (props) => {
             console.log(error);
         })
     };
-
     const handleReject=()=>{
         HistoryAPI.rejectTrade(barterId)
         .then((res)=>{
@@ -85,10 +104,9 @@ const Tradecard = (props) => {
         })
         dispatch(delHistory({barterId:barterId,myPosition:myPosition}));
     };
-
     const handleComplete=()=>{
         dispatch(completeTrade({barterId:barterId,myPosition:myPosition}));
-
+        // dispatch(setOppentisTrade({barterId:barterId.barterId,myPosition:myPosition}));
         HistoryAPI.completeTrade(barterId)
         .then((res)=>{
             console.log(res);
@@ -96,7 +114,6 @@ const Tradecard = (props) => {
         .catch((error)=>{
             console.log(error)
         })
-        
     }
     const handleCancelComplete=()=>{
         dispatch(cancelCompleteTrade({barterId:barterId,myPosition:myPosition}));
@@ -107,8 +124,6 @@ const Tradecard = (props) => {
         .catch((error)=>{
             console.log(error);
         })
-        
-
     }
     const handleCancelTrade=()=>{
         dispatch(delHistory({barterId:barterId,myPosition:myPosition}));
@@ -121,49 +136,15 @@ const Tradecard = (props) => {
             console.log(error);
 
         })
-    }
-    let sock = new SockJS('https://langho968.shop/wss-stomp');
-    let client = Stomp.over(sock);
-
-    //stomp update... 
-    // var client = Stomp.over(function(){
-    //   return new SockJS('http://13.124.0.71/ws-stomp')
-    // });
-    // // var client = Stomp.client('http://localhost:3000/ws-stomp');
+    };
     
-    // client.webSocketFactory= function () {
-    //   return new WebSocket("ws://13.124.0.71/ws-stomp");
-    // };
-    
-    React.useEffect(()=>{
-        client.connect({"Authorization": `${localStorage.getItem('token')}`},function() {
-          console.log("connected");
-          console.log(client.ws.readyState);
-          client.subscribe(`/sub/barter/${myid}`, function(messagefs) {
-            console.log(client.ws.readyState);
-            console.log(messagefs.body);
-            const messageFromServer=JSON.parse(messagefs.body);
-            console.log(messageFromServer);
-            dispatch(acceptTrade({barterId:barterId,myPosition:myPosition}));
-            window.alert('상대방이 교환을 완료하였습니다.')
-
-        }, {"Authorization": localStorage.getItem('token')}
-        );
-        });
-   
-    
-        return()=>{
-            client.disconnect(()=>{client.unsubscribe('sub-0')},{"Authorization": `${localStorage.getItem('token')}`});   
-    }
-    },[])
-
       
     return (
         <Container>
             <Cardwrap>
                 <Tradetitle>
                     <Text text={`${usernickname}님과의 교환`} size="18px" bold="bold" letterSpacing="-.67px" width="max-content"/>
-                    <StatusLabel>교환중</StatusLabel>
+                    {statusLbel1()}
                 </Tradetitle>
                 <Wrap onClick={onGoDetail}>
                     <ImageOutter>
@@ -188,6 +169,7 @@ const Tradecard = (props) => {
                     </Grid>
                 </Wrap>
                 {buttonSetting()}
+                
             </Cardwrap>
         </Container>
     );
@@ -201,7 +183,7 @@ const Container = styled.div`
 `;
 
 const StatusLabel = styled.div`
-    background-color: #2B9ECF;
+    background-color:${props=>props.color?props.color:"#2B9ECF"}} ;
     font-size: 12px;
     color: white;
     padding: 0px 10px;

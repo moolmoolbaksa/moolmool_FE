@@ -125,5 +125,11 @@ export const HistoryAPI = {
 		  "Authorization": `${localStorage.getItem('token')}`,
 		},
 	  }),
+  //평가하기
+  Rating: (barterId,userId,score)=>api.put('/api/score',{barterId:barterId,userId:userId,score:score},{
+		headers: {
+		  "Authorization": `${localStorage.getItem('token')}`,
+		},
+	  }),
 
 };
