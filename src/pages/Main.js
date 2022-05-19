@@ -40,7 +40,7 @@ const Main = props => {
     const [openFilter, setopenfilter] = useState(false);
     const [cardList, setCardlist] = useState([]);
 
-    const sock = new SockJS(`${process.env.REACT_APP_URL}/wss-stomp`);
+    const sock = new SockJS(`${process.env.REACT_SERVER_URL}/wss-stomp`);
     const client = Stomp.over(sock);
 
     useEffect(() => {
@@ -150,7 +150,6 @@ const Main = props => {
                         />
                     </Grid>
                 </Grid>
-
                 <Drawer PaperProps={{ style: { height: '60vh' } }} open={openFilter} onClose={Drawers}>
                     <div style={{ width: '55vw' }}>
                         <List>
