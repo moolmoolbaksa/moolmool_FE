@@ -43,7 +43,7 @@ const ImageInner = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    background: ${props => props.is_check ? 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)),' : ''} url('${props => props.src}');
+    background: ${props => props.is_check ? 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),' : ''} url('${props => props.src}');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

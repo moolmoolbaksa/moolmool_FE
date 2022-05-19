@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { ThemeConsumer } from 'styled-components';
+import styled from 'styled-components';
 
 import { Grid, Button, Text } from '../../elements/index';
 import { setDeleteModal, setLoginModal } from '../../redux/modules/modal';
@@ -18,9 +18,9 @@ const DetailBottom = (props) => {
     const Roomlist = useSelector(state => state.chat.Roomlist);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
-    const {userId, nickname, isScrab, itemId, scrabCnt,profile} = useSelector(state => state.product.product_info);
+    const {userId, nickname, isScrab, itemId, scrabCnt, profile, traded, status} = useSelector(state => state.product.product_info);
     const btnRef = useRef();
-
+    console.log(traded, status)
     // useEffect(() => {
     //     if (isScrab) {
     //       btnRef.current.setAttribute("fill", "#ed4956");
@@ -49,21 +49,15 @@ const DetailBottom = (props) => {
         if(!is_login){
             dispatch(setLoginModal(true));
             return;
-        }
+        };
         for (let element of Roomlist){
             console.log(element);
-            if(element.userId===userId)
-           {
-               console.log(element.userId);
-               console.log(userId);
-               console.log(element.roomId);
-                
+            if(element.userId===userId){ 
                 dispatch(enterRoom({roomId:element.roomId, nickname:nickname, userId:userId, profile:profile}));
                 history.push(`/chat/${element.roomId}`);
                 break;
-                //랑호:3 진현:1 roomid:13
-           }
-        }
+            };
+        };
         ChatAPI.addChatRoom(userId)
         .then((res)=>{
             console.log(res);
@@ -82,7 +76,7 @@ const DetailBottom = (props) => {
     const onDeleteProduct = () => {
         dispatch(setDeleteModal(true));
     };
-    
+ 
     return (
         <>
             <Container bg={my_nickname === nickname}>
@@ -132,13 +126,23 @@ const DetailBottom = (props) => {
                                 >
                                     채팅보내기
                                 </Button> 
-                                <Button 
-                                    onClick={onDoTrade}
-                                    color="white"
-                                    background="blue"   
-                                >
-                                    교환신청
-                                </Button>
+                                {!traded 
+                                    ?   <Button 
+                                            onClick={onDoTrade}
+                                            color="white"
+                                            background="blue"   
+                                        >
+                                            교환신청
+                                        </Button>
+                                    :   <Button 
+                                            onClick={onDoTrade}
+                                            color="black"
+                                            background="gray"   
+                                        >
+                                            교환취소
+                                        </Button>
+                                }
+                                
                             </>
                     }
                 </Grid>

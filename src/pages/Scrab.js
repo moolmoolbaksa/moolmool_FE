@@ -5,11 +5,12 @@ import { api as ProductActions } from '../redux/modules/product';
 import LocationBar from '../components/LocationBar';
 import ScrabItem from '../components/scrab/ScrabItem';
 import { useDispatch, useSelector } from 'react-redux';
+import TabBar from '../components/TabBar';
 
 const Scrab = (props) => {
     const dispatch = useDispatch();
     const scrab_list = useSelector(state => state.product.scrab_list);
-    
+    console.log(scrab_list)
     useEffect(() => {
         dispatch(ProductActions.getMyScrabListApi());
     }, []);
@@ -17,39 +18,43 @@ const Scrab = (props) => {
     return(
         <Container>
             <LocationBar title="찜목록"/>
-            <ScrabWrap
-                padding="16px 16px 0"
-                is_flex
-                is_column
-                gap="10px"            
-            >
-                {scrab_list.map(v => {
-                    return  <ScrabItem 
-                                key={v.itemId}
-                                {...v}
-                            />
-                })}  
-            </ScrabWrap>
+            <ScrabContainer>
+                <ScrabWrap>
+                    {scrab_list.map(v => {
+                        return  <ScrabItem 
+                                    key={v.itemId}
+                                    {...v}
+                                />
+                    })}  
+                </ScrabWrap>
+            </ScrabContainer>
+            <TabBar position/>
         </Container>
     );
 };
 
 const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
     height: 100%;
     background-color: #f5f5f5;
 `;
 
-const ScrabWrap = styled.div`
+const ScrabContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    padding: 10px 16px 0px;
-    gap: 10px; 
-    height: calc(100% - 70px);
-    overflow: auto;
-    -ms-overflow-style: none; /* IE and Edge */
+    flex-grow: 1;
+    padding: 16px 16px 0px;
+`;
+
+const ScrabWrap = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
-    }
+        display: none; 
+    };
 `;
 
 export default Scrab;
