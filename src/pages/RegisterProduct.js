@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
-import styled,{keyframes,css} from 'styled-components';
+import styled from 'styled-components';
 
-import { Text, Grid, Input, Button,Image } from '../elements/index';
+import { Grid, Input, Button } from '../elements/index';
 import ImageSlide from '../components/ImageSlide';
-import ScrollHorizontal from 'react-scroll-horizontal';
-import IconTabs from '../components/IconTabs';
 import Noti from '../components/Registerproduct/Noti';
 import CategoryNoti from '../components/Registerproduct/CategoryNoti';
 import { ItemAPI } from '../shared/api';
 import LocationBar from '../components/LocationBar';
-import Checkbox from '@mui/material/Checkbox';
 import { history } from '../redux/configureStore';
 import {IoIosArrowUp} from "react-icons/io";
-
-
-const Imageitem = ({src})=>{
-    return <ImageSlide/>;
-};
 
 const RegisterProduct = (props) => {
     
@@ -302,7 +294,10 @@ const RegisterProduct = (props) => {
 	</Base>
     );
 };
-const Base=styled.div`
+
+
+
+    const Base=styled.div`
     background: white;
 	position:relative;
     max-width:420px;

@@ -36,9 +36,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const env = process.env.NODE_ENV;
+
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger),
+  // middleware: (getDefaultMiddleware) => env === "development" 
+  //   ? getDefaultMiddleware({serializableCheck: false}).concat(logger)
+  //   : getDefaultMiddleware({serializableCheck: false}),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

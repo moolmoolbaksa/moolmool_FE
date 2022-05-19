@@ -34,7 +34,7 @@ const ChatroomDetail = (props) => {
     
     //history props
     
-    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let sock = new SockJS(`${process.env.REACT_APP_URL}/wss-stomp`);
     let client = Stomp.over(sock);
 
     //stomp update... 
