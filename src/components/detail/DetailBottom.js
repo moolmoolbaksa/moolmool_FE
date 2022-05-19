@@ -128,7 +128,6 @@ const DetailBottom = (props) => {
                                 <Button 
                                     onClick={onDoChat}
                                     background="yellow"
-                                    // background={}
                                     size="19px"
                                 >
                                     채팅보내기
@@ -152,7 +151,7 @@ const DetailBottom = (props) => {
 
 const Container = styled.div`
     width: 100%;
-    margin: 10px 0 0;
+    /* margin: 10px 0 0; */
     display: flex;
     align-items: center;
     background-color: ${props => props.bg ? props.theme.palette.gray : props.theme.palette.yellow};

@@ -2,22 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../elements/index';
-import { useDispatch, useSelector, } from 'react-redux';
+import { useSelector, } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import TradeItemCard from '../components/trade/TradeItemCard';
 import ItemGrid from '../components/store/ItemGrid';
-import { setAlertModal, setTradeModal } from '../redux/modules/modal';
 import TradeModal from '../components/modal/TradeModal';
 import AlertModal from '../components/modal/AlertModal';
 import TabBar from '../components/TabBar';
 import { useParams } from 'react-router-dom';
 import { HistoryAPI } from '../shared/api';
 import { history } from '../redux/configureStore';
+
 const TradeProposal = (props) => {
     const {barterItem, ...item_info} = useSelector(state => state.notification.noti_barter);
-    const baterId=useParams();
-    console.log(barterItem, item_info)
-    console.log(baterId);
+    const baterId = useParams();
+  
     const acceptTrade=()=>{
         HistoryAPI.acceptTrade(baterId.baterid)
         .then((res)=>{
@@ -28,8 +27,8 @@ const TradeProposal = (props) => {
         .catch((error)=>{
             console.log(error)
         })
+    };
 
-    }
     const rejectTrade=()=>{
         HistoryAPI.rejectTrade(baterId)
         .then((res)=>{
@@ -37,9 +36,7 @@ const TradeProposal = (props) => {
             window.alert('교환을 거절하셨습니다.');
             history.goBack();
         })
-
-
-    }
+    };
 
     return (
         <Grid

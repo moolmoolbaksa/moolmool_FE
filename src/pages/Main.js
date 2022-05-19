@@ -63,6 +63,7 @@ const Main = (props) => {
 			};
 		};
   	}, [userId]);
+
 	React.useEffect(()=>{
 		ChatAPI.getChatRoom()
             .then((res)=>{
@@ -125,21 +126,15 @@ const Main = (props) => {
 					padding="10px 16px"
 				>
 					<HambergerIcon onClick={Drawers}/>
-					<Grid
-						flex
-						gap="15px"
-					>
-						<SearchIcon width="25" height="25" onClick={() => {history.push('/search')}}/>
-						<NotiWrap>
-							<NotiIcon onClick={() => {history.push('/noti')}}/>
-							{unread_noti !== 0 && <NotiSign />}
-						</NotiWrap>
-					</Grid>
+					<NotiWrap>
+						<NotiIcon onClick={() => {history.push('/noti')}}/>
+						{unread_noti !== 0 && <NotiSign />}
+					</NotiWrap>	
 				</Grid>
 				<Grid
 					is_flex
 					align="center"
-					padding="0px 16px 15px"
+					padding="0px 16px 10px"
 					gap="10px"
 					borderB="1px #dadada solid"
 				>
