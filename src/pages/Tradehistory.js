@@ -28,7 +28,7 @@ const Tradehistory = (props) => {
     const myid=useSelector(state=>state.user.user_info.userId);
     const receivedlist = useSelector(state=>state.tradehistory.Recivedhistory);
     const Sentlist = useSelector(state=>state.tradehistory.Senthistory);
-    let sock = new SockJS('http://13.124.0.71/ws-stomp');
+    let sock = new SockJS('https://langho968.shop/wss-stomp');
     let client = Stomp.over(sock);
     const message=''
     React.useEffect(()=>{
@@ -40,8 +40,11 @@ const Tradehistory = (props) => {
           console.log(messagefs.body);
           const messageFromServer=JSON.parse(messagefs.body);
           console.log(messageFromServer);
-          // dispatch(setOppentisTrade({barterId:messageFromServer.barterId,myPosition:messageFromServer.myPosition}));
-          // window.alert('상대방이 교환을 완료하였습니다.')
+          messageFromServer.isTrade===true&&(setOppentisTrade({barterId:messageFromServer.barterId,
+            myPosition:messageFromServer.myPosition,
+            userIsTrade:messageFromServer.isTrade}));
+            messageFromServer.isTrade?window.alert('상대방이 교환을 완료하였습니다.'):window.alert('상대방이 교환을 완료하지않았습니다.');
+
 
       }, {"Authorization": localStorage.getItem('token')}
       );
