@@ -4,17 +4,17 @@ import { history } from "../configureStore";
 
 export const getStarItemAPi = createAsyncThunk(
     'item/getStarItemAPi',
-    async (search,thunkAPI) => {
+    async (_, thunkAPI) => {
         try {
             let response;
             if(thunkAPI.getState().user.is_login){
-                response = await axios.get(`http://13.124.0.71/api/items/star`,{
+                response = await axios.get(`${process.env.REACT_APP_URL}/api/items/star`,{
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     }
                 });
             } else {
-                response = await axios.get(`http://13.124.0.71/api/items/star`);
+                response = await axios.get(`${process.env.REACT_APP_URL}/api/items/star`);
             }
             return response.data;
         } catch (error) {

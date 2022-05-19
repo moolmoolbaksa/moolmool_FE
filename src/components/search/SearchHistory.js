@@ -32,8 +32,7 @@ const SearchHistory = (props) => {
 };
 
 const Container = styled.div`
-    padding: 0px 16px 15px;
-    background-color: white;
+    padding: 0px 16px 17px;
 `;
 
 const HistoryWrap = styled.div`
@@ -45,11 +44,11 @@ const HistoryWrap = styled.div`
     flex-wrap: nowrap;
     padding-top: 10px;
 
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none;
     };
 
     scroll-behavior: smooth;

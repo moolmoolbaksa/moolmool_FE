@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { Text } from '../../elements/index';
+import { Text, Grid } from '../../elements/index';
 import { useDispatch } from 'react-redux';
 import { api as productActions } from '../../redux/modules/product';
 
-const ScrabItem = ({itemId, title, contents, image}) => {
+const ScrabItem = ({itemId, title, contents, image, status}) => {
     const dispatch = useDispatch();
     const [look, setLook] = useState(true);
 
     const onGoDetail = () => {
+        if(status === 3) return;
         dispatch(productActions.getProductApi(itemId));
     };
     
@@ -24,80 +25,85 @@ const ScrabItem = ({itemId, title, contents, image}) => {
 
     return (
         <Container>
-            <Image 
-                src={image}
-                onClick={onGoDetail}
-            />
-            <Content>
-                <Wrap onClick={onGoDetail}>
-                    <Text
+            <Grid onClick={onGoDetail}>
+                <Grid position="relative">
+                    <StyledImage src={image} /> 
+                </Grid>
+                <Grid is_flex is_column padding="10px 10px 15px" gap="5px">
+                    <Text 
                         text={title}
-                        size="16px"
                         bold="bold"
+                        size="16px"
                     />
-                    <Text
-                        multi="2"
-                        size="12px"
+                    <Text 
                         text={contents}
-                        color="#9D9D9D"
+                        color="#9d9d9d"
                     />
-                </Wrap>
+                </Grid>
+            </Grid>
+            <DeleteLabel onClick={onDelete}>
                 <span 
                     className="material-symbols-outlined"
-                    onClick={onDelete}
                 >
                     close
                 </span>
-            </Content>
+            </DeleteLabel>
         </Container>
     );
 };
 
 const Container = styled.div`
-    width: 100%;
-    height: 90px;
+    position: relative;
     display: flex;
-    gap: 10px;
+    overflow: hidden;
+    flex-direction: column;
     border-radius: 10px;
-    background-color: white;
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2);
 `;
 
-const Content = styled.div`
+const StyledImage = styled.div`
     width: 100%;
-    display: flex;
-    align-items: center;
-    & span {
-        font-size: 20px;
-        color: lightgray;
-        margin-right: 10px;
-        text-indent: -9999;
-        cursor: pointer;
+    height: 0;
+    background-image: ${props => props.status === 3 && 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),'} url('${props => props.src}');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-bottom: calc(10 / 10 * 100%);
+    border-radius: 10px 10px 0 0;
 
-        &:hover {
-            color: ${props => props.theme.palette.yellow};
-        }
+    ${props => props.status === 3 &&
+        css`&::before {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            content: "거래완료";
+            white-space: pre; // 줄바꿈이 안돼요;;;
+            font-size: 14px;
+            color: white;
+        };`
     };
 `;
 
-const Wrap = styled.div`
-    width: 100%;
-    height: 100%;
+const DeleteLabel = styled.div`
+    position: absolute;
+    z-index: 1;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
     justify-content: center;
-    overflow: hidden;
-`;
-
-const Image = styled.div`
-    height: 90px;
-    min-width: 90px;
-    border-radius: 10px 0px 0px 10px;
-    background: url('${props => props.src}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    align-items: center;
+    top: 3%;
+    right: 3%;
+    width: 20px;
+    height: 20px;
+    background-color: ${props => props.theme.palette.yellow};
+    border-radius: 50%;
+    cursor: pointer;
+    span {
+        font-size: 15px;
+        font-weight: bold;
+    };
 `;
 
 export default ScrabItem;

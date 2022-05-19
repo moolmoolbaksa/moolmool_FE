@@ -7,7 +7,7 @@ export const getNotiApi = createAsyncThunk(
     'notification/getNotiApi',
     async () => {
         try {
-            const response = await axios.get(`http://13.124.0.71/api/notifications`,{
+            const response = await axios.get(`${process.env.REACT_APP_URL}/api/notifications`,{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }
@@ -25,7 +25,7 @@ export const getBarterNotiApi = createAsyncThunk(
     'notification/getBarterNotiApi',
     async ({notificationId, changeId}) => {
         try {
-            const response = await axios.get(`http://13.124.0.71/api/notification/${notificationId}/decision?baterId=${changeId}`,{
+            const response = await axios.get(`${process.env.REACT_APP_URL}/api/notification/${notificationId}/decision?baterId=${changeId}`,{
                 headers: {                                 
                     Authorization: localStorage.getItem('token'),
                 }
@@ -44,7 +44,7 @@ export const getScoreNotiApi = createAsyncThunk(
     'notification/getScoreNotiApi',
     async ({notificationId, chageId}) => {
         try {
-            const response = await axios.get(`http://13.124.0.71/api/notification/${notificationId}/score?barterId=${chageId}`,{
+            const response = await axios.get(`${process.env.REACT_APP_URL}/api/notification/${notificationId}/score?barterId=${chageId}`,{
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 }

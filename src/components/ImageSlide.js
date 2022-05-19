@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Text, Grid, Input, Button,Image } from '../elements/index';
-import { BsTrash } from "react-icons/bs";
+
 const ImageSlide = (props) => {
     const {_onclick}=props;
     

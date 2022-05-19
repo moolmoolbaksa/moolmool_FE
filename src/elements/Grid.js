@@ -22,6 +22,7 @@ const Grid = props => {
 		cursor,
 		overflow,
 		borderB,
+		onClick,
 	} = props;
 
 	const styles = {
@@ -53,9 +54,7 @@ const Grid = props => {
 	}
 
 	return (
-		<React.Fragment>
-			<GridBox {...styles}>{children}</GridBox>
-		</React.Fragment>
+		<GridBox {...styles} onClick={onClick}>{children}</GridBox>
 	);
 };
 
@@ -75,6 +74,7 @@ Grid.defaultProp = {
 	is_flex: false,
 	is_overflow: false,
 	borderB: false,
+	onClick: () => {},
 };
 
 const GridBox = styled.div`
