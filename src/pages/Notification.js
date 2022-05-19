@@ -9,65 +9,63 @@ import Noticard from '../components/Notification/Noticard';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 
-const Notification = (props) => {
-	const dispatch = useDispatch();
-	const userId = useSelector(state => state.user.user_info.userId);
-	const noti_list = useSelector(state => state.notification.noti_list);
-	const is_token = localStorage.getItem("token");
+const Notification = props => {
+    const dispatch = useDispatch();
+    const userId = useSelector(state => state.user.user_info.userId);
+    const noti_list = useSelector(state => state.notification.noti_list);
+    const is_token = localStorage.getItem('token');
 
-	useEffect(() => {
-		if(is_token){
-			dispatch(notiActions.getNotiApi());
-		};
-	}, []);
+    useEffect(() => {
+        if (is_token) {
+            dispatch(notiActions.getNotiApi());
+        }
+    }, []);
 
-
-	const sock = new SockJS(`${process.env.REACT_APP_URL}/wss-stomp`);
+    const sock = new SockJS(`${process.env.REACT_SERVER_URL}/wss-stomp`);
     const client = Stomp.over(sock);
 
-	useEffect(() => {
-		if(is_token){
-			client.connect({"Authorization": localStorage.getItem('token')}, () => {
-				client.subscribe(`/sub/notification/${userId}`, (data) => {
-					const response = JSON.parse(data.body);
-					console.log(response);
-					dispatch(setNoti(response));
-					}, {"Authorization": localStorage.getItem('token')});
-				}
-			);
-			return () => {
-				client.disconnect();
-			};
-		};
-  	}, []);
+    useEffect(() => {
+        if (is_token) {
+            client.connect({ Authorization: localStorage.getItem('token') }, () => {
+                client.subscribe(
+                    `/sub/notification/${userId}`,
+                    data => {
+                        const response = JSON.parse(data.body);
+                        console.log(response);
+                        dispatch(setNoti(response));
+                    },
+                    { Authorization: localStorage.getItem('token') },
+                );
+            });
+            return () => {
+                client.disconnect();
+            };
+        }
+    }, []);
 
     return (
-		<Grid
-			height="100%"
-		>
-			<LocationBar title="알림"/>
-			<Container>
-				{is_token && noti_list.map(v => {
-					return 	<Noticard
-								key={v.notificationId}
-								{...v}
-							/>
-				})}
-			</Container>
-		</Grid>
+        <Grid height="100%">
+            <LocationBar title="알림" />
+            <Container>
+                {is_token &&
+                    noti_list.map(v => {
+                        return <Noticard key={v.notificationId} {...v} />;
+                    })}
+            </Container>
+        </Grid>
     );
-}
+};
 
 const Container = styled.div`
-	display: flex;
-	flex-flow: column nowrap;
-	gap: 10px;
-	padding: 16px 16px 0;
-	height: calc(100% - 60px);
-	padding-bottom: 10px;
-	background-color: #f5f5f5;
-	overflow-y: scroll;
-	-ms-overflow-style: none; /* IE and Edge */
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    padding: 16px 16px 0;
+    height: calc(100% - 60px);
+    padding-bottom: 10px;
+    background-color: #f5f5f5;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
     &::-webkit-scrollbar {
         display: none; /* Chrome, Safari and Opera */
     }
