@@ -40,8 +40,11 @@ const Tradehistory = (props) => {
           console.log(messagefs.body);
           const messageFromServer=JSON.parse(messagefs.body);
           console.log(messageFromServer);
-          messageFromServer.isTrade===true&&(setOppentisTrade({barterId:messageFromServer.barterId,myPosition:messageFromServer.myPosition,userIsTrade:messageFromServer.isTrade}));
-          // window.alert('상대방이 교환을 완료하였습니다.')
+          messageFromServer.isTrade===true&&(setOppentisTrade({barterId:messageFromServer.barterId,
+            myPosition:messageFromServer.myPosition,
+            userIsTrade:messageFromServer.isTrade}));
+            messageFromServer.isTrade?window.alert('상대방이 교환을 완료하였습니다.'):window.alert('상대방이 교환을 완료하지않았습니다.');
+
 
       }, {"Authorization": localStorage.getItem('token')}
       );
