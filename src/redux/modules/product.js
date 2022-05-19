@@ -1,123 +1,116 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { history } from "../configureStore";
+import { history } from '../configureStore';
 
-export const getProductApi = createAsyncThunk(
-    'product/getProductApi',
-    async (itemId, thunkAPI) => {
-        try {
-            let response;
-            if(thunkAPI.getState().user.is_login){
-                response = await axios.get(`${process.env.REACT_APP_URL}/api/items/${itemId}`,{
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    }
-                });
-            } else {
-                response = await axios.get(`${process.env.REACT_APP_URL}/api/items/${itemId}`);
-            }
-            history.push(`/detail/${itemId}`);
-            console.log(response);
-            return response.data;
-        } catch (error) {
-            console.log("getProductApi: ", error);
-            // alert('getProductApi error');
-            localStorage.removeItem('token');
-            history.push('/login');
-        }
-    }
-);
-
-export const deleteProductApi = createAsyncThunk(
-    'product/deleteProductApi',
-    async (itemId) => {
-        try {
-            await axios.delete(`${process.env.REACT_APP_URL}/api/items/${itemId}`,{
+export const getProductApi = createAsyncThunk('product/getProductApi', async (itemId, thunkAPI) => {
+    try {
+        let response;
+        if (thunkAPI.getState().user.is_login) {
+            response = await axios.get(`${process.env.REACT_SERVER_URL}/api/items/${itemId}`, {
                 headers: {
                     Authorization: localStorage.getItem('token'),
-                }
+                },
             });
-            history.push('/');
-        } catch (error) {
-            console.log("deleteProductApi: ", error);
-            alert('deleteProductApi error');
+        } else {
+            response = await axios.get(`${process.env.REACT_SERVER_URL}/api/items/${itemId}`);
         }
+        history.push(`/detail/${itemId}`);
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.log('getProductApi: ', error);
+        // alert('getProductApi error');
+        localStorage.removeItem('token');
+        history.push('/login');
     }
-)
+});
 
-export const setProductScrabApi = createAsyncThunk(
-    'product/setProductScrabApi',
-    async (itemId) => {
-        try {
-            await axios.post(`${process.env.REACT_APP_URL}/api/${itemId}/scrabs`,{},{
+export const deleteProductApi = createAsyncThunk('product/deleteProductApi', async itemId => {
+    try {
+        await axios.delete(`${process.env.REACT_SERVER_URL}/api/items/${itemId}`, {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+        history.push('/');
+    } catch (error) {
+        console.log('deleteProductApi: ', error);
+        alert('deleteProductApi error');
+    }
+});
+
+export const setProductScrabApi = createAsyncThunk('product/setProductScrabApi', async itemId => {
+    try {
+        await axios.post(
+            `${process.env.REACT_SERVER_URL}/api/${itemId}/scrabs`,
+            {},
+            {
                 headers: {
                     Authorization: localStorage.getItem('token'),
-                }
-            });
-        } catch (error) {
-            console.log("setProductScrabApi: ", error);
-            alert('setProductScrabApi error');
-        }
+                },
+            },
+        );
+    } catch (error) {
+        console.log('setProductScrabApi: ', error);
+        alert('setProductScrabApi error');
     }
-);
+});
 
-export const getMyScrabListApi = createAsyncThunk(
-    'product/getMyScrabListApi',
-    async () => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_URL}/api/mypage/scrab`,{
+export const getMyScrabListApi = createAsyncThunk('product/getMyScrabListApi', async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_SERVER_URL}/api/mypage/scrab`, {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.log('getMyScrabListApi: ', error);
+        alert('getMyScrabListApi error');
+    }
+});
+
+export const getTradeProductApi = createAsyncThunk('product/setTradeProductApi', async ({ itemId, userId }) => {
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_SERVER_URL}/api/trade?itemId=${itemId}&userId=${userId}`,
+            {
                 headers: {
                     Authorization: localStorage.getItem('token'),
-                }
-            });
-            console.log(response);
-            return response.data;
-        } catch (error) {
-            console.log("getMyScrabListApi: ", error);
-            alert('getMyScrabListApi error');
-        }
+                },
+            },
+        );
+        console.log(response);
+        history.push('/trade');
+        return response.data;
+    } catch (error) {
+        console.log('setTradeProductApi: ', error);
+        alert('setTradeProductApi error');
     }
-);
+});
 
-export const getTradeProductApi = createAsyncThunk(
-    'product/setTradeProductApi',
-    async ({itemId, userId}) => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_URL}/api/trade?itemId=${itemId}&userId=${userId}`,{
+export const setTradeApi = createAsyncThunk('propduct/setTradeApi', async (_, thunkAPI) => {
+    const { userId, itemId } = thunkAPI.getState().product.product_info;
+    const myItemIds = thunkAPI.getState().product.trade_item;
+    console.log({ userId, itemId, myItemIds });
+    try {
+        await axios.post(
+            `${process.env.REACT_SERVER_URL}/api/trade`,
+            { userId, itemId, myItemIds },
+            {
                 headers: {
                     Authorization: localStorage.getItem('token'),
-                } 
-            });
-            console.log(response)
-            history.push('/trade');
-            return response.data;
-        } catch (error) {
-            console.log("setTradeProductApi: ", error);
-            alert('setTradeProductApi error');
-        }
+                },
+            },
+        );
+        history.replace('/');
+    } catch (error) {
+        console.log('setTradeApi: ', error);
+        alert('setTradeApi error');
     }
-);
-
-export const setTradeApi = createAsyncThunk(
-    'propduct/setTradeApi',
-    async (_,thunkAPI) => {
-        const {userId, itemId} = thunkAPI.getState().product.product_info;
-        const myItemIds = thunkAPI.getState().product.trade_item;
-        console.log({userId, itemId, myItemIds})
-        try {
-            await axios.post(`${process.env.REACT_APP_URL}/api/trade`,{userId, itemId, myItemIds},{
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                }
-            });
-            history.replace('/');
-        } catch (error) {
-            console.log("setTradeApi: ", error);
-            alert('setTradeApi error');
-        }
-    }
-)
+});
 
 export const product = createSlice({
     name: 'product',
@@ -128,7 +121,7 @@ export const product = createSlice({
             images: [],
             degree: '',
             grade: '',
-            nickname:'',
+            nickname: '',
             profile: '',
             isScrab: false,
             scrabCnt: 0,
@@ -147,7 +140,7 @@ export const product = createSlice({
     },
     reducers: {
         setTrade: (state, action) => {
-            if(state.trade_item.includes(action.payload)){
+            if (state.trade_item.includes(action.payload)) {
                 state.trade_item = state.trade_item.filter(val => val !== action.payload);
             } else {
                 state.trade_item.push(action.payload);
@@ -155,21 +148,21 @@ export const product = createSlice({
         },
         resetTrade: (state, action) => {
             state.trade_item = [];
-        }
+        },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
             .addCase(getProductApi.fulfilled, (state, action) => {
                 state.product_info = action.payload;
             })
             .addCase(setProductScrabApi.fulfilled, (state, action) => {
-                if(state.product_info.isScrab){
+                if (state.product_info.isScrab) {
                     state.product_info.scrabCnt -= 1;
                     state.product_info.isScrab = false;
                 } else {
                     state.product_info.scrabCnt += 1;
                     state.product_info.isScrab = true;
-                };
+                }
             })
             .addCase(getTradeProductApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
@@ -179,8 +172,8 @@ export const product = createSlice({
             })
             .addCase(getMyScrabListApi.fulfilled, (state, action) => {
                 state.scrab_list = action.payload;
-            })
-    }
+            });
+    },
 });
 
 export const api = {
@@ -192,9 +185,6 @@ export const api = {
     setTradeApi,
 };
 
-export const { 
-    setTrade,
-    resetTrade,
-} = product.actions;
+export const { setTrade, resetTrade } = product.actions;
 
 export default product.reducer;

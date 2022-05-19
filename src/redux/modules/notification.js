@@ -1,63 +1,63 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { history } from "../configureStore";
+import { history } from '../configureStore';
 
-export const getNotiApi = createAsyncThunk(
-    'notification/getNotiApi',
-    async () => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_URL}/api/notifications`,{
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                }
-            });
-            console.log(response)
-            return response.data;
-        } catch (error) {
-            console.log("getNotiApi: ", error);
-            alert('getNotiApi error');
-        }
+export const getNotiApi = createAsyncThunk('notification/getNotiApi', async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_SERVER_URL}/api/notifications`, {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.log('getNotiApi: ', error);
+        alert('getNotiApi error');
     }
-);
+});
 
 export const getBarterNotiApi = createAsyncThunk(
     'notification/getBarterNotiApi',
-    async ({notificationId, changeId}) => {
+    async ({ notificationId, changeId }) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_URL}/api/notification/${notificationId}/decision?baterId=${changeId}`,{
-                headers: {                                 
-                    Authorization: localStorage.getItem('token'),
-                }
-            });
+            const response = await axios.get(
+                `${process.env.REACT_SERVER_URL}/api/notification/${notificationId}/decision?baterId=${changeId}`,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                },
+            );
             history.push(`/trproposal/${changeId}`);
-            console.log(response)
+            console.log(response);
             return response.data;
         } catch (error) {
-            console.log("getBarterNotiApi: ", error);
+            console.log('getBarterNotiApi: ', error);
             alert('getBarterNotiApi error');
         }
-    }
+    },
 );
 
-export const getScoreNotiApi = createAsyncThunk(
-    'notification/getScoreNotiApi',
-    async ({notificationId, chageId}) => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_URL}/api/notification/${notificationId}/score?barterId=${chageId}`,{
+export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, chageId }) => {
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_SERVER_URL}/api/notification/${notificationId}/score?barterId=${chageId}`,
+            {
                 headers: {
                     Authorization: localStorage.getItem('token'),
-                }
-            });
-            // history.push('/')
-            console.log(response)
-            return response.data;
-        } catch (error) {
-            console.log("getScoreNotiApi: ", error);
-            alert('getScoreNotiApi error');
-        }
+                },
+            },
+        );
+        // history.push('/')
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.log('getScoreNotiApi: ', error);
+        alert('getScoreNotiApi error');
     }
-);
+});
 
 export const notification = createSlice({
     name: 'notification',
@@ -78,13 +78,13 @@ export const notification = createSlice({
     },
     reducers: {
         setNoti: (state, action) => {
-            state.noti_list = [action.payload, ...state.noti_list]; 
+            state.noti_list = [action.payload, ...state.noti_list];
         },
         setUnreadNoti: (state, action) => {
             state.unread_noti = action.payload;
-        }
+        },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
             .addCase(getNotiApi.fulfilled, (state, action) => {
                 state.noti_list = action.payload;
@@ -94,8 +94,8 @@ export const notification = createSlice({
             })
             .addCase(getScoreNotiApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
-            })
-    }
+            });
+    },
 });
 
 export const api = {
@@ -103,9 +103,6 @@ export const api = {
     getBarterNotiApi,
 };
 
-export const { 
-    setNoti,
-    setUnreadNoti,
-} = notification.actions;
+export const { setNoti, setUnreadNoti } = notification.actions;
 
 export default notification.reducer;
