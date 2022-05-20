@@ -11,7 +11,7 @@ import { setRoomlist } from '../redux/modules/chat';
 const Chatroomlist = (props) => {
     const dispatch = useDispatch();
     const Roomlist = useSelector(state => state.chat.Roomlist);
-    console.log(Roomlist)
+
     React.useEffect(()=>{
         ChatAPI.getChatRoom()
             .then((res)=>{
