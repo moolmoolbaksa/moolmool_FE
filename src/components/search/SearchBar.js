@@ -33,11 +33,11 @@ const SearchBar = (props) => {
 
     return (
         <Container>
-            <Text 
+            {/* <Text 
                 text="검색"
                 size="20px"
                 bold="bold"
-            />
+            /> */}
             <Grid flex gap="10px">
                 <StyledInput 
                     type="text"
@@ -57,7 +57,7 @@ const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     gap: 20px;
-    padding: 20px 16px 18px;
+    padding: 0px 16px 18px;
     & span {
         text-indent: -9999;
         font-size: 25px;

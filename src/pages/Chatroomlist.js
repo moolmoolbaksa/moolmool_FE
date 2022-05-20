@@ -35,12 +35,14 @@ const Chatroomlist = (props) => {
                 })}
                 {/* <RoomList roomlist={roomlist}></RoomList> */}
             </Container>
-            <TabBar />
+            <TabBar position/>
         </Base>
     );   
 };
 
 const Base = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
     height: 100%;
 `;
 
@@ -48,6 +50,12 @@ const Container = styled.div`
     display: flex;
     padding: 0 16px;
     flex-direction: column;
+    flex-grow: 1;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export default Chatroomlist;
