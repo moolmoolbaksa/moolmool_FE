@@ -2,57 +2,62 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { history } from '../../redux/configureStore';
 import { api as searchActions, resetSearchList } from '../../redux/modules/search';
+import { ReactComponent as SearchIcon } from '../../images/돋보기.svg';
+import { Text, Grid } from '../../elements/index';
 
 const SearchBar = (props) => {
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
     const inputRef = useRef();
 
-    const onSubmit = (e) => {
-		if(e.keyCode === 13){
+    useEffect(() => {
+        inputRef.current.focus();
+        dispatch(resetSearchList());
+    }, []);
+
+    const onEnter = (e) => {
+        if(e.keyCode === 13){
             if(!search) return;
 			dispatch(searchActions.getSearchApi(search));
             setSearch('');
+            return;
 		};
 	};
 
-    const onCancle = () => {
-        dispatch(resetSearchList());
-        history.push('/');
-    };
-
-    useEffect(() => {
-        inputRef.current.focus();
-    }, []);
+    const onSubmit = (e) => {
+        if(!search) return;
+        dispatch(searchActions.getSearchApi(search));
+        setSearch('');
+	};
 
     return (
         <Container>
-            <StyledInput 
-                type="text"
-                ref={inputRef}
-                onKeyDown={onSubmit}
-                onChange={(e) => {setSearch(e.target.value)}}
-                value={search}
-                placeholder='검색어를 입력해 주세요.'
-            />
-            <span 
-                className="material-symbols-outlined"
-                onClick={onCancle}
-            >
-                close
-            </span>
+            {/* <Text 
+                text="검색"
+                size="20px"
+                bold="bold"
+            /> */}
+            <Grid flex gap="10px">
+                <StyledInput 
+                    type="text"
+                    ref={inputRef}
+                    onKeyDown={onEnter}
+                    onChange={(e) => {setSearch(e.target.value)}}
+                    value={search}
+                    placeholder='검색어를 입력해 주세요.'
+                />
+                <StyledSearchIcon width="24" height="24" onClick={onSubmit}/>
+            </Grid>
         </Container>
     );
 };
 
 const Container = styled.div`
     display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px 16px;
-    background-color: white;
+    flex-flow: column nowrap;
+    gap: 20px;
+    padding: 0px 16px 18px;
     & span {
         text-indent: -9999;
         font-size: 25px;
@@ -77,5 +82,8 @@ const StyledInput = styled.input`
     };
 `;
 
+const StyledSearchIcon = styled(SearchIcon)`
+    cursor: pointer;
+`;
 
 export default SearchBar;

@@ -6,25 +6,13 @@ import { Grid } from '../../elements/index';
 import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 
 const Login = (props) => {  
-    const REDIRECT_URI = `https://moolmooldoctor.firebaseapp.com/auth/kakao/callback`;
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=https://moolmooldoctor.firebaseapp.com/auth/kakao/callback&response_type=code`;
+    const REDIRECT_URI = `${process.env.REACT_APP_URL}/auth/kakao/callback`;
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     return (
-        <Grid
-            height="100%"
-            is_flex
-            is_column
-            gap="155px"
-            justify="center"
-        >   
+        <Grid height="100%" is_flex is_column gap="155px" justify="center">
             <StyledLogo />
-            <Grid
-                padding="0 16px"
-                is_flex
-                is_column
-                align="center"
-                gap="18px"
-            >
+            <Grid padding="0 16px" is_flex is_column align="center" gap="18px">
                 <KakaoBtn href={KAKAO_AUTH_URL}>카카오 간편 로그인/회원가입</KakaoBtn>
                 <StyledLink to="/">로그인없이 둘러보기</StyledLink>
             </Grid>
