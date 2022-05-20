@@ -94,6 +94,7 @@ function App() {
           <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
           <Route exact path="/search" component={Search}/>
           <Route exact path="/test" component={Test}/>
+          <Route exact path="/editproduct/:itemId" component={RegisterProduct} />
         </GlobalStyle>
       </ThemeProvider>
     </ConnectedRouter>

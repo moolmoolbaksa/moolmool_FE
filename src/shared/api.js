@@ -43,6 +43,14 @@ export const ItemAPI = {
                 Authorization: `${localStorage.getItem('token')}`,
             },
         }),
+    // 교환 물품 수정
+    editItem: (itemId,Formitem) =>
+    api.put(`/api/items/${itemId}`, Formitem, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `${localStorage.getItem('token')}`,
+        },
+    }), 
 };
 
 export const ChatAPI = {
