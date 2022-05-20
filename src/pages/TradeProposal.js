@@ -12,7 +12,6 @@ import TabBar from '../components/TabBar';
 import { useParams } from 'react-router-dom';
 import { HistoryAPI } from '../shared/api';
 import { history } from '../redux/configureStore';
-import { push } from 'connected-react-router';
 
 const TradeProposal = props => {
     const { barterItem, ...item_info } = useSelector(state => state.notification.noti_barter);
@@ -64,7 +63,7 @@ const TradeProposal = props => {
                 <ItemGrid type="mall" item_list={barterItem} />
             </Grid>
             <ButtonWrap>
-                {item_info.accepted ? (
+                {item_info.accepted === 'true' ? (
                     <ButtonB onClick={cancelTrade}>교환 취소</ButtonB>
                 ) : (
                     <>

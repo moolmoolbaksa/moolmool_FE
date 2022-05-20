@@ -40,6 +40,26 @@ export const getBarterNotiApi = createAsyncThunk(
     },
 );
 
+export const getChatNotiApi = createAsyncThunk(
+    'notification/getChatNotiApi',
+    async ({ notificationId, changeId }) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/chat?roomId=${changeId}`,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                },
+            );
+            console.log('여기', response)
+            history.push(`/chat/${changeId}`);
+        } catch (error) {
+            console.log('getChatNotiApi: ', error);
+            alert('getChatNotiApi error');
+        }
+    },
+);
+
 export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, chageId }) => {
     try {
         const response = await axios.get(
@@ -101,6 +121,7 @@ export const notification = createSlice({
 export const api = {
     getNotiApi,
     getBarterNotiApi,
+    getChatNotiApi
 };
 
 export const { setNoti, setUnreadNoti } = notification.actions;
