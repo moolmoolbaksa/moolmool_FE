@@ -9,26 +9,45 @@ import { ItemAPI } from '../shared/api';
 import LocationBar from '../components/LocationBar';
 import { history } from '../redux/configureStore';
 import {IoIosArrowUp} from "react-icons/io";
-
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { api as productActions } from '../redux/modules/product';
+import useError from '../components/Registerproduct/useError'
 const RegisterProduct = (props) => {
-    
-    const categorys_list=[
-        {id:1, value:"디지털기기"},
-        {id:2, value:"생활가전"},
-        {id:3, value:"가구/인테리어"},
-        {id:4, value:"유아동"},
-        {id:5, value:"유아도서"},
-        {id:6, value:"생활/가공식품"},
-        {id:7, value:"스포츠/레저"},
-        {id:8, value:"여성잡화"},
-        {id:9, value:"여성의류"},
-        {id:10, value:"남성패션/잡화"},
-        {id:11, value:"게임/취미"},
-        {id:12, value:"뷰티/미용"},
-        {id:13, value:"반려동물용품"},
-        {id:14, value:"도서/티켓/음반"},
-        {id:15, value:"식물"},
-    ];
+  const dispatch=useDispatch();
+  //  코드최적화 준비
+  //  https://react.vlpt.us/basic/09-multiple-inputs.html   
+  // input 의 개수가 여러개가 됐을때는, 단순히 useState 를 여러번 사용하고 onChange 도 여러개 만들어서 구현 할 수 있습니다. 
+  // 하지만 그 방법은 가장 좋은 방법은 아닙니다. 
+  // 더 좋은 방법은, input 에 name 을 설정하고 이벤트가 발생했을 때 이 값을 참조하는 것입니다. 
+  // 그리고, useState 에서는 문자열이 아니라 객체 형태의 상태를 관리해주어야 합니다.
+  
+  const itemId = useParams().itemId;
+  // console.log(itemId);
+  const is_edit = itemId?true:false;
+  
+  const product_info=useSelector(state=>state.product.product_info);
+  
+    // console.log(is_edit);
+  // const list=[1,2,3,4,5];
+  //   console.log(list.filter((_,idx)=>1!=idx))
+  const categorys_list=[
+      {id:1, value:"디지털기기"},
+      {id:2, value:"생활가전"},
+      {id:3, value:"가구/인테리어"},
+      {id:4, value:"유아동"},
+      {id:5, value:"유아도서"},
+      {id:6, value:"생활/가공식품"},
+      {id:7, value:"스포츠/레저"},
+      {id:8, value:"여성잡화"},
+      {id:9, value:"여성의류"},
+      {id:10, value:"남성패션/잡화"},
+      {id:11, value:"게임/취미"},
+      {id:12, value:"뷰티/미용"},
+      {id:13, value:"반려동물용품"},
+      {id:14, value:"도서/티켓/음반"},
+      {id:15, value:"식물"},
+  ];
     const type_list=[
         {id:1, value:"상관없음"},
         {id:2, value:"택배거래"},
@@ -40,13 +59,15 @@ const RegisterProduct = (props) => {
     const [favors,setFavors]=React.useState([]);
     const [fileslist,setFileslist]=React.useState([]);
     const [type,setType]=React.useState("");
-
     const fileInput=React.useRef();
-
     const [categoryOpen,setcategoryOpen]=useState(false);
     const [favorsOpen,setFavorsOpen]=useState(false);
     const [typeOpen,setTypeOpen]=useState(false);
+    const [ErrorModal,setErrorModal]=useState(false);
     const [preview,setPreview]=useState([]);
+//수정위한 사진 URL용 temp array 추가
+    const [tempURL,setTempURL]=useState([]);
+    const ErrorMessage=useError(title,contents,category,favors,preview,type,);
     const openCategory = () =>{
         if(categoryOpen){
             setcategoryOpen(false);
@@ -73,34 +94,63 @@ const RegisterProduct = (props) => {
         }
 
     }
-
     const selectfile=(e)=>{
         let filelist=[...fileInput.current.files];
-        setFileslist(filelist);
-        if(preview.length>0)
-        {
-            setPreview([]);
-        }
-        Array.from(fileInput.current.files).forEach(file => {
-        
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                setPreview((as)=>[...as,reader.result]);
-            }
-        });
+        setFileslist(state=>state.concat(filelist));
+        console.log(filelist);
+        console.log(fileInput.current.files);
+
+        filelist.map((file)=>{
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            setPreview(state=>state.concat([reader.result]));
+            // setPreview([...preview,reader.result]);
+
+        }})
         
     }
     const deletePreview=(id)=>{
+
+      setTempURL(tempURL.filter((_,idx)=>idx!==id));
+      setFileslist(fileslist.filter((_,idx)=>tempURL.length+idx!==id));
+      if(tempURL.length>0)
+      {
+        setPreview(preview.filter((_,idx)=>(tempURL.length+fileslist.length-1)!==idx));
+      }
+      else
+      {
         setPreview(preview.filter((_,idx)=>idx!==id));
-        setFileslist(fileslist.filter((_,idx)=>idx!==id));
-				console.log('delete check');
-				console.log(preview);
-				console.log(fileslist);
+      }
+      // }
+      // else{
+      //   setPreview(preview.filter((_,idx)=>idx!==id));
+      //   setFileslist(fileslist.filter((_,idx)=>idx!==id));
+      // }
+
     }
-    
-    
     React.useEffect(()=>{
+      if(is_edit)
+      {
+        const edit_category=product_info.category;
+        const edit_title=product_info.title;
+        const edit_contents=product_info.contents;
+        const edit_images=product_info.images;
+        const edit_type=product_info.type;
+        const edit_favors=product_info.favored;
+        console.log('edit_type:'+edit_type)
+        console.log('edit_favors:'+edit_favors)
+        setCategory(edit_category);
+        setTitle(edit_title);
+        setContents(edit_contents);
+        setPreview(edit_images);
+        setType(edit_type);
+        setFavors(edit_favors)
+        setFavorsOpen(true);
+        setTypeOpen(true);
+        setTempURL(edit_images);
+
+      }
     },[]);
     const handleCategory=(e)=>{
         setCategory(e.target.value);
@@ -114,55 +164,83 @@ const RegisterProduct = (props) => {
     }
     const handleType=(e)=>{
         setType(e.target.value);
+        console.log(e.target.value);
     }
     const handleFavor=(e)=>{
         if(e.target.checked)
         {
             setFavors(favors=>[...favors,e.target.value]);
-            console.log(e.target.value);
+            console.log(favors);
         }
         else
         {   
             setFavors(favors.filter(favor=>favor !== e.target.value));
+            console.log(favors);
         }
     }
     const submit=()=>{
-        console.log('submit_success')
-        const formData = new FormData();
+        console.log(ErrorMessage[0]);
+        if(!ErrorMessage[0])
+        {
+          setErrorModal(true);
+          return;
+        }
+        
+      const formData = new FormData();
         formData.append('category',category);
         formData.append('favored',favors);
         formData.append('contents',contents);
         formData.append('title',title);
         // formData.append('images',fileslist);
         formData.append('type',type);
-       
-        console.log(category);
-        console.log(favors);
-        console.log(contents);
-        console.log(title);
-        console.log(type);
         
         for (var i = 0; i < fileslist.length; i++) {
             formData.append("images", fileslist[i]);
             console.log('uploading files');
         }
-    
         ItemAPI.registerItem(formData)
         .then((res)=>
         {
             console.log(res);
-            history.push('/')
+            dispatch(productActions.getProductApi(res.data));
+            history.replace(`detail/${res.data}`)
         })
         .catch((error)=>{
             console.log(error);
         })
         
     }
+    const edit=()=>{
+      console.log('edit');
+      console.log('submit_success');
+      const formData = new FormData();
+      formData.append('category',category);
+      formData.append('favored',favors);
+      formData.append('contents',contents);
+      formData.append('title',title);
+      formData.append('type',type);
+      for (var i = 0; i < fileslist.length; i++) {
+        formData.append("images", fileslist[i]);
+        console.log('uploading files');
+      }
+      formData.append('imagesUrl',tempURL);
+      ItemAPI.editItem(itemId,formData)
+        .then((res)=>
+        {
+            console.log(res);
+            dispatch(productActions.getProductApi(itemId));
+            history.replace(`/detail/${itemId}`);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+
+    }
 
     // console.log(preview)
 	return (
 	<Base>
-	<LocationBar title="상품 등록"/>
+	{ is_edit?<LocationBar title="상품 수정"/>:<LocationBar title="상품 등록"/>}
 	<Noti></Noti>
 
 	<Categorywrap>
@@ -205,7 +283,9 @@ const RegisterProduct = (props) => {
 			type='text'  
 			margin='0px'
 			padding='1rem'
-			onChange={handleTitle}></Input>
+			onChange={handleTitle}
+      value={title}
+      ></Input>
 	<hr></hr>
 	<Input 
 			border='none' 
@@ -214,11 +294,12 @@ const RegisterProduct = (props) => {
 			type='text'  
 			multiLine rows='8'  
 			padding='1rem'
+      value={contents}
 			onChange={handleContents}/>
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1.2rem'}}>사진 등록 ({fileslist.length}/8)개</span>
+			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1.2rem'}}>사진 등록 미리보기 ({preview.length}/8)개 파일개수({fileslist.length}/8)개</span>
 
 			
 			<Imagelist >
@@ -249,7 +330,7 @@ const RegisterProduct = (props) => {
 			{type_list.map((p,idx)=>{
 					return(
 							<div key={`type_div_${idx}`}>
-									<input  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} checked={null} onClick={handleType}/>
+                  <input  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} defaultChecked={type.includes(p.value)} onClick={handleType}/>
 									<label key={`type_label_${idx}`} htmlFor={p.value}> {p.value} </label>
 							</div>
 					)
@@ -271,7 +352,7 @@ const RegisterProduct = (props) => {
 				categorys_list.map((p,idx)=>{
 						return(
 				<div key={`favors_div_${idx}`}> 
-						<input name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} checked={null} onClick={handleFavor} />
+						<input name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} defaultChecked={favors.includes(p.value)}  onClick={handleFavor} />
 						<label htmlFor={p.value} key={`favors_label_${idx}`}
 						>
 						{p.value}        
@@ -290,7 +371,9 @@ const RegisterProduct = (props) => {
 			{/* </div> */}
 			
 	{/* </div> */}
-			<Button height='4rem' radius='4px' background="yellow" color='black' onClick={submit}>등록하기</Button>
+			{is_edit?<Button height='4rem' radius='4px' background="yellow" color='black' onClick={edit}>수정하기</Button>
+      :<Button height='4rem' radius='4px' background="yellow" color='black' onClick={submit}>등록하기</Button>}
+    {<CategoryNoti ErrorModal={ErrorModal} setErrorModal={setErrorModal} message={ErrorMessage[1]}></CategoryNoti>}
 	</Base>
     );
 };

@@ -39,6 +39,7 @@ const DetailBottom = props => {
         }
         dispatch(productActions.getTradeProductApi({ itemId, userId }));
     };
+    
 
     const onDoChat = () => {
         if (!is_login) {
@@ -80,6 +81,9 @@ const DetailBottom = props => {
     const onDeleteProduct = () => {
         dispatch(setDeleteModal(true));
     };
+  const onEdit = () => {
+      history.push(`/editproduct/${itemId}`);
+  };
 
     return (
         <>
@@ -105,7 +109,7 @@ const DetailBottom = props => {
                                 삭제
                             </Button>
                             <Button
-                                // onClick={onDoTrade}
+                                onClick={onEdit}
                                 color="white"
                                 background="yellow">
                                 수정
