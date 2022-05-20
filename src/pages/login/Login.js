@@ -6,8 +6,8 @@ import { Grid } from '../../elements/index';
 import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 
 const Login = (props) => {  
-    const REDIRECT_URI = `https://moolmooldoctor.firebaseapp.com/auth/kakao/callback`;
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=https://moolmooldoctor.firebaseapp.com/auth/kakao/callback&response_type=code`;
+    const REDIRECT_URI = `${process.env.REACT_APP_URL}/auth/kakao/callback`;
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     return (
         <Grid

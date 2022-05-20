@@ -5,14 +5,14 @@ axios.defaults.withCredentials = true;
 // https://13.125.220.67:8080 //이승재
 // "http://13.124.0.71", //황석준
 // 13.125.220.67:8080 //엄성훈
-// ${process.env.REACT_APP_URL}
+// ${process.env.REACT_APP_SERVER_URL}
 
 const api = axios.create({
-  	baseURL: `${process.env.REACT_APP_URL}`,
+  	baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 });
 
 const chatapi = axios.create({
-	baseURL: `${process.env.REACT_APP_URL}`,
+	baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 });
 
 

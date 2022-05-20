@@ -8,13 +8,13 @@ export const getStarItemAPi = createAsyncThunk(
         try {
             let response;
             if(thunkAPI.getState().user.is_login){
-                response = await axios.get(`${process.env.REACT_APP_URL}/api/items/star`,{
+                response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`,{
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     }
                 });
             } else {
-                response = await axios.get(`${process.env.REACT_APP_URL}/api/items/star`);
+                response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`);
             }
             return response.data;
         } catch (error) {
