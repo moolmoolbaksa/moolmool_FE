@@ -12,7 +12,8 @@ import {IoIosArrowUp} from "react-icons/io";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as productActions } from '../redux/modules/product';
-import useError from '../components/Registerproduct/useError'
+import useError from '../components/Registerproduct/useError';
+
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   //  코드최적화 준비
