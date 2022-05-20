@@ -33,14 +33,9 @@ const SearchBar = (props) => {
 
     return (
         <Container>
-            {/* <Text 
-                text="검색"
-                size="20px"
-                bold="bold"
-            /> */}
             <Grid flex gap="10px">
                 <StyledInput 
-                    type="text"
+                    type="search"
                     ref={inputRef}
                     onKeyDown={onEnter}
                     onChange={(e) => {setSearch(e.target.value)}}
