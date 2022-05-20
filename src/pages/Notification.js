@@ -51,8 +51,6 @@ const Notification = props => {
                     noti_list.map(v => {
                         return <Noticard key={v.notificationId} {...v} />;
                     })}
-
-                <Noticard {...noti_list} />
             </Container>
         </Grid>
     );

@@ -2,9 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { history } from "../../redux/configureStore";
+import { enterRoom } from "../../redux/modules/chat";
 import { api as notiActions } from "../../redux/modules/notification";
 import timeForToday from "../../shared/timeForToday";
-const Noticard = ({notificationId, isRead, type, nickname, changeId, date}) => {    
+const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userId, profile}) => {    
     const dispatch = useDispatch();
 
 	const onNotiClick = () => {
@@ -13,22 +14,28 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId, date}) => {
 				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));
 				break;
 			case 'CHAT':
-				history.push('/chat');
+				dispatch(enterRoom({changeId, nickname, userId, profile}));
+				dispatch(notiActions.getChatNotiApi({notificationId, changeId}));
+				break;
+			case 'ETC':
 				break;
 			default:
+				history.push('/trhistory');
 				break;
 		};
 	};
-	
+
 	return (
 		<Container 
-			onClick={onNotiClick}			
+			onClick={onNotiClick}
+			isRead={isRead}			
 		>
 			<TypeColor type={type}/>
-			{type === 'CHAT' && <span isRead={isRead}>{nickname}님에게서 <span className="emp">채팅</span>이 왔어요.</span>}
-			{type === 'BARTER' && <span isRead={isRead}>{nickname}님에게서 <span className="emp">교환 신청</span>이 왔어요.</span>}
-			{type === 'ETC' && <span isRead={isRead}><b>반가워요 {nickname}님! 회원가입을 축하드려요.</b></span>}
-			{type === 'SCORE' && <span isRead={isRead}>{nickname}님이 회원님과의 거래를 <span className="emp">평가</span>하셨습니다.</span>}
+			{type === 'CHAT' && <span>{nickname}님에게서 <span className="emp">채팅</span>이 왔어요.</span>}
+			{type === 'BARTER' && <span>{nickname}님에게서 <span className="emp">교환 신청</span>이 왔어요.</span>}
+			{type === 'SCORE' && <span>{nickname}님과의 거래를 <span className="emp">평가</span>해주세요.</span>}
+			{type === 'FINISH' && <span>회원님! {nickname}님과의 거래를 <span className="emp">확정</span>해주세요.</span>}
+			{type === 'ETC' && <span><b>반가워요 {nickname}님! 회원가입을 축하드려요.</b></span>}
 			<Time>{timeForToday(date)}</Time>
 		</Container>
     );
@@ -37,7 +44,7 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId, date}) => {
 const Container = styled.div`
 	position: relative;
 	display: flex;
-	padding: 15px 15px;
+	padding: 20px 15px;
     background-color: ${props => props.isRead ? '#F9F9F9' : 'white'};
 	border-top: 1px #f9f9f9 solid;
 	border-bottom: 1px #f9f9f9 solid;
@@ -80,7 +87,7 @@ const TypeColor = styled.div`
 
 const Time = styled.div`
 	color: #9d9d9d;
-	font-size: 12px;
+	font-size: 11px;
 `;
 
 export default Noticard;
