@@ -5,16 +5,16 @@ import SearchBar from '../components/search/SearchBar';
 import SearchHistory from '../components/search/SearchHistory';
 import SearchList from '../components/search/SearchList';
 import TabBar from '../components/TabBar';
+import LocationBar from '../components/LocationBar';
 import { Grid } from '../elements/index';
 const Search = (props) => {
     return (
         <Container>
+            <LocationBar title="검색"/>
             <SearchBar />
             <SearchHistory />
-            <Grid padding="0 16px" height="100%">
-                <SearchList />
-            </Grid>
-            <TabBar position="false"/>
+            <SearchList />
+            {/* <TabBar position="false"/> */}
         </Container>
     );
 };
@@ -23,8 +23,6 @@ const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
-    display: flex;
-    flex-flow: column nowrap;
 `;
 
 export default Search;

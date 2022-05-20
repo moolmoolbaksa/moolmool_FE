@@ -152,6 +152,7 @@ const EditMyInfo = (props) => {
                             value={editInfo.storeInfo}
                             placeholder={!editInfo.storeInfo ? '나의 보따리 소개를 적어주세요.' : ''}
                             padding="10px"
+                            tabIndex="-1"
                         />
                     </Grid>
                 </Grid>
