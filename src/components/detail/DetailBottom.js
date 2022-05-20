@@ -9,7 +9,7 @@ import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as HeartIconRed } from '../../images/하트(빨강).svg';
 import LoginModal from '../modal/LoginModal';
 import DeleteModal from '../modal/DeleteModal';
-import { ChatAPI } from '../../shared/api';
+import { ChatAPI, HistoryAPI } from '../../shared/api';
 import { history } from '../../redux/configureStore';
 import { enterRoom } from '../../redux/modules/chat';
 
@@ -18,7 +18,7 @@ const DetailBottom = props => {
     const Roomlist = useSelector(state => state.chat.Roomlist);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
-    const { userId, nickname, isScrab, itemId, scrabCnt, profile, traded, status } = useSelector(
+    const { userId, nickname, isScrab, itemId, scrabCnt, profile, traded, barterId } = useSelector(
         state => state.product.product_info,
     );
     const btnRef = useRef();
@@ -67,6 +67,16 @@ const DetailBottom = props => {
             });
     };
 
+    const onDoCancle = () => {
+        HistoryAPI.cancelTrade(barterId)
+        .then(res => {
+            history.push('/');
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    };
+
     const onDeleteProduct = () => {
         dispatch(setDeleteModal(true));
     };
@@ -111,7 +121,7 @@ const DetailBottom = props => {
                                     교환신청
                                 </Button>
                             ) : (
-                                <Button onClick={onDoTrade} color="black" background="gray">
+                                <Button onClick={onDoCancle} color="black" background="gray">
                                     교환취소
                                 </Button>
                             )}
