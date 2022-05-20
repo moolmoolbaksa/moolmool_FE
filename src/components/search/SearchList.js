@@ -13,13 +13,13 @@ const SearchList = (props) => {
             <Container className='empty'>
                 {!search_word
                     ?   <Wrap>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 edit
                             </span>
                             <Text>검색어를 입력해 주세요.</Text> 
                         </Wrap>
                     :   <Wrap>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 error
                             </span>
                             <Grid is_flex is_column gap="3px">
@@ -48,15 +48,16 @@ const SearchList = (props) => {
 };
 
 const Container = styled.div`
-    height: 100%;
     flex-grow: 1;
-    padding: 15px 0px 20px;
+    padding: 15px 16px 20px;
     overflow-y: scroll;
     -ms-overflow-style: none;
+    scrollbar-width: none;
     &::-webkit-scrollbar {
         display: none;
     };
-    
+    scroll-behavior: smooth;
+ 
     &.border {
         border-top: 1px #e8e8e8 solid;
     };
@@ -92,7 +93,7 @@ const Wrap = styled.div`
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-
+    overflow: hidden;
     span {
         font-size: 100px;
         text-align: center;

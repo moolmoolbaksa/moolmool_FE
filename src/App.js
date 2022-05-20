@@ -4,59 +4,52 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
 import { history } from './redux/configureStore';
+import { Login, Signup, LoginProgress, Welcome, Address } from './pages/login/index';
 import {
-  Login,
-  Signup,
-  LoginProgress,
-  Welcome,
-  Address,
-} from './pages/login/index';
-import { 
-  Detail,
-  Mall,
-  Trade,
-  Main,
-  Mypage,
-  Notification,
-  EditMyInfo,
-  RegisterProduct,
-  Tradehistory,
-  Rating,
-  Scrab,
-  Chatroomlist,
-  ChatroomDetail,
-  Decidetrade,
-  TradeProposal,
-  TradeCheck,
-  Search,
+    Detail,
+    Mall,
+    Trade,
+    Main,
+    Mypage,
+    Notification,
+    EditMyInfo,
+    RegisterProduct,
+    Tradehistory,
+    Rating,
+    Scrab,
+    Chatroomlist,
+    ChatroomDetail,
+    Decidetrade,
+    TradeProposal,
+    TradeCheck,
+    Search,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
 import Test from './pages/Test';
 
 function App() {
+    const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+    const handleResize = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
 
-  const handleResize = () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  };
-  
-  handleResize();
+    handleResize();
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    }
-  });
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    });
 
-  const is_token = localStorage.getItem("token");
+    const is_token = localStorage.getItem('token');
 
-  useEffect(() => {
-    if(is_token) dispatch(userActions.loginCheckApi());
-  }, []);
+    useEffect(() => {
+        if (is_token) dispatch(userActions.loginCheckApi());
+    }, []);
 
   const theme = {
     palette: {
@@ -102,17 +95,14 @@ function App() {
 };
 
 const GlobalStyle = styled.div`
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  position: relative;
-  width: 100%;
-  background-color: white;
-  max-width: 420px;
-  box-shadow: 0 48px 100px 0 rgb(17 12 46 / 15%);
-  margin: 0 auto;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    position: relative;
+    width: 100%;
+    background-color: white;
+    max-width: 420px;
+    box-shadow: 0 48px 100px 0 rgb(17 12 46 / 15%);
+    margin: 0 auto;
 `;
 
 export default App;
-
-
-    

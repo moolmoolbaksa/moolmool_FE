@@ -44,7 +44,7 @@ const Notification = props => {
     }, []);
 
     return (
-        <Grid height="100%">
+        <Grid height="100%" is_flex is_column>
             <LocationBar title="알림" />
             <Container>
                 {is_token &&
@@ -59,25 +59,14 @@ const Notification = props => {
 const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    gap: 10px;
-    padding: 16px 16px 0;
-    height: calc(100% - 60px);
+    flex-grow: 1;
     padding-bottom: 10px;
     background-color: #f5f5f5;
     overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none;
     }
 `;
-
-// const NotiCard = styled.div`
-// 	font-size: 18px;
-// 	font-weight: bold;
-// 	letter-spacing: -.67px;
-// 	padding: 20px 0;
-// 	border-bottom: 1px #c4c4c4 solid;
-// 	color: ${props => props.isRead ? '#c4c4c4' : 'black'};
-// `;
 
 export default Notification;

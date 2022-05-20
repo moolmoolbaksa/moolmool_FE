@@ -13,6 +13,10 @@ const HotDeal = (props) => {
     useEffect(() => {
         dispatch(itemActions.getStarItemAPi());
     }, []);
+    
+    if(!star_item_list.length){
+        return null;
+    };
 
     return (
         <>
@@ -47,13 +51,11 @@ const Container = styled.div`
     flex-wrap: nowrap;
     padding: 0px 16px 10px;
 
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none; 
     };
-
     scroll-behavior: smooth;
 `;
 
