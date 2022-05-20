@@ -10,21 +10,9 @@ const Login = (props) => {
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     return (
-        <Grid
-            height="100%"
-            is_flex
-            is_column
-            gap="155px"
-            justify="center"
-        >   
+        <Grid height="100%" is_flex is_column gap="155px" justify="center">
             <StyledLogo />
-            <Grid
-                padding="0 16px"
-                is_flex
-                is_column
-                align="center"
-                gap="18px"
-            >
+            <Grid padding="0 16px" is_flex is_column align="center" gap="18px">
                 <KakaoBtn href={KAKAO_AUTH_URL}>카카오 간편 로그인/회원가입</KakaoBtn>
                 <StyledLink to="/">로그인없이 둘러보기</StyledLink>
             </Grid>
