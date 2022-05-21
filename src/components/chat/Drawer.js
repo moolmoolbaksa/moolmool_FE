@@ -89,4 +89,7 @@ const Modalcontents=styled.div`
   background:yellow;
   z-index:10002;
   `
+  const Button=styled.div`
+  
+  `
 export default Drawer;
