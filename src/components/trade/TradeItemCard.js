@@ -56,6 +56,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: 15px;
+    margin: 0 16px;
     border-bottom: 1px #c4c4c4 solid;
 
     & span {
