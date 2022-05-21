@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ChatAPI } from '../shared/api';
+import { setRoomlist } from '../redux/modules/chat';
 import LocationBar from '../components/LocationBar';
 import ChatRoom from '../components/chat/ChatRoom';
 import TabBar from '../components/TabBar';
-import { setRoomlist } from '../redux/modules/chat';
+import banner from '../images/servey_banner.png';
 
 const Chatroomlist = (props) => {
     const dispatch = useDispatch();
     const Roomlist = useSelector(state => state.chat.Roomlist);
-    console.log(Roomlist)
+
     React.useEffect(()=>{
         ChatAPI.getChatRoom()
             .then((res)=>{
@@ -26,6 +27,9 @@ const Chatroomlist = (props) => {
     return(
         <Base>
             <LocationBar title="채팅"/>
+            <BannerAnchor href="https://google.com">
+                <BannerImg src={banner} alt="설문조사 배너"/>
+            </BannerAnchor>
             <Container>
                 {Roomlist.map((room, idx)=>{
                     return  <ChatRoom  
@@ -56,6 +60,12 @@ const Container = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+`;
+
+const BannerAnchor = styled.a``;
+
+const BannerImg = styled.img`
+    width: 100%;
 `;
 
 export default Chatroomlist;
