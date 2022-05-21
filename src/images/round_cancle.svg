@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="current" height="current" fill="current" viewBox="0 0 18 18">
+  <circle cx="9" cy="9.297" r="7.528"/>
+  <g>
+    <line x1="11.414" y1="6.884" x2="6.586" y2="11.711" fill="none" stroke="black" stroke-linecap="round" stroke-miterlimit="10" stroke-width=".845"/>
+    <line x1="6.586" y1="6.884" x2="11.414" y2="11.711" fill="none" stroke="black" stroke-linecap="round" stroke-miterlimit="10" stroke-width=".845"/>
+  </g>
+</svg>
