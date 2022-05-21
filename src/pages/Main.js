@@ -27,20 +27,22 @@ import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import HotDeal from '../components/main/HotDeal';
 import { api as userActions } from '../redux/modules/user';
+import { api as itemActions } from '../redux/modules/item';
 
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
 
     const userId = useSelector(state => state.user.user_info.userId);
-    const is_loading = useSelector(state => state.user.is_loading);
+    // const is_loading = useSelector(state => state.user.is_loading);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
 
     const [filter, setfilter] = useState('전체');
     const [openFilter, setopenfilter] = useState(false);
-    const [cardList, setCardlist] = useState([]);
-
+    // const [cardList, setCardlist] = useState([]);
+    const item_list = useSelector(state => state.item.item_list);
+    
     const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
 
@@ -51,7 +53,6 @@ const Main = props => {
     useEffect(() => {
         if (is_token) {
             client.connect({ Authorization: localStorage.getItem('token') }, () => {
-                // client.subscribe(`/user/sub/notification/`,() => {},{"Authorization" : localStorage.getItem('token')});
                 client.subscribe(
                     `/sub/notification/${userId}`,
                     data => {
@@ -70,7 +71,7 @@ const Main = props => {
         }
     }, [userId]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         ChatAPI.getChatRoom()
             .then(res => {
                 dispatch(setRoomlist(res.data));
@@ -81,36 +82,17 @@ const Main = props => {
             });
     }, []);
 
-    React.useEffect(() => {
-        let category_string = null;
-
+    useEffect(() => {
+        let category = null;
+        
         if (filter === '전체') {
-            category_string = '/items?category';
+            category = 'category';
         } else {
-            category_string = `/items?category=${filter}`;
-        }
+            category = `category=${filter}`;
+        };
 
-        if (!is_token) {
-            ItemAPI.getItemswitoutlogin(category_string)
-                .then(res => {
-                    setCardlist(res.data);
-                    dispatch(setLoading(false));
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        } else {
-            ItemAPI.getItems(category_string)
-                .then(res => {
-                    setCardlist(res.data);
-                    dispatch(setLoading(false));
-                })
-                .catch(error => {
-                    console.log(error);
-                    history.push('/login');
-                });
-        }
-    }, [openFilter]);
+        dispatch(itemActions.getItemApi(category));
+    }, [filter]);
 
     const Drawers = () => {
         if (openFilter) {
@@ -202,14 +184,14 @@ const Main = props => {
                 </Drawer>
                 <CardWrap>
                     <HotDeal />
-                    {cardList.map((p, idx) => {
+                    {item_list.map((p, idx) => {
                         return <Card key={p.itemId} {...p} />;
                     })}
                 </CardWrap>
                 <TabBar position />
             </Grid>
             <LoginModal />
-            {is_loading && <Loading />}
+            {/* {is_loading && <Loading />} */}
         </>
     );
 };
@@ -229,10 +211,10 @@ const BlinkSign = keyframes`
 const CardWrap = styled.div`
     flex-grow: 1;
     overflow-y: scroll;
-    -ms-overflow-style: none;
+    /* -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
-    }
+    } */
 `;
 
 const NotiWrap = styled.div`

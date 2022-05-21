@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { api as productActions, setTrade } from '../../redux/modules/product';
+import { setTrade } from '../../redux/modules/product'
+import { ReactComponent as CheckIcon } from '../../images/check_icon.svg';
 
 const TradeMyItem = ({itemId, image}) => {
     const dispatch = useDispatch();
@@ -13,20 +14,14 @@ const TradeMyItem = ({itemId, image}) => {
         dispatch(setTrade(itemId));
     };
 
-    const trade_item = useSelector(state => state.product.trade_item);
-    console.log(checkItem, trade_item)
     return (
         <ImageOutter onClick={onCheckItem}>
             <ImageInner 
                 is_check={checkItem}
                 src={image}
-            />
-            {checkItem &&   <CheckLabel>
-                                <span className="material-symbols-outlined">
-                                    done
-                                </span>
-                            </CheckLabel>
-            }
+            >
+                {checkItem && <CheckIcon width="80" height="80" fill="white"/>}
+            </ImageInner>
         </ImageOutter>
     );
 };
@@ -49,25 +44,9 @@ const ImageInner = styled.div`
     background-size: cover;
     border-radius: 5px;
     cursor: pointer;
-`;
-
-const CheckLabel = styled.div`
-    position: absolute;
-    z-index: 1;
-    top: 5%;
-    right: 5%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: ${props => props.theme.palette.yellow};
-    span {
-        color: black;
-        font-size: 19px;
-        font-weight: bold;
-    };
+    justify-content: center;
 `;
 
 export default TradeMyItem;

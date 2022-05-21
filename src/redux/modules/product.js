@@ -82,7 +82,6 @@ export const getTradeProductApi = createAsyncThunk('product/setTradeProductApi',
                 },
             },
         );
-        console.log(response);
         history.push('/trade');
         return response.data;
     } catch (error) {
