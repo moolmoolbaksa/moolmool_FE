@@ -15,11 +15,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousMessages, addMessage, changeRoomtype } from '../redux/modules/chat';
 import { ReactComponent as ArrowIcon } from '../images/화살표.svg';
 import { history } from '../redux/configureStore';
-
+import Drawer from '../components/chat/Drawer';
+import { BsThreeDotsVertical } from "react-icons/bs";
 const ChatroomDetail = props => {
     const dispatch = useDispatch();
     const roomid = useParams();
-
+    const [ModalOpen, setModalOpen] = React.useState(false);
     const Opponent = useSelector(state => state.chat.Opponent);
     const currentroom = useSelector(state => state.chat.Currentroom);
 
@@ -46,6 +47,12 @@ const ChatroomDetail = props => {
     //   return new WebSocket("ws://13.124.0.71/ws-stomp");
     // };
 
+    const openModal = () => {
+      setModalOpen(true);
+    };
+    const closeModal = () => {
+      setModalOpen(false);
+    };
     React.useEffect(() => {
         client.connect({ Authorization: `${localStorage.getItem('token')}` }, function () {
             console.log('connected');
@@ -110,6 +117,10 @@ const ChatroomDetail = props => {
                     height="27"
                 />
                 <span>{Opponent.nickname}</span>
+                <Styled3dots onClick={openModal}/>
+                {/* <Drawer open={ModalOpen}closeModal={closeModal}></Drawer> */}
+                {/* closeModal */}
+                {ModalOpen&&<Drawer roomid={apiroomid} onclose={closeModal}></Drawer>}
             </Wrap>
             <MessageList />
             <Inputbox client={client}></Inputbox>
@@ -133,11 +144,18 @@ const Wrap = styled.div`
         letter-spacing: -0.67px;
     }
 `;
-
+const Styled3dots= styled(BsThreeDotsVertical)`
+  cursor: pointer;
+  position: absolute;
+  right:1vw;
+  width:auto;
+  height:30px;
+`
 const StyledArrowIcon = styled(ArrowIcon)`
     position: absolute;
     left: 8px;
     cursor: pointer;
 `;
+
 
 export default ChatroomDetail;
