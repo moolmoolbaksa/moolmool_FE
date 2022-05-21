@@ -7,13 +7,11 @@ import { Text, Grid } from '../../elements/index';
 
 const ReportModal = ({type}) => {
     const dispatch = useDispatch();
-    const [isOpen, setIsOpen] = useState(false);
-    const inputRef = useRef([]);
     const is_report_modal = useSelector(state => state.modal.is_report_modal);
-   
+    const [isOpen, setIsOpen] = useState(false);
+    const [checkedInputs, setCheckedInputs] = useState([]);
+    const textRef = useRef();
     const report_arr = ['영리목적/광고', '욕설/인신공격', '음란성/선정성', '같은내용 반복개시', '개인정보노출', '저작권침해', '기타'];
-    
-    
 
     useEffect(() => {
         let timeout;
@@ -33,6 +31,14 @@ const ReportModal = ({type}) => {
         dispatch(setReportModal(false));
     };
 
+    const changeHandler = (checked, id) => {
+        if (checked) {
+          setCheckedInputs([...checkedInputs, id]);
+        } else {
+          setCheckedInputs(checkedInputs.filter((el) => el !== id));
+        };
+    };
+
     return (
         <ModalBackground>
             <ModalContainer is_modal={is_report_modal}>
@@ -41,15 +47,15 @@ const ReportModal = ({type}) => {
                     <ListWrap>
                         {report_arr.map((v, i) => {
                             return  <List key={i}>
-                                        <StyledInput type="checkbox" id="check"/>
+                                        <StyledInput type="checkbox" id={`check${i}`} onChange={(e) => changeHandler(e.target.checked, `check${i}`)}/>
                                         <label htmlFor="check" />
                                         {v}
                                     </List>
                         })}
                     </ListWrap>
-                    <TextArea />
+                    <TextArea></TextArea>
                     <Grid is_flex is_column justify="flex-start" gap="2px">
-                        <List><StyledInput type="checkbox"/>해당유저 차단하기</List>
+                        <List><StyledInput type="checkbox" id="check7"/>해당유저 차단하기</List>
                         <Text 
                             text="반복된 허위신고는 제재를 받을 수 있습니다."
                             color="#9D9D9D" letterSpacing="-1px" size="13px"
@@ -154,35 +160,6 @@ const List = styled.li`
     letter-spacing: -1px;
     word-spacing: -1px;
     font-size: 14px;
-
-    /* input[type="checkbox"]{
-        display: none;
-    };
-
-    input[type="checkbox"] + label{
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 1px solid #707070;
-        position: relative;
-        margin-right: 5px;
-        cursor:pointer;
-    };
-
-    input[id="check"]:checked + label::after{
-        content:'✔';
-        color: white;
-        font-size: 12px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top:0;
-        background-color: #FFD467;
-    }; */
 `;
 
 const TextArea = styled.textarea`

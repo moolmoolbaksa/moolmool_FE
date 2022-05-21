@@ -91,6 +91,10 @@ const ImageWrap = styled.div`
     background-position: center;
     background-size: cover;
     border-radius: 5px;
+
+    span {
+        text-indent: -9999;
+    }
 `;
 
 const IconWrap = styled.div`
