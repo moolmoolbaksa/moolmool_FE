@@ -21,7 +21,7 @@ const Notification = props => {
         }
     }, []);
 
-    const sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws-stomp`);
+    const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
 
     useEffect(() => {
