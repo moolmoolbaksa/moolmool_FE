@@ -87,12 +87,20 @@ export const ChatAPI = {
                 Authorization: `${localStorage.getItem('token')}`,
             },
         }),
+    //채팅방 나가기
     exitRoom: roomId =>
         chatapi.get(`chat/room/${roomId}/exit`, {
             headers: {
                 Authorization: `${localStorage.getItem('token')}`,
             },
         }),
+    //채팅방 유처자차단
+    banUser: userId =>
+    chatapi.get(`chat/room/${userId}/banned`, {
+        headers: {
+            Authorization: `${localStorage.getItem('token')}`,
+        },
+    }),
 };
 // /api/trade/decision?barterId=거래내역아이디
 export const HistoryAPI = {
