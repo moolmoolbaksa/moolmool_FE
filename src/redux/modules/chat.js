@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { history } from "../configureStore";
 import { response } from "../../shared/mock";
+import { PURGE } from "redux-persist";
 
 
 // const rommlist={date: "2022-05-10T19:13:00.766",
@@ -66,12 +67,8 @@ export const chat = createSlice({
     },
 
     extraReducers: (builder) => {
-        // builder
-        //     .addCase(loginCheckApi.fulfilled, (state, action) => {
-        //         state.user_info.nickname = action.payload.nickname;
-        //         state.user_info.profile = action.payload.profile;
-        //         state.is_login = true;
-        //     })
+        builder
+            .addCase(PURGE, () => initialState)
     }
 });
 

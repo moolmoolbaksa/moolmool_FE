@@ -1,14 +1,29 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Noto Sans CJK KR';
-}
-
 /* html {
   font-size: 62.5%;
 } */
 /* css3이하 vw vh 안됌 */
+
+body, 
+button,  
+div,
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+input, 
+li,
+ol, 
+p, 
+textarea, 
+ul {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans CJK KR';
+}
+
 input, textarea {
   -moz-user-select: auto;
   -webkit-user-select: auto;
