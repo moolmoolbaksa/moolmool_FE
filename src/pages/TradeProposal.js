@@ -15,10 +15,10 @@ import { history } from '../redux/configureStore';
 
 const TradeProposal = props => {
     const { barterItem, ...item_info } = useSelector(state => state.notification.noti_barter);
-    const barterId = useParams();
-    console.log(item_info.accepted);
+    const baterId = useParams();
+
     const acceptTrade = () => {
-        HistoryAPI.acceptTrade(barterId.barterId)
+        HistoryAPI.acceptTrade(baterId.baterid)
             .then(res => {
                 console.log(res);
                 window.alert('교환 수락하셨습니다.');
@@ -30,7 +30,7 @@ const TradeProposal = props => {
     };
 
     const rejectTrade = () => {
-        HistoryAPI.rejectTrade(barterId.barterId).then(res => {
+        HistoryAPI.rejectTrade(baterId.baterid).then(res => {
             console.log(res);
             window.alert('교환을 거절하셨습니다.');
             history.goBack();
@@ -38,7 +38,7 @@ const TradeProposal = props => {
     };
 
     const cancelTrade = () => {
-        HistoryAPI.cancelTrade(barterId.barterId)
+        HistoryAPI.cancelTrade(baterId.baterid)
             .then(res => {
                 console.log(res);
                 history.push('/noti');
