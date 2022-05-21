@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import LocationBar from '../components/LocationBar';
 import { api as notiActions, setNoti } from '../redux/modules/notification';
 import { Grid } from '../elements/index';
-import Noticard from '../components/Notification/Noticard';
+import Noticard from '../components/notification/Noticard';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 
@@ -51,8 +51,6 @@ const Notification = props => {
                     noti_list.map(v => {
                         return <Noticard key={v.notificationId} {...v} />;
                     })}
-
-                <Noticard {...noti_list} />
             </Container>
         </Grid>
     );
