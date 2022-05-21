@@ -28,10 +28,10 @@ const kakaoLoginApi = createAsyncThunk('user/kakaoLogin', async (code, thunkAPI)
 
         // thunkAPI.dispatch(loginCheckApi());
 
-        if (response.data.isFirst) {
-            history.replace('/address');
-        } else {
+        if (!response.data.isFirst) {
             history.replace('/');
+        } else {
+            history.replace('/address');
         }
     } catch (error) {
         console.log('kakaologin error: ', error);

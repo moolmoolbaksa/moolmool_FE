@@ -21,7 +21,7 @@ const ItemGrid = ({item_list, type}) => {
                 <Text
                     text="나의 보따리"
                     bold="bold"
-                    size="24px"
+                    size="22px"
                     letterSpacing="-1px"
                 />
                 <Grid gridBox margin="20px 0">
@@ -61,7 +61,7 @@ const ItemGrid = ({item_list, type}) => {
                     <Text 
                         text="찜한 상품"
                         bold="bold"
-                        size="24px"
+                        size="22px"
                         letterSpacing="-1px"
                         width="max-content"
                     />
@@ -112,7 +112,7 @@ const ItemGrid = ({item_list, type}) => {
             <Text
                 text="나의 보따리"
                 bold="bold"
-                size="24px"
+                size="22px"
                 letterSpacing="-1px"
             />
             {!item_list.length 
@@ -180,7 +180,6 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     font-size: 13px;
     line-height: 12.5px;
-    text-align: right;
     color: black;
     letter-spacing: -1px;
     border-bottom: 1px #9d9d9d solid;
