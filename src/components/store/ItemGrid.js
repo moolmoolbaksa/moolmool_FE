@@ -8,14 +8,11 @@ import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
 
 const ItemGrid = ({item_list, type}) => {
+    
     const onGoCreateItem = () => {
         history.push('/registerproduct');
     };
 
-    const onGoScrabPage = () => {
-        history.push('/scrab');
-    };
-    
     if(type==='trade'){
         return (
             <Grid
@@ -100,40 +97,12 @@ const ItemGrid = ({item_list, type}) => {
         );
     };
 
-    if(!item_list.length){
-        return (
-            <Grid
-                padding="20px 0 0 0"
-                margin="0 0 20px"
-                is_flex
-                is_column
-                gap="10px"
-            >
-                <Text
-                    text="나의 보따리"
-                    bold="bold"
-                    size="24px"
-                    letterSpacing="-1px"
-                />
-                <PlusZone onClick={onGoCreateItem}>
-                    <Text 
-                        text="보따리에 물건을 추가해보세요!"
-                        textAlign="center"
-                        size="16px"
-                        color="#ffca39"
-                        bold="bold"
-                        padding="50px 0"
-                    />
-                </PlusZone>
-            </Grid> 
-        );
-    };
-
+    // 길이 9의 배열을 만들고, 나의 보따리 상품을 뺸 나머지 요소는 PLUS 뷰로 보여주기 위한 작업
     const new_item_list = Array.from({length: 9}, v => '');
-    for(let i=0; i < 9; i++){
-        if(item_list[i]){
-            new_item_list[i] = item_list[i];
-        };
+        for(let i=0; i < 9; i++){
+            if(item_list[i]){
+                new_item_list[i] = item_list[i];
+            };
     };
 
     return (
@@ -146,19 +115,31 @@ const ItemGrid = ({item_list, type}) => {
                 size="24px"
                 letterSpacing="-1px"
             />
-            <Grid gridBox margin="20px 0">
-                {new_item_list && new_item_list.map((v, i) => {
-                    return  v   ?   <ItemImage 
-                                        key={i}
-                                        {...v}
-                                    /> 
-                                :   <PlusItem key={i} onClick={onGoCreateItem}>
-                                        <span className="material-symbols-outlined">
-                                            add_circle
-                                        </span>
-                                    </PlusItem>   
-                })}
-            </Grid>
+            {!item_list.length 
+                ?   <PlusZone onClick={onGoCreateItem}>
+                        <Text 
+                            text="보따리에 물건을 추가해보세요!"
+                            textAlign="center"
+                            size="16px"
+                            color="#ffca39"
+                            bold="bold"
+                            padding="50px 0"
+                        />
+                    </PlusZone>
+                :   <Grid gridBox margin="20px 0">
+                        {new_item_list && new_item_list.map((v, i) => {
+                            return  v   ?   <ItemImage 
+                                                key={i}
+                                                {...v}
+                                            /> 
+                                        :   <PlusItem key={i} onClick={onGoCreateItem}>
+                                                <span className="material-symbols-outlined">
+                                                    add_circle
+                                                </span>
+                                            </PlusItem>   
+                        })}
+                    </Grid>
+            }
         </Grid> 
     );
 };
@@ -184,6 +165,7 @@ const PlusZone = styled.div`
     width: 100%;
     border: 2px #ffca39 solid;
     border-radius: 5px;
+    margin: 15px 0;
     cursor: pointer;
 `;
 
