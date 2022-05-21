@@ -17,6 +17,7 @@ const TradeProposal = props => {
     const { barterItem, ...item_info } = useSelector(state => state.notification.noti_barter);
     const baterId = useParams();
 
+    
     const acceptTrade = () => {
         HistoryAPI.acceptTrade(baterId.baterid)
             .then(res => {
