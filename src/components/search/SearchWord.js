@@ -31,13 +31,14 @@ const SearchLabel = styled.div`
     display: flex;
     align-items: center;
     background-color: ${props => props.theme.palette.yellow};
-    padding: 5px 15px 5px 15px;
+    padding: 5px 10px 5px 15px;
     border-radius: 20px;
     gap: 5px;
 
     & span {
         font-size: 14px;
         cursor: pointer;
+        text-indent: -9999;
     }
 `;
 
