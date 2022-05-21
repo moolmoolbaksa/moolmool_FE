@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import TradeItemCard from '../components/trade/TradeItemCard';
 import ItemGrid from '../components/store/ItemGrid';
-import { setAlertModal, setTradeModal } from '../redux/modules/modal';
+import { setAlertModal, setReportModal, setTradeModal } from '../redux/modules/modal';
 import TradeModal from '../components/modal/TradeModal';
 import AlertModal from '../components/modal/AlertModal';
+// import ReportModal from '../components/modal/ReportModal';
 
 const Trade = (props) => {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Trade = (props) => {
     
     const onDoTrade = () => {
         if(!trade_item.length) return dispatch(setAlertModal(true));
+        // if(!trade_item.length) return dispatch(setReportModal(true));
         dispatch(setTradeModal(true));
     };
     
@@ -48,6 +50,7 @@ const Trade = (props) => {
             </Button>
             <TradeModal />
             <AlertModal />
+            {/* <ReportModal /> */}
         </Grid>
     );
 };

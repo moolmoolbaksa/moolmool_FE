@@ -7,6 +7,7 @@ export const modal = createSlice({
         is_delete_modal: false,
         is_trade_modal: false,
         is_alert_modal: false,
+        is_report_modal: false,
     },
     reducers: {
         setLoginModal: (state, action) => {
@@ -21,6 +22,9 @@ export const modal = createSlice({
         setAlertModal: (state, action) => {
             state.is_alert_modal = action.payload;
         },
+        setReportModal: (state, action) => {
+            state.is_report_modal = action.payload;
+        },
     },
 });
 
@@ -29,6 +33,7 @@ export const {
     setDeleteModal,
     setTradeModal,
     setAlertModal,
+    setReportModal,
 } = modal.actions;
 
 export default modal.reducer;

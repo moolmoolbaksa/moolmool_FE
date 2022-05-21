@@ -26,6 +26,7 @@ import { setUnreadNoti } from '../redux/modules/notification';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import HotDeal from '../components/main/HotDeal';
+import { api as userActions } from '../redux/modules/user';
 
 const Main = props => {
     const dispatch = useDispatch();
@@ -42,6 +43,10 @@ const Main = props => {
 
     const sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws-stomp`);
     const client = Stomp.over(sock);
+
+    useEffect(() => {
+        if (is_token) dispatch(userActions.loginCheckApi());
+    }, []);
 
     useEffect(() => {
         if (is_token) {
@@ -102,7 +107,6 @@ const Main = props => {
                 })
                 .catch(error => {
                     console.log(error);
-                    localStorage.removeItem('token');
                     history.push('/login');
                 });
         }

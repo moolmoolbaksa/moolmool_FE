@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { Grid } from '../../elements/index';
 import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 import kakao from '../../images/카카오심볼.png';
+import { persistor } from '../../index';
 
-const Login = props => {
+const Login = (props) => {
     const REDIRECT_URI = `${process.env.REACT_APP_URL}/auth/kakao/callback`;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    useEffect(() => {
+        localStorage.clear();
+        persistor.purge();
+    }, []);
 
     return (
         <Grid height="100%" is_flex is_column justify="center" gap="50px">
