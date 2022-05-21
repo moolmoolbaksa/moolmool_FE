@@ -4,8 +4,9 @@ import { history } from '../configureStore';
 
 export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, thunkAPI) => {
     try {
+        const is_token = localStorage.getItem('token');
         let response;
-        if (thunkAPI.getState().user.is_login) {
+        if (is_token) {
             response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`, {
                 headers: {
                     Authorization: localStorage.getItem('token'),
@@ -18,7 +19,7 @@ export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, 
     } catch (error) {
         console.log('getStarItemAPi: ', error);
         // alert('getStarItemAPi error');
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
         history.push('/login');
     }
 });

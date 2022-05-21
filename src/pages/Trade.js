@@ -19,6 +19,7 @@ const Trade = (props) => {
     
     const onDoTrade = () => {
         if(!trade_item.length) return dispatch(setAlertModal(true));
+        // if(!trade_item.length) return dispatch(setReportModal(true));
         dispatch(setTradeModal(true));
     };
     
@@ -48,6 +49,7 @@ const Trade = (props) => {
             </Button>
             <TradeModal />
             <AlertModal />
+            {/* <ReportModal /> */}
         </Grid>
     );
 };

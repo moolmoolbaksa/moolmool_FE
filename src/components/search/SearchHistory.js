@@ -1,24 +1,34 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { Text } from '../../elements/index';
+import { Text, Grid } from '../../elements/index';
+import { resetSearchHistory } from '../../redux/modules/search';
 import SearchWord from './SearchWord';
 
 const SearchHistory = (props) => {
+    const dispatch = useDispatch();
     const search_history = useSelector(state => state.search.search_history);
     
+    const onDelete = () => {
+        dispatch(resetSearchHistory());
+    };
+
     if(!search_history.length){
         return null;
     };
 
     return (
         <Container>
-            <Text 
-                text="최근검색어"
-                size="13px"
-                color="#666666"
-            />
+            <Grid flex>
+                <Text 
+                    text="최근검색어"
+                    size="13px"
+                    color="#666666"
+                    width="max-content"
+                />
+                <DeleteBtn onClick={onDelete}>전체삭제</DeleteBtn>
+            </Grid>
             <HistoryWrap>
                 {search_history.map((v, i) => {
                     return  <SearchWord 
@@ -52,6 +62,16 @@ const HistoryWrap = styled.div`
     };
 
     scroll-behavior: smooth;
+`;
+
+const DeleteBtn = styled.div`
+    font-size: 12px;
+    width: max-content;
+    color: #666666;
+    background-color: #E8E8E8;
+    padding: 5px 9px;
+    border-radius: 20px;
+    cursor: pointer;
 `;
 
 export default SearchHistory;

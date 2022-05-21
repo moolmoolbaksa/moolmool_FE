@@ -45,11 +45,11 @@ function App() {
         };
     });
 
-    const is_token = localStorage.getItem('token');
+    // const is_token = localStorage.getItem('token');
 
-    useEffect(() => {
-        if (is_token) dispatch(userActions.loginCheckApi());
-    }, []);
+    // useEffect(() => {
+    //     if (is_token) dispatch(userActions.loginCheckApi());
+    // }, []);
 
   const theme = {
     palette: {

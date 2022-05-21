@@ -7,13 +7,13 @@ export const getSearchApi = createAsyncThunk(
         try {
             let response;
             if(thunkAPI.getState().user.is_login){
-                response =  await axios.get(`http://13.124.0.71/api/item/search?keyword=${search}`,{
+                response =  await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/item/search?keyword=${search}`,{
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     }
                 });
             } else {
-                response = await axios.get(`http://13.124.0.71/api/item/search?keyword=${search}`);
+                response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/item/search?keyword=${search}`);
             };
             return {response: response.data, search};
         } catch (error) {
@@ -34,6 +34,9 @@ export const search = createSlice({
         deleteSearchHistory: (state, action) => {
             state.search_history = state.search_history.filter(v => v !== action.payload);
         },
+        resetSearchHistory: (state, action) => {
+            state.search_history = [];
+        },
         resetSearchList: (state, action) => {
             state.search_list = [];
             state.search_word = '';
@@ -53,6 +56,7 @@ export const search = createSlice({
 
 export const {
     deleteSearchHistory,
+    resetSearchHistory,
     resetSearchList,
 } = search.actions;
 

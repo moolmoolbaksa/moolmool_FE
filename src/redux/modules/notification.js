@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { PURGE } from 'redux-persist';
 
 import { history } from '../configureStore';
 
@@ -79,23 +80,25 @@ export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', 
     }
 });
 
+const initialState = {
+    noti_list: [],
+    noti_barter: {
+        userId: '',
+        nickname: '',
+        degree: '',
+        title: '',
+        contents: '',
+        image: '',
+        opponentNickname: '',
+        barterItem: [],
+    },
+    score_info: {},
+    unread_noti: 0,
+};
+
 export const notification = createSlice({
     name: 'notification',
-    initialState: {
-        noti_list: [],
-        noti_barter: {
-            userId: '',
-            nickname: '',
-            degree: '',
-            title: '',
-            contents: '',
-            image: '',
-            opponentNickname: '',
-            barterItem: [],
-        },
-        score_info: {},
-        unread_noti: 0,
-    },
+    initialState,
     reducers: {
         setNoti: (state, action) => {
             state.noti_list = [action.payload, ...state.noti_list];
@@ -114,7 +117,8 @@ export const notification = createSlice({
             })
             .addCase(getScoreNotiApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
-            });
+            })
+            .addCase(PURGE, () => initialState)
     },
 });
 
