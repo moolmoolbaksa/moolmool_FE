@@ -40,10 +40,12 @@ const Main = props => {
 
     const [filter, setfilter] = useState('전체');
     const [openFilter, setopenfilter] = useState(false);
+    const [cardList, setCardlist] = useState([]);
+
+    const sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/wss-stomp`);
     // const [cardList, setCardlist] = useState([]);
     const item_list = useSelector(state => state.item.item_list);
     
-    const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
 
     useEffect(() => {

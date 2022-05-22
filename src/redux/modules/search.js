@@ -4,6 +4,7 @@ import axios from "axios";
 export const getSearchApi = createAsyncThunk(
     'search/getSearchApi',
     async (search,thunkAPI) => {
+        console.log(search)
         try {
             let response;
             if(thunkAPI.getState().user.is_login){

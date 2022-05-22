@@ -33,8 +33,7 @@ const ChatroomDetail = props => {
     const apiroomid = roomid.roomid;
 
     //history props
-
-    let sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+    let sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/wss-stomp`);
     let client = Stomp.over(sock);
 
     //stomp update...
