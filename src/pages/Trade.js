@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '../elements/index';
@@ -57,7 +57,7 @@ const Trade = (props) => {
                 교환신청하기
             </Button>
             <TradeModal />
-            <AlertModal />
+            <AlertModal>아이템을 선택해주세요.</AlertModal>
         </Grid>
     );
 };

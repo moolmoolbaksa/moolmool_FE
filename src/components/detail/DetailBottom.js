@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Button, Text } from '../../elements/index';
-import { setDeleteModal, setLoginModal } from '../../redux/modules/modal';
+import { setAlertModal, setDeleteModal, setLoginModal } from '../../redux/modules/modal';
 import { api as productActions } from '../../redux/modules/product';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as HeartIconRed } from '../../images/하트(빨강).svg';
@@ -12,13 +12,14 @@ import DeleteModal from '../modal/DeleteModal';
 import { ChatAPI, HistoryAPI } from '../../shared/api';
 import { history } from '../../redux/configureStore';
 import { enterRoom } from '../../redux/modules/chat';
+import AlertModal from '../modal/AlertModal';
 
 const DetailBottom = props => {
     const dispatch = useDispatch();
     const Roomlist = useSelector(state => state.chat.Roomlist);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
-    const { userId, nickname, isScrab, itemId, scrabCnt, profile, traded, barterId } = useSelector(
+    const { userId, nickname, isScrab, itemId, scrabCnt, profile, traded, barterId, status } = useSelector(
         state => state.product.product_info,
     );
     const btnRef = useRef();
@@ -37,9 +38,9 @@ const DetailBottom = props => {
             dispatch(setLoginModal(true));
             return;
         }
+        if([2, 3, 4].includes(status)) return dispatch(setAlertModal(true));
         dispatch(productActions.getTradeProductApi({ itemId, userId }));
     };
-    
 
     const onDoChat = () => {
         if (!is_login) {
@@ -81,9 +82,10 @@ const DetailBottom = props => {
     const onDeleteProduct = () => {
         dispatch(setDeleteModal(true));
     };
-  const onEdit = () => {
-      history.push(`/editproduct/${itemId}`);
-  };
+
+    const onEdit = () => {
+        history.push(`/editproduct/${itemId}`);
+    };
 
     return (
         <>
@@ -111,7 +113,8 @@ const DetailBottom = props => {
                             <Button
                                 onClick={onEdit}
                                 color="white"
-                                background="yellow">
+                                background="yellow"
+                            >
                                 수정
                             </Button>
                         </>
@@ -135,13 +138,13 @@ const DetailBottom = props => {
             </Container>
             <LoginModal />
             <DeleteModal itemId={itemId} />
+            <AlertModal>{status === 2 ? '교환 진행 중인 상품입니다.' : '교환 완료된 상품입니다.'}</AlertModal>
         </>
     );
 };
 
 const Container = styled.div`
     width: 100%;
-    /* margin: 10px 0 0; */
     display: flex;
     align-items: center;
     background-color: ${props => (props.bg ? props.theme.palette.gray : props.theme.palette.yellow)};
