@@ -13,19 +13,30 @@ import styled,{ keyframes} from 'styled-components';
 import { useParams } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import { ChatAPI } from '../../shared/api';
-
+import { yellow } from '@mui/material/colors';
+import { history } from '../../redux/configureStore';
 
 const Drawer = (props) => {
   console.log(props);
   console.log(props.onclose);
   console.log(props.roomid);
-  const test=()=>{
-    console.log('button test');
+  console.log(props.userId);
+  const ban=()=>{
+    console.log('ban');
+    ChatAPI.banUser(props.userId)
+    .then((res)=>{
+      console.log(res);
+
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
   }
   const exitroom=()=>{
 		ChatAPI.exitRoom(props.roomid)
 			.then((res)=>{
 				console.log(res);
+        history.push('/chat')
 			})
 			.catch((err)=>{
 				console.log(err);
@@ -36,11 +47,10 @@ const Drawer = (props) => {
     <ModalBackground onClick={props.onclose}>
     {/* <ModalBackground > */}
       <Modalcontents>
-        <Buttonwrap>
-        <button style={{width:'420px'}} onClick={(e)=>{e.stopPropagation();test();exitroom();}}>채팅방 나가기</button>
-        <button style={{width:'420px'}} onClick={(e)=>{e.stopPropagation();test();}}>신고하기</button>
-        <button style={{width:'420px'}} onClick={(e)=>{e.stopPropagation();test();}}>차단하기</button>
-        <button style={{width:'420px'}} onClick={(e)=>{e.stopPropagation();props.onclose()}}>취소</button>
+        <Buttonwrap BR="15px 15px 0 0">
+          <Button  height="" BR="15px 15px 0 0"onClick={(e)=>{e.stopPropagation();test();exitroom();}}><p>채팅방 나가기</p></Button>
+          <Button  height="" onClick={(e)=>{e.stopPropagation();ban();}}><p>차단하기</p></Button>
+          <Button  height="" yellow={true} onClick={(e)=>{e.stopPropagation();props.onclose()}}><p>취소</p></Button>
 
         </Buttonwrap>
           
@@ -74,7 +84,7 @@ const Modalcontents=styled.div`
   position:fixed;  
   width:420px;
   max-width: 420px;
-  height: 150px;
+  height: ${props=>props.height?props.height:'200px'};
   border-radius: 10px 10px 0 0;
   background: white;
   bottom: -50px;
@@ -84,12 +94,25 @@ const Modalcontents=styled.div`
   z-index:10001;
   `;
   const Buttonwrap=styled.div`
+  display:flex;
+  flex-flow:column;
   height:inherit;
-  margin:10px 0px;
-  background:yellow;
+  background:white;
+  border-radius:${props=>props.BR?props.BR:""};
   z-index:10002;
   `
   const Button=styled.div`
-  
+    background:${props=>props.yellow?`${props.theme.palette.yellow}`:'white'};
+    border-bottom: 1px solid grey;
+    text-align:center;
+    justify-contents:center;
+    height:inherit;
+    border-radius:${props=>props.BR?props.BR:""};
+    & > p {
+      line-height: ${props=>props.height?`calc(${props.height}/3)`:'calc(200px/3)'};
+      display: inline-block;
+      color:black;
+      font-weight:900;
+    }
   `
 export default Drawer;

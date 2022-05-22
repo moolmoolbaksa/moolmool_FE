@@ -120,7 +120,7 @@ const ChatroomDetail = props => {
                 <Styled3dots onClick={openModal}/>
                 {/* <Drawer open={ModalOpen}closeModal={closeModal}></Drawer> */}
                 {/* closeModal */}
-                {ModalOpen&&<Drawer roomid={apiroomid} onclose={closeModal}></Drawer>}
+                {ModalOpen&&<Drawer userId={Opponent.userId} roomid={apiroomid} onclose={closeModal}></Drawer>}
             </Wrap>
             <MessageList />
             <Inputbox client={client}></Inputbox>

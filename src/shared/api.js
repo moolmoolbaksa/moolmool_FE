@@ -94,7 +94,7 @@ export const ChatAPI = {
                 Authorization: `${localStorage.getItem('token')}`,
             },
         }),
-    //채팅방 유처자차단
+    //채팅방 유저차단
     banUser: userId =>
     chatapi.get(`chat/room/${userId}/banned`, {
         headers: {
