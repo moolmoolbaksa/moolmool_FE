@@ -15,6 +15,7 @@ import LoginModal from '../components/modal/LoginModal';
 import Loading from '../components/shared/Loading';
 import { ReactComponent as HambergerIcon } from '../images/햄버거.svg';
 import { ReactComponent as NotiIcon } from '../images/종.svg';
+import { ReactComponent as SearchIcon } from '../images/돋보기.svg';
 
 import { ItemAPI, ChatAPI } from '../shared/api';
 import { setRoomlist } from '../redux/modules/chat';
@@ -27,25 +28,22 @@ import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import HotDeal from '../components/main/HotDeal';
 import { api as userActions } from '../redux/modules/user';
-import { api as itemActions } from '../redux/modules/item';
+import item, { api as itemActions } from '../redux/modules/item';
+import FetchMore from '../components/shared/FetchMore';
 
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
 
     const userId = useSelector(state => state.user.user_info.userId);
-    // const is_loading = useSelector(state => state.user.is_loading);
+    const { is_loading, paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
 
     const [filter, setfilter] = useState('전체');
     const [openFilter, setopenfilter] = useState(false);
-    const [cardList, setCardlist] = useState([]);
-
-    const sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/wss-stomp`);
-    // const [cardList, setCardlist] = useState([]);
-    const item_list = useSelector(state => state.item.item_list);
-    
+ 
+    const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
 
     useEffect(() => {
@@ -77,23 +75,19 @@ const Main = props => {
         ChatAPI.getChatRoom()
             .then(res => {
                 dispatch(setRoomlist(res.data));
-                console.log(res.data);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
 
-    useEffect(() => {
-        let category = null;
-        
-        if (filter === '전체') {
-            category = 'category';
-        } else {
-            category = `category=${filter}`;
-        };
-
-        dispatch(itemActions.getItemApi(category));
+    const getNextList = (category, page) => {
+        dispatch(itemActions.getItemApi({category: category, page: page}));
+    };
+    
+    useEffect(() => { 
+        const category = filter === '전체' ? '' : `${filter}`;
+        dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
 
     const Drawers = () => {
@@ -109,14 +103,17 @@ const Main = props => {
             <Grid height="100%" is_flex is_column>
                 <Grid flex padding="10px 16px">
                     <HambergerIcon onClick={Drawers} />
-                    <NotiWrap>
-                        <NotiIcon
-                            onClick={() => {
-                                history.push('/noti');
-                            }}
-                        />
-                        {unread_noti !== 0 && <NotiSign />}
-                    </NotiWrap>
+                    <Grid flex gap="10px">
+                        <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
+                        <NotiWrap>
+                            <NotiIcon
+                                onClick={() => {
+                                    history.push('/noti');
+                                }}
+                            />
+                            {unread_noti !== 0 && <NotiSign />}
+                        </NotiWrap>
+                    </Grid>
                 </Grid>
                 <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #dadada solid">
                     <Image
@@ -175,7 +172,6 @@ const Main = props => {
                                         primary={text}
                                         onClick={() => {
                                             setfilter(text);
-                                            console.log(text);
                                             setopenfilter(false);
                                         }}
                                     />
@@ -189,6 +185,7 @@ const Main = props => {
                     {item_list.map((p, idx) => {
                         return <Card key={p.itemId} {...p} />;
                     })}
+                    <FetchMore paging={paging} callNext={() => getNextList(paging.category, paging.page)}/>
                 </CardWrap>
                 <TabBar position />
             </Grid>
@@ -213,10 +210,10 @@ const BlinkSign = keyframes`
 const CardWrap = styled.div`
     flex-grow: 1;
     overflow-y: scroll;
-    /* -ms-overflow-style: none;
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
-    } */
+    }
 `;
 
 const NotiWrap = styled.div`

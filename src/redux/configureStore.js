@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage: storageSession,
-  blacklist: ['router']
+  blacklist: ['item', 'router']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
