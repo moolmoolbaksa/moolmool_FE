@@ -15,6 +15,7 @@ import LoginModal from '../components/modal/LoginModal';
 import Loading from '../components/shared/Loading';
 import { ReactComponent as HambergerIcon } from '../images/햄버거.svg';
 import { ReactComponent as NotiIcon } from '../images/종.svg';
+import { ReactComponent as SearchIcon } from '../images/돋보기.svg';
 
 import { ItemAPI, ChatAPI } from '../shared/api';
 import { setRoomlist } from '../redux/modules/chat';
@@ -107,14 +108,17 @@ const Main = props => {
             <Grid height="100%" is_flex is_column>
                 <Grid flex padding="10px 16px">
                     <HambergerIcon onClick={Drawers} />
-                    <NotiWrap>
-                        <NotiIcon
-                            onClick={() => {
-                                history.push('/noti');
-                            }}
-                        />
-                        {unread_noti !== 0 && <NotiSign />}
-                    </NotiWrap>
+                    <Grid flex gap="10px">
+                        <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
+                        <NotiWrap>
+                            <NotiIcon
+                                onClick={() => {
+                                    history.push('/noti');
+                                }}
+                            />
+                            {unread_noti !== 0 && <NotiSign />}
+                        </NotiWrap>
+                    </Grid>
                 </Grid>
                 <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #dadada solid">
                     <Image

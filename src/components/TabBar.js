@@ -1,19 +1,18 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { ReactComponent as HomeIcon } from "../images/홈.svg";
 import { ReactComponent as HomeIconYellow } from "../images/홈(노랑).svg";
-import { ReactComponent as SearchIcon } from "../images/작은돋보기.svg";
-import { ReactComponent as SearchIconYellow } from "../images/작은돋보기(노랑).svg";
 import { ReactComponent as ChatIcon } from "../images/채팅.svg";
 import { ReactComponent as ChatIconYellow } from "../images/채팅(노랑).svg";
 import { ReactComponent as MyIcon } from "../images/마이페이지.svg";
 import { ReactComponent as MyIconYellow } from "../images/마이페이지(노랑).svg";
 import { ReactComponent as PlusIcon } from "../images/플러스.svg";
+import { ReactComponent as TradeIcon } from "../images/trade_history.svg";
 import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
-import { setAlertModal, setLoginModal } from '../redux/modules/modal';
+import { setLoginModal } from '../redux/modules/modal';
 import { useLocation } from 'react-router-dom';
 import AlertModal from '../components/modal/AlertModal';
 
@@ -59,16 +58,16 @@ const TabBar = ({position}) => {
                     color={location.pathname === '/' ? '#FFD467' : 'black'}
                 />
             </Wrap>
-            <Wrap onClick={() => {history.push('/search')}}>
-                {location.pathname === '/search'
-                    ? <SearchIconYellow/>
-                    : <SearchIcon/>
+            <Wrap onClick={() => {history.push('/trhistory')}}>
+                {location.pathname === '/trhistory'
+                    ? <TradeIcon fill="#FFD467"/>
+                    : <TradeIcon />
                 }
                 <Text 
-                    text="검색"
+                    text="교환내역"
                     textAlign="center"
                     size="12px"
-                    color={location.pathname === '/search' ? '#FFD467' : 'black'}
+                    color={location.pathname === '/trhistory' ? '#FFD467' : 'black'}
                 />
             </Wrap>
             <Wrap>
