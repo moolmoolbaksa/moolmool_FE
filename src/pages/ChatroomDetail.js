@@ -33,8 +33,7 @@ const ChatroomDetail = props => {
     const apiroomid = roomid.roomid;
 
     //history props
-
-    let sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+    let sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/wss-stomp`);
     let client = Stomp.over(sock);
 
     //stomp update...
@@ -120,7 +119,7 @@ const ChatroomDetail = props => {
                 <Styled3dots onClick={openModal}/>
                 {/* <Drawer open={ModalOpen}closeModal={closeModal}></Drawer> */}
                 {/* closeModal */}
-                {ModalOpen&&<Drawer roomid={apiroomid} onclose={closeModal}></Drawer>}
+                {ModalOpen&&<Drawer userId={Opponent.userId} roomid={apiroomid} onclose={closeModal}></Drawer>}
             </Wrap>
             <MessageList />
             <Inputbox client={client}></Inputbox>

@@ -15,6 +15,7 @@ import Decidetrade from "./Decidetrade"
 import TradeProposal from "./TradeProposal";
 import TradeCheck from "./TradeCheck";
 import Search from "./Search";
+import Banlist from "./Banlist";
 
 export { 
     Detail,
@@ -34,4 +35,5 @@ export {
     TradeProposal,
     TradeCheck,
     Search,
+    Banlist,
 };

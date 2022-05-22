@@ -24,11 +24,10 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userI
 				break;
 		};
 	};
-
+	
 	return (
 		<Container 
-			onClick={onNotiClick}
-			isRead={isRead}			
+			onClick={onNotiClick}			
 		>
 			<TypeColor type={type}/>
 			{type === 'CHAT' && <span>{nickname}님에게서 <span className="emp">채팅</span>이 왔어요.</span>}

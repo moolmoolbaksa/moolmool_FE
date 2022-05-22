@@ -23,6 +23,7 @@ import {
     TradeProposal,
     TradeCheck,
     Search,
+    Banlist,
 } from './pages/index';
 import { useDispatch } from 'react-redux';
 import { api as userActions } from './redux/modules/user';
@@ -88,12 +89,13 @@ function App() {
           <Route exact path="/search" component={Search}/>
           <Route exact path="/test" component={Test}/>
           <Route exact path="/editproduct/:itemId" component={RegisterProduct} />
+          <Route exact path="/Banlist" component={Banlist} />
         </GlobalStyle>
       </ThemeProvider>
     </ConnectedRouter>
   );
 };
-
+// test1
 const GlobalStyle = styled.div`
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);

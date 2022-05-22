@@ -42,8 +42,7 @@ const Main = props => {
 
     const [filter, setfilter] = useState('전체');
     const [openFilter, setopenfilter] = useState(false);
-  
-      
+ 
     const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
 
