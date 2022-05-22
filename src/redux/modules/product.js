@@ -82,6 +82,7 @@ export const getTradeProductApi = createAsyncThunk('product/setTradeProductApi',
                 },
             },
         );
+        console.log(response)
         history.push('/trade');
         return response.data;
     } catch (error) {
@@ -132,7 +133,11 @@ export const product = createSlice({
             type: '',
             favored: [],
         },
-        barter_info: {},
+        barter_info: {
+            myImages: [],
+            sellerImages: '',
+            sellerNickName: '',
+        },
         scrab_list: [],
         trade_item: [],
         is_loading: false,

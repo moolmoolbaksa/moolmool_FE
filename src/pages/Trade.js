@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '../elements/index';
@@ -12,7 +12,7 @@ import AlertModal from '../components/modal/AlertModal';
 
 const Trade = (props) => {
     const dispatch = useDispatch();
-
+   
     const {myImages, ...opponent_info} = useSelector(state => state.product.barter_info);
     const {nickname, degree, title, contents} = useSelector(state => state.product.product_info);
     const trade_item = useSelector(state => state.product.trade_item);
@@ -22,7 +22,6 @@ const Trade = (props) => {
         dispatch(setTradeModal(true));
     };
 
-    
     return (
         <Grid
             height="100%"
@@ -58,7 +57,7 @@ const Trade = (props) => {
                 교환신청하기
             </Button>
             <TradeModal />
-            <AlertModal />
+            <AlertModal>아이템을 선택해주세요.</AlertModal>
         </Grid>
     );
 };

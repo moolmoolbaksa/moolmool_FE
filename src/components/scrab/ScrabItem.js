@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { Text, Grid } from '../../elements/index';
 import { useDispatch } from 'react-redux';
 import { api as productActions } from '../../redux/modules/product';
+import { ReactComponent as CancleIcon } from '../../images/round_cancle.svg';
 
 const ScrabItem = ({itemId, title, contents, image, status}) => {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const ScrabItem = ({itemId, title, contents, image, status}) => {
         <Container>
             <Grid onClick={onGoDetail}>
                 <Grid position="relative">
-                    <StyledImage src={image} /> 
+                    <StyledImage src={image} status={status} /> 
                 </Grid>
                 <Grid is_flex is_column padding="10px 10px 15px" gap="5px">
                     <Text 
@@ -41,13 +42,7 @@ const ScrabItem = ({itemId, title, contents, image, status}) => {
                     />
                 </Grid>
             </Grid>
-            <DeleteLabel onClick={onDelete}>
-                <span 
-                    className="material-symbols-outlined"
-                >
-                    close
-                </span>
-            </DeleteLabel>
+            <StyledCancleIcon width="22" height="22" onClick={onDelete}/>
         </Container>
     );
 };
@@ -57,6 +52,7 @@ const Container = styled.div`
     display: flex;
     overflow: hidden;
     flex-direction: column;
+    cursor: pointer;
     border-radius: 10px;
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2);
 `;
@@ -72,13 +68,14 @@ const StyledImage = styled.div`
     border-radius: 10px 10px 0 0;
 
     ${props => props.status === 3 &&
-        css`&::before {
+        css`&::after {
             position: absolute;
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
             content: "거래완료";
             white-space: pre; // 줄바꿈이 안돼요;;;
             font-size: 14px;
@@ -87,23 +84,13 @@ const StyledImage = styled.div`
     };
 `;
 
-const DeleteLabel = styled.div`
+const StyledCancleIcon = styled(CancleIcon)`
     position: absolute;
     z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 3%;
-    right: 3%;
-    width: 20px;
-    height: 20px;
-    background-color: ${props => props.theme.palette.yellow};
-    border-radius: 50%;
+    top: 2%;
+    right: 2%;
+    fill: ${props => props.theme.palette.yellow};
     cursor: pointer;
-    span {
-        font-size: 15px;
-        font-weight: bold;
-    };
 `;
 
 export default ScrabItem;

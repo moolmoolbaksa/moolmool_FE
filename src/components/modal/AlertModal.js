@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAlertModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
 
-const AlertModal = ({type}) => {
+const AlertModal = ({children}) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const is_alert_modal = useSelector(state => state.modal.is_alert_modal);
@@ -28,45 +28,6 @@ const AlertModal = ({type}) => {
         dispatch(setAlertModal(false));
     };
 
-    if(type==="soon"){
-        return (
-            <ModalBackground>
-                <ModalContainer is_modal={is_alert_modal}>
-                    <Content>
-                        <span className="material-symbols-outlined">
-                            rocket_launch
-                        </span>
-                        <Grid>
-                            <Text
-                                text="조금만 기다려주세요"
-                                textAlign="center"
-                                letterSpacing="-1px"
-                                wordSpacing="-2px"
-                                size="20px"
-                                bold="bold"
-                            />
-                            <Text
-                                text="곧 찾아오겠습니다!!"
-                                textAlign="center"
-                                letterSpacing="-1px"
-                                wordSpacing="-2px"
-                                size="20px"
-                                bold="bold"
-                            />
-                        </Grid>
-                    </Content>
-                    <BtnWrap>
-                            <OneButton
-                                onClick={onClose}
-                            >
-                                확인
-                            </OneButton>
-                       </BtnWrap>
-                </ModalContainer>
-            </ModalBackground>
-        );
-    };
-
     return (
         <ModalBackground>
             <ModalContainer is_modal={is_alert_modal}>
@@ -78,7 +39,8 @@ const AlertModal = ({type}) => {
                     </Round>
                     <Grid>
                         <Text
-                            text="아이템을 선택해주세요."
+                            text={children}
+                            // text="아이템을 선택해주세요."
                             textAlign="center"
                             letterSpacing="-1px"
                             wordSpacing="-2px"

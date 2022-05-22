@@ -125,16 +125,12 @@ const initialState = {
     myScrabList: [],
     preview: null,
     is_login: false,
-    is_loading: true,
 };
 
 export const user = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setLoading: (state, action) => {
-            state.is_loading = action.payload;
-        },
         setPreview: (state, action) => {
             state.preview = action.payload;
         },
