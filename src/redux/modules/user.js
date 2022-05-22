@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { PURGE } from 'redux-persist';
 
 import { history } from '../configureStore';
 
@@ -13,7 +14,6 @@ const loginCheckApi = createAsyncThunk('user/loginCheckApi', async () => {
         return response.data;
     } catch (error) {
         console.log('loginCheck error: ', error);
-        // alert('logincheck error');
         localStorage.removeItem('token');
         history.push('/login');
     }
@@ -26,12 +26,12 @@ const kakaoLoginApi = createAsyncThunk('user/kakaoLogin', async (code, thunkAPI)
         const token = response.headers.authorization;
         localStorage.setItem('token', token);
 
-        thunkAPI.dispatch(loginCheckApi());
+        // thunkAPI.dispatch(loginCheckApi());
 
-        if (response.data.isFirst) {
-            history.replace('/address');
-        } else {
+        if (!response.data.isFirst) {
             history.replace('/');
+        } else {
+            history.replace('/address');
         }
     } catch (error) {
         console.log('kakaologin error: ', error);
@@ -100,35 +100,37 @@ const getCounterUserInfoApi = createAsyncThunk('user/getCounterUserInfoApi', asy
     }
 });
 
+const initialState = {
+    user_info: {
+        nickname: '',
+        userId: '',
+        profile: '',
+        storeInfo: '',
+        address: '',
+        degree: '',
+        grade: '',
+    },
+    other: {
+        nickname: '',
+        profile: '',
+        storeInfo: '',
+        address: '',
+        degree: '',
+        grade: '',
+        other_item_list: [],
+    },
+    address: '',
+    latlng: '',
+    item_list: [],
+    myScrabList: [],
+    preview: null,
+    is_login: false,
+    is_loading: true,
+};
+
 export const user = createSlice({
     name: 'user',
-    initialState: {
-        user_info: {
-            nickname: '',
-            userId: '',
-            profile: '',
-            storeInfo: '',
-            address: '',
-            degree: '',
-            grade: '',
-        },
-        other: {
-            nickname: '',
-            profile: '',
-            storeInfo: '',
-            address: '',
-            degree: '',
-            grade: '',
-            other_item_list: [],
-        },
-        address: '',
-        latlng: '',
-        item_list: [],
-        myScrabList: [],
-        preview: null,
-        is_login: false,
-        is_loading: true,
-    },
+    initialState,
     reducers: {
         setLoading: (state, action) => {
             state.is_loading = action.payload;
@@ -179,7 +181,8 @@ export const user = createSlice({
                 const { itemList, ...other_info } = action.payload;
                 state.other = other_info;
                 state.other.other_item_list = itemList;
-            });
+            })
+            .addCase(PURGE, () => initialState);
     },
 });
 

@@ -12,7 +12,8 @@ import {IoIosArrowUp} from "react-icons/io";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as productActions } from '../redux/modules/product';
-import useError from '../components/Registerproduct/useError'
+import useError from '../components/Registerproduct/useError';
+
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   //  코드최적화 준비
@@ -432,7 +433,8 @@ const PlusItem = styled.label`
 `;
 const Categorywrap=styled.div`
     position:relative;
-    width:100%;
+    // width:100%;
+    // max-width:420px;   
 `;
 const Toggle=styled.label`
 		position:relative;
@@ -499,8 +501,8 @@ const Categorybox=styled.div`
 			background: ${props=>props.theme.palette.gray};
 		}
 `;
-const CategoryWrapInputLabel=styled.div`
-    margin:0 0 1.5vh 0;
+const CategoryWrapInputLabel=styled.div` 
+margin:0 0 1.5vh 0;
     cursor:pointer;
     font-weight:500;
     &:active{

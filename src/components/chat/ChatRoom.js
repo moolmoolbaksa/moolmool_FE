@@ -15,15 +15,7 @@ const ChatRoom = ({userId, roomId, nickname, profile, message, isRead, unreadCnt
 	const Month = _date[1];
 	const Day = _date[2];
 
-	const exitroom=()=>{
-		ChatAPI.exitRoom(roomId)
-			.then((res)=>{
-				console.log(res);
-			})
-			.catch((err)=>{
-				console.log(err);
-			})
-	};
+	
 	
 	const onGoChatRoom = () => {
 		history.push({pathname: `/chat/${roomId}`,state: {userId, profile, nickname}});

@@ -29,6 +29,9 @@ const LocationBar = ({ title, transparent }) => {
             case '/mypage':
                 history.push('/');
                 break;
+            case '/trproposal':
+                history.replace('/noti');
+                break;
             default:
                 history.goBack();
         };
@@ -36,7 +39,7 @@ const LocationBar = ({ title, transparent }) => {
    
     if(transparent){
         return (
-            <ArrowContainer onClick={onGoBack}>
+            <ArrowContainer onClick={() => history.push('/')}>
                 <ArrowIcon width="40" height="40"/>
             </ArrowContainer>
         );
