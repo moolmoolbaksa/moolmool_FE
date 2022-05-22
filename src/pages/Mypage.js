@@ -8,17 +8,26 @@ import LocationBar from '../components/LocationBar';
 import TabBar from '../components/TabBar';
 import { history } from '../redux/configureStore';
 import { api as userActions } from '../redux/modules/user';
+import { Link } from 'react-router-dom';
+import { Grid } from '../elements/index';
+import { persistor } from '../index';
 
 const Mypage = (props) => {
     const dispatch = useDispatch();
     const {user_info, item_list, myScrabList} = useSelector(state => state.user);
-
+    const is_login = useSelector(state => state.user.is_login);
+    
     useEffect(() => {
         dispatch(userActions.getMyInfoApi());
     }, []);
-    
+
+    const Logout = () => {
+        localStorage.clear();
+        persistor.purge();
+    };
+   
     return (
-        <>
+        <Grid height="100%" is_flex is_column>
             <LocationBar title="마이페이지"/>
             <Container
                 padding="0 16px"
@@ -27,27 +36,30 @@ const Mypage = (props) => {
                 <MypageTop user_info={user_info}/>
                 <ItemGrid item_list={item_list}/>
                 <ItemGrid item_list={myScrabList} type="scrab"/>
-                <MenuTab onClick={() => {history.push('/trhistory')}}>
-                    나의 교환 내역
+                <MenuTab 
+                    // onClick={() => {history.push('/trhistory')}}
+                >
+                    차단 목록
                     <span className="material-symbols-outlined">
                         chevron_right
                     </span>
                 </MenuTab>
+                {is_login && <StyledLink to="/" onClick={Logout}>로그아웃</StyledLink>}
             </Container>
-            <TabBar/>
-        </>
+            <TabBar position/>
+        </Grid>
     );
 };
 
 const Container = styled.div`
-    padding: 0 16px;
+    padding: 0 16px 20px;
     position: relative;
-    height: calc(100vh - 120px);
+    flex-grow: 1;
     overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
-    }
+        display: none; 
+    };
 `;
 
 const MenuTab = styled.div`
@@ -65,6 +77,18 @@ const MenuTab = styled.div`
     &:active {
         background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
     };
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 12.5px;
+    font-weight: bold;
+    float: right;
+    color: black;
+    letter-spacing: -1px;
+    border-bottom: 1px #9d9d9d solid;
+    cursor: pointer;
 `;
 
 export default Mypage;

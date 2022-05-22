@@ -12,36 +12,42 @@ const MypageTop = ({user_info}) => {
                 <Image
                     type="circle"
                     src={profile}
-                    size="140"
+                    size="100"
                     margin="0"
                 />
             </Grid>
             <Grid
                 width="100%"
-                margin="0 0 0 20px"
                 is_flex
                 is_column
                 gap="10px"
                 overflow="true"
             >
                 <div>
-                    <Grid
-                        is_flex
-                    >
+                    <Grid is_flex is_column>
                         <Text 
-                            text={nickname}
-                            bold="bold"
-                            size="22px"
-                            width="auto"
+                            text={address ? address.split(' ').splice(0, 2).join(' ') : '주소를 설정해주세요.'}
+                            color="gray"
+                            size="12px"
                             letterSpacing="-1px"
                         />
-                        <Span>Lv. {degree}</Span>
+                        <Grid is_flex align="flex-end" gap="5px">
+                            <Text 
+                                text={nickname}
+                                bold="bold"
+                                size="22px"
+                                width="max-content"
+                                letterSpacing="-1px"
+                            />
+                            <Text 
+                                text={degree}
+                                size="14px"
+                                width="auto"
+                                padding="0 0 2px"
+                                letterSpacing="-1px"
+                            />
+                        </Grid>
                     </Grid>
-                    <Text 
-                        text={address ? address.split(' ').splice(0, 2).join(' ') : '주소를 설정해주세요.'}
-                        color="gray"
-                        letterSpacing="-1px"
-                    />
                 </div>
                 <Text 
                     multi="3"
@@ -55,16 +61,9 @@ const MypageTop = ({user_info}) => {
 
 const Container = styled.div`
     display: flex;
+    gap: 20px;
     padding: 15px 0px;
     border-bottom: 1px lightgray solid;
-`;
-
-const Span = styled.div`
-    font-size: 14px;
-    height: 14px;
-    padding-top: 7px;
-    letter-spacing: -1px;
-    margin-left: 5px;
 `;
 
 export default MypageTop;

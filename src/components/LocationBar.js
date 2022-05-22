@@ -29,6 +29,9 @@ const LocationBar = ({ title, transparent }) => {
             case '/mypage':
                 history.push('/');
                 break;
+            case '/trproposal':
+                history.replace('/noti');
+                break;
             default:
                 history.goBack();
         };
