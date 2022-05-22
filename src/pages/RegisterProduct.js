@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { Grid, Input, Button } from '../elements/index';
 import ImageSlide from '../components/ImageSlide';
-import Noti from '../components/Registerproduct/Noti';
-import CategoryNoti from '../components/Registerproduct/CategoryNoti';
+import Noti from '../components/registerproduct/Noti';
+import CategoryNoti from '../components/registerproduct/CategoryNoti';
 import { ItemAPI } from '../shared/api';
 import LocationBar from '../components/LocationBar';
 import { history } from '../redux/configureStore';
@@ -12,7 +12,7 @@ import {IoIosArrowUp} from "react-icons/io";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as productActions } from '../redux/modules/product';
-import useError from '../components/Registerproduct/useError';
+import useError from '../components/registerproduct/useError';
 
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
