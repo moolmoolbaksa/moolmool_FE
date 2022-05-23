@@ -43,7 +43,7 @@ const Noti = (props) => {
                         
             >
                 <Modalwindow>
-                    <h1>gi</h1>
+                    <h1>주의사항</h1>
                     </Modalwindow>
 
                 

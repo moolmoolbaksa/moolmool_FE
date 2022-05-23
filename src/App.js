@@ -19,7 +19,6 @@ import {
     EditMyInfo,
     RegisterProduct,
     Tradehistory,
-    Rating,
     Scrab,
     Chatroomlist,
     ChatroomDetail,
@@ -85,7 +84,6 @@ function App() {
             <Route exact path="/trproposal/:baterid" component={TradeProposal}/>
             <Route exact path="/trcheck" component={TradeCheck}/>
             <Route exact path="/trhistory" component={Tradehistory}/>
-            <Route exact path="/rating" component={Rating}/>
             <Route exact path="/chat" component={Chatroomlist}/>
             <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
             <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>

@@ -7,7 +7,6 @@ import Mypage from "./Mypage";
 import EditMyInfo from "./EditMyInfo";
 import RegisterProduct from "./RegisterProduct";
 import Tradehistory from "./Tradehistory";
-import Rating from "./Rating";
 import Scrab from "./Scrab";
 import Chatroomlist from "./Chatroomlist";
 import ChatroomDetail from "./ChatroomDetail";
@@ -27,7 +26,6 @@ export {
     EditMyInfo,
     RegisterProduct,
     Tradehistory,
-    Rating,
     Scrab,
     Chatroomlist,
     ChatroomDetail,

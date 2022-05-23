@@ -13,6 +13,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as productActions } from '../redux/modules/product';
 import useError from '../components/registerproduct/useError';
+import { ReactComponent as CheckBox } from '../images/check_yellowbox.svg';
+import { ReactComponent as UncheckedBox } from '../images/unchecked_emptybox.svg';
+// import { ReactComponent as SearchIcon } from '../images/check_yellowbox.svg';
 
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
@@ -331,8 +334,10 @@ const RegisterProduct = (props) => {
 			{type_list.map((p,idx)=>{
 					return(
 							<div key={`type_div_${idx}`}>
-                  <input  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} defaultChecked={type.includes(p.value)} onClick={handleType}/>
-									<label key={`type_label_${idx}`} htmlFor={p.value}> {p.value} </label>
+                  <CheckInput  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} defaultChecked={type.includes(p.value)} onClick={handleType}/>
+									<CheckLabel key={`type_label_${idx}`} htmlFor={p.value}>
+                    <div>{type.includes(p.value)?<CheckBox width="20" height="20"/>:<UncheckedBox width="20" height="20"/>} <span>{p.value}</span></div> 
+                  </CheckLabel>
 							</div>
 					)
 			})}
@@ -353,11 +358,11 @@ const RegisterProduct = (props) => {
 				categorys_list.map((p,idx)=>{
 						return(
 				<div key={`favors_div_${idx}`}> 
-						<input name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} defaultChecked={favors.includes(p.value)}  onClick={handleFavor} />
-						<label htmlFor={p.value} key={`favors_label_${idx}`}
+						<CheckInput name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} defaultChecked={favors.includes(p.value)}  onClick={handleFavor} />
+						<CheckLabel htmlFor={p.value} key={`favors_label_${idx}`}
 						>
-						{p.value}        
-						</label>
+						<div>{favors.includes(p.value)?<CheckBox width="20" height="20"/>:<UncheckedBox width="20" height="20"/>} {p.value}  </div>      
+						</CheckLabel>
 				</div>);
 				})
 												
@@ -385,6 +390,13 @@ const Base=styled.div`
   background: white;
 	position:relative;
   max-width:420px;
+  overflow:auto;
+  max-height:100%;
+  // &::-webkit-scrollbar-thumb {
+  //   display:none;	}
+    &::-webkit-scrollbar {
+      width: 0;
+    }
 `;
 const Imagelist=styled.div`
 	display:flex;
@@ -554,5 +566,22 @@ const Tip=styled.p`
 	// margin: 0 1.5rem;
 	color: #2B9ECF;
 	font-size: 0.5rem;
+`;
+
+const CheckInput=styled.input`
+ display:none;
+`;
+const CheckLabel=styled.label`
+  display:inline-block;
+  align-items:center;
+  justify-content:center;
+
+& > div {
+  display:flex;
+}
+& > svg{
+  display:block;
+  align-items:center;
+}
 `;
 export default RegisterProduct;

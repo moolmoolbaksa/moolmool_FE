@@ -40,7 +40,7 @@ const CategoryNoti = (props) => {
                 
                   <Wrap><Texttitle>{props.message}</Texttitle></Wrap>
                 </Wrap>    
-                    <RightBtn onClick={closeModal}>asdasd</RightBtn>
+                    <RightBtn onClick={closeModal}>확인</RightBtn>
                 </Modalwindow>
 
                 
@@ -51,7 +51,7 @@ const CategoryNoti = (props) => {
 
 const LocationSvg=styled.div`
   // height:9vh;
-  padding:1.5vh;
+  padding:1.5vh 1.5vh 0 0;
   font-size:1.5rem;
   display:flex;
   justify-content: right;
