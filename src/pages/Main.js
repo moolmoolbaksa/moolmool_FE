@@ -206,6 +206,7 @@ const BlinkSign = keyframes`
 `;
 
 const CardWrap = styled.div`
+    padding: 0 16px;
     flex-grow: 1;
     overflow-y: scroll;
     -ms-overflow-style: none;
