@@ -8,6 +8,7 @@ import timeForToday from "../../shared/timeForToday";
 const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userId, profile}) => {    
     const dispatch = useDispatch();
 
+	console.log(notificationId, changeId, nickname, userId, profile)
 	const onNotiClick = () => {
 		switch(type){
 			case 'BARTER':
