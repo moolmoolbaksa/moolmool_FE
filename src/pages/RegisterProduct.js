@@ -381,10 +381,10 @@ const RegisterProduct = (props) => {
 
 
 
-    const Base=styled.div`
-    background: white;
+const Base=styled.div`
+  background: white;
 	position:relative;
-    max-width:420px;
+  max-width:420px;
 `;
 const Imagelist=styled.div`
 	display:flex;
