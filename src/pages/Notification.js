@@ -20,8 +20,8 @@ const Notification = props => {
             dispatch(notiActions.getNotiApi());
         }
     }, []);
-
-	const sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/wss-stomp`);
+   
+	const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
 
     useEffect(() => {
@@ -47,10 +47,10 @@ const Notification = props => {
         <Grid height="100%" is_flex is_column>
             <LocationBar title="알림" />
             <Container>
-                {is_token &&
+                {/* {is_token &&
                     noti_list.map(v => {
                         return <Noticard key={v.notificationId} {...v} />;
-                    })}
+                    })} */}
             </Container>
         </Grid>
     );

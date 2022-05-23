@@ -22,7 +22,7 @@ const CategoryNoti = (props) => {
       };
 
     return (
-           
+            <div>
             <Modal
                 open={ErrorModal}
                 onClose={closeModal}
@@ -45,6 +45,7 @@ const CategoryNoti = (props) => {
 
                 
             </Modal>
+            </div>
             
     );
 };

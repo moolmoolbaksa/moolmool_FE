@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements/index';
@@ -9,10 +9,13 @@ import { history } from '../../redux/configureStore';
 import RatingModal from './RatingModal';
 
 
+
 const Tradecard = (props) => {
     const {barterId, barterItem, date, isScore, isTrade, myItem, myPosition, profile, status, userId, usernickname,userIsTrade } = props;
+    // const barter= myPosition==="buyer"?:useSelector(state=>state.)
     const myid=useSelector(state=>state.user.user_info.userId);
     const dispatch = useDispatch();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const statusLbel1=()=>{
       if(status===1)
       {
@@ -22,13 +25,24 @@ const Tradecard = (props) => {
       {
         return <><StatusLabel>교환중</StatusLabel>
         <StatusLabel color=" #FFCA39">상대방 기다리는중</StatusLabel></>
-        
+      }
+      else if(status===2 && userIsTrade===true)
+      {
+        return <><StatusLabel>교환중</StatusLabel>
+        <StatusLabel color=" #FFCA39">상대방 교환확정!!</StatusLabel></>
       }
       else if(status===3)
       {
         return <StatusLabel color="red">교환완료</StatusLabel>
       }
     };
+    const openModal=()=>{
+      console.log('hi');
+      setIsModalOpen(true);
+    }
+    const closeModal=()=>{
+      setIsModalOpen(false);
+    }
     const onGoDetail = () => {
         HistoryAPI.getTradeCheck(barterId)
             .then((res)=>{
@@ -66,16 +80,9 @@ const Tradecard = (props) => {
                         <RightBtn onClick={handleCancelComplete}>완료 취소</RightBtn>
                     </Buttonwrap>
         }
-        else if(status===3 && isScore===false && userIsTrade===true){
+        else if(isScore===false && isTrade===true&& userIsTrade===true){
             return  <Buttonwrap>
-                        <RatingModal 
-                          barterId={barterId} 
-                          userId={userId} 
-                          nickcname={usernickname} 
-                          src={myPosition === "buyer" ? barterItem[0].itemImg : myItem[0].itemImg}
-                          myPosition={myPosition}
-                          >
-                         </RatingModal>
+                        <RightBtn onClick={openModal}>평가하기</RightBtn>
                     </Buttonwrap>
         }
         else if(isScore===true){
@@ -110,6 +117,7 @@ const Tradecard = (props) => {
         HistoryAPI.completeTrade(barterId)
         .then((res)=>{
             console.log(res);
+            dispatch(setOppentisTrade({barterId:barterId,myPosition:myPosition,userIsTrade:res.data.isTrade,status:res.data.status}));
         })
         .catch((error)=>{
             console.log(error)
@@ -169,6 +177,10 @@ const Tradecard = (props) => {
                     </Grid>
                 </Wrap>
                 {buttonSetting()}
+                {isModalOpen&&<RatingModal barterId={barterId} userId={userId} nickcname={usernickname} 
+                          src={myPosition === "buyer" ? barterItem[0].itemImg : myItem[0].itemImg}
+                          myPosition={myPosition} closeModal={closeModal} open={isModalOpen}
+                  ></RatingModal>}
                 
             </Cardwrap>
         </Container>

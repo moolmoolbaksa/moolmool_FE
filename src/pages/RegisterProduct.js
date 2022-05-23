@@ -15,8 +15,8 @@ import { api as productActions } from '../redux/modules/product';
 import useError from '../components/registerproduct/useError';
 import { ReactComponent as CheckBox } from '../images/check_yellowbox.svg';
 import { ReactComponent as UncheckedBox } from '../images/unchecked_emptybox.svg';
-// import { ReactComponent as SearchIcon } from '../images/check_yellowbox.svg';
-
+import {setAlertModal} from '../redux/modules/modal';
+import AlertModal from '../components/modal/AlertModal';
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   //  코드최적화 준비
@@ -186,6 +186,7 @@ const RegisterProduct = (props) => {
         console.log(ErrorMessage[0]);
         if(!ErrorMessage[0])
         {
+          dispatch(setAlertModal(true))
           setErrorModal(true);
           return;
         }
@@ -379,7 +380,8 @@ const RegisterProduct = (props) => {
 	{/* </div> */}
 			{is_edit?<Button height='4rem' radius='4px' background="yellow" color='black' onClick={edit}>수정하기</Button>
       :<Button height='4rem' radius='4px' background="yellow" color='black' onClick={submit}>등록하기</Button>}
-    {<CategoryNoti ErrorModal={ErrorModal} setErrorModal={setErrorModal} message={ErrorMessage[1]}></CategoryNoti>}
+    {/* {<CategoryNoti ErrorModal={ErrorModal} setErrorModal={setErrorModal} message={ErrorMessage[1]}></CategoryNoti>} */}
+    {<AlertModal>{ErrorMessage[1]}</AlertModal>}
 	</Base>
     );
 };

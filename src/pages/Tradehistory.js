@@ -27,7 +27,7 @@ const Tradehistory = props => {
     const myid=useSelector(state=>state.user.user_info.userId);
     const receivedlist = useSelector(state=>state.tradehistory.Recivedhistory);
     const Sentlist = useSelector(state=>state.tradehistory.Senthistory);
-    let sock = new SockJS(`${process.env.REACT_APP_SERVER_URL}/wss-stomp`);
+    let sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     let client = Stomp.over(sock);
     const message = '';
     React.useEffect(() => {
@@ -41,12 +41,14 @@ const Tradehistory = props => {
                     console.log(messagefs.body);
                     const messageFromServer = JSON.parse(messagefs.body);
                     console.log(messageFromServer);
-                    messageFromServer.isTrade === true &&
-                        setOppentisTrade({
+                    console.log(messageFromServer.isTrade);
+                    messageFromServer.isTrade &&
+                        dispatch(setOppentisTrade({
                             barterId: messageFromServer.barterId,
                             myPosition: messageFromServer.myPosition,
                             userIsTrade: messageFromServer.isTrade,
-                        });
+                            status: messageFromServer.status,
+                        }));
                     messageFromServer.isTrade
                         ? window.alert('상대방이 교환을 완료하였습니다.')
                         : window.alert('상대방이 교환을 완료하지않았습니다.');
@@ -109,23 +111,22 @@ const Tradehistory = props => {
                         value="sent"
                     />
                 </TabList>
-                <TabPanel sx={{ padding: '0', height: 'calc(100% - 170px)', overflowY: 'auto' }} value="recived">
-                    {receivedlist.map((p, idx) => {
+                <TabPanel sx={{ 
+                  '&::-webkit-scrollbar': { width: '0' },
+                  padding: '0', height: 'calc(100% - 170px)', overflowY: 'auto' }} value="recived">
+                    {receivedlist.slice().sort((a,b)=>a.status-b.status).map((p, idx) => {
                         return <Tradecard key={`trade_${p.barterId}`} {...p} />;
                     })}
                 </TabPanel>
                 <TabPanel
                     sx={{
                         '&::-webkit-scrollbar': { width: '0' },
-                        '&::-webkit-scrollbar-thumb': {
-                            backgroundColor: 'white',
-                        },
                         padding: '0',
                         height: 'calc(100% - 170px)',
                         overflowY: 'auto',
                     }}
                     value="sent">
-                    {Sentlist.map((p, idx) => {
+                    {Sentlist.slice().sort((a,b)=>a.status-b.status).map((p, idx) => {
                         return <Tradecard key={`trade_${p.barterId}`} {...p} messageFromServer={message} />;
                     })}
                 </TabPanel>
@@ -134,5 +135,7 @@ const Tradehistory = props => {
         </div>
     );
 };
-
+// messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
+//             message.type==="STATUS"?<NotiMessage key={'keyid'+message.messageId}  message={message.message}></NotiMessage>:message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
+            
 export default Tradehistory;

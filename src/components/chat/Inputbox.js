@@ -14,12 +14,13 @@ const Inputbox = (props) => {
     
     const roomtype=useSelector(state=>state.chat.Currentroom.type);
     const isBanned=useSelector(state=>state.chat.Currentroom.isBanned);
+    const Sentroomid_temp=useSelector(state=>state.chat.Currentroom.roomId);
     let isRead=roomtype==="NORMAL"?false:true;
-
+  console.log('sentroomid_temp: '+Sentroomid_temp);
     const Sentroomid=parseInt(roomId.roomid);
     // let sock = new SockJS('http://13.124.0.71/ws-stomp');
     // let client = Stomp.over(sock);
-
+    console.log('Sentroomid: '+Sentroomid);
   const onSend = () => {
     console.log("connected");
     console.log(props.client.ws.readyState);
@@ -49,7 +50,7 @@ const Inputbox = (props) => {
     
     return(
         <Base>
-        {isBanned?(<><Input 
+        {isBanned===1?(<><Input 
               placeholder="차단 되었습니다." 
               type="text" 
               ref={messageInput} 

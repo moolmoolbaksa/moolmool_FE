@@ -1,17 +1,7 @@
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-
-import ListItemText from '@mui/material/ListItemText';
-
 import React, { useRef, useState } from 'react';
 import styled,{ keyframes} from 'styled-components';
 
 import { useParams } from 'react-router-dom';
-import {useSelector} from 'react-redux';
 import { ChatAPI } from '../../shared/api';
 import { yellow } from '@mui/material/colors';
 import { history } from '../../redux/configureStore';
@@ -43,12 +33,12 @@ const Drawer = (props) => {
 			})
 	};
 
-  return(
+return(
     <ModalBackground onClick={props.onclose}>
     {/* <ModalBackground > */}
       <Modalcontents>
         <Buttonwrap BR="15px 15px 0 0">
-          <Button  height="" BR="15px 15px 0 0"onClick={(e)=>{e.stopPropagation();test();exitroom();}}><p>채팅방 나가기</p></Button>
+          <Button  height="" BR="15px 15px 0 0"onClick={(e)=>{e.stopPropagation();exitroom();}}><p>채팅방 나가기</p></Button>
           <Button  height="" onClick={(e)=>{e.stopPropagation();ban();}}><p>차단하기</p></Button>
           <Button  height="" yellow={true} onClick={(e)=>{e.stopPropagation();props.onclose()}}><p>취소</p></Button>
 
@@ -81,25 +71,25 @@ const ModalBackground = styled.div`
     // pointer-events:none;
 `;
 const Modalcontents=styled.div`
-  position:fixed;  
-  width:420px;
-  max-width: 420px;
-  height: ${props=>props.height?props.height:'200px'};
-  border-radius: 10px 10px 0 0;
-  background: white;
-  bottom: -50px;
+    position:fixed;  
+    width:420px;
+    max-width: 420px;
+    height: ${props=>props.height?props.height:'200px'};
+    border-radius: 10px 10px 0 0;
+    background: white;
+    bottom: -50px;
   
-  transform: translateY(-50px);
-  animation: ${boxFade} 0.2s linear alternate;
-  z-index:10001;
+    transform: translateY(-50px);
+    animation: ${boxFade} 0.2s linear alternate;
+    z-index:10001;
   `;
-  const Buttonwrap=styled.div`
-  display:flex;
-  flex-flow:column;
-  height:inherit;
-  background:white;
-  border-radius:${props=>props.BR?props.BR:""};
-  z-index:10002;
+const Buttonwrap=styled.div`
+    display:flex;
+    flex-flow:column;
+    height:inherit;
+    background:white;
+    border-radius:${props=>props.BR?props.BR:""};
+    z-index:10002;
   `
   const Button=styled.div`
     background:${props=>props.yellow?`${props.theme.palette.yellow}`:'white'};

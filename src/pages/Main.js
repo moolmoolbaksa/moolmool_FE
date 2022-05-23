@@ -182,7 +182,7 @@ const Main = props => {
                 </Drawer>
                 <CardWrap>
                     <HotDeal />
-                    {item_list.map((p, idx) => {
+                    {item_list.slice().sort((a,b)=>b.itemId-a.itemId).map((p, idx) => {
                         return <Card key={p.itemId} {...p} />;
                     })}
                     <FetchMore paging={paging} callNext={() => getNextList(paging.category, paging.page)}/>

@@ -23,7 +23,7 @@ const DetailBottom = props => {
         state => state.product.product_info,
     );
     const btnRef = useRef();
-
+    let isExistRoom=false;
     const clickHeart = () => {
         if (nickname === my_nickname) return;
         if (is_login) {
@@ -52,9 +52,11 @@ const DetailBottom = props => {
             if (element.userId === userId) {
                 dispatch(enterRoom({ roomId: element.roomId, nickname: nickname, userId: userId, profile: profile,isBanned:element.isBanned }));
                 history.push(`/chat/${element.roomId}`);
+                isExistRoom=true;
                 break;
             }
         }
+        if(!isExistRoom)
         ChatAPI.addChatRoom(userId)
             .then(res => {
                 console.log(res);
@@ -67,6 +69,10 @@ const DetailBottom = props => {
                 console.log('error check');
                 console.log('userid:' + userId);
             });
+        else{
+          return;
+          
+        }
     };
 
     const onDoCancle = () => {

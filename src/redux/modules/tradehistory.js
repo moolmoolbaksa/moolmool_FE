@@ -55,7 +55,10 @@ export const tradehistory = createSlice({
         setOppentisTrade:(state,action)=>{
           action.payload.myPosition==="buyer"?(
           state.Senthistory.forEach(history=>action.payload.barterId===history.barterId?history.userIsTrade=action.payload.userIsTrade:""))
-          :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.userIsTrade=action.payload.userIsTrade:""));  
+          :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.userIsTrade=action.payload.userIsTrade:""));
+          action.payload.myPosition==="buyer"?(
+            state.Senthistory.forEach(history=>action.payload.barterId===history.barterId?history.status=action.payload.status:""))
+            :(state.Recivedhistory.forEach(history=>action.payload.barterId===history.barterId?history.status=action.payload.status:"")); 
         },
     },
     extraReducers: (builder) => {
