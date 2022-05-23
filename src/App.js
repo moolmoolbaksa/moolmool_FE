@@ -101,7 +101,7 @@ function App() {
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
-  /* height: calc(var(--vh, 1vh) * 100); */
+  height: calc(var(--vh, 1vh) * 100);
   background-image: url(${backgroundImg});
   background-size: cover;
   background-repeat: no-repeat;
@@ -114,40 +114,43 @@ const Background = styled.div`
 `;
 
 const GlobalStyle = styled.div`
-    position: absolute;
-    width: 100%;
-    max-width: 420px;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: white;
+  box-shadow: 0 48px 100px 0 rgb(17 12 46 / 15%);
+
+  @media screen and (min-width: 420px) {
     top: 50%;
     left: 50%;
-    background-color: white;
-    box-shadow: 0 48px 100px 0 rgb(17 12 46 / 15%);
+    transform: translate(-50%, -50%);
+  }
 
-    @media screen and (min-width: 500px) {
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
+  @media screen and (min-width: 900px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-15%, -50%);
+  }
 
-    @media screen and (min-width: 900px) {
-      top: 50%;
-      transform: translate(-15%, -50%);
-    }
+  @media screen and (min-width: 1120px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(30%, -50%);
+  }
 
-    @media screen and (min-width: 1120px) {
-      top: 50%;
-      transform: translate(30%, -50%);
-    }
+  @media screen and (min-width: 1700px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(40%, -50%);
+  }
 
-    @media screen and (min-width: 1700px) {
-      top: 50%;
-      transform: translate(40%, -50%);
-    }
-
-    @media screen and (min-width: 2000px) {
-      top: 50%;
-      transform: translate(50%, -50%); 
-    }
+  @media screen and (min-width: 2000px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, -50%); 
+  }
 `;
 
 export default App;
