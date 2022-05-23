@@ -16,13 +16,10 @@ export const getProductApi = createAsyncThunk('product/getProductApi', async (it
             response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/${itemId}`);
         }
         history.push(`/detail/${itemId}`);
-        console.log(response);
         return response.data;
     } catch (error) {
         console.log('getProductApi: ', error);
-        // alert('getProductApi error');
-        localStorage.removeItem('token');
-        history.push('/login');
+        alert('getProductApi error');
     }
 });
 
@@ -64,7 +61,6 @@ export const getMyScrabListApi = createAsyncThunk('product/getMyScrabListApi', a
                 Authorization: localStorage.getItem('token'),
             },
         });
-        console.log(response);
         return response.data;
     } catch (error) {
         console.log('getMyScrabListApi: ', error);

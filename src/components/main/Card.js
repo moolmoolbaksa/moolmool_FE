@@ -66,7 +66,7 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
 export default Card;
 
 const Container = styled.div`
-    padding: 15px 16px;
+    padding: 15px 0px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
     gap: 15px;

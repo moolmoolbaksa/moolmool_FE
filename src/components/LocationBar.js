@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { history } from '../redux/configureStore';
 
 import { Text } from '../elements/index';
-import { history } from '../redux/configureStore';
-import { ReactComponent as ArrowIcon } from "../images/화살표.svg";
+import { ReactComponent as ArrowIcon } from "../images/arrow.svg";
+import { ReactComponent as WhiteArrowIcon } from "../images/white_arrow.svg";
 import { setAddress, setPreview } from '../redux/modules/user';
 import { resetTrade } from '../redux/modules/product';
 
@@ -39,8 +40,8 @@ const LocationBar = ({ title, transparent }) => {
    
     if(transparent){
         return (
-            <ArrowContainer onClick={() => history.push('/')}>
-                <ArrowIcon width="40" height="40"/>
+            <ArrowContainer>
+                <StyledWhiteArrowIcon width="40" height="40" stroke="white" onClick={() => history.push('/')}/>
             </ArrowContainer>
         );
     };
@@ -64,7 +65,6 @@ const LocationBar = ({ title, transparent }) => {
                         </StyledLink>
                 }
             </Container>
-        {/* <Shadow/> */}
         </>
     );
 };
@@ -79,9 +79,18 @@ const Container = styled.div`
 
 const ArrowContainer = styled.div`
     position: absolute;
-    top: 10px;
-    left: 5px;
+    top: 0;
     z-index: 100;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0));
+`;
+
+const StyledWhiteArrowIcon = styled(WhiteArrowIcon)`
+    padding: 5px;
+    cursor: pointer;
+`;
+
+const StyledArrowIcon = styled(ArrowIcon)`
     cursor: pointer;
 `;
 
@@ -108,16 +117,6 @@ const StyledLink = styled(Link)`
     letter-spacing: -.67px;
     word-spacing: -.67px;
     cursor: pointer;
-`;
-
-const StyledArrowIcon = styled(ArrowIcon)`
-    cursor: pointer;
-`;
-
-const Shadow = styled.div`
-  width: 100%;
-  height: 10px;
-  background: url('https://res.kurly.com/pc/service/common/1902/bg_1x9.png') repeat-x 0 100%;
 `;
 
 export default LocationBar;

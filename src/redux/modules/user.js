@@ -26,11 +26,10 @@ const kakaoLoginApi = createAsyncThunk('user/kakaoLogin', async (code, thunkAPI)
         const token = response.headers.authorization;
         localStorage.setItem('token', token);
 
-        // thunkAPI.dispatch(loginCheckApi());
-
         if (!response.data.isFirst) {
             history.replace('/');
         } else {
+            thunkAPI.dispatch(loginCheckApi());
             history.replace('/address');
         }
     } catch (error) {

@@ -125,7 +125,7 @@ const DetailBottom = props => {
                             </Button>
                             {traded !== 'true' ? (
                                 <Button onClick={onDoTrade} color="white" background="blue">
-                                    교환신청
+                                    {[0, 1].includes(status) ? '교환신청' : (status === 2 ? '교환중' : '교환완료')}
                                 </Button>
                             ) : (
                                 <Button onClick={onDoCancle} color="black" background="gray">
