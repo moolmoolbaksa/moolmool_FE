@@ -73,11 +73,11 @@ const MessageList = (props) => {
 };
 const Base = styled.div`
     height: calc(100% - 130px);
-    padding: 0 16px;
+    padding: 0 16px 10px;
     overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none;
     }
 `;
 
