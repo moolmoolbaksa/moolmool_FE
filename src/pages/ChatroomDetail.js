@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousMessages, addMessage, changeRoomtype } from '../redux/modules/chat';
 import { ReactComponent as ArrowIcon } from '../images/arrow.svg';
 import { history } from '../redux/configureStore';
-import Drawer from '../components/chat/Drawer';
+import Drawer from '../components/modal/Drawer';
 import { BsThreeDotsVertical } from "react-icons/bs";
 const ChatroomDetail = props => {
     const dispatch = useDispatch();
@@ -47,9 +47,11 @@ const ChatroomDetail = props => {
     const openModal = () => {
       setModalOpen(true);
     };
+
     const closeModal = () => {
       setModalOpen(false);
     };
+    
     React.useEffect(() => {
         client.connect({ Authorization: `${localStorage.getItem('token')}` }, function () {
             console.log('connected');
@@ -141,13 +143,15 @@ const Wrap = styled.div`
         letter-spacing: -0.67px;
     }
 `;
+
 const Styled3dots= styled(BsThreeDotsVertical)`
   cursor: pointer;
   position: absolute;
-  right:1vw;
-  width:auto;
-  height:30px;
-`
+  right: 10px;
+  width: auto;
+  height: 25px;
+`;
+
 const StyledArrowIcon = styled(ArrowIcon)`
     position: absolute;
     left: 8px;

@@ -40,8 +40,8 @@ const LocationBar = ({ title, transparent }) => {
    
     if(transparent){
         return (
-            <ArrowContainer onClick={() => history.push('/')}>
-                <StyledWhiteArrowIcon width="40" height="40" stroke="white"/>
+            <ArrowContainer>
+                <StyledWhiteArrowIcon width="40" height="40" stroke="white" onClick={() => history.push('/')}/>
             </ArrowContainer>
         );
     };
@@ -82,11 +82,11 @@ const ArrowContainer = styled.div`
     top: 0;
     z-index: 100;
     width: 100%;
-    cursor: pointer;
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0));
 `;
 
 const StyledWhiteArrowIcon = styled(WhiteArrowIcon)`
+    padding: 5px;
     cursor: pointer;
 `;
 

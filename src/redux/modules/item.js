@@ -61,6 +61,21 @@ export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, 
     }
 });
 
+export const setReportItemApi = createAsyncThunk('item/setReportItemApi', async (itemId) => {
+    try {
+        await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/report/item?itemId=${itemId}`,{},{
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+    } catch (error) {
+        console.log('setReportItemApi: ', error);
+        alert('setReportItemApi error');
+    }
+});
+
+
+
 export const item = createSlice({
     name: 'item',
     initialState: {
@@ -109,6 +124,7 @@ export const {
 export const api = {
     getItemApi,
     getStarItemAPi,
+    setReportItemApi,
 };
 
 export default item.reducer;
