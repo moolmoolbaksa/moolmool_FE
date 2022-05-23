@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import Drawer from '@mui/material/Drawer';
@@ -79,11 +79,16 @@ const Main = props => {
             });
     }, []);
 
+    // 무한스크롤: 호출돼야할 함수 세팅
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
-    
+
+    const scrollRef = useRef(null);
+
     useEffect(() => { 
+        // 카테고리 변경 시 화면 맨 위로 올리기 위함
+        if(scrollRef.current) scrollRef.current.scrollTop = 0;
         const category = filter === '전체' ? '' : `${filter}`;
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
@@ -178,7 +183,7 @@ const Main = props => {
                         </List>
                     </div>
                 </Drawer>
-                <CardWrap>
+                <CardWrap ref={scrollRef}>
                     <HotDeal />
                     {item_list.slice().sort((a,b)=>b.itemId-a.itemId).map((p, idx) => {
                         return <Card key={p.itemId} {...p} />;

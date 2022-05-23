@@ -1,10 +1,11 @@
 import React from "react";
 import styled, { css } from 'styled-components';
 
-const Button = ({children, onClick,...rest}) => {
+const Button = ({children, onClick, disabled, ...rest}) => {
     return (
         <StyledButton
             {...rest}
+            disabled={disabled}
             onClick={onClick}
         >
             {children}
@@ -42,12 +43,11 @@ const StyledButton = styled.button`
     font-size: ${props => props.size ? props.size : '20px'};
     color: ${props => props.color ? props.color : 'black'};
     border-radius: ${props => props.radius ? props.radius : '0px'};
-    text-align:${props=>props.textAlign ? props.textAlign:'auto'};
-    padding: ${props=>props.padding? props.padding:'auto'};
-    text-decoration: ${props=>props.deco?props.deco:'none'};
-    position:${props=>props.absolute?'absolute':""};
-    bottom:${props=>props.bottom?props.bottom:'auto'};
-    
+    text-align:${props => props.textAlign ? props.textAlign:'auto'};
+    padding: ${props => props.padding? props.padding:'auto'};
+    text-decoration: ${props => props.deco?props.deco:'none'};
+    position: ${props => props.absolute?'absolute':""};
+    bottom: ${props => props.bottom?props.bottom:'auto'}; 
 `;
 
 export default Button;

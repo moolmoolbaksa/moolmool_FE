@@ -1,10 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { api as productActions } from '../../redux/modules/product';
 
 import { Text, Grid } from '../../elements';
-import { api as productActions } from '../../redux/modules/product';
-import { ReactComponent as Medal } from '../../images/메달.svg';
+import { ReactComponent as GoldMedal } from '../../images/gold_medal.svg';
+import { ReactComponent as SilverMedal } from '../../images/silver_medal.svg';
+import { ReactComponent as BronzeMedal } from '../../images/bronze_medal.svg';
 
 const HotItem = ({image, contents, title, itemId, rank}) => {
     const dispatch = useDispatch();
@@ -16,10 +18,12 @@ const HotItem = ({image, contents, title, itemId, rank}) => {
     return (
         <Container onClick={onGoDetail}>
             <RankLabel>
-                <Grid position="relative" flex>
-                    <StyledMedal className={`rank-${rank}`}/>
-                    <span>{rank}</span>
-                </Grid>
+                {rank === 1 
+                    ?   <GoldMedal />
+                    :   rank === 2 
+                            ?   <SilverMedal />
+                            :   <BronzeMedal />
+                }
             </RankLabel>
             <StyledImage src={image} />
             <Grid is_flex is_column padding="10px 10px 15px" gap="5px">
@@ -77,25 +81,6 @@ const RankLabel = styled.div`
         font-weight: bold;
         font-size: 18px;
     };
-`;
-
-const StyledMedal = styled(Medal)`
-    &.rank-2 {
-        path {
-            fill: #CDCDCD;
-        };
-        circle {
-            fill: #8D8C8C;
-        };
-    };
-    &.rank-3 {
-        path {
-            fill: #E2B357;
-        };
-        circle {
-            fill: #C07A27;
-        };
-    }
 `;
 
 export default HotItem;
