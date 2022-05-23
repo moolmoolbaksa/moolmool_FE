@@ -60,6 +60,25 @@ export const getChatNotiApi = createAsyncThunk(
     },
 );
 
+export const getWelcomApi = createAsyncThunk(
+    'notification/getWelcomApi',
+    async (notificationId) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/signup`,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                },
+            );
+            console.log(response)
+        } catch (error) {
+            console.log('getChatNotiApi: ', error);
+            alert('getChatNotiApi error');
+        }
+    },
+);
+
 export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, chageId }) => {
     try {
         const response = await axios.get(
@@ -125,6 +144,7 @@ export const api = {
     getNotiApi,
     getBarterNotiApi,
     getChatNotiApi,
+    getWelcomApi,
 };
 
 export const { setNoti, setUnreadNoti } = notification.actions;

@@ -13,9 +13,9 @@ import { useLocation } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousMessages, addMessage, changeRoomtype } from '../redux/modules/chat';
-import { ReactComponent as ArrowIcon } from '../images/화살표.svg';
+import { ReactComponent as ArrowIcon } from '../images/arrow.svg';
 import { history } from '../redux/configureStore';
-import Drawer from '../components/chat/Drawer';
+import Drawer from '../components/modal/Drawer';
 import { BsThreeDotsVertical } from "react-icons/bs";
 const ChatroomDetail = props => {
     const dispatch = useDispatch();
@@ -23,8 +23,6 @@ const ChatroomDetail = props => {
     const [ModalOpen, setModalOpen] = React.useState(false);
     const Opponent = useSelector(state => state.chat.Opponent);
     const currentroom = useSelector(state => state.chat.Currentroom);
-
-    console.log(Opponent);
 
     // 내프로필은 필요없는걸로
     // const {nickname, profile} = useSelector(state => state.user.user_info);
@@ -49,9 +47,11 @@ const ChatroomDetail = props => {
     const openModal = () => {
       setModalOpen(true);
     };
+
     const closeModal = () => {
       setModalOpen(false);
     };
+    
     React.useEffect(() => {
         client.connect({ Authorization: `${localStorage.getItem('token')}` }, function () {
             console.log('connected');
@@ -113,8 +113,8 @@ const ChatroomDetail = props => {
                     onClick={() => {
                         history.goBack();
                     }}
-                    width="27"
-                    height="27"
+                    width="30"
+                    height="30"
                 />
                 <span>{Opponent.nickname}</span>
                 <Styled3dots onClick={openModal}/>
@@ -144,13 +144,15 @@ const Wrap = styled.div`
         letter-spacing: -0.67px;
     }
 `;
+
 const Styled3dots= styled(BsThreeDotsVertical)`
   cursor: pointer;
   position: absolute;
-  right:1vw;
-  width:auto;
-  height:30px;
-`
+  right: 10px;
+  width: auto;
+  height: 25px;
+`;
+
 const StyledArrowIcon = styled(ArrowIcon)`
     position: absolute;
     left: 8px;

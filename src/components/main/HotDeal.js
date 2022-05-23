@@ -9,7 +9,7 @@ import { api as itemActions } from '../../redux/modules/item';
 const HotDeal = (props) => {
     const dispatch = useDispatch();
     const star_item_list = useSelector(state => state.item.star_item_list);
-    console.log("제대로 뜸??", star_item_list)
+
     useEffect(() => {
         dispatch(itemActions.getStarItemAPi());
     }, []);
@@ -26,7 +26,7 @@ const HotDeal = (props) => {
                 size="18px"
                 letterSpacing="-1px"
                 wordSpacing="-1px"
-                margin="15px 16px"
+                margin="15px 0px"
                 width="max-content"
             />
             <Container>
@@ -49,7 +49,7 @@ const Container = styled.div`
     overflow-x: scroll;
     white-space: nowrap;
     flex-wrap: nowrap;
-    padding: 0px 16px 10px;
+    padding: 0px 0px 10px;
 
     -ms-overflow-style: none;
     scrollbar-width: none;

@@ -27,6 +27,12 @@ const TabBar = ({position}) => {
         window.scrollTo(0, 0);
     };
 
+    const goHistory = () => {
+        if(!is_login) return dispatch(setLoginModal(true));
+        history.push('/trhistory');
+        window.scrollTo(0, 0);
+    };
+
     const goRegipage =()=>{
         if(!is_login) return dispatch(setLoginModal(true));
         history.push('/registerproduct');
@@ -34,11 +40,13 @@ const TabBar = ({position}) => {
     };
 
     const goHome =()=>{
+        if(!is_login) return dispatch(setLoginModal(true));
         history.push('/');
         window.scrollTo(0, 0);
     };
     
     const goChat =()=>{
+        if(!is_login) return dispatch(setLoginModal(true));
         history.push('/chat');
         window.scrollTo(0, 0);
     };
@@ -58,7 +66,7 @@ const TabBar = ({position}) => {
                     color={location.pathname === '/' ? '#FFD467' : 'black'}
                 />
             </Wrap>
-            <Wrap onClick={() => {history.push('/trhistory')}}>
+            <Wrap onClick={goHistory}>
                 {location.pathname === '/trhistory'
                     ? <TradeIcon fill="#FFD467"/>
                     : <TradeIcon />

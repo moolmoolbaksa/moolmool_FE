@@ -52,6 +52,8 @@ const Mypage = (props) => {
 };
 
 const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
     padding: 0 16px 20px;
     position: relative;
     flex-grow: 1;
@@ -80,11 +82,12 @@ const MenuTab = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+    margin: auto 0 0 auto;
+    width: max-content;
     text-decoration: none;
     font-size: 13px;
     line-height: 12.5px;
     font-weight: bold;
-    float: right;
     color: black;
     letter-spacing: -1px;
     border-bottom: 1px #9d9d9d solid;

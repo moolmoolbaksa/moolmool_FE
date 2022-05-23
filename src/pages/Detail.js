@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"
@@ -15,9 +15,13 @@ import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import StatusLabel from '../components/shared/StatusLabel';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import Drawer from '../components/modal/Drawer';
 
 const Detail = (props) => {
-    const {images, status} = useSelector(state => state.product.product_info);
+    const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
+    const is_login = useSelector(state => state.user.is_login);
+    const my_nickname = useSelector(state => state.user.user_info.nickname);
     
     const settings = { 
         infinite: false,
@@ -27,32 +31,41 @@ const Detail = (props) => {
         slidesToScroll: 1,
     };
 
+    const [ isOpen, setIsOpen ] = useState(false);
+
     return (
         <Container>
-                <LocationBar transparent/>
-                <Grid
-                    position="relative"
-                >
-                    <StyledSlider {...settings}>
-                        {images && images.map((v ,i) => {
-                            return(
-                                <Image 
-                                    key={i}
-                                    src={v}
-                                    shape="slide"
-                                />
-                            )}
+            <LocationBar transparent />
+            {is_login && nickname !== my_nickname && <ThreeDots onClick={() => {setIsOpen(!isOpen)}}/>}
+            <Grid
+                position="relative"
+            >
+                <StyledSlider {...settings}>
+                    {images && images.map((v ,i) => {
+                        return(
+                            <Image 
+                                key={i}
+                                src={v}
+                                shape="slide"
+                            />
                         )}
-                    </StyledSlider>
-                    <StatusLabel status={status}/>
-                    <TransMethod />
-                </Grid>
-                <Wrap>
-                    <OpponentInfo/>
-                    <DetailContent/>
-                    <DetailRecommendCategory/>
-                </Wrap>
+                    )}
+                </StyledSlider>
+                <StatusLabel status={status}/>
+                <TransMethod />
+            </Grid>
+            <Wrap>
+                <OpponentInfo/>
+                <DetailContent/>
+                <DetailRecommendCategory/>
+            </Wrap>
             <DetailBottom />
+            {isOpen &&  <Drawer 
+                            location="detail" 
+                            itemId={itemId} 
+                            onclose={() => {setIsOpen(!isOpen)}}
+                        />
+            }
         </Container>
     );
 };
@@ -81,6 +94,17 @@ const Wrap = styled.div`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+`;
+
+const ThreeDots = styled(BsThreeDotsVertical)`
+  cursor: pointer;
+  position: absolute;
+  color: white;
+  right: 12px;
+  top: 12px;
+  width: auto;
+  height: 25px;
+  z-index: 200;
 `;
 
 export default Detail;
