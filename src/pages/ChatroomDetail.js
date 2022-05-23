@@ -13,7 +13,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousMessages, addMessage, changeRoomtype } from '../redux/modules/chat';
-import { ReactComponent as ArrowIcon } from '../images/화살표.svg';
+import { ReactComponent as ArrowIcon } from '../images/arrow.svg';
 import { history } from '../redux/configureStore';
 import Drawer from '../components/chat/Drawer';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -23,8 +23,6 @@ const ChatroomDetail = props => {
     const [ModalOpen, setModalOpen] = React.useState(false);
     const Opponent = useSelector(state => state.chat.Opponent);
     const currentroom = useSelector(state => state.chat.Currentroom);
-
-    console.log(Opponent);
 
     // 내프로필은 필요없는걸로
     // const {nickname, profile} = useSelector(state => state.user.user_info);
@@ -112,8 +110,8 @@ const ChatroomDetail = props => {
                     onClick={() => {
                         history.goBack();
                     }}
-                    width="27"
-                    height="27"
+                    width="30"
+                    height="30"
                 />
                 <span>{Opponent.nickname}</span>
                 <Styled3dots onClick={openModal}/>

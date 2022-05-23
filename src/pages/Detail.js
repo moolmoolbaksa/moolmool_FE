@@ -29,7 +29,7 @@ const Detail = (props) => {
 
     return (
         <Container>
-                <LocationBar transparent/>
+                <LocationBar transparent />
                 <Grid
                     position="relative"
                 >

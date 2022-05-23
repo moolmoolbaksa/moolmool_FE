@@ -7,7 +7,7 @@ import KakaoMap from '../../components/shared/KakaoMap';
 import { Grid, Text, Button } from '../../elements/index';
 import { history } from '../../redux/configureStore';
 import { api as userActions, setAddress } from '../../redux/modules/user';
-import { ReactComponent as ArrowIcon } from '../../images/화살표.svg';
+import { ReactComponent as ArrowIcon } from '../../images/arrow.svg';
 
 const Address = props => {
     const dispatch = useDispatch();
