@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { enterRoom } from '../../redux/modules/chat';
 import { Grid, Text } from '../../elements';
 
-const ChatRoom = ({userId, roomId, nickname, profile, message, isRead, unreadCnt, date}) => {
+const ChatRoom = ({userId, roomId, nickname, profile, message, isRead, unreadCnt, date,isBanned}) => {
   	const dispatch =useDispatch();
 	
 	const _date = date.split('T')[0].split('-');
@@ -19,7 +19,7 @@ const ChatRoom = ({userId, roomId, nickname, profile, message, isRead, unreadCnt
 	
 	const onGoChatRoom = () => {
 		history.push({pathname: `/chat/${roomId}`,state: {userId, profile, nickname}});
-        dispatch(enterRoom({roomId, nickname, userId, profile}));
+        dispatch(enterRoom({roomId, nickname, userId, profile,isBanned}));
 	};
 
     return(

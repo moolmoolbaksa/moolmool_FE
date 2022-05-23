@@ -13,6 +13,7 @@ const Inputbox = (props) => {
     const roomId=useParams();
     
     const roomtype=useSelector(state=>state.chat.Currentroom.type);
+    const isBanned=useSelector(state=>state.chat.Currentroom.isBanned);
     let isRead=roomtype==="NORMAL"?false:true;
 
     const Sentroomid=parseInt(roomId.roomid);
@@ -48,7 +49,22 @@ const Inputbox = (props) => {
     
     return(
         <Base>
-            <Input 
+        {isBanned?(<><Input 
+              placeholder="차단 되었습니다." 
+              type="text" 
+              ref={messageInput} 
+              onChange={handleMessage} 
+              onKeyDown={onDoEnter}
+              disabled
+            />
+            <Button 
+              background="gray" 
+              radius="5px"
+              size="16px"
+              width="20%" 
+              disabled
+            >전송</Button></>):
+            <><Input 
               placeholder="메시지를 입력해주세요" 
               type="text" 
               ref={messageInput} 
@@ -61,7 +77,7 @@ const Inputbox = (props) => {
               size="16px"
               width="20%" 
               onClick={onSend}
-            >전송</Button>
+            >전송</Button></>}
         </Base>
     );
 };

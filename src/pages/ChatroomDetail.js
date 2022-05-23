@@ -122,7 +122,7 @@ const ChatroomDetail = props => {
                 {ModalOpen&&<Drawer userId={Opponent.userId} roomid={apiroomid} onclose={closeModal}></Drawer>}
             </Wrap>
             <MessageList />
-            <Inputbox client={client}></Inputbox>
+            <Inputbox isBanned={currentroom.isBanned} client={client}></Inputbox>
         </Base>
     );
 };

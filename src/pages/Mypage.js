@@ -37,7 +37,7 @@ const Mypage = (props) => {
                 <ItemGrid item_list={item_list}/>
                 <ItemGrid item_list={myScrabList} type="scrab"/>
                 <MenuTab 
-                    // onClick={() => {history.push('/trhistory')}}
+                    onClick={() => {history.push('/banlist')}}
                 >
                     차단 목록
                     <span className="material-symbols-outlined">

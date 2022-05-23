@@ -22,6 +22,7 @@ const initialState={
         userId:"",
         profile:"",
         nickname:"",
+        isBanned:false,
     },
     Currentroom:{
         roomId:"",
@@ -46,10 +47,12 @@ export const chat = createSlice({
             //현재방정보 입력
             state.Currentroom.roomId=action.payload.roomId;
             state.Currentroom.userId=action.payload.userId;
+            state.Currentroom.isBanned=action.payload.isBanned;
             //현재방의 상대방 정보
             state.Opponent.userId=action.payload.userId;
             state.Opponent.profile=action.payload.profile;
             state.Opponent.nickname=action.payload.nickname;
+            state.Opponent.isBanned=action.payload.isBanned;
             // console.log(action.payload);
 
         },

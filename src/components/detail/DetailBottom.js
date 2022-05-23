@@ -50,7 +50,7 @@ const DetailBottom = props => {
         for (let element of Roomlist) {
             console.log(element);
             if (element.userId === userId) {
-                dispatch(enterRoom({ roomId: element.roomId, nickname: nickname, userId: userId, profile: profile }));
+                dispatch(enterRoom({ roomId: element.roomId, nickname: nickname, userId: userId, profile: profile,isBanned:element.isBanned }));
                 history.push(`/chat/${element.roomId}`);
                 break;
             }
@@ -59,7 +59,7 @@ const DetailBottom = props => {
             .then(res => {
                 console.log(res);
                 console.log('userid:' + userId);
-                dispatch(enterRoom({ roomId: res.data, nickname: nickname, userId: userId, profile: profile }));
+                dispatch(enterRoom({ roomId: res.data, nickname: nickname, userId: userId, profile: profile,isBanned:false }));
                 history.push(`/chat/${res.data}`);
             })
             .catch(error => {
