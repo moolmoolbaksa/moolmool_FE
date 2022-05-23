@@ -12,23 +12,21 @@ import { Image, Grid, Text } from '../elements/index';
 import Card from '../components/main/Card';
 import TabBar from '../components/TabBar';
 import LoginModal from '../components/modal/LoginModal';
-import Loading from '../components/shared/Loading';
 import { ReactComponent as HambergerIcon } from '../images/햄버거.svg';
 import { ReactComponent as NotiIcon } from '../images/종.svg';
 import { ReactComponent as SearchIcon } from '../images/돋보기.svg';
 
-import { ItemAPI, ChatAPI } from '../shared/api';
+import { ChatAPI } from '../shared/api';
 import { setRoomlist } from '../redux/modules/chat';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
-import { setLoading } from '../redux/modules/user';
 import { setUnreadNoti } from '../redux/modules/notification';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import HotDeal from '../components/main/HotDeal';
 import { api as userActions } from '../redux/modules/user';
-import item, { api as itemActions } from '../redux/modules/item';
+import { api as itemActions } from '../redux/modules/item';
 import FetchMore from '../components/shared/FetchMore';
 
 const Main = props => {

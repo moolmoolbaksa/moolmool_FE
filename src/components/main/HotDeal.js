@@ -9,7 +9,7 @@ import { api as itemActions } from '../../redux/modules/item';
 const HotDeal = (props) => {
     const dispatch = useDispatch();
     const star_item_list = useSelector(state => state.item.star_item_list);
-    console.log("제대로 뜸??", star_item_list)
+
     useEffect(() => {
         dispatch(itemActions.getStarItemAPi());
     }, []);

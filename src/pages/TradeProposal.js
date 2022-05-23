@@ -12,13 +12,11 @@ import TabBar from '../components/TabBar';
 import { useParams } from 'react-router-dom';
 import { HistoryAPI } from '../shared/api';
 import { history } from '../redux/configureStore';
-import { push } from 'connected-react-router';
 
 const TradeProposal = props => {
     const { barterItem, ...item_info } = useSelector(state => state.notification.noti_barter);
     const baterId = useParams();
-
-    
+    console.log(barterItem, item_info)
     const acceptTrade = () => {
         HistoryAPI.acceptTrade(baterId.baterid)
             .then(res => {
@@ -51,21 +49,21 @@ const TradeProposal = props => {
     };
 
     return (
-        <Grid height="100%">
+        <Grid height="100%" is_flex is_column>
             <LocationBar title="교환신청" />
-            <Grid height="calc(100%-60px)" position="relative" padding="0 16px">
                 <TradeItemCard {...item_info} />
-                <Text
-                    text={`${item_info.opponentNickname}님의 교환 제시 물건`}
-                    size="20px"
-                    bold="bold"
-                    margin="20px 0 0 0"
-                    wordSpacing="-1px"
-                />
-                <ItemGrid type="mall" item_list={barterItem} />
-            </Grid>
+                <ScrollWrap>
+                    <Text
+                        text={`${item_info.opponentNickname}님의 교환 제시 물건`}
+                        size="20px"
+                        bold="bold"
+                        margin="20px 0 0 0"
+                        wordSpacing="-1px"
+                    />
+                    <ItemGrid type="mall" item_list={barterItem} />
+                </ScrollWrap>
             <ButtonWrap>
-                {item_info.accepted ? (
+                {item_info.accepted === 'true' ? (
                     <ButtonB onClick={cancelTrade}>교환 취소</ButtonB>
                 ) : (
                     <>
@@ -80,6 +78,16 @@ const TradeProposal = props => {
         </Grid>
     );
 };
+
+const ScrollWrap = styled.div`
+    padding: 0 16px;
+    flex-grow: 1;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`;
 
 const ButtonWrap = styled.div`
     position: absolute;
@@ -99,6 +107,7 @@ const ButtonA = styled.div`
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    border-radius: 5px;
     cursor: pointer;
 `;
 
@@ -110,6 +119,7 @@ const ButtonB = styled.div`
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    border-radius: 5px;
     cursor: pointer;
 `;
 

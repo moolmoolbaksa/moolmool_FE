@@ -18,6 +18,7 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userI
 				dispatch(notiActions.getChatNotiApi({notificationId, changeId}));
 				break;
 			case 'ETC':
+				dispatch(notiActions.getWelcomApi(notificationId));
 				break;
 			default:
 				history.push('/trhistory');
