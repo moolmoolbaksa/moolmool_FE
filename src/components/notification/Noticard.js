@@ -8,7 +8,6 @@ import timeForToday from "../../shared/timeForToday";
 const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userId, profile}) => {    
     const dispatch = useDispatch();
 
-	console.log(notificationId, changeId, nickname, userId, profile)
 	const onNotiClick = () => {
 		switch(type){
 			case 'BARTER':
@@ -27,9 +26,7 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userI
 	};
 	
 	return (
-		<Container 
-			onClick={onNotiClick}			
-		>
+		<Container onClick={onNotiClick} isRead={isRead}>
 			<TypeColor type={type}/>
 			{type === 'CHAT' && <span>{nickname}님에게서 <span className="emp">채팅</span>이 왔어요.</span>}
 			{type === 'BARTER' && <span>{nickname}님에게서 <span className="emp">교환 신청</span>이 왔어요.</span>}
