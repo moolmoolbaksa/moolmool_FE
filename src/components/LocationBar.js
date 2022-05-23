@@ -90,7 +90,7 @@ const StyledWhiteArrowIcon = styled(WhiteArrowIcon)`
     cursor: pointer;
 `;
 
-const StyledArrowIcon = styled(WhiteArrowIcon)`
+const StyledArrowIcon = styled(ArrowIcon)`
     cursor: pointer;
 `;
 

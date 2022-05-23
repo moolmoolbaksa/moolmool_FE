@@ -19,7 +19,7 @@ const ItemImage = ({itemId, image, status}) => {
                 src={image}
             />
             {status === 2 && <ProductStatus>교환중</ProductStatus>}
-            {status === 3 && <ProductStatus>거래완료</ProductStatus>}
+            {status === 3 && <ProductStatus>교환완료</ProductStatus>}
         </ImageOutter>
     );
 };
