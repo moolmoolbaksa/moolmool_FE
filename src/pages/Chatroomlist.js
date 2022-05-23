@@ -27,7 +27,7 @@ const Chatroomlist = (props) => {
     return(
         <Base>
             <LocationBar title="채팅"/>
-            <BannerAnchor href="https://google.com">
+            <BannerAnchor target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSeQtgLQ76wO2sXc69QuvjwtiwdcKgK4sNe2UwU1uHyZLPxSUA/viewform?embedded=true">
                 <BannerImg src={banner} alt="설문조사 배너"/>
             </BannerAnchor>
             <Container>
