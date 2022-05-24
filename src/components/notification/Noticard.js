@@ -7,8 +7,9 @@ import { api as notiActions } from "../../redux/modules/notification";
 import timeForToday from "../../shared/timeForToday";
 const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userId, profile}) => {    
     const dispatch = useDispatch();
-
+	
 	const onNotiClick = () => {
+		// switch문 효용에 대해 알아보기
 		switch(type){
 			case 'BARTER':
 				dispatch(notiActions.getBarterNotiApi({notificationId, changeId}));
