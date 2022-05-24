@@ -97,7 +97,7 @@ function App() {
 };
 
 const BrandInfo = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-flow: column nowrap;
   left: 65px;

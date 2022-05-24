@@ -46,7 +46,7 @@ const StyledButton = styled.button`
     text-align:${props => props.textAlign ? props.textAlign:'auto'};
     padding: ${props => props.padding? props.padding:'auto'};
     text-decoration: ${props => props.deco?props.deco:'none'};
-    position: ${props => props.absolute?'absolute':""};
+    position: ${props => props.absolute ? 'absolute' : ""};
     bottom: ${props => props.bottom?props.bottom:'auto'}; 
 `;
 
