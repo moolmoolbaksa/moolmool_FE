@@ -54,7 +54,7 @@ const Drawer = (props) => {
     <ModalBackground onClick={props.onclose}>
       <Modalcontents>
         <Buttonwrap>
-          <Button onClick={(e)=>{e.stopPropagation(); test(); exitroom();}}>채팅방 나가기</Button>
+          <Button onClick={(e)=>{e.stopPropagation(); exitroom();}}>채팅방 나가기</Button>
           <Button onClick={(e)=>{e.stopPropagation(); ban();}}>차단하기</Button>
           <Button onClick={(e)=>{e.stopPropagation(); props.onclose()}}>취소</Button>
         </Buttonwrap>

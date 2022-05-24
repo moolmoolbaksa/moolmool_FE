@@ -18,11 +18,11 @@ const Banlist = (props) => {
       <Base>
         <LocationBar title="차단 목록"/>
         <Cardwrap>
+          {/* <Card/>
           <Card/>
           <Card/>
           <Card/>
-          <Card/>
-          <Card/>
+          <Card/> */}
         </Cardwrap>
       </Base>
     );

@@ -291,13 +291,13 @@ const RegisterProduct = (props) => {
 			onChange={handleTitle}
       value={title}
       ></Input>
-	<hr></hr>
+  <Emptyline/>
 	<Input 
 			border='none' 
 			size='1rem' 
 			placeholder='내용을 입력해주세요.' 
 			type='text'  
-			multiLine rows='8'  
+			multiLine rows='12'  
 			padding='1rem'
       value={contents}
 			onChange={handleContents}/>
@@ -322,7 +322,7 @@ const RegisterProduct = (props) => {
 	
 	<Empty/>
 	<input id="dropdown2" type="checkbox" style={{display:"none"}}/>
-		<Toggle padding='1rem 1rem 0 1rem' htmlFor="dropdown2"  onClick={openType}>
+		<Toggle padding='1rem' htmlFor="dropdown2"  onClick={openType}>
 				<ToggleName>선호하는 교환조건</ToggleName>
 				<IoIosArrowUp/>
 		</Toggle>
@@ -372,15 +372,9 @@ const RegisterProduct = (props) => {
 	<Tip>최대 5개까지 선택 가능합니다.</Tip>
 	</>:""}
 	<Empty/>
-	{/* <div> */}
-			{/* <div style={{margin: '20px 0px 20px 0px', display:'flex'}}> */}
-			{/* <Text text='물품 거래 주의사항을 모두확인했으며 이에 동의합니다.'></Text><input type='checkbox'/> */}
-			{/* </div> */}
-			
-	{/* </div> */}
+
 			{is_edit?<Button height='4rem' radius='4px' background="yellow" color='black' onClick={edit}>수정하기</Button>
       :<Button height='4rem' radius='4px' background="yellow" color='black' onClick={submit}>등록하기</Button>}
-    {/* {<CategoryNoti ErrorModal={ErrorModal} setErrorModal={setErrorModal} message={ErrorMessage[1]}></CategoryNoti>} */}
     {<AlertModal>{ErrorMessage[1]}</AlertModal>}
 	</Base>
     );
@@ -393,11 +387,13 @@ const Base=styled.div`
 	position:relative;
   max-width:420px;
   overflow:auto;
+  height:100vh;
   max-height:100%;
   // &::-webkit-scrollbar-thumb {
   //   display:none;	}
     &::-webkit-scrollbar {
       width: 0;
+      height:0;
     }
 `;
 const Imagelist=styled.div`
@@ -498,7 +494,9 @@ const CategoryParentbox=styled.div`
 const Categorybox=styled.div`
     font-size:1.2rem;
     box-sizing: border-box;
-    width:85%;
+    width:100%;
+    padding:0 0 0 calc(1rem);
+    margin: 0 4px 0 0 ;
         
     display: grid;
     overflow:auto;
@@ -564,7 +562,7 @@ const ToggleName= styled.p`
 
 const Tip=styled.p`
 	display:inline-block;
-	padding:0 1rem;
+	padding:0 1rem 1rem 1rem;
 	// margin: 0 1.5rem;
 	color: #2B9ECF;
 	font-size: 0.5rem;

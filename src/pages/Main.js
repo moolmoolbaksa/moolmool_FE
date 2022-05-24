@@ -28,7 +28,7 @@ import HotDeal from '../components/main/HotDeal';
 import { api as userActions } from '../redux/modules/user';
 import { api as itemActions } from '../redux/modules/item';
 import FetchMore from '../components/shared/FetchMore';
-
+import SlideLeft from '../components/modal/SlideLeft';
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
@@ -37,7 +37,7 @@ const Main = props => {
     const { is_loading, paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
-
+    const [openCategory,setOpenCategory]=useState(false);
     const [filter, setfilter] = useState('전체');
     const [openFilter, setopenfilter] = useState(false);
  
@@ -78,7 +78,14 @@ const Main = props => {
                 console.log(error);
             });
     }, []);
-
+    const handleOpenCategory=()=>{
+      console.log(openCategory);
+      setOpenCategory(true);
+    }
+    const handleCloseCategory=()=>{
+      console.log(openCategory);
+      setOpenCategory(false);
+    }
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
@@ -88,19 +95,14 @@ const Main = props => {
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
 
-    const Drawers = () => {
-        if (openFilter) {
-            setopenfilter(false);
-        } else {
-            setopenfilter(true);
-        }
-    };
+    
 
     return (
         <>
             <Grid height="100%" is_flex is_column>
+                {/* 상단바 */}
                 <Grid flex padding="10px 16px">
-                    <HambergerIcon onClick={Drawers} />
+                    <HambergerIcon onClick={handleOpenCategory} />
                     <Grid flex gap="10px">
                         <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
                         <NotiWrap>
@@ -113,6 +115,8 @@ const Main = props => {
                         </NotiWrap>
                     </Grid>
                 </Grid>
+                {/* 상단바끝 */}
+                {/* 프로필 및 인사 */}
                 <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #dadada solid">
                     <Image
                         size="50"
@@ -133,51 +137,9 @@ const Main = props => {
                         />
                     </Grid>
                 </Grid>
-                <Drawer PaperProps={{ style: { height: '60vh' } }} open={openFilter} onClose={Drawers}>
-                    <div style={{ width: '55vw' }}>
-                        <List>
-                            <ListItem
-                                style={{ background: '#FFD467' }}
-                                key="default"
-                                onClick={() => {
-                                    setopenfilter(false);
-                                }}>
-                                <ListItemIcon style={{ color: 'white' }}>
-                                    <ArrowBackIosNewIcon />
-                                </ListItemIcon>
-                                <ListItemText style={{ color: 'white' }} primary="카테고리" />
-                            </ListItem>
-                            {[
-                                '전체',
-                                '디지털기기',
-                                '생활가전',
-                                '가구/인테리어',
-                                '유아동',
-                                '유아도서',
-                                '생활/가공식품',
-                                '스포츠/레저',
-                                '여성잡화',
-                                '여성의류',
-                                '남성패션/잡화',
-                                '게임/취미',
-                                '뷰티/미용',
-                                '반려동물용품',
-                                '도서/티켓/음반',
-                                '식물',
-                            ].map((text, index) => (
-                                <ListItem key={text}>
-                                    <ListItemText
-                                        primary={text}
-                                        onClick={() => {
-                                            setfilter(text);
-                                            setopenfilter(false);
-                                        }}
-                                    />
-                                </ListItem>
-                            ))}
-                        </List>
-                    </div>
-                </Drawer>
+                {/* 프로필 및 인사 끝 */}
+                {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>}
+            
                 <CardWrap>
                     <HotDeal />
                     {item_list.slice().sort((a,b)=>b.itemId-a.itemId).map((p, idx) => {
@@ -188,6 +150,7 @@ const Main = props => {
                 <TabBar position />
             </Grid>
             <LoginModal />
+            
             {/* {is_loading && <Loading />} */}
         </>
     );
