@@ -23,7 +23,7 @@ const DetailBottom = props => {
         state => state.product.product_info,
     );
     const btnRef = useRef();
-    console.log(userId, nickname, scrab, itemId, scrabCnt, profile, traded, barterId, status)
+   
     const clickHeart = () => {
         if (nickname === my_nickname) return;
         if (is_login) {

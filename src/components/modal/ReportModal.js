@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setReportModal } from '../../redux/modules/modal';
-import { Text, Grid } from '../../elements/index';
+import { deleteReportModal } from '../../redux/modules/modal';
+import { Text } from '../../elements/index';
+import { api as ItemActions } from '../../redux/modules/item';
 
-const ReportModal = ({type}) => {
+const ReportModal = (props) => {
     const dispatch = useDispatch();
-    const is_report_modal = useSelector(state => state.modal.is_report_modal);
+    const {is_report_modal, content, itemId} = useSelector(state => state.modal.report_modal);
     const [isOpen, setIsOpen] = useState(false);
-    const [checkedInputs, setCheckedInputs] = useState([]);
-    const textRef = useRef();
-    const report_arr = ['영리목적/광고', '욕설/인신공격', '음란성/선정성', '같은내용 반복개시', '개인정보노출', '저작권침해', '기타'];
-
+   
     useEffect(() => {
         let timeout;
         if(is_report_modal){
@@ -28,42 +26,27 @@ const ReportModal = ({type}) => {
     };
     
     const onClose = () => {
-        dispatch(setReportModal(false));
+        dispatch(deleteReportModal());
     };
 
-    const changeHandler = (checked, id) => {
-        if (checked) {
-          setCheckedInputs([...checkedInputs, id]);
-        } else {
-          setCheckedInputs(checkedInputs.filter((el) => el !== id));
-        };
+    const onReport = () => {
+        dispatch(deleteReportModal());
+        dispatch(ItemActions.setReportItemApi(itemId));
     };
 
     return (
         <ModalBackground>
             <ModalContainer is_modal={is_report_modal}>
                 <Content>
-                    <span>신고사유</span>
-                    <ListWrap>
-                        {report_arr.map((v, i) => {
-                            return  <List key={i}>
-                                        <StyledInput type="checkbox" id={`check${i}`} onChange={(e) => changeHandler(e.target.checked, `check${i}`)}/>
-                                        <label htmlFor="check" />
-                                        {v}
-                                    </List>
-                        })}
-                    </ListWrap>
-                    <TextArea></TextArea>
-                    <Grid is_flex is_column justify="flex-start" gap="2px">
-                        <List><StyledInput type="checkbox" id="check7"/>해당유저 차단하기</List>
-                        <Text 
-                            text="반복된 허위신고는 제재를 받을 수 있습니다."
-                            color="#9D9D9D" letterSpacing="-1px" size="13px"
-                        />
-                    </Grid>
+                    <span>게시아이템 신고확인</span>
+                    <span>해당 아이템을 '<b>{content}</b>' 사유로 신고하시겠습니까?</span>
+                    <Text 
+                        text=" * 반복된 허위신고는 제재를 받을 수 있습니다."
+                        color="#9D9D9D" letterSpacing="-1px" size="13px"
+                    />
                 </Content>
                 <BtnWrap>
-                <Button 
+                    <Button 
                         onClick={onClose}
                         background="#9D9D9D"
                         radius="0 0 0 20px"
@@ -71,7 +54,7 @@ const ReportModal = ({type}) => {
                         취소
                     </Button>
                     <Button 
-                        onClick={onClose}
+                        onClick={onReport}
                         background="#0095b7"
                         radius="0 0 20px 0"
                     >
@@ -134,9 +117,9 @@ const Content = styled.div`
     flex-flow: column nowrap;
     justify-content: center;
     padding: 20px 16px 20px;
-    gap: 15px;
+    gap: 7px;
     
-    & span {
+    span:nth-of-type(1) {
         display: inline-block;
         width: 100%;
         text-align: center;
@@ -145,35 +128,13 @@ const Content = styled.div`
         padding-bottom: 15px;
         border-bottom: 1px #e8e8e8 solid;
     };
-`;
-
-const ListWrap = styled.ul`
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 20px;
-`;
-
-const List = styled.li`
-    display: flex;
-    align-items: center;
-    letter-spacing: -1px;
-    word-spacing: -1px;
-    font-size: 14px;
-`;
-
-const TextArea = styled.textarea`
-    height: 50px;
-    width: 100%;
-    border: 1px #C4C4C4 solid;
-    border-radius: 5px;
-    resize: none;
-    outline: none;
-    padding: 2px;
-`;
-
-const StyledInput = styled.input`
-    margin-right: 5px;
+    span:nth-of-type(2) {
+        display: inline-block;
+        width: 100%;
+        padding-top: 5px;
+        font-size: 14px;
+        letter-spacing: -1px; 
+    };
 `;
 
 const BtnWrap = styled.div`

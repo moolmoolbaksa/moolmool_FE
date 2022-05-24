@@ -3,7 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { ChatAPI } from '../../shared/api';
 import { history } from '../../redux/configureStore';
 import { useDispatch } from 'react-redux';
-import { api as ItemActions } from '../../redux/modules/item';
+import { setReportModal } from '../../redux/modules/modal';
+import ReportModal from './ReportModal';
 
 const Drawer = (props) => {
   const dispatch = useDispatch();
@@ -30,13 +31,19 @@ const Drawer = (props) => {
 	};
 
   const report_arr = ['영리목적/광고', '욕설/인신공격', '음란성/선정성', '같은내용 반복개시', '개인정보노출', '저작권침해'];
-  const onReportItem = () => {
-    dispatch(ItemActions.setReportItemApi(props.itemId));
+  
+  const onReportItem = (e) => {
     props.onclose();
+    dispatch(setReportModal({
+      is_report_modal: true,
+      content: e.target.innerHTML,
+      itemId: props.itemId,
+    }));
   };
 
   if(props.location === 'detail'){
     return (
+      <>
       <ModalBackground onClick={props.onclose}>
         <Modalcontents>
           <Buttonwrap>
@@ -47,6 +54,8 @@ const Drawer = (props) => {
           </Buttonwrap>
         </Modalcontents>
       </ModalBackground>
+      <ReportModal/>
+      </>
     );
   };
 
