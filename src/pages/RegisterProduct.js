@@ -306,7 +306,7 @@ console.log(myitem.length);
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1.2rem'}}>사진 등록 미리보기 ({preview.length}/8)개 파일개수({fileslist.length}/8)개</span>
+			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1.2rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
 
 			
 			<Imagelist >
@@ -317,7 +317,7 @@ console.log(myitem.length);
 		})}
 				<div style={{margin:'10px'}}>
 					<PlusItem htmlFor="raised-button-file"><span>+</span></PlusItem>
-					<input onChange={selectfile} accept="image/*" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}}/>
+					<input onChange={selectfile} accept=".jpg, .png" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}}/>
 				</div>
 		</Imagelist>
 	</Grid>
@@ -330,7 +330,7 @@ console.log(myitem.length);
 		</Toggle>
 		
 
-	{typeOpen?(<Emptyline margin='1.5rem 0'/>):""}
+	{typeOpen?(<Emptyline margin='0 0 1rem 0'/>):""}
 	{
 		typeOpen?
 		(<TypeBox>
