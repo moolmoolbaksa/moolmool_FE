@@ -6,8 +6,7 @@ import { history } from './redux/configureStore';
 
 // css
 import backgroundImg from './images/moolmool_background.png';
-import SurveyButton from './components/shared/SurveyButton';
-
+import brandlogo from './images/brand_name.png';
 // page import
 import { Login, Signup, LoginProgress, Welcome, Address } from './pages/login/index';
 import {
@@ -56,11 +55,15 @@ function App() {
   };
   
   return (
-    <ConnectedRouter history={history}>
-      <ThemeProvider theme={theme}>
-        <Background>
-          {/* <SurveyButton/> */}
-        </Background>
+    <>
+      <Background />
+      <ConnectedRouter history={history}>
+        <ThemeProvider theme={theme}> 
+          <BrandInfo>
+            <h1>똑똑한 교환생활, 물물박사</h1>
+            <img src={brandlogo} alt="물물박사 로고"/>
+            <a target="blank" rel="external" href="https://docs.google.com/forms/d/e/1FAIpQLSeQtgLQ76wO2sXc69QuvjwtiwdcKgK4sNe2UwU1uHyZLPxSUA/viewform?embedded=true">서비스 피드백하러 가기</a>
+          </BrandInfo> 
           <GlobalStyle>
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
@@ -87,11 +90,35 @@ function App() {
             <Route exact path="/editproduct/:itemId" component={RegisterProduct} />
             <Route exact path="/Banlist" component={Banlist} />
           </GlobalStyle>
-        {/* </Background> */}
-      </ThemeProvider>
-    </ConnectedRouter>
+        </ThemeProvider>
+      </ConnectedRouter>
+    </>
   );
 };
+
+const BrandInfo = styled.div`
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  left: 65px;
+  h1 {
+    text-indent: -9999px;
+  }
+  a {
+    display: inline-block;
+    width: 300px;
+    text-align: center;
+    padding: 20px 0;
+    margin: 30px 0 0 7px;
+    color: white;
+    border-radius: 40px;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #FFBB00;
+    box-shadow: 0px 2px 10px 5px rgb(255 187 0 / 30%);
+    cursor: pointer;
+  }
+`;
 
 const Background = styled.div`
   width: 100vw;
@@ -147,5 +174,7 @@ const GlobalStyle = styled.div`
     transform: translate(50%, -50%); 
   }
 `;
+
+
 
 export default App;

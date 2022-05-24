@@ -86,6 +86,8 @@ const Main = props => {
       console.log(openCategory);
       setOpenCategory(false);
     }
+
+    // 무한스크롤: 호출돼야할 함수 세팅
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
@@ -144,7 +146,7 @@ const Main = props => {
                 {/* 프로필 및 인사 끝 */}
                 {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>}
             
-                <CardWrap>
+                <CardWrap ref={scrollRef}>
                     <HotDeal />
                     {item_list.slice().sort((a,b)=>b.itemId-a.itemId).map((p, idx) => {
                         return <Card key={p.itemId} {...p} />;

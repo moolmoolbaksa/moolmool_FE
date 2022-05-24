@@ -17,6 +17,7 @@ const postCodeStyle = {
     width: "100%",
     height: "100%",
     zIndex: "1000",
+    flexGlow: 1,
 };
 
 const KakaoMap = () => {
@@ -168,38 +169,54 @@ const KakaoMap = () => {
                     />
                 </NowLocation>
             </Grid>
-            {isPopupOpen && <Grid 
-                                height="100vh"
-                                position="absolute"    
-                                width="100%" 
-                                is_flex
-                                is_column
-                            >
+            {isPopupOpen && <PostCardWrap>
                                 <StyledPost  
                                     style={postCodeStyle} 
                                     onComplete={handleComplete} 
                                 />
-                                <Button 
-                                    text="닫기"
-                                    background="#ffca39"
+                                <CancleBtn 
+                                    background="yellow"
                                     size="18px"
                                     height="60px"
                                     bold="bold"
+                                    absolute
                                     onClick={() => {setIsPopupOpen(false)}}
-                                
-                                />
-                            </Grid>
+                                >닫기</CancleBtn>
+                            </PostCardWrap>
             }
         </>
     );
 };
 
+const PostCardWrap = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 100%;
+`;
+
+const CancleBtn = styled.button`
+    position: absolute;
+    z-index: 1001;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    background: ${props => props.theme.palette.yellow};
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    outline: none;
+`;
+
 const MapContainer = styled.div`
     height: 100%;
-    max-height: 355px;
+    min-height: 355px;
     width: 100%;
     margin-bottom: 18px;
     position: relative;
+    flex-grow: 1;
 `;
 
 const Map = styled.div`
@@ -208,9 +225,9 @@ const Map = styled.div`
 
 const StyledPost = styled(DaumPostcode)`
     overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none;
     }
 `;
 
