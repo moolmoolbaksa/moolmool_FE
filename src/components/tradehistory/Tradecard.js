@@ -58,7 +58,7 @@ const Tradecard = (props) => {
     const buttonSetting = () => {
         if(status===1 && myPosition==="buyer"){
             return  <Buttonwrap>
-                        <LeftBtn onClick={handleCancelTrade}>교환 취소</LeftBtn>
+                        <LeftBtn onClick={handleCancelTrade}>신청 취소</LeftBtn>
                         <RightBtn>교환 수정</RightBtn>
                     </Buttonwrap>
         }
