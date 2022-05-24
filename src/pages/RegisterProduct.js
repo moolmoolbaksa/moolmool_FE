@@ -115,23 +115,9 @@ const RegisterProduct = (props) => {
         
     }
     const deletePreview=(id)=>{
-
       setTempURL(tempURL.filter((_,idx)=>idx!==id));
       setFileslist(fileslist.filter((_,idx)=>tempURL.length+idx!==id));
-      if(tempURL.length>0)
-      {
-        setPreview(preview.filter((_,idx)=>(tempURL.length+fileslist.length-1)!==idx));
-      }
-      else
-      {
-        setPreview(preview.filter((_,idx)=>idx!==id));
-      }
-      // }
-      // else{
-      //   setPreview(preview.filter((_,idx)=>idx!==id));
-      //   setFileslist(fileslist.filter((_,idx)=>idx!==id));
-      // }
-
+      setPreview(preview.filter((_,idx)=>idx!==id));
     }
     React.useEffect(()=>{
       if(is_edit)
@@ -216,6 +202,13 @@ const RegisterProduct = (props) => {
         
     }
     const edit=()=>{
+      console.log(ErrorMessage[0]);
+        if(!ErrorMessage[0])
+        {
+          dispatch(setAlertModal(true))
+          setErrorModal(true);
+          return;
+        }
       console.log('edit');
       console.log('submit_success');
       const formData = new FormData();
@@ -379,9 +372,6 @@ const RegisterProduct = (props) => {
 	</Base>
     );
 };
-
-
-
 const Base=styled.div`
   background: white;
 	position:relative;
@@ -542,9 +532,7 @@ const Label = styled.label`
   &:hover{
     background:${props=>props.theme.palette.yellow};
   }
-
 `;
-
 const ToggleName= styled.p`
 	&::after{
 		position:absolute;
