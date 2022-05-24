@@ -5,6 +5,7 @@ import { Grid, Text } from '../../elements/index';
 import { api as productActions } from '../../redux/modules/product';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
+import { ReactComponent as ViewIcon } from '../../images/view.svg';
 import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
 
 const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}) => {
@@ -45,16 +46,12 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
                     /> 
                 </Grid>
                 <IconWrap>
-                    <Grid is_flex align="center" gap="2px">
-                        <span className="material-symbols-outlined">
-                            favorite
-                        </span>
+                    <Grid is_flex align="center" >
+                        <StyledHeartIcon width="20" height="20" stroke="gray"/>
                         <span className='num'>{scrabCnt}</span>
                     </Grid>
-                    <Grid is_flex align="center" gap="2px">
-                        <span className="material-symbols-outlined">
-                            visibility
-                        </span>
+                    <Grid is_flex align="center" gap="1px">
+                        <ViewIcon />
                         <span className='num'>{viewCnt}</span>
                     </Grid>
                 </IconWrap>
@@ -101,7 +98,7 @@ const IconWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 5px;
+    gap: 2px;
 
     & span {
         position: relative;
@@ -113,7 +110,12 @@ const IconWrap = styled.div`
     & span.num {
         text-align: 18px;
         font-size: 14px;
+        line-height: 1;
     }
+`;
+
+const StyledHeartIcon = styled(HeartIcon)`
+    padding-top: 1px;
 `;
 
 
