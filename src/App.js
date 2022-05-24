@@ -6,6 +6,7 @@ import { history } from './redux/configureStore';
 
 // css
 import backgroundImg from './images/moolmool_background.png';
+import SurveyButton from './components/shared/SurveyButton';
 
 // page import
 import { Login, Signup, LoginProgress, Welcome, Address } from './pages/login/index';
@@ -31,8 +32,6 @@ import {
 import Test from './pages/Test';
 
 function App() {
-    // const dispatch = useDispatch();
-
     const handleResize = () => {
         let vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -47,12 +46,6 @@ function App() {
         };
     });
 
-    // const is_token = localStorage.getItem('token');
-
-    // useEffect(() => {
-    //     if (is_token) dispatch(userActions.loginCheckApi());
-    // }, []);
-
   const theme = {
     palette: {
       blue: '#0095b7',
@@ -66,6 +59,8 @@ function App() {
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
         <Background>
+          {/* <SurveyButton/> */}
+        </Background>
           <GlobalStyle>
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
@@ -92,7 +87,7 @@ function App() {
             <Route exact path="/editproduct/:itemId" component={RegisterProduct} />
             <Route exact path="/Banlist" component={Banlist} />
           </GlobalStyle>
-        </Background>
+        {/* </Background> */}
       </ThemeProvider>
     </ConnectedRouter>
   );
@@ -114,7 +109,7 @@ const Background = styled.div`
 `;
 
 const GlobalStyle = styled.div`
-  position: relative;
+  position: absolute;
   width: 100%;
   max-width: 420px;
   height: 100vh;
