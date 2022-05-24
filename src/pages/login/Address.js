@@ -29,9 +29,9 @@ const Address = props => {
     };
 
     return (
-        <Grid height="100%" is_flex is_column justify="center" position="relative">
+        <Container>
             <Grid is_flex is_column gap="18px">
-                <Grid position="relative" flex>
+                <Grid position="relative" flex margin="20px 0 0 0">
                     {location.state && <StyledArrowIcon onClick={onGoBack} width="30" height="30" />}
                     <Text text="내 위치 설정" size="24px" letterSpacing="-.96px" bold="bold" textAlign="center" />
                 </Grid>
@@ -52,7 +52,7 @@ const Address = props => {
             </Grid>
             <KakaoMap />
             <Grid padding="0 16px">
-                <Grid margin="20px 0px" height="43px">
+                <Grid margin="10px 0px" height="43px">
                     {road_address && (
                         <>
                             <Text text={road_address} size="20px" letterSpacing="-1px" bold="bold" />
@@ -76,9 +76,23 @@ const Address = props => {
                     {location.state ? '이 위치로 재설정' : '이 위치로 설정'}
                 </Button>
             </Grid>
-        </Grid>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 0 0 16px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`;
 
 const StyledArrowIcon = styled(ArrowIcon)`
     position: absolute;
