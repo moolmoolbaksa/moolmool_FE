@@ -19,11 +19,11 @@ const DetailBottom = props => {
     const Roomlist = useSelector(state => state.chat.Roomlist);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
     const is_login = useSelector(state => state.user.is_login);
-    const { userId, nickname, isScrab, itemId, scrabCnt, profile, traded, barterId, status } = useSelector(
+    const { userId, nickname, scrab, itemId, scrabCnt, profile, traded, barterId, status } = useSelector(
         state => state.product.product_info,
     );
     const btnRef = useRef();
-    let isExistRoom=false;
+    console.log(userId, nickname, scrab, itemId, scrabCnt, profile, traded, barterId, status)
     const clickHeart = () => {
         if (nickname === my_nickname) return;
         if (is_login) {
@@ -41,6 +41,8 @@ const DetailBottom = props => {
         if([2, 3, 4].includes(status)) return dispatch(setAlertModal(true));
         dispatch(productActions.getTradeProductApi({ itemId, userId }));
     };
+
+    let isExistRoom = false;
 
     const onDoChat = () => {
         if (!is_login) {
@@ -98,7 +100,7 @@ const DetailBottom = props => {
             <Container bg={my_nickname === nickname}>
                 <Wrap>
                     <HeartOuter onClick={clickHeart}>
-                        {isScrab ? <HeartIconRed ref={btnRef} /> : <HeartIcon ref={btnRef} />}
+                        {scrab ? <HeartIconRed ref={btnRef} /> : <HeartIcon ref={btnRef} />}
                         {scrabCnt !== 0 && (
                             <Text
                                 text={scrabCnt ? scrabCnt : '0'}

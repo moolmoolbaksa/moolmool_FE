@@ -30,7 +30,7 @@ const HotDeal = (props) => {
                 width="max-content"
             />
             <Container>
-                {star_item_list.map((v, i) => {
+                {star_item_list.length && star_item_list.map((v, i) => {
                     return  <HotItem 
                                 key={v.itemId}
                                 rank={i+1}

@@ -15,6 +15,7 @@ export const getProductApi = createAsyncThunk('product/getProductApi', async (it
         } else {
             response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/${itemId}`);
         }
+        console.log(response)
         history.push(`/detail/${itemId}`);
         return response.data;
     } catch (error) {
@@ -119,7 +120,7 @@ export const product = createSlice({
             grade: '',
             nickname: '',
             profile: '',
-            isScrab: false,
+            scrab: false,
             scrabCnt: 0,
             status: '',
             title: '',
@@ -156,12 +157,12 @@ export const product = createSlice({
                 state.product_info = action.payload;
             })
             .addCase(setProductScrabApi.fulfilled, (state, action) => {
-                if (state.product_info.isScrab) {
+                if (state.product_info.scrab) {
                     state.product_info.scrabCnt -= 1;
-                    state.product_info.isScrab = false;
+                    state.product_info.scrab = false;
                 } else {
                     state.product_info.scrabCnt += 1;
-                    state.product_info.isScrab = true;
+                    state.product_info.scrab = true;
                 }
             })
             .addCase(getTradeProductApi.fulfilled, (state, action) => {

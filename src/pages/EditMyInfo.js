@@ -89,7 +89,7 @@ const EditMyInfo = (props) => {
                                 onChange={selectFile}
                                 ref={inputRef}
                                 type="file"
-                                accept="image/*"
+                                accept=".jpg, .png"
                                 id="profile_img" 
                             />
                             <label htmlFor='profile_img'></label>

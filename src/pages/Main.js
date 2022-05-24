@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import Drawer from '@mui/material/Drawer';
@@ -89,8 +89,12 @@ const Main = props => {
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
-    
+
+    const scrollRef = useRef(null);
+
     useEffect(() => { 
+        // 카테고리 변경 시 화면 맨 위로 올리기 위함
+        if(scrollRef.current) scrollRef.current.scrollTop = 0;
         const category = filter === '전체' ? '' : `${filter}`;
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
