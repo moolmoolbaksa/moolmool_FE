@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Input, Button } from '../elements/index';
 import ImageSlide from '../components/ImageSlide';
 import Noti from '../components/registerproduct/Noti';
-import CategoryNoti from '../components/registerproduct/CategoryNoti';
+// import CategoryNoti from '../components/registerproduct/CategoryNoti';
 import { ItemAPI } from '../shared/api';
 import LocationBar from '../components/LocationBar';
 import { history } from '../redux/configureStore';
 import {IoIosArrowUp} from "react-icons/io";
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { api as productActions } from '../redux/modules/product';
 import useError from '../components/registerproduct/useError';
 import { ReactComponent as CheckBox } from '../images/check_yellowbox.svg';
 import { ReactComponent as UncheckedBox } from '../images/unchecked_emptybox.svg';
 import {setAlertModal} from '../redux/modules/modal';
 import AlertModal from '../components/modal/AlertModal';
+import { api as userActions } from '../redux/modules/user';
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
+  const itemId = useParams().itemId;
+  const is_edit = itemId?true:false;
+  
+  React.useEffect(() => {
+    dispatch(userActions.getMyInfoApi());
+}, []);
+const myitem=useSelector(state=>state.user.item_list);
+console.log(myitem.length);
+  
   //  코드최적화 준비
   //  https://react.vlpt.us/basic/09-multiple-inputs.html   
   // input 의 개수가 여러개가 됐을때는, 단순히 useState 를 여러번 사용하고 onChange 도 여러개 만들어서 구현 할 수 있습니다. 
@@ -26,9 +35,9 @@ const RegisterProduct = (props) => {
   // 더 좋은 방법은, input 에 name 을 설정하고 이벤트가 발생했을 때 이 값을 참조하는 것입니다. 
   // 그리고, useState 에서는 문자열이 아니라 객체 형태의 상태를 관리해주어야 합니다.
   
-  const itemId = useParams().itemId;
+  
   // console.log(itemId);
-  const is_edit = itemId?true:false;
+ 
   
   const product_info=useSelector(state=>state.product.product_info);
   
@@ -71,7 +80,7 @@ const RegisterProduct = (props) => {
     const [preview,setPreview]=useState([]);
 //수정위한 사진 URL용 temp array 추가
     const [tempURL,setTempURL]=useState([]);
-    const ErrorMessage=useError(title,contents,category,favors,preview,type,);
+    const ErrorMessage=useError(title,contents,category,favors,preview,type,myitem.length,is_edit);
     const openCategory = () =>{
         if(categoryOpen){
             setcategoryOpen(false);
