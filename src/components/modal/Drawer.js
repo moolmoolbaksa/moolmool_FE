@@ -125,6 +125,7 @@ const Button = styled.button`
   padding: 20px 0;
   font-size: 14px;
   cursor: pointer;
+  transition: 0.3s;
 `;
 
 export default Drawer;
