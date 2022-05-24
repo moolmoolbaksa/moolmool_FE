@@ -15,8 +15,9 @@ import { Image, Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import StatusLabel from '../components/shared/StatusLabel';
-import { BsThreeDotsVertical } from "react-icons/bs";
 import Drawer from '../components/modal/Drawer';
+import { ReactComponent as ReportIcon } from '../images/report.svg';
+import ReportModal from '../components/modal/ReportModal';
 
 const Detail = (props) => {
     const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
@@ -36,7 +37,7 @@ const Detail = (props) => {
     return (
         <Container>
             <LocationBar transparent />
-            {is_login && nickname !== my_nickname && <ThreeDots onClick={() => {setIsOpen(!isOpen)}}/>}
+            {is_login && nickname !== my_nickname && <StyledReportIcon  onClick={() => {setIsOpen(!isOpen)}}/>}
             <Grid
                 position="relative"
             >
@@ -66,6 +67,7 @@ const Detail = (props) => {
                             onclose={() => {setIsOpen(!isOpen)}}
                         />
             }
+            <ReportModal />
         </Container>
     );
 };
@@ -96,10 +98,9 @@ const Wrap = styled.div`
     flex-direction: column;
 `;
 
-const ThreeDots = styled(BsThreeDotsVertical)`
+const StyledReportIcon = styled(ReportIcon)`
   cursor: pointer;
   position: absolute;
-  color: white;
   right: 12px;
   top: 12px;
   width: auto;

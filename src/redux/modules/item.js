@@ -74,8 +74,6 @@ export const setReportItemApi = createAsyncThunk('item/setReportItemApi', async 
     }
 });
 
-
-
 export const item = createSlice({
     name: 'item',
     initialState: {

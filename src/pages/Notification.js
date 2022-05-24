@@ -47,10 +47,17 @@ const Notification = props => {
         <Grid height="100%" is_flex is_column>
             <LocationBar title="알림" />
             <Container>
-                {/* {is_token &&
-                    noti_list.map(v => {
-                        return <Noticard key={v.notificationId} {...v} />;
-                    })} */}
+                {noti_list.length
+                    ?   noti_list.map(v => {
+                        return <Noticard key={v.notificationId} {...v} />;})
+                        // 빈화면은 컴포넌트로 빼서 정리하기ㅜㅜ
+                    :   <Wrap>
+                            <span className="material-symbols-outlined">
+                                error
+                            </span>
+                            <Text>알림창이 비어있습니다.</Text> 
+                        </Wrap>
+                }
             </Container>
         </Grid>
     );
@@ -67,6 +74,27 @@ const Container = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+`;
+
+const Wrap = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    justify-content: center;
+    gap: 10px;
+    span {
+        font-size: 100px;
+        text-align: center;
+        text-indent: -9999;
+    };
+`;
+
+const Text = styled.div`
+    font-size: 18px;
+    color: #9d9d9d;
+    word-spacing: -2px;
+    letter-spacing: -1px;
+    text-align: center;
 `;
 
 export default Notification;
