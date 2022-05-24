@@ -72,6 +72,7 @@ const Main = props => {
     useEffect(() => {
         ChatAPI.getChatRoom()
             .then(res => {
+              console.log(res);
                 dispatch(setRoomlist(res.data));
             })
             .catch(error => {

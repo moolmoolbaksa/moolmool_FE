@@ -5,23 +5,27 @@ import { Button } from '../../elements';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useParams } from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
+import {moveScroll} from '../../redux/modules/chat'
 
 const Inputbox = (props) => {
   const messageInput =useRef(null);
   const [message,setMessage]=useState("");
   const roomId=useParams();
+  const dispatch=useDispatch();
     
   const roomtype=useSelector(state=>state.chat.Currentroom.type);
   const isBanned=useSelector(state=>state.chat.Currentroom.isBanned);
-  const Sentroomid_temp=useSelector(state=>state.chat.Currentroom.roomId);
+  // const Sentroomid_temp=useSelector(state=>state.chat.Currentroom.roomId);
   let isRead = roomtype === "NORMAL" ? false : true;
   // console.log('sentroomid_temp: '+Sentroomid_temp);
   const Sentroomid=parseInt(roomId.roomid);
   // let sock = new SockJS('http://13.124.0.71/ws-stomp');
   // let client = Stomp.over(sock);
   // console.log('Sentroomid: '+Sentroomid);
-    
+  console.log('roomtype: '+roomtype);
+  console.log();
+
   const onSend = () => {
     console.log("connected");
     console.log(props.client.ws.readyState);
@@ -40,6 +44,11 @@ const Inputbox = (props) => {
     setMessage("");
     messageInput.current.value = "";
   }
+  // const handlemoveScroll=()=>{
+  //   console.log('moveScroll');
+  //   dispatch(moveScroll());
+
+  // }
 
   const handleMessage=(e)=>{
     setMessage(e.target.value);
@@ -48,10 +57,15 @@ const Inputbox = (props) => {
 	const onDoEnter = (e) => {
 		if(e.keyCode === 13) onSend();
 	};
-  
+  const handletouch=(e)=>
+  {
+    console.log(e);
+    dispatch(moveScroll());
+  }
+  // ontouchstart="startTouch(event)">
   return(
-    <Base>
-      {isBanned === 1 
+    <Base onClick={onSend}>
+      {isBanned 
         ? <>
             <Input 
               placeholder="차단 되었습니다." 
@@ -76,6 +90,8 @@ const Inputbox = (props) => {
               ref={messageInput} 
               onChange={handleMessage} 
               onKeyDown={onDoEnter}
+              // onClick={handlemoveScroll}
+              onTouchStart={(e)=>handletouch(e)}
             />
             <Button 
               background="yellow" 

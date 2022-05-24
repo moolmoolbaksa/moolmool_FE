@@ -59,7 +59,7 @@ function App() {
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
         <Background>
-          {/* <SurveyButton/> */}
+          <SurveyButton/>
         </Background>
           <GlobalStyle>
             <Route exact path="/" component={Main} />

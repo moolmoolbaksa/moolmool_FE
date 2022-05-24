@@ -13,6 +13,7 @@ const Drawer = (props) => {
     ChatAPI.banUser(props.userId)
     .then((res)=>{
       console.log(res);
+      history.push('/chat');
     })
     .catch((error)=>{
       console.log(error);

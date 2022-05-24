@@ -53,6 +53,7 @@ export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, 
         } else {
             response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`);
         }
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('getStarItemAPi: ', error);

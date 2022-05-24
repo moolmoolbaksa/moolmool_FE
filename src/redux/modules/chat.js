@@ -32,6 +32,7 @@ const initialState={
         date:"",
     },
     messages:[],
+    moveScroll:1,
 }
 
 
@@ -66,6 +67,9 @@ export const chat = createSlice({
         changeRoomtype: (state,action)=>{
             state.Currentroom.type=action.payload
         },
+        moveScroll: (state,action)=>{
+          state.moveScroll+=1;
+      },
 
     },
 
@@ -82,6 +86,7 @@ export const {
     getPreviousMessages,
     addMessage,
     changeRoomtype,
+    moveScroll,
 } = chat.actions;
 
 export const api = {
