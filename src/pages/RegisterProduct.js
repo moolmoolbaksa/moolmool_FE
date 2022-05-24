@@ -246,6 +246,7 @@ console.log(myitem.length);
 
     // console.log(preview)
 	return (
+    <>
 	<Base>
 	{ is_edit?<LocationBar title="상품 수정"/>:<LocationBar title="상품 등록"/>}
 	<Noti></Noti>
@@ -377,23 +378,24 @@ console.log(myitem.length);
 
 			{is_edit?<Button height='4rem' radius='4px' background="yellow" color='black' onClick={edit}>수정하기</Button>
       :<Button height='4rem' radius='4px' background="yellow" color='black' onClick={submit}>등록하기</Button>}
-    {<AlertModal>{ErrorMessage[1]}</AlertModal>}
 	</Base>
-    );
+  <AlertModal>{ErrorMessage[1]}</AlertModal>
+  </>
+  );
 };
 const Base=styled.div`
   background: white;
 	position:relative;
   max-width:420px;
   overflow:auto;
-  height:100vh;
-  max-height:100%;
+  height:100%;
+  /* max-height:100%; */
   // &::-webkit-scrollbar-thumb {
   //   display:none;	}
-    &::-webkit-scrollbar {
-      width: 0;
-      height:0;
-    }
+  &::-webkit-scrollbar {
+    width: 0;
+    height:0;
+  }
 `;
 const Imagelist=styled.div`
 	display:flex;

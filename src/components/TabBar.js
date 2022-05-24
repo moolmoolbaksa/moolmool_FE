@@ -52,7 +52,6 @@ const TabBar = ({position}) => {
     };
 
     return (
-        <>
         <Container position={position}>
             <Wrap onClick={goHome}>
                 {location.pathname === '/'
@@ -108,8 +107,6 @@ const TabBar = ({position}) => {
                 <span>마이페이지</span>
             </Wrap>
         </Container>
-        <AlertModal type="soon"/>
-        </>
     );
 };
 

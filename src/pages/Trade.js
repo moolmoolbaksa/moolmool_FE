@@ -23,6 +23,7 @@ const Trade = (props) => {
     };
 
     return (
+        <>
         <Grid
             height="100%"
             is_flex
@@ -56,9 +57,10 @@ const Trade = (props) => {
             >
                 교환신청하기
             </Button>
-            <TradeModal />
-            <AlertModal>아이템을 선택해주세요.</AlertModal>
         </Grid>
+        <TradeModal />
+        <AlertModal>아이템을 선택해주세요.</AlertModal>
+        </>
     );
 };
 

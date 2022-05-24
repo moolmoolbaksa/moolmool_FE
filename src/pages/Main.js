@@ -156,7 +156,6 @@ const Main = props => {
                 <TabBar position />
             </Grid>
             <LoginModal />
-            
             {/* {is_loading && <Loading />} */}
         </>
     );

@@ -64,7 +64,7 @@ const AlertModal = ({children}) => {
 const FadeIn = keyframes`
     0% {
         opacity: 0;
-        transform: translate(-50%, -30%);
+        transform: translate(-50%, -20%);
     }
     100%{
         opacity: 1;
@@ -79,7 +79,7 @@ const FadeOut = keyframes`
     }
     100%{
         opacity: 0;
-        transform: translate(-50%, -30%);
+        transform: translate(-50%, -20%);
         pointer-events: none;
     }
 `;
