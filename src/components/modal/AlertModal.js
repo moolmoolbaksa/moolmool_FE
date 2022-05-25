@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
+import { ReactComponent as ExclamationIcon } from '../../images/exclamation_mark.svg';
 
 const AlertModal = ({children}) => {
     const dispatch = useDispatch();
@@ -27,16 +28,13 @@ const AlertModal = ({children}) => {
     const onClose = () => {
         dispatch(setAlertModal(false));
     };
-    console.log(children.length)
-
+ 
     return (
         <ModalBackground>
             <ModalContainer is_modal={is_alert_modal}>
                 <Content>
                     <Round>
-                        <span className="material-symbols-outlined">
-                            priority_high
-                        </span>
+                        <ExclamationIcon />
                     </Round>
                     <Grid>
                         {children.length < 20
@@ -124,17 +122,6 @@ const Content = styled.div`
     justify-content: center;
     padding: 30px 0 20px;
     gap: 15px;
-    
-    & span {
-        text-indent: -9999;
-        font-size: 100px;
-    }
-    
-    & > span.material-symbols-outlined{
-        text-indent: -9999;
-        font-size: 70px;
-        color: #0095B7;
-    }
 `;
 
 const BtnWrap = styled.div`
@@ -162,13 +149,6 @@ const Round = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    & span {
-        text-indent: -9999;
-        font-size: 30px;
-        color: white;
-        text-align: center;
-    }
 `;
 
 export default AlertModal;
