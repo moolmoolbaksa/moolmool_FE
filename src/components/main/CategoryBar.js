@@ -31,7 +31,7 @@ const CategoryBar = ({setfilter}) => {
     return (
         <Container>
             <Wrap>
-                <Grid flex gap="2px" >
+                <Grid flex gap="3px" >
                     <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
                     {category && <RefreshIcon src={refresh} alt="새로고침" onClick={() => {setfilter('전체'); setIsOpen(false)}} style={{paddingTop: '2px'}}/>}
                 </Grid>
@@ -77,18 +77,26 @@ const Wrap = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 16px;
+    padding: 0px 16px;
     border-top: 1px #e8e8e8 solid; 
     border-bottom: 1px #e8e8e8 solid; 
     background-color: white;
 `;
 
 const CategoryText = styled.span`
+    position: relative;
     width: max-content;
     font-weight: bold;
     letter-spacing: -.67px;
-    /* margin-bottom: 10px; */
-    /* border-bottom: 3px solid ${props => props.theme.palette.yellow}; */
+    line-height: 50px;
+    &::after {
+        position: absolute;
+        content: '${props => props.category}';
+        color: transparent;
+        left: 0;
+        line-height: 48px;
+        border-bottom: 3px solid ${props => props.theme.palette.yellow};
+    }
 `;
 
 const StyledArrowIcon = styled(ArrowIcon)`

@@ -6,6 +6,7 @@ import { Text, Grid } from '../../elements/index';
 import { history } from '../../redux/configureStore';
 import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
+import { ReactComponent as PlusIcon } from '../../images/plus.svg';
 
 const ItemGrid = ({item_list, type}) => {
     
@@ -133,9 +134,7 @@ const ItemGrid = ({item_list, type}) => {
                                                 {...v}
                                             /> 
                                         :   <PlusItem key={i} onClick={onGoCreateItem}>
-                                                <span className="material-symbols-outlined">
-                                                    add_circle
-                                                </span>
+                                                <PlusIcon stroke="#C4C4C4"/>
                                             </PlusItem>   
                         })}
                     </Grid>
@@ -147,18 +146,13 @@ const ItemGrid = ({item_list, type}) => {
 const PlusItem = styled.div`
     width: 100%;
     height: 100%;
-    border: 2px lightgray solid;
+    border: 2px #C4C4C4 solid;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 30px;
     cursor: pointer;
-    & span {
-        text-indent: -9999;
-        color: lightgray;
-        font-size: 30px;
-    }
 `;
 
 const PlusZone = styled.div`
