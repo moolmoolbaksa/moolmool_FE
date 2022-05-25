@@ -37,7 +37,7 @@ const OpponentInfo = (props) => {
                         onClick={onGoUserMall}
                         src={profile}
                         shape="circle" 
-                        size="56"
+                        size="45"
                         margin="0px"
                     />
                     <Grid 

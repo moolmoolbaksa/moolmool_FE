@@ -4,7 +4,7 @@ import styled, { css, keyframes } from 'styled-components';
 
 import { Grid } from '../../elements';
 import { ReactComponent as ArrowIcon } from '../../images/expand_more_arrow.svg';
-import refresh from '../../images/outline_replay_black_18pt_1x.png';
+import { ReactComponent as RefrashIcon } from '../../images/refrash.svg';
 
 const CategoryBar = ({setfilter}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,9 +33,9 @@ const CategoryBar = ({setfilter}) => {
             <Wrap>
                 <Grid flex gap="3px" >
                     <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
-                    {category && <RefreshIcon src={refresh} alt="새로고침" onClick={() => {setfilter('전체'); setIsOpen(false)}} style={{paddingTop: '2px'}}/>}
+                    {category && <StyledRefrashIcon onClick={() => {setfilter('전체'); setIsOpen(false)}}/>}
                 </Grid>
-                <Grid width="100%" is_flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
+                <Grid width="100%" height="40px" flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
                     <StyledArrowIcon open={isOpen}/>
                 </Grid>
             </Wrap>
@@ -109,7 +109,8 @@ const StyledArrowIcon = styled(ArrowIcon)`
     }
 `;
 
-const RefreshIcon = styled.img`
+const StyledRefrashIcon = styled(RefrashIcon)`
+    padding-top: 3px;
     cursor: pointer;
 `;
 
