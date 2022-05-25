@@ -110,7 +110,7 @@ const StyledArrowIcon = styled(ArrowIcon)`
 `;
 
 const StyledRefrashIcon = styled(RefrashIcon)`
-    padding-top: 3px;
+    padding-top: 1px;
     cursor: pointer;
 `;
 
