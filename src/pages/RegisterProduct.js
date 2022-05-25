@@ -17,6 +17,7 @@ import { ReactComponent as UncheckedBox } from '../images/unchecked_emptybox.svg
 import {setAlertModal} from '../redux/modules/modal';
 import AlertModal from '../components/modal/AlertModal';
 import { api as userActions } from '../redux/modules/user';
+import {resize} from '../shared/resize';
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   const itemId = useParams().itemId;
@@ -26,7 +27,7 @@ const RegisterProduct = (props) => {
     dispatch(userActions.getMyInfoApi());
 }, []);
 const myitem=useSelector(state=>state.user.item_list);
-console.log(myitem.length);
+// console.log(myitem.length);
   
   //  코드최적화 준비
   //  https://react.vlpt.us/basic/09-multiple-inputs.html   
@@ -81,11 +82,11 @@ console.log(myitem.length);
 //수정위한 사진 URL용 temp array 추가
     const [tempURL,setTempURL]=useState([]);
     const ErrorMessage=useError(title,contents,category,favors,preview,type,myitem.length,is_edit);
-    console.log(navigator.userAgent);
-    console.log(navigator.platform);
-    console.log(navigator.connection);
-    console.log(navigator.mediaDevices);
-    console.log(navigator.storage);
+    // console.log(navigator.userAgent);
+    // console.log(navigator.platform);
+    // console.log(navigator.connection);
+    // console.log(navigator.mediaDevices);
+    // console.log(navigator.storage);
     const openCategory = () =>{
         if(categoryOpen){
             setcategoryOpen(false);
@@ -115,9 +116,15 @@ console.log(myitem.length);
     const selectfile=(e)=>{
         let filelist=[...fileInput.current.files];
         setFileslist(state=>state.concat(filelist));
+        console.log('=======================');
+        var canvas = document.createElement('canvas');
+        var image= new Image();
+        console.log('=======================');
+
+        console.log(fileInput.current.files.width);
         console.log(filelist);
         console.log(fileInput.current.files);
-
+        
         filelist.map((file)=>{
           
           let reader = new FileReader();

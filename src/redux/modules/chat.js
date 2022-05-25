@@ -33,6 +33,7 @@ const initialState={
     },
     messages:[],
     moveScroll:1,
+    BanList:[],
 }
 
 
@@ -69,7 +70,14 @@ export const chat = createSlice({
         },
         moveScroll: (state,action)=>{
           state.moveScroll+=1;
-      },
+        },
+        setBanList: (state,action)=>{
+          state.BanList=action.payload;
+        },
+        releaseUser: (state,action)=>{
+          state.BanList=state.BanList.filter((p,idx)=>p.userId!==action.payload);
+        },
+        
 
     },
 
@@ -87,6 +95,8 @@ export const {
     addMessage,
     changeRoomtype,
     moveScroll,
+    setBanList,
+    releaseUser,
 } = chat.actions;
 
 export const api = {

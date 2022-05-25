@@ -101,6 +101,21 @@ export const ChatAPI = {
             Authorization: `${localStorage.getItem('token')}`,
         },
     }),
+    //차단한 유저 확인
+    getBanUser: userId =>
+    chatapi.get('/chat/room/banned', {
+        headers: {
+            Authorization: `${localStorage.getItem('token')}`,
+        },
+    }),
+    //차단한 유저 해제
+    releaseUser: userId =>
+    chatapi.put(`/chat/room/${userId}/banned`, {
+        headers: {
+            Authorization: `${localStorage.getItem('token')}`,
+        },
+    }),
+
     
 };
 // /api/trade/decision?barterId=거래내역아이디
