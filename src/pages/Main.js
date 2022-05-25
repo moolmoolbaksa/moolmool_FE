@@ -51,7 +51,8 @@ const Main = props => {
     }, []);
 
     useEffect(() => {
-        if (is_token) {
+        if (is_token) 
+        {
             client.connect({ Authorization: localStorage.getItem('token') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
@@ -64,16 +65,16 @@ const Main = props => {
                 );
                 client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
             });
-          }
+        }
 
-          return () => {
+        return() => {
               if(is_token)
-              {client.disconnect(
-                () => {
-                    client.unsubscribe('sub-0');
-                },
-                { Authorization: `${localStorage.getItem('token')}` },
-              );
+              {
+                client.disconnect(() => {
+                                          client.unsubscribe('sub-0');
+                                        },
+                  { Authorization: `${localStorage.getItem('token')}` },
+                );
               }
           };
         

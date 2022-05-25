@@ -19,8 +19,10 @@ const ImageSlide = (props) => {
 };
 {/* <CheckBox width="1rem" height="1rem"/>:<UncheckedBox width="1rem" height="1rem"/>} */}
 const DeleteOuter=styled.div`
+
     position:relative;
     margin:0 16px;
+
 `;
 const DeleteIcon=styled(deleteBlackround)`
   display:block;    

@@ -200,7 +200,7 @@ const myitem=useSelector(state=>state.user.item_list);
         if(!ErrorMessage[0])
         {
           dispatch(setAlertModal(true))
-          setErrorModal(true);
+          // setErrorModal(true);
           return;
         }
         
@@ -276,8 +276,8 @@ const myitem=useSelector(state=>state.user.item_list);
 			<IoIosArrowUp/>
 		</Toggle>
 		{categoryOpen?
-		<CategoryParentbox >
-			<Categorybox >
+		<CategoryParentbox onClick={(e)=>{e.stopPropagation();}}>
+			<Categorybox>
 			<CategoryWrapInputLabel  key={`category_div_default`}> 
 					<input style={{display:"none"}} name="category" key={`category_input_default`} id="category_id_default" type="radio" value="카테고리 선택하기" checked={null} onClick={handleCategory}/>
 					<Label htmlFor="category_id_default" key={`category_label_default`}
@@ -449,7 +449,7 @@ const PlusItem = styled.label`
     height: 6rem;
     border: 2px lightgray solid;
     font-color:lightgray;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
