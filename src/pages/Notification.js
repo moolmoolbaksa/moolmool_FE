@@ -8,6 +8,7 @@ import { Grid } from '../elements/index';
 import Noticard from '../components/notification/Noticard';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { ReactComponent as EmptyIcon } from '../images/outline_error_outline_black_48pt_2x 1.svg';
 
 const Notification = props => {
     const dispatch = useDispatch();
@@ -52,9 +53,7 @@ const Notification = props => {
                         return <Noticard key={v.notificationId} {...v} />;})
                         // 빈화면은 컴포넌트로 빼서 정리하기ㅜㅜ
                     :   <Wrap>
-                            <span className="material-symbols-outlined">
-                                error
-                            </span>
+                            <EmptyIcon />
                             <Text>알림창이 비어있습니다.</Text> 
                         </Wrap>
                 }
@@ -81,6 +80,7 @@ const Wrap = styled.div`
     flex-flow: column nowrap;
     height: 100%;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     span {
         font-size: 100px;
