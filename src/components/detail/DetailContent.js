@@ -32,7 +32,7 @@ const DetailContent = (props) => {
                     />
                 </Grid>
                 <Text 
-                    multi="4"
+                    multi="20"
                     text={contents}
                 />
             </Grid>
@@ -75,7 +75,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
-
 
 export default DetailContent;
