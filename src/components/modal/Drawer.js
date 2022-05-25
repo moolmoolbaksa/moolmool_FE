@@ -77,7 +77,7 @@ const Drawer = (props) => {
 const boxFade = keyframes`
   from {
     opacity: 0;
-    transform: translateY(430px);
+    transform: translateY(100%);
   }
   to {
     opacity: 1;
@@ -92,6 +92,7 @@ const ModalBackground = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
