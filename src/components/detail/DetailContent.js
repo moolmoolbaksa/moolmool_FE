@@ -14,12 +14,13 @@ const DetailContent = (props) => {
     return (
         <Container>
             <Grid> 
-                <Grid flex margin="0 0 16px 0">
+                <Grid flex margin="0 0 16px 0" gap="10px">
                     <Text 
+                        multi="2"
                         text={title}
                         bold="bold"
                         size="18px"
-                        width="85%"
+                        // width="90%"
                     />
                     <Text 
                         text={timeForToday(date)}
@@ -27,7 +28,7 @@ const DetailContent = (props) => {
                         letterSpacing="-1px"
                         color="lightgray"
                         textAlign="right"
-                        width="15%"
+                        width="60px"
                         padding="0 0 5px 0"
                     />
                 </Grid>
@@ -50,7 +51,7 @@ const DetailContent = (props) => {
                     width="max-content"
                     color="lightgray"
                 />
-                {is_login && nickname !== my_nickname && 
+                {is_login && address && nickname !== my_nickname && 
                     <Grid flex>
                         <LocationIcon width="18" height="18" fill="lightgray"/>
                         <Text 
