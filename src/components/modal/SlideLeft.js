@@ -22,7 +22,7 @@ const SlideLeft = (props) => {
     '도서/티켓/음반',
     '식물',
 ]
-  
+  console.lof(props.setfilter)
   return(
     <ModalBackground onClick={props.closeSlide}>
       <Modalcontents>

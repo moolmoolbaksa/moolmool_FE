@@ -15,18 +15,19 @@ export const getItemApi = createAsyncThunk('item/getItemApi', async ({category, 
         } else {
             response = await axios.get(`https://langho968.shop/items/${page}?category=${category}`);
         };
-
+        console.log(response)
         let is_next;
         
-        if(response.data.length < 10){
+        if(response.data.items.length < 10){
             is_next = false;
         } else {
             is_next = true;
         };
         
         const data = {
-            list: response.data,
+            list: response.data.items,
             paging: {
+                total: response.data.totalCnt,
                 page: page + 1,
                 next: is_next,
                 category: category,
@@ -81,6 +82,7 @@ export const item = createSlice({
         star_item_list: [],
         item_list: [],
         paging: {
+            total: 0,
             page: 0,
             next: false,
             category: null,

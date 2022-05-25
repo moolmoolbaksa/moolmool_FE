@@ -29,6 +29,8 @@ import { api as userActions } from '../redux/modules/user';
 import { api as itemActions } from '../redux/modules/item';
 import FetchMore from '../components/shared/FetchMore';
 import SlideLeft from '../components/modal/SlideLeft';
+import CategoryBar from '../components/main/CategoryBar';
+
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
@@ -84,14 +86,15 @@ const Main = props => {
                 console.log(error);
             });
     }, []);
-    const handleOpenCategory=()=>{
-      console.log(openCategory);
-      setOpenCategory(true);
-    }
-    const handleCloseCategory=()=>{
-      console.log(openCategory);
-      setOpenCategory(false);
-    }
+
+    // const handleOpenCategory=()=>{
+    //   console.log(openCategory);
+    //   setOpenCategory(true);
+    // }
+    // const handleCloseCategory=()=>{
+    //   console.log(openCategory);
+    //   setOpenCategory(false);
+    // }
 
     // 무한스크롤: 호출돼야할 함수 세팅
     const getNextList = (category, page) => {
@@ -99,22 +102,29 @@ const Main = props => {
     };
 
     const scrollRef = useRef(null);
-
+   
     useEffect(() => { 
         // 카테고리 변경 시 화면 맨 위로 올리기 위함
-        if(scrollRef.current) scrollRef.current.scrollTop = 0;
+        if(scrollRef.current) {
+            // 왜 아래는 안되는거지?
+            // let scroll = scrollRef.current.scrollTop;
+            // scroll <= 415 ? scroll = 0 : scroll = 415;
+            if(scrollRef.current.scrollTop < 415){
+                scrollRef.current.scrollTop = 0;
+            } else {
+                scrollRef.current.scrollTop = 415;
+            }
+        }
         const category = filter === '전체' ? '' : `${filter}`;
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
 
-    
-
     return (
         <>
-            <Grid height="100%" is_flex is_column>
+            <Container>
                 {/* 상단바 */}
-                <Grid flex padding="10px 16px">
-                    <HambergerIcon onClick={handleOpenCategory} />
+                <Grid flex padding="10px 16px" justify="flex-end">
+                    {/* <HambergerIcon onClick={handleOpenCategory} /> */}
                     <Grid flex gap="10px">
                         <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
                         <NotiWrap>
@@ -129,40 +139,42 @@ const Main = props => {
                 </Grid>
                 {/* 상단바끝 */}
                 {/* 프로필 및 인사 */}
-                <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #dadada solid">
-                    <Image
-                        size="50"
-                        src={
-                            profile
-                                ? profile
-                                : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjj5IrkGRH6VDUgnUiMCjY2Npu5S8fDew1Q&usqp=CAU'
-                        }
-                    />
-                    <Grid>
-                        <Text text={`안녕하세요, ${nickname ? nickname : '방문자'}님`} letterSpacing="-1px" />
-                        <Text
-                            text="물물교환을 시작해 볼까요?"
-                            bold="bold"
-                            size="16px"
-                            letterSpacing="-1px"
-                            wordSpacing="-1px"
+                <ScrollWrap ref={scrollRef}>
+                    <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #e8e8e8 solid">
+                        <Image
+                            size="50"
+                            src={
+                                profile
+                                    ? profile
+                                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjj5IrkGRH6VDUgnUiMCjY2Npu5S8fDew1Q&usqp=CAU'
+                            }
                         />
+                        <Grid>
+                            <Text text={`안녕하세요, ${nickname ? nickname : '방문자'}님`} letterSpacing="-1px" />
+                            <Text
+                                text="물물교환을 시작해 볼까요?"
+                                bold="bold"
+                                size="16px"
+                                letterSpacing="-1px"
+                                wordSpacing="-1px"
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                {/* 프로필 및 인사 끝 */}
-                {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>}
-            
-                <CardWrap ref={scrollRef}>
+                    {/* 프로필 및 인사 끝 */}
+                    {/* {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>} */}
                     <HotDeal />
-                    {item_list.slice().sort((a,b)=>b.itemId-a.itemId).map((p, idx) => {
-                        return <Card key={p.itemId} {...p} />;
-                    })}
+                    <CategoryBar setfilter={setfilter}/>
+                    <TotalCnt> 총 {paging.total}건의 물품이 있습니다. </TotalCnt>
+                    <ItemWrap>
+                        {item_list.slice().sort((a,b) => b.itemId - a.itemId).map((p, idx) => {
+                            return <Card key={p.itemId} {...p} />
+                        })}
+                    </ItemWrap>
                     <FetchMore paging={paging} callNext={() => getNextList(paging.category, paging.page)}/>
-                </CardWrap>
+                </ScrollWrap>
                 <TabBar position />
-            </Grid>
+            </Container>
             <LoginModal />
-            
             {/* {is_loading && <Loading />} */}
         </>
     );
@@ -180,15 +192,21 @@ const BlinkSign = keyframes`
 	}
 `;
 
-const CardWrap = styled.div`
-    padding: 0 16px;
+const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+`;
+
+const ScrollWrap = styled.div`
+    /* padding: 0 16px; */
     flex-grow: 1;
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
     }
-`;
+    `;
 
 const NotiWrap = styled.div`
     position: relative;
@@ -205,6 +223,18 @@ const NotiSign = styled.div`
     background-color: red;
     border-radius: 10px;
     animation: ${BlinkSign} 3s infinite ease-out;
+`;
+
+const TotalCnt = styled.span`
+    padding: 0 16px;
+    font-size: 14px;
+    color: #9d9d9d;
+    letter-spacing: -.22px;
+    word-spacing: -1px;
+`;
+
+const ItemWrap = styled.div`
+    padding: 0 16px;
 `;
 
 export default Main;

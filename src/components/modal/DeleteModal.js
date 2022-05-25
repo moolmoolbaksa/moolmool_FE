@@ -17,7 +17,7 @@ const DeleteModal = ({itemId}) => {
         if(is_delete_modal){
             setIsOpen(true);
         } else {
-            setTimeout(() => setIsOpen(false), 200);
+            timeout = setTimeout(() => setIsOpen(false), 200);
         };
         return () => clearTimeout(timeout);
     }, [is_delete_modal]);

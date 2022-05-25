@@ -62,12 +62,8 @@ const AspectInner = styled.div`
     width: var(--size);
     height: var(--size);    
     position: relative;
-    // padding-top: 100%;
-    // overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
-    // border-radius:4px;
-    
     background-repeat: no-repeat;
     background-position: center;
 `;
@@ -75,7 +71,7 @@ const AspectInner = styled.div`
 
 const ImageCircle = styled.div`
     --size: ${(props) => props.size}px;
-    width: ${(props) => props.size}px;
+    min-width: ${(props) => props.size}px;
     height: ${(props) => props.size}px;
     border-radius: var(--size);
 
