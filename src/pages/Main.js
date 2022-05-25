@@ -122,7 +122,7 @@ const Main = props => {
         const category = filter === '전체' ? '' : `${filter}`;
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
-
+   
     return (
         <>
             <Container>
