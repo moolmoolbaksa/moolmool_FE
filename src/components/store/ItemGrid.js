@@ -6,7 +6,7 @@ import { Text, Grid } from '../../elements/index';
 import { history } from '../../redux/configureStore';
 import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
-import { ReactComponent as PlusIcon } from '../../images/plus.svg';
+import { ReactComponent as PlusIcon } from '../../images/plus_round.svg';
 
 const ItemGrid = ({item_list, type}) => {
     
@@ -134,7 +134,7 @@ const ItemGrid = ({item_list, type}) => {
                                                 {...v}
                                             /> 
                                         :   <PlusItem key={i} onClick={onGoCreateItem}>
-                                                <PlusIcon stroke="#C4C4C4"/>
+                                                <PlusIcon/>
                                             </PlusItem>   
                         })}
                     </Grid>
