@@ -27,6 +27,7 @@ const AlertModal = ({children}) => {
     const onClose = () => {
         dispatch(setAlertModal(false));
     };
+    console.log(children.length)
 
     return (
         <ModalBackground>
@@ -38,15 +39,24 @@ const AlertModal = ({children}) => {
                         </span>
                     </Round>
                     <Grid>
-                        <Text
-                            text={children}
-                            // text="아이템을 선택해주세요."
-                            textAlign="center"
-                            letterSpacing="-1px"
-                            wordSpacing="-2px"
-                            size="20px"
-                            bold="bold"
-                        />
+                        {children.length < 20
+                            ?   <Text
+                                    text={children}
+                                    textAlign="center"
+                                    letterSpacing="-1px"
+                                    wordSpacing="-1px"
+                                    size="20px"
+                                    bold="bold"
+                                />
+                            :   <Text
+                                    text={children}
+                                    textAlign="center"
+                                    letterSpacing="-1px"
+                                    wordSpacing="-1px"
+                                    size="16px"
+                                    bold="bold"
+                                />
+                        }
                     </Grid>
                 </Content>
                 <BtnWrap>
@@ -109,6 +119,7 @@ const ModalContainer = styled.div`
 
 const Content = styled.div`
     display: flex;
+    flex-flow: column;
     align-items: center;
     justify-content: center;
     padding: 30px 0 20px;

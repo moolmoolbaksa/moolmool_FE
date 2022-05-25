@@ -6,6 +6,7 @@ import { history } from '../../redux/configureStore';
 import { setLoginModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
 import { useLocation } from 'react-router-dom';
+import logo from '../../images/logo.png';
 
 const LoginModal = ({type}) => {
     const location = useLocation();
@@ -40,9 +41,7 @@ const LoginModal = ({type}) => {
         <ModalBackground>
             <ModalContainer is_modal={is_login_modal}>
                 <Content>
-                    <span className="material-symbols-outlined">
-                        login
-                    </span>
+                    <img src={logo} alt='로고' />
                     <Grid>
                         <Text
                             text="로그인 후 이용가능합니다"

@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import { Grid } from '../../elements/index';
 import SearchItem from './SearchItem';
-import { useSelector } from 'react-redux';
+import { ReactComponent as EmptyIcon } from '../../images/outline_error_outline_black_48pt_2x 1.svg';
+import { ReactComponent as EditIcon } from '../../images/outline_mode_edit_black_48pt_2x 1.svg';
 
 const SearchList = (props) => {
     const {search_list, search_word} = useSelector(state => state.search);
@@ -13,15 +15,11 @@ const SearchList = (props) => {
             <Container className='empty'>
                 {!search_word
                     ?   <Wrap>
-                            <span className="material-symbols-outlined">
-                                edit
-                            </span>
+                            <EditIcon />
                             <Text>검색어를 입력해 주세요.</Text> 
                         </Wrap>
                     :   <Wrap>
-                            <span className="material-symbols-outlined">
-                                error
-                            </span>
+                            <EmptyIcon />
                             <Grid is_flex is_column gap="3px">
                                 <Text>검색 결과가 없습니다.</Text> 
                                 <Text>다른 검색어를 입력해주세요.</Text>
@@ -92,12 +90,9 @@ const ListWrap = styled.div`
 const Wrap = styled.div`
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
     gap: 10px;
     overflow: hidden;
-    span {
-        font-size: 100px;
-        text-align: center;
-    };
 `;
 
 const Text = styled.div`

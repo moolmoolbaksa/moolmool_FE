@@ -79,8 +79,8 @@ const ElText = styled.div`
     width: ${props => props.width};
     text-align: ${props => props.textAlign};
     border-bottom: ${props => props.borderB};
-    ${props => (props.letterSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67%`)};
-    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : `word-spacing: -0.67%`)};
+    ${props => (props.letterSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67px`)};
+    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : `word-spacing: -0.67px`)};
     ${props => (props.maxWidth ? `max-width:${props.maxWidth}` : '')};
     overflow: hidden;
     white-space: nowrap;

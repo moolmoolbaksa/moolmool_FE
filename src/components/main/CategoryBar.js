@@ -35,7 +35,9 @@ const CategoryBar = ({setfilter}) => {
                     <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
                     {category && <RefreshIcon src={refresh} alt="새로고침" onClick={() => {setfilter('전체'); setIsOpen(false)}} style={{paddingTop: '2px'}}/>}
                 </Grid>
-                <StyledArrowIcon onClick={() => setIsOpen(!isOpen)} open={isOpen}/>
+                <Grid width="100%" is_flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
+                    <StyledArrowIcon open={isOpen}/>
+                </Grid>
             </Wrap>
             <CategoryContainer>
                 {isOpen &&
@@ -82,6 +84,7 @@ const Wrap = styled.div`
 `;
 
 const CategoryText = styled.span`
+    width: max-content;
     font-weight: bold;
     letter-spacing: -.67px;
     /* margin-bottom: 10px; */
