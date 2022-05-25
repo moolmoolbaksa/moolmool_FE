@@ -9,6 +9,7 @@ import ItemGrid from '../components/store/ItemGrid';
 import { setAlertModal, setTradeModal } from '../redux/modules/modal';
 import TradeModal from '../components/modal/TradeModal';
 import AlertModal from '../components/modal/AlertModal';
+import { ReactComponent as EmptyIcon } from '../images/outline_error_outline_black_48pt_2x 1.svg';
 
 const Trade = (props) => {
     const dispatch = useDispatch();
@@ -42,9 +43,7 @@ const Trade = (props) => {
                         <ItemGrid type="trade" item_list={myImages}/>
                     </ItemWrap>
                 :   <EmptyWrap>
-                        <span className="material-symbols-outlined">
-                            add_shopping_cart
-                        </span>
+                        <EmptyIcon />
                         <Grid is_flex is_column gap="3px">
                             <Text>보따리가 비어있어요.</Text> 
                             <Text>아이템을 추가한 후 교환을 진행하세요.</Text>
@@ -94,11 +93,6 @@ const EmptyWrap = styled.div`
     justify-content: center;
     gap: 10px;
     overflow: hidden;
-    span {
-        font-size: 100px;
-        text-align: center;
-        text-indent: -9999;
-    };
 `;
 
 const Text = styled.div`
