@@ -9,7 +9,7 @@ import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 const DetailContent = (props) => {
     const { title, date, contents, viewCnt, address, nickname } = useSelector(state => state.product.product_info);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-    console.log(nickname, my_nickname)
+    
     return (
         <Container>
             <Grid> 

@@ -100,7 +100,7 @@ const DetailBottom = props => {
             <Container bg={my_nickname === nickname}>
                 <Wrap>
                     <HeartOuter onClick={clickHeart}>
-                        {scrab ? <HeartIconRed ref={btnRef} /> : <HeartIcon ref={btnRef} stroke="#000"/>}
+                        {scrab ? <HeartIconRed ref={btnRef} /> : <HeartIcon ref={btnRef} width="36" height="36" stroke="#000"/>}
                         {scrabCnt !== 0 && (
                             <Text
                                 text={scrabCnt ? scrabCnt : '0'}

@@ -38,7 +38,7 @@ const Detail = (props) => {
         <>
         <Container>
             <LocationBar transparent />
-            {is_login && nickname !== my_nickname && <StyledReportIcon  onClick={() => {setIsOpen(!isOpen)}}/>}
+            {is_login && nickname !== my_nickname && <StyledReportIcon width="36" height="36" onClick={() => {setIsOpen(!isOpen)}}/>}
             <Grid
                 position="relative"
             >
@@ -103,10 +103,8 @@ const Wrap = styled.div`
 const StyledReportIcon = styled(ReportIcon)`
   cursor: pointer;
   position: absolute;
-  right: 12px;
-  top: 12px;
-  width: auto;
-  height: 25px;
+  right: 7px;
+  top: 7px;
   z-index: 200;
 `;
 

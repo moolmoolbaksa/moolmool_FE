@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import { Grid } from '../../elements';
 import { ReactComponent as ArrowIcon } from '../../images/expand_more_arrow.svg';
@@ -10,7 +10,7 @@ const CategoryBar = ({setfilter}) => {
     const [isOpen, setIsOpen] = useState(false);
     const category = useSelector(state => state.item.paging.category);
     
-    const category_list=[
+    const category_list = [
         '디지털기기',
         '생활가전',
         '가구/인테리어',
@@ -33,9 +33,9 @@ const CategoryBar = ({setfilter}) => {
             <Wrap>
                 <Grid flex gap="2px" >
                     <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
-                    {category && <RefreshIcon src={refresh} alt="새로고침" onClick={() => setfilter('전체')}style={{paddingTop: '2px'}}/>}
+                    {category && <RefreshIcon src={refresh} alt="새로고침" onClick={() => {setfilter('전체'); setIsOpen(false)}} style={{paddingTop: '2px'}}/>}
                 </Grid>
-                <StyledArrowIcon onClick={() => setIsOpen(!isOpen)}/>
+                <StyledArrowIcon onClick={() => setIsOpen(!isOpen)} open={isOpen}/>
             </Wrap>
             <CategoryContainer>
                 {isOpen &&
@@ -79,33 +79,23 @@ const Wrap = styled.div`
     border-top: 1px #e8e8e8 solid; 
     border-bottom: 1px #e8e8e8 solid; 
     background-color: white;
-    /* span {
-        font-weight: bold;
-        letter-spacing: -.67px;
-    }
-    span::before {
-        content: 'dsds';
-        display: inline-block;
-        position: absolute;
-        border-bottom: 2px red solid;
-    } */
 `;
 
 const CategoryText = styled.span`
-    --text: ${props => props.category};
     font-weight: bold;
     letter-spacing: -.67px;
-    &::before {
-        content: var(--text);
-        width: inherit;
-        position: absolute;
-        border-bottom: 3px solid ${props => props.theme.palette.yellow};
-    }
+    /* margin-bottom: 10px; */
+    /* border-bottom: 3px solid ${props => props.theme.palette.yellow}; */
 `;
 
 const StyledArrowIcon = styled(ArrowIcon)`
     width: 30px;
     cursor: pointer;
+    transition: transform 250ms ease-out;
+    ${props => props.open && 
+        css 
+            `transform: rotate(-180deg);`   
+    }
 `;
 
 const RefreshIcon = styled.img`
