@@ -7,7 +7,7 @@ import { ReactComponent as ChatIcon } from "../images/채팅.svg";
 import { ReactComponent as ChatIconYellow } from "../images/채팅(노랑).svg";
 import { ReactComponent as MyIcon } from "../images/마이페이지.svg";
 import { ReactComponent as MyIconYellow } from "../images/마이페이지(노랑).svg";
-import { ReactComponent as PlusIcon } from "../images/플러스.svg";
+import { ReactComponent as PlusIcon } from "../images/plus.svg";
 import { ReactComponent as TradeIcon } from "../images/trade_history.svg";
 import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
@@ -77,7 +77,7 @@ const TabBar = ({position}) => {
             </Wrap>
             <Wrap>
                 <CreateBtn onClick={goRegipage}>
-                    <PlusIcon />
+                    <PlusIcon stroke="#000"/>
                 </CreateBtn>
                 <Text 
                     text="물품등록"
@@ -154,14 +154,7 @@ const CreateBtn = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 1px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
-    & span {
-        text-indent: -9999;
-        font-size: 35px;
-        color: black;
-        font-weight: bold;
-    }
     cursor: pointer;
 `;
 
