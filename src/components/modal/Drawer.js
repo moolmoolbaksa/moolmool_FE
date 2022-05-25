@@ -4,7 +4,6 @@ import { ChatAPI } from '../../shared/api';
 import { history } from '../../redux/configureStore';
 import { useDispatch } from 'react-redux';
 import { setReportModal } from '../../redux/modules/modal';
-import ReportModal from './ReportModal';
 
 const Drawer = (props) => {
   const dispatch = useDispatch();
@@ -44,7 +43,6 @@ const Drawer = (props) => {
 
   if(props.location === 'detail'){
     return (
-      <>
       <ModalBackground onClick={props.onclose}>
         <Modalcontents>
           <Buttonwrap>
@@ -55,8 +53,6 @@ const Drawer = (props) => {
           </Buttonwrap>
         </Modalcontents>
       </ModalBackground>
-      <ReportModal/>
-      </>
     );
   };
 
