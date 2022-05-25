@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { setReportModal } from '../../redux/modules/modal';
 import ReportModal from './ReportModal';
 
+import {setAlertModal} from '../../redux/modules/modal';
+
 const Drawer = (props) => {
   const dispatch = useDispatch();
 
@@ -13,10 +15,15 @@ const Drawer = (props) => {
     ChatAPI.banUser(props.userId)
     .then((res)=>{
       console.log(res);
-      history.push('/chat');
+      history.replace('/chat');
     })
     .catch((error)=>{
-      console.log(error);
+      dispatch(setAlertModal(true))
+      console.log('modal check');
+      setTimeout(()=>{props.onclose();},100);
+      
+      console.log(error.response.headers);
+      
     })
   };
 
@@ -56,20 +63,23 @@ const Drawer = (props) => {
         </Modalcontents>
       </ModalBackground>
       <ReportModal/>
+      
       </>
     );
   };
 
   return(
+    <>
     <ModalBackground onClick={props.onclose}>
       <Modalcontents>
         <Buttonwrap>
           <Button onClick={(e)=>{e.stopPropagation(); exitroom();}}>채팅방 나가기</Button>
-          <Button onClick={(e)=>{e.stopPropagation(); ban();}}>차단하기</Button>
+          <Button onClick={(e)=>{e.stopPropagation(); ban();  props.onclose();}}>차단하기</Button>
           <Button onClick={(e)=>{e.stopPropagation(); props.onclose()}}>취소</Button>
         </Buttonwrap>
       </Modalcontents>
     </ModalBackground>
+    </>
   );
 };
 
