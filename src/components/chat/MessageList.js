@@ -21,7 +21,7 @@ const MessageList = (props) => {
     const Opponent=useSelector(state=>state.chat.Opponent);
     const messages=useSelector(state=>state.chat.messages);
     const ScrollState=useSelector(state=>state.chat.moveScroll);
-
+  console.log(ScrollState);
     const messageref=React.useRef(null);
 
     const apiroomid=parseInt(roomid.roomid);
@@ -52,15 +52,8 @@ const MessageList = (props) => {
     }
     },[])
     React.useEffect(()=>{
-        messageref.current.scrollTop=messageref.current.scrollHeight;
-        console.log(window.Keyboard.isvisible);
-        // if ('ontouchstart' in window  )
-        // {
-        //   console.log('true');
-        // }
-        // else{
-        //   console.log('false')
-        // }
+      setTimeout(function() { messageref.current.scrollTop=messageref.current.scrollHeight; }, 100);  
+      
         return()=>{
     }
     },[messages,ScrollState])

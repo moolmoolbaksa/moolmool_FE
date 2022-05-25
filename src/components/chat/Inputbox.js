@@ -26,6 +26,7 @@ const Inputbox = (props) => {
   console.log('roomtype: '+roomtype);
   console.log();
 
+    
   const onSend = () => {
     console.log("connected");
     console.log(props.client.ws.readyState);
@@ -44,11 +45,11 @@ const Inputbox = (props) => {
     setMessage("");
     messageInput.current.value = "";
   }
-  // const handlemoveScroll=()=>{
-  //   console.log('moveScroll');
-  //   dispatch(moveScroll());
+  const handlemoveScroll=()=>{
+    console.log('moveScroll');
+    dispatch(moveScroll());
 
-  // }
+  }
 
   const handleMessage=(e)=>{
     setMessage(e.target.value);
@@ -57,14 +58,9 @@ const Inputbox = (props) => {
 	const onDoEnter = (e) => {
 		if(e.keyCode === 13) onSend();
 	};
-  const handletouch=(e)=>
-  {
-    console.log(e);
-    dispatch(moveScroll());
-  }
-  // ontouchstart="startTouch(event)">
+  
   return(
-    <Base onClick={onSend}>
+    <Base>
       {isBanned 
         ? <>
             <Input 
@@ -90,8 +86,7 @@ const Inputbox = (props) => {
               ref={messageInput} 
               onChange={handleMessage} 
               onKeyDown={onDoEnter}
-              // onClick={handlemoveScroll}
-              onTouchStart={(e)=>handletouch(e)}
+              onClick={handlemoveScroll}
             />
             <Button 
               background="yellow" 

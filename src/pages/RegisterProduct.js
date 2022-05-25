@@ -81,6 +81,11 @@ console.log(myitem.length);
 //수정위한 사진 URL용 temp array 추가
     const [tempURL,setTempURL]=useState([]);
     const ErrorMessage=useError(title,contents,category,favors,preview,type,myitem.length,is_edit);
+    console.log(navigator.userAgent);
+    console.log(navigator.platform);
+    console.log(navigator.connection);
+    console.log(navigator.mediaDevices);
+    console.log(navigator.storage);
     const openCategory = () =>{
         if(categoryOpen){
             setcategoryOpen(false);
@@ -114,6 +119,7 @@ console.log(myitem.length);
         console.log(fileInput.current.files);
 
         filelist.map((file)=>{
+          
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => {

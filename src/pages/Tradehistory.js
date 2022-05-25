@@ -58,12 +58,12 @@ const Tradehistory = props => {
         });
 
         return () => {
-            client.disconnect(
-                () => {
-                    client.unsubscribe('sub-0');
-                },
-                { Authorization: `${localStorage.getItem('token')}` },
-            );
+          client.disconnect(
+            () => {
+                client.unsubscribe('sub-0');
+            },
+            { Authorization: `${localStorage.getItem('token')}` },
+        );
         };
     }, []);
     React.useEffect(() => {

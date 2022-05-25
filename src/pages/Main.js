@@ -22,7 +22,7 @@ import { setRoomlist } from '../redux/modules/chat';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { setUnreadNoti } from '../redux/modules/notification';
-import { Stomp } from '@stomp/stompjs';
+import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import HotDeal from '../components/main/HotDeal';
 import { api as userActions } from '../redux/modules/user';
@@ -64,7 +64,12 @@ const Main = props => {
             });
 
             return () => {
-                client.disconnect();
+              client.disconnect(
+                () => {
+                    client.unsubscribe('sub-0');
+                },
+                { Authorization: `${localStorage.getItem('token')}` },
+            );
             };
         }
     }, [userId]);
