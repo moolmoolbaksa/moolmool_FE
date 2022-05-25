@@ -66,16 +66,16 @@ const Main = props => {
             });
           }
 
-            return () => {
+          return () => {
               if(is_token)
               {client.disconnect(
                 () => {
                     client.unsubscribe('sub-0');
                 },
                 { Authorization: `${localStorage.getItem('token')}` },
-            );
-          }
-        };
+              );
+              }
+          };
         
     }, [userId]);
 

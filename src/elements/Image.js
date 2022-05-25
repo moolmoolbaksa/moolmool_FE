@@ -127,7 +127,7 @@ const Squarevhvw = styled.div`
   background-size: cover;
   background-position:center;
   box-sizing:border-box;
-  border-radius:10px;
+  border-radius:15px;
   ${props=>props.vhvwvalue?props.vhvwvalue:'asdasd'};
 `;
 

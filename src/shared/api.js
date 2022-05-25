@@ -110,7 +110,7 @@ export const ChatAPI = {
     }),
     //차단한 유저 해제
     releaseUser: userId =>
-    chatapi.put(`/chat/room/${userId}/banned`, {
+    chatapi.put(`/chat/room/${userId}/banned`,{}, {
         headers: {
             Authorization: `${localStorage.getItem('token')}`,
         },

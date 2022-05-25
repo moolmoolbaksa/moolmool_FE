@@ -117,11 +117,10 @@ const myitem=useSelector(state=>state.user.item_list);
         let filelist=[...fileInput.current.files];
         setFileslist(state=>state.concat(filelist));
         console.log('=======================');
-        var canvas = document.createElement('canvas');
-        var image= new Image();
+        
+        
         console.log('=======================');
 
-        console.log(fileInput.current.files.width);
         console.log(filelist);
         console.log(fileInput.current.files);
         
@@ -130,6 +129,12 @@ const myitem=useSelector(state=>state.user.item_list);
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => {
+            var canvas = document.createElement('canvas');
+            var image= new Image();
+            image.src=reader.result;
+            console.log(image); 
+            console.log(image.width);
+            
             setPreview(state=>state.concat([reader.result]));
             // setPreview([...preview,reader.result]);
 
@@ -266,7 +271,7 @@ const myitem=useSelector(state=>state.user.item_list);
 
 	<Categorywrap>
 		<input id="dropdown" type="checkbox" style={{display:"none"}}/>
-		<Toggle padding='1rem 1rem' htmlFor="dropdown"  onClick={openCategory}>
+		<Toggle htmlFor="dropdown"  onClick={openCategory}>
 			<ToggleName>{category}</ToggleName>
 			<IoIosArrowUp/>
 		</Toggle>
@@ -303,7 +308,7 @@ const myitem=useSelector(state=>state.user.item_list);
 			placeholder='제목을 입력해주세요.' 
 			type='text'  
 			margin='0px'
-			padding='1rem'
+			padding='16px'
 			onChange={handleTitle}
       value={title}
       ></Input>
@@ -313,14 +318,14 @@ const myitem=useSelector(state=>state.user.item_list);
 			size='1rem' 
 			placeholder='내용을 입력해주세요.' 
 			type='text'  
-			multiLine rows='12'  
-			padding='1rem'
+			multiLine rows='15'  
+			padding='16px'
       value={contents}
 			onChange={handleContents}/>
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
+			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
 
 			
 			<Imagelist >
@@ -329,7 +334,7 @@ const myitem=useSelector(state=>state.user.item_list);
 					return <ImageSlide   idx={idx} key={idx} src={n} _onclick={()=>{deletePreview(idx)}}></ImageSlide>;
 			
 		})}
-				<div style={{margin:'0 10px'}}>
+				<div style={{margin:'0 16px'}}>
 					<PlusItem htmlFor="raised-button-file"><span>+</span></PlusItem>
 					<input onChange={selectfile} accept=".jpg, .png" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}}/>
 				</div>
@@ -338,13 +343,13 @@ const myitem=useSelector(state=>state.user.item_list);
 	
 	<Empty/>
 	<input id="dropdown2" type="checkbox" style={{display:"none"}}/>
-		<Toggle padding='1rem' htmlFor="dropdown2"  onClick={openType}>
+		<Toggle padding='16px' htmlFor="dropdown2"  onClick={openType}>
 				<ToggleName>선호하는 교환조건</ToggleName>
 				<IoIosArrowUp/>
 		</Toggle>
 		
 
-	{typeOpen?(<Emptyline margin='0 0 1rem 0'/>):""}
+	{typeOpen?(<Emptyline margin='0 0 16px 0'/>):""}
 	{
 		typeOpen?
 		(<TypeBox>
@@ -362,7 +367,7 @@ const myitem=useSelector(state=>state.user.item_list);
 	}
 		<Empty/>
 	<input id="dropdown1" type="checkbox" style={{display:"none"}}/>
-	<Toggle padding='1rem 1rem 0 1rem' htmlFor="dropdown1"  onClick={openFavors}>
+	<Toggle padding='16px 16px 0 16px' htmlFor="dropdown1"  onClick={openFavors}>
 			<p>선호하는 교환품목</p>
 			<IoIosArrowUp/>
 	</Toggle>
@@ -413,7 +418,7 @@ const Base=styled.div`
 const Imagelist=styled.div`
 	display:flex;
 	overflow:auto;
-  margin: 0 0 1.2rem 0;
+  margin: 0 0 16px 0;
 	align-items: center;
 	flex-wrap: nowrap;
 	&::-webkit-scrollbar {
@@ -463,7 +468,7 @@ const Categorywrap=styled.div`
 `;
 const Toggle=styled.label`
 		position:relative;
-    padding: ${props=>props.padding?props.padding:"3vw 3vh"};
+    padding: ${props=>props.padding?props.padding:"16px 16px"};
     display: flex;
     justify-content: space-between;
     font-size:1rem;
@@ -544,14 +549,14 @@ const FavorBox=styled.div`
     display: grid;
     overflow:auto;
     grid-template-columns: repeat(3, 1fr);
-    margin: 0 10px;
+    margin: 16px 16px 0 16px;
 `;
 const TypeBox=styled.div`
 
     display: grid;
     overflow:auto;
     grid-template-columns: repeat(4, 1fr);
-    margin: 0 10px;
+    margin: 16px 16px;
 `;
 const Label = styled.label`
 font-size:1rem; 
@@ -566,11 +571,11 @@ const ToggleName= styled.p`
 		-moz-border-radius: 7.5px;
     -webkit-border-radius: 7.5px;
 		content:'';
-		width: 0.5rem;
-		height: 0.5rem;
+		width: 5px;
+		height: 5px;
 		top:1rem;
 		background-color: red;
-		border-radius: 0.5rem;
+		border-radius: 5px;
 	}
 `;
 

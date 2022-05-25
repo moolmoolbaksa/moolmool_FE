@@ -17,6 +17,7 @@ import { ReactComponent as ArrowIcon } from '../images/arrow.svg';
 import { history } from '../redux/configureStore';
 import Drawer from '../components/modal/Drawer';
 import { BsThreeDotsVertical } from "react-icons/bs";
+import AlertModal from '../components/modal/AlertModal';
 const ChatroomDetail = props => {
     const dispatch = useDispatch();
     const roomid = useParams();
@@ -124,6 +125,7 @@ const ChatroomDetail = props => {
             </Wrap>
             <MessageList />
             <Inputbox isBanned={currentroom.isBanned} client={client}></Inputbox>
+            <AlertModal>이미 차단된 유저입니다</AlertModal>
         </Base>
     );
 };

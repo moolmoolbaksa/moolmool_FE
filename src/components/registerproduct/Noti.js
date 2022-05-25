@@ -34,9 +34,9 @@ const Noti = (props) => {
 
     return (
         <React.Fragment>
-            <div style={{position:'relative' ,display: 'flex', height:'50px', background: '#F5F5F5', justifyContent:'center'}}>
-                <Button size='0.8rem' deco='underline' color='#979797' onClick={openModal}>물물교환 전 반드시 확인해 주세요!</Button>
-            
+            <div style={{position:'relative' ,display: 'flex', height:'10px', background: '#F5F5F5', justifyContent:'center'}}>
+                {/* <Button size='0.8rem' deco='underline' color='#979797' onClick={openModal}></Button> */}
+                <Empty/>
             <Modal
                 open={isModalOpen}
                 onClose={closeModal}
@@ -68,5 +68,10 @@ border: 2px solid #000;
 // boxShadow: 24,
 z-index: 2000;
 `;
+const Empty=styled.div`
+    width:100%;
+    background-color:#F5F5F5;
+    height:10px;
+`
 
 export default Noti;
