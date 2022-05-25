@@ -76,11 +76,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
 `;
 
 export default DetailContent;
