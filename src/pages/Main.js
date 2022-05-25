@@ -29,6 +29,7 @@ import { api as userActions } from '../redux/modules/user';
 import { api as itemActions } from '../redux/modules/item';
 import FetchMore from '../components/shared/FetchMore';
 import SlideLeft from '../components/modal/SlideLeft';
+import CategoryBar from '../components/main/CategoryBar';
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
@@ -123,36 +124,38 @@ const Main = props => {
                 </Grid>
                 {/* 상단바끝 */}
                 {/* 프로필 및 인사 */}
-                <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #dadada solid">
-                    <Image
-                        size="50"
-                        src={
-                            profile
-                                ? profile
-                                : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjj5IrkGRH6VDUgnUiMCjY2Npu5S8fDew1Q&usqp=CAU'
-                        }
-                    />
-                    <Grid>
-                        <Text text={`안녕하세요, ${nickname ? nickname : '방문자'}님`} letterSpacing="-1px" />
-                        <Text
-                            text="물물교환을 시작해 볼까요?"
-                            bold="bold"
-                            size="16px"
-                            letterSpacing="-1px"
-                            wordSpacing="-1px"
+                <ScrollWrap>
+                    <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #e8e8e8 solid">
+                        <Image
+                            size="50"
+                            src={
+                                profile
+                                    ? profile
+                                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjj5IrkGRH6VDUgnUiMCjY2Npu5S8fDew1Q&usqp=CAU'
+                            }
                         />
+                        <Grid>
+                            <Text text={`안녕하세요, ${nickname ? nickname : '방문자'}님`} letterSpacing="-1px" />
+                            <Text
+                                text="물물교환을 시작해 볼까요?"
+                                bold="bold"
+                                size="16px"
+                                letterSpacing="-1px"
+                                wordSpacing="-1px"
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                {/* 프로필 및 인사 끝 */}
-                {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>}
-            
-                <CardWrap ref={scrollRef}>
+                    {/* 프로필 및 인사 끝 */}
+                    {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>}
                     <HotDeal />
-                    {item_list.slice().sort((a,b)=>b.itemId-a.itemId).map((p, idx) => {
-                        return <Card key={p.itemId} {...p} />;
-                    })}
+                    <CategoryBar setfilter={setfilter}/>
+                    <ItemWrap>
+                        {item_list.slice().sort((a,b) => b.itemId - a.itemId).map((p, idx) => {
+                            return <Card key={p.itemId} {...p} />
+                        })}
+                    </ItemWrap>
                     <FetchMore paging={paging} callNext={() => getNextList(paging.category, paging.page)}/>
-                </CardWrap>
+                </ScrollWrap>
                 <TabBar position />
             </Grid>
             <LoginModal />
@@ -173,15 +176,15 @@ const BlinkSign = keyframes`
 	}
 `;
 
-const CardWrap = styled.div`
-    padding: 0 16px;
+const ScrollWrap = styled.div`
+    /* padding: 0 16px; */
     flex-grow: 1;
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
     }
-`;
+    `;
 
 const NotiWrap = styled.div`
     position: relative;
@@ -198,6 +201,10 @@ const NotiSign = styled.div`
     background-color: red;
     border-radius: 10px;
     animation: ${BlinkSign} 3s infinite ease-out;
+`;
+
+const ItemWrap = styled.div`
+    padding: 0 16px;
 `;
 
 export default Main;

@@ -110,6 +110,7 @@ const BrandInfo = styled.div`
     text-align: center;
     padding: 20px 0;
     margin: 30px 0 0 7px;
+    font-weight: 500;
     color: white;
     border-radius: 40px;
     font-size: 18px;

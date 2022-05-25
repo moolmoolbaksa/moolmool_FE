@@ -15,7 +15,7 @@ const AlertModal = ({children}) => {
         if(is_alert_modal){
             setIsOpen(true);
         } else {
-            setTimeout(() => setIsOpen(false), 200);
+            timeout = setTimeout(() => setIsOpen(false), 200);
         };
         return () => clearTimeout(timeout);
     }, [is_alert_modal]);
