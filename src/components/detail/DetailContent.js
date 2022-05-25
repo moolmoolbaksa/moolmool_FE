@@ -9,6 +9,7 @@ import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 const DetailContent = (props) => {
     const { title, date, contents, viewCnt, address, nickname } = useSelector(state => state.product.product_info);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
+    const is_login = useSelector(state => state.user.is_login);
     
     return (
         <Container>
@@ -49,7 +50,7 @@ const DetailContent = (props) => {
                     width="max-content"
                     color="lightgray"
                 />
-                {nickname !== my_nickname && 
+                {is_login && nickname !== my_nickname && 
                     <Grid flex>
                         <LocationIcon width="18" height="18" fill="lightgray"/>
                         <Text 
