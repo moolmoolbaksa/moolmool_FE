@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { setLoginModal } from '../redux/modules/modal';
 import { useLocation } from 'react-router-dom';
-import AlertModal from '../components/modal/AlertModal';
 
 const TabBar = ({position}) => {
     const dispatch = useDispatch();
@@ -40,7 +39,6 @@ const TabBar = ({position}) => {
     };
 
     const goHome =()=>{
-        if(!is_login) return dispatch(setLoginModal(true));
         history.push('/');
         window.scrollTo(0, 0);
     };

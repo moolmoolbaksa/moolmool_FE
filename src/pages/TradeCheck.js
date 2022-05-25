@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { Grid, Text } from '../elements/index';
 import { useSelector } from 'react-redux';
@@ -13,14 +14,16 @@ const TradeCheck = (props) => {
     return (
         <Grid
             height="100%"
+            is_flex
+            is_column
         >
             <LocationBar title='교환 신청 내역' />
-            <Grid
+            <TradeItemCard {...other_info}/>
+            <Wrap
                 height="calc(100%-60px)"
                 position="relative"
                 padding="0 16px"
             >
-                <TradeItemCard {...other_info}/>
                 <Text 
                     text='제시된 물건'
                     size="20px"
@@ -29,10 +32,20 @@ const TradeCheck = (props) => {
                     wordSpacing="-1px"
                 />
                 <ItemGrid type="mall" item_list={barterItem}/>
-            </Grid>
-            <TabBar />
+            </Wrap>
+            <TabBar position/>
         </Grid>
     );
 };
+
+const Wrap = styled.div`
+    flex-grow: 1;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    padding: 0 16px;
+`;
 
 export default TradeCheck;

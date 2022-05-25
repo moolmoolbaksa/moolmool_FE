@@ -203,14 +203,13 @@ const Container = styled.div`
 `;
 
 const ScrollWrap = styled.div`
-    /* padding: 0 16px; */
     flex-grow: 1;
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
     }
-    `;
+`;
 
 const NotiWrap = styled.div`
     position: relative;

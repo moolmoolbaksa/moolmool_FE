@@ -46,7 +46,8 @@ const LoginModal = ({type}) => {
                         <Text
                             text="로그인 후 이용가능합니다"
                             textAlign="center"
-                            size="24px"
+                            size="22px"
+                            bold="bold"
                         />
                     </Grid>
                 </Content>
