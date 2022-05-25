@@ -21,7 +21,7 @@ const HotDeal = (props) => {
     return (
         <>
             <Text 
-                text="떠오르는 추천 교환"
+                text="떠오르는 인기 교환"
                 bold="bold"
                 size="18px"
                 letterSpacing="-1px"
