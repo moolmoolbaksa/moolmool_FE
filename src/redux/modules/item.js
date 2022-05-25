@@ -15,7 +15,7 @@ export const getItemApi = createAsyncThunk('item/getItemApi', async ({category, 
         } else {
             response = await axios.get(`https://langho968.shop/items/${page}?category=${category}`);
         };
-        console.log(response)
+        
         let is_next;
         
         if(response.data.items.length < 10){
