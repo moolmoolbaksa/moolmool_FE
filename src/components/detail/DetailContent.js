@@ -7,23 +7,13 @@ import timeForToday from '../../shared/timeForToday';
 import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 
 const DetailContent = (props) => {
-    const product_info = useSelector(state => state.product.product_info);
-    
-    const {
-        title,
-        date,
-        contents,
-        viewCnt,
-        address,
-    } = product_info;
-   
+    const { title, date, contents, viewCnt, address, nickname } = useSelector(state => state.product.product_info);
+    const my_nickname = useSelector(state => state.user.user_info.nickname);
+    console.log(nickname, my_nickname)
     return (
         <Container>
             <Grid> 
-                <Grid
-                    flex
-                    margin="0 0 16px 0"
-                >
+                <Grid flex margin="0 0 16px 0">
                     <Text 
                         text={title}
                         bold="bold"
@@ -52,26 +42,26 @@ const DetailContent = (props) => {
                 gap="10px"
             >
                 <Text 
-                    text={`조회 ${viewCnt}`}
+                    text={`조회수 ${viewCnt}`}
                     size="12px"
                     lineHeight="12px"
                     letterSpacing="-1px"
                     width="max-content"
                     color="lightgray"
                 />
-                <Grid
-                    flex
-                >
-                    <LocationIcon width="18" height="18" fill="lightgray"/>
-                    <Text 
-                        text={address}
-                        size="12px"
-                        lineHeight="12px"
-                        width="max-content"
-                        color="lightgray"
-                        margin="0 0 0 -3px"
-                    />
-                </Grid>
+                {nickname !== my_nickname && 
+                    <Grid flex>
+                        <LocationIcon width="18" height="18" fill="lightgray"/>
+                        <Text 
+                            text={address}
+                            size="12px"
+                            lineHeight="12px"
+                            width="max-content"
+                            color="lightgray"
+                            margin="0 0 0 -3px"
+                        />
+                    </Grid>
+                }
             </Grid>
         </Container>
     );

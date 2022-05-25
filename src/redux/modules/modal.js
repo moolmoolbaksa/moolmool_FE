@@ -5,6 +5,7 @@ const initialState = {
     is_delete_modal: false,
     is_trade_modal: false,
     is_alert_modal: false,
+    is_drawer: false,
     report_modal: {
         is_report_modal: false,
         content: '',
@@ -28,6 +29,9 @@ export const modal = createSlice({
         setAlertModal: (state, action) => {
             state.is_alert_modal = action.payload;
         },
+        setDrawer: (state, action) => {
+            state.is_drawer = action.payload;
+        },
         setReportModal: (state, action) => {
             state.report_modal = action.payload;
         },
@@ -42,6 +46,7 @@ export const {
     setDeleteModal,
     setTradeModal,
     setAlertModal,
+    setDrawer,
     setReportModal,
     deleteReportModal
 } = modal.actions;

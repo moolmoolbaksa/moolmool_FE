@@ -35,6 +35,7 @@ const Detail = (props) => {
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
+        <>
         <Container>
             <LocationBar transparent />
             {is_login && nickname !== my_nickname && <StyledReportIcon  onClick={() => {setIsOpen(!isOpen)}}/>}
@@ -61,14 +62,15 @@ const Detail = (props) => {
                 <DetailRecommendCategory/>
             </Wrap>
             <DetailBottom />
-            {isOpen &&  <Drawer 
-                            location="detail" 
-                            itemId={itemId} 
-                            onclose={() => {setIsOpen(!isOpen)}}
-                        />
-            }
-            <ReportModal />
         </Container>
+        {isOpen &&  <Drawer 
+                        location="detail" 
+                        itemId={itemId} 
+                        onclose={() => {setIsOpen(!isOpen)}}
+                    />
+        }
+        <ReportModal />
+        </>
     );
 };
 

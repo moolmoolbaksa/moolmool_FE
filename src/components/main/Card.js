@@ -35,7 +35,6 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
                         text={title}
                         size="16px"
                         bold="bold"
-                        letterSpacing="-1px"
                         wordSpacing="-1px"
                     />
                     <Text 
@@ -67,7 +66,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
     gap: 15px;
-    border-bottom: 1px #c4c4c4 solid;
+    border-bottom: 1px #e8e8e8 solid;
 `;
 
 const ImageOutter = styled.div`

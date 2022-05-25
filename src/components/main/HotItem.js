@@ -46,10 +46,10 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     /* flex: 1 0 55%;  왜 하나일떄는 안먹히는거여 */
-    min-width: 55%;
+    min-width: 53%;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 3px 9px 0px rgba(0, 0, 0, 0.09);
 `;
 
 const StyledImage = styled.div`
