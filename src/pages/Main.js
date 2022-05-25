@@ -64,27 +64,31 @@ const Main = props => {
                 );
                 client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
             });
+          }
 
             return () => {
-              client.disconnect(
+              if(is_token)
+              {client.disconnect(
                 () => {
                     client.unsubscribe('sub-0');
                 },
                 { Authorization: `${localStorage.getItem('token')}` },
             );
-            };
-        }
+          }
+        };
+        
     }, [userId]);
 
     useEffect(() => {
-        ChatAPI.getChatRoom()
+        
+      if(is_token){ChatAPI.getChatRoom()
             .then(res => {
               console.log(res);
                 dispatch(setRoomlist(res.data));
             })
             .catch(error => {
                 console.log(error);
-            });
+            });}
     }, []);
 
     // const handleOpenCategory=()=>{

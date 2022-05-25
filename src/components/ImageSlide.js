@@ -19,7 +19,7 @@ const ImageSlide = (props) => {
 };
 const DeleteOuter=styled.div`
     position:relative;
-    margin:10px;
+    margin:0 10px;
 `;
 const DeleteButton=styled.button`
     display:block;    

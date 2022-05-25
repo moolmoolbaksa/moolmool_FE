@@ -278,7 +278,7 @@ console.log(myitem.length);
 				return(
 				<CategoryWrapInputLabel  key={`category_div_${idx}`} > 
 						<input name="category" key={`category_input_${idx}`} id={p.value} type="radio" value={p.value} checked={null} style={{display:'none',}} onClick={handleCategory}/>
-						<label htmlFor={p.value} key={`category_label_${idx}`}
+						<label style={{fontSize:'1rem'}} htmlFor={p.value} key={`category_label_${idx}`}
 						>					
 							{p.value}
 						</label>
@@ -313,7 +313,7 @@ console.log(myitem.length);
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1.2rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
+			<span style={{display:'block' , margin:'1.2rem 1.2rem',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
 
 			
 			<Imagelist >
@@ -322,7 +322,7 @@ console.log(myitem.length);
 					return <ImageSlide   idx={idx} key={idx} src={n} _onclick={()=>{deletePreview(idx)}}></ImageSlide>;
 			
 		})}
-				<div style={{margin:'10px'}}>
+				<div style={{margin:'0 10px'}}>
 					<PlusItem htmlFor="raised-button-file"><span>+</span></PlusItem>
 					<input onChange={selectfile} accept=".jpg, .png" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}}/>
 				</div>
@@ -346,7 +346,7 @@ console.log(myitem.length);
 							<div key={`type_div_${idx}`}>
                   <CheckInput  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} defaultChecked={type.includes(p.value)} onClick={handleType}/>
 									<CheckLabel key={`type_label_${idx}`} htmlFor={p.value}>
-                    <div>{type.includes(p.value)?<CheckBox width="20" height="20"/>:<UncheckedBox width="20" height="20"/>} <span>{p.value}</span></div> 
+                    <div>{type.includes(p.value)?<CheckBox width="1rem" height="1rem"/>:<UncheckedBox width="1rem" height="1rem"/>} <span>{p.value}</span></div> 
                   </CheckLabel>
 							</div>
 					)
@@ -360,7 +360,7 @@ console.log(myitem.length);
 			<IoIosArrowUp/>
 	</Toggle>
 	<Tip>Tip) 선호 품목을 선택해주시면 교환이 훨씬 수월해져요!</Tip>
-	{favorsOpen?<Emptyline margin='1.5rem 0' />:""}
+	{favorsOpen?<Emptyline margin='0 0 1rem 0' />:""}
 	{favorsOpen?
 	<>
 	<FavorBox>
@@ -371,7 +371,7 @@ console.log(myitem.length);
 						<CheckInput name="favors" key={`favors_input_${idx}`} id={p.value} type="checkbox" value={p.value} defaultChecked={favors.includes(p.value)}  onClick={handleFavor} />
 						<CheckLabel htmlFor={p.value} key={`favors_label_${idx}`}
 						>
-						<div>{favors.includes(p.value)?<CheckBox width="20" height="20"/>:<UncheckedBox width="20" height="20"/>} {p.value}  </div>      
+						<div>{favors.includes(p.value)?<CheckBox width="1rem" height="1rem"/>:<UncheckedBox width="1rem" height="1rem"/>} {p.value}  </div>      
 						</CheckLabel>
 				</div>);
 				})
@@ -405,18 +405,19 @@ const Base=styled.div`
 `;
 const Imagelist=styled.div`
 	display:flex;
-	height:150px;
 	overflow:auto;
+  margin: 0 0 1.2rem 0;
 	align-items: center;
 	flex-wrap: nowrap;
 	&::-webkit-scrollbar {
 		width: 0;
+    height:0;
 	}
-	&::-webkit-scrollbar-thumb {
-	display:none;	
-	border-radius: 10px;
-		background: transparent;
-	}
+	// &::-webkit-scrollbar-thumb {
+	// display:none;	
+	// border-radius: 10px;
+	// 	background: transparent;
+	// }
 	scroll-behavior: smooth;
 `;
 const Empty=styled.div`
@@ -426,7 +427,7 @@ const Empty=styled.div`
 `
 const Emptyline=styled.hr`
   margin:${props=>props.margin?props.margin:"0 auto"};
-    width:90vw;
+    // width:90vw;
     max-width:420px;
     background-color:#F5F5F5;
 	
@@ -458,7 +459,7 @@ const Toggle=styled.label`
     padding: ${props=>props.padding?props.padding:"3vw 3vh"};
     display: flex;
     justify-content: space-between;
-    font-size:1.2rem;
+    font-size:1rem;
     
     text-align:left; 
     background:white;
@@ -466,7 +467,7 @@ const Toggle=styled.label`
     
     border:none;
     & > p{
-        font-size:1.2rem;    
+        font-size:1rem;    
     }
     & > svg{
         // background-color: red;
@@ -546,7 +547,8 @@ const TypeBox=styled.div`
     margin: 0 10px;
 `;
 const Label = styled.label`
-  &:hover{
+font-size:1rem; 
+&:hover{
     background:${props=>props.theme.palette.yellow};
   }
 `;
@@ -580,7 +582,7 @@ const CheckLabel=styled.label`
   display:inline-block;
   align-items:center;
   justify-content:center;
-
+  font-size:0.8rem;
 & > div {
   display:flex;
 }
