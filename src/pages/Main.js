@@ -53,6 +53,7 @@ const Main = props => {
     useEffect(() => {
         if (is_token) 
         {
+          console.log('connected check');
             client.connect({ Authorization: localStorage.getItem('token') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
@@ -68,8 +69,9 @@ const Main = props => {
         }
 
         return() => {
-              if(is_token)
+              if(is_token&&client.ws.readyState===1)
               {
+                console.log('connected check');
                 client.disconnect(() => {
                                           client.unsubscribe('sub-0');
                                         },

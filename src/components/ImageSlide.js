@@ -21,7 +21,7 @@ const ImageSlide = (props) => {
 const DeleteOuter=styled.div`
 
     position:relative;
-    margin:0 16px;
+    margin:0 0 0 16px;
 
 `;
 const DeleteIcon=styled(deleteBlackround)`

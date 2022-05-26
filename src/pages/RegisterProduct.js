@@ -18,6 +18,7 @@ import {setAlertModal} from '../redux/modules/modal';
 import AlertModal from '../components/modal/AlertModal';
 import { api as userActions } from '../redux/modules/user';
 import {resize} from '../shared/resize';
+import { height } from '@mui/system';
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   const itemId = useParams().itemId;
@@ -115,27 +116,92 @@ const myitem=useSelector(state=>state.user.item_list);
     }
     const selectfile=(e)=>{
         let filelist=[...fileInput.current.files];
-        setFileslist(state=>state.concat(filelist));
-        console.log('=======================');
         
-        
-        console.log('=======================');
 
+        console.log(filelist[0]+' => type:'+typeof(filelist[0]));
         console.log(filelist);
-        console.log(fileInput.current.files);
-        
+        console.log(typeof(fileInput.current.files));
+        // 1. 파일 객체 하나씩 돌립니다.
+        // 2. 파일하나씩 URL 형태로 읽어옴
         filelist.map((file)=>{
           
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => {
-            var canvas = document.createElement('canvas');
-            var image= new Image();
-            image.src=reader.result;
-            console.log(image); 
-            console.log(image.width);
             
-            setPreview(state=>state.concat([reader.result]));
+            var image= new Image();
+            const max_size=500;
+            const type=file.type;
+            console.log(type);
+            image.src=reader.result;
+            image.onload=()=>{
+              
+              // console.log(image);
+              var canvas = document.createElement('canvas'); 
+              console.log('input size: '+image.width+'X'+image.height);
+              const current_width=image.width;
+              const current_height=image.height;
+              let output_width=0;
+              let output_height=0;
+              //가로보다 세로가 길때
+              if(current_width>current_height)
+              {
+                if(current_width>max_size)
+                { 
+                  output_width= max_size;
+                  output_height= current_height*(max_size/current_width);
+                }
+                else{
+                  output_width= current_width;
+                  output_height= current_height;
+                }
+                
+              }
+              // 세로가 가로보다 길때
+              else if (current_width<current_height)
+              {
+                if(current_height>max_size)
+                {
+                  output_width = current_width*(max_size/current_height);
+                  output_height = max_size;
+                }
+              }
+              // 세로==길이 일때
+              else
+              {
+                  if(current_height>max_size)
+                  {
+                    output_width= current_width;
+                    output_height= current_height;
+                  }
+                  else
+                  {
+                    output_width  = max_size;
+                    output_height = max_size;
+                  }
+              }
+             
+              console.log("output size: "+output_width+'X'+output_height);
+              canvas.width=output_width;
+              canvas.height=output_height;
+              const context = canvas.getContext('2d');
+              context.drawImage(image,0,0,output_width,output_height);
+              // 데이터 URL
+              const dataUrl=canvas.toDataURL(type);
+              let example = '';
+              context.canvas.toBlob(
+                newImageBlob=>{
+                  example=new File([newImageBlob],file.name,{type:type});
+                  setFileslist(state=>state.concat(example));
+                }
+               )
+              console.log(example)
+              // console.log(dataUrl);
+              
+              setPreview(state=>state.concat([dataUrl]));
+            }
+            
+            
             // setPreview([...preview,reader.result]);
 
         }})
@@ -196,6 +262,7 @@ const myitem=useSelector(state=>state.user.item_list);
         }
     }
     const submit=()=>{
+      console.log(fileslist);
         console.log(ErrorMessage[0]);
         if(!ErrorMessage[0])
         {
@@ -325,7 +392,7 @@ const myitem=useSelector(state=>state.user.item_list);
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
+			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개 파일개수 ({fileslist.length}/8개)</span>
 
 			
 			<Imagelist >
@@ -334,7 +401,7 @@ const myitem=useSelector(state=>state.user.item_list);
 					return <ImageSlide   idx={idx} key={idx} src={n} _onclick={()=>{deletePreview(idx)}}></ImageSlide>;
 			
 		})}
-				<div style={{margin:'0 16px'}}>
+				<div style={{margin:'0 0 0 16px'}}>
 					<PlusItem htmlFor="raised-button-file"><span>+</span></PlusItem>
 					<input onChange={selectfile} accept=".jpg, .png" id="raised-button-file"  ref={fileInput}  multiple type="file" style={{display:"none"}}/>
 				</div>
