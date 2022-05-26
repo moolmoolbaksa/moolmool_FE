@@ -135,7 +135,5 @@ const Tradehistory = props => {
         </div>
     );
 };
-// messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
-//             message.type==="STATUS"?<NotiMessage key={'keyid'+message.messageId}  message={message.message}></NotiMessage>:message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
-            
+   
 export default Tradehistory;
