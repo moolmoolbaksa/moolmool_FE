@@ -25,7 +25,7 @@ const LocationBar = ({ title, transparent }) => {
                 break;
             case '/trade':
                 dispatch(resetTrade());
-                history.goBack();
+                history.replace('/');
                 break;
             case '/mypage':
                 history.push('/');

@@ -26,7 +26,7 @@ const HotItem = ({image, contents, title, itemId, rank}) => {
                 }
             </RankLabel>
             <StyledImage src={image} />
-            <Grid is_flex is_column padding="10px 10px 15px" gap="5px">
+            <Grid is_column padding="10px 10px 15px" gap="5px">
                 <Text 
                     text={title}
                     bold="bold"
@@ -45,9 +45,8 @@ const Container = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    /* flex: 1 0 55%;  왜 하나일떄는 안먹히는거여 */
     min-width: 53%;
-    overflow: hidden;
+    max-width: 53%;
     border-radius: 10px;
     box-shadow: 4px 3px 9px 0px rgba(0, 0, 0, 0.09);
 `;
@@ -70,17 +69,6 @@ const RankLabel = styled.div`
     align-items: center;
     right: 2%;
     top: 2%;
-
-    span {
-        position: absolute;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-    };
 `;
 
 export default HotItem;

@@ -81,6 +81,11 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 const StyledSlider = styled(Slider)`

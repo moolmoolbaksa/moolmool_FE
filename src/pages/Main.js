@@ -1,18 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import Drawer from '@mui/material/Drawer';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import List from '@mui/material/List';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
 import { Image, Grid, Text } from '../elements/index';
-import Card from '../components/main/Card';
+import MainCard from '../components/main/MainCard';
 import TabBar from '../components/TabBar';
 import LoginModal from '../components/modal/LoginModal';
-import { ReactComponent as HambergerIcon } from '../images/햄버거.svg';
 import { ReactComponent as NotiIcon } from '../images/종.svg';
 import { ReactComponent as SearchIcon } from '../images/돋보기.svg';
 
@@ -28,24 +20,22 @@ import HotDeal from '../components/main/HotDeal';
 import { api as userActions } from '../redux/modules/user';
 import { api as itemActions } from '../redux/modules/item';
 import FetchMore from '../components/shared/FetchMore';
-import SlideLeft from '../components/modal/SlideLeft';
 import CategoryBar from '../components/main/CategoryBar';
-
+import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
+import defaultProfile from '../images/default_profile.png';
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
 
     const userId = useSelector(state => state.user.user_info.userId);
-    const { is_loading, paging, item_list } = useSelector(state => state.item);
+    const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
-    const [openCategory,setOpenCategory]=useState(false);
     const [filter, setfilter] = useState('전체');
-    const [openFilter, setopenfilter] = useState(false);
  
     const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
-
+    
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, []);
@@ -94,15 +84,6 @@ const Main = props => {
             });}
     }, []);
 
-    // const handleOpenCategory=()=>{
-    //   console.log(openCategory);
-    //   setOpenCategory(true);
-    // }
-    // const handleCloseCategory=()=>{
-    //   console.log(openCategory);
-    //   setOpenCategory(false);
-    // }
-
     // 무한스크롤: 호출돼야할 함수 세팅
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
@@ -131,7 +112,6 @@ const Main = props => {
             <Container>
                 {/* 상단바 */}
                 <Grid flex padding="10px 16px" justify="flex-end">
-                    {/* <HambergerIcon onClick={handleOpenCategory} /> */}
                     <Grid flex gap="10px">
                         <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
                         <NotiWrap>
@@ -147,16 +127,16 @@ const Main = props => {
                 {/* 상단바끝 */}
                 {/* 프로필 및 인사 */}
                 <ScrollWrap ref={scrollRef}>
-                    <Grid is_flex align="center" padding="0px 16px 10px" gap="10px" borderB="1px #e8e8e8 solid">
+                    <Grid is_flex align="center" padding="0px 16px 10px" gap="7px" borderB="1px #e8e8e8 solid">
                         <Image
                             size="50"
                             src={
                                 profile
                                     ? profile
-                                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjj5IrkGRH6VDUgnUiMCjY2Npu5S8fDew1Q&usqp=CAU'
+                                    : defaultProfile
                             }
                         />
-                        <Grid>
+                        <Grid grow>
                             <Text text={`안녕하세요, ${nickname ? nickname : '방문자'}님`} letterSpacing="-1px" />
                             <Text
                                 text="물물교환을 시작해 볼까요?"
@@ -168,21 +148,21 @@ const Main = props => {
                         </Grid>
                     </Grid>
                     {/* 프로필 및 인사 끝 */}
-                    {/* {openCategory&&<SlideLeft closeSlide={handleCloseCategory} setfilter={setfilter}/>} */}
                     <HotDeal />
                     <CategoryBar setfilter={setfilter}/>
-                    <TotalCnt> 총 {paging.total}건의 물품이 있습니다. </TotalCnt>
-                    <ItemWrap>
-                        {item_list.slice().sort((a,b) => b.itemId - a.itemId).map((p, idx) => {
-                            return <Card key={p.itemId} {...p} />
-                        })}
-                    </ItemWrap>
+                    <MainItemWrap>
+                        {item_list 
+                            ?   item_list.map((v, _) => {
+                                    return <MainCard key={v.itemId} {...v} />
+                                })
+                            :   <MainContentSkeleton />
+                        }
+                    </MainItemWrap>
                     <FetchMore paging={paging} callNext={() => getNextList(paging.category, paging.page)}/>
                 </ScrollWrap>
                 <TabBar position />
             </Container>
             <LoginModal />
-            {/* {is_loading && <Loading />} */}
         </>
     );
 };
@@ -231,15 +211,7 @@ const NotiSign = styled.div`
     animation: ${BlinkSign} 3s infinite ease-out;
 `;
 
-const TotalCnt = styled.span`
-    padding: 0 16px;
-    font-size: 14px;
-    color: #9d9d9d;
-    letter-spacing: -.22px;
-    word-spacing: -1px;
-`;
-
-const ItemWrap = styled.div`
+const MainItemWrap = styled.div`
     padding: 0 16px;
 `;
 

@@ -31,19 +31,24 @@ import {
 import Test from './pages/Test';
 
 function App() {
-    const handleResize = () => {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
+  if (process.env.NODE_ENV === "production") {
+    console.log = function no_console() {};
+    console.warn = function no_console() {};
+  }
 
-    handleResize();
+  const handleResize = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
 
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    });
+  handleResize();
+
+  useEffect(() => {
+      window.addEventListener('resize', handleResize);
+      return () => {
+          window.removeEventListener('resize', handleResize);
+      };
+  });
 
   const theme = {
     palette: {

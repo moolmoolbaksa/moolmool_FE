@@ -6,6 +6,7 @@ import LocationBar from '../components/LocationBar';
 import { Grid, Text } from '../elements/index';
 import { setPreview } from '../redux/modules/user';
 import { ReactComponent as LocationIcon } from '../images/좌표.svg';
+import { ReactComponent as CameraIcon } from '../images/camera.svg';
 import { api as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
@@ -94,9 +95,7 @@ const EditMyInfo = (props) => {
                             />
                             <label htmlFor='profile_img'></label>
                             <Round onChange={selectFile}>
-                                <span className="material-symbols-outlined">
-                                    android_camera
-                                </span>
+                                <CameraIcon />
                             </Round>
                         </Wrap>
                     </FileBox>
@@ -223,10 +222,6 @@ const Round = styled.div`
     position: absolute;
     right: 10px;
     bottom: 15px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50px;
-    background-color: #9D9D9D;
     display: flex;
     align-items: center;
     justify-content: center;

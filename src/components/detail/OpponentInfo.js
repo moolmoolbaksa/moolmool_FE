@@ -37,14 +37,14 @@ const OpponentInfo = (props) => {
                         onClick={onGoUserMall}
                         src={profile}
                         shape="circle" 
-                        size="56"
+                        size="45"
                         margin="0px"
                     />
                     <Grid 
                         flex 
                         is_column
                         justify="center"
-                        margin="0 0 0 15px"
+                        margin="0 0 0 10px"
                     >
                         <Text 
                             text={degree}

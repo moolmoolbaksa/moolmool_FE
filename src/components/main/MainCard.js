@@ -8,7 +8,7 @@ import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as ViewIcon } from '../../images/view.svg';
 import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
 
-const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}) => {
+const MainCard = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}) => {
     const dispatch = useDispatch();
   
     const onGoDetail = () => {
@@ -20,16 +20,8 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
             <ImageOutter onClick={onGoDetail}>
                 <ImageWrap src={image}/>
             </ImageOutter>
-            <Grid
-                is_flex
-                is_column
-                justify="space-between"
-            >
-                <Grid
-                    is_flex
-                    is_column
-                    gap="8px"
-                >
+            <Grid is_column justify="space-between">
+                <Grid is_column gap="8px">
                     <Text 
                         onClick={onGoDetail}
                         text={title}
@@ -38,14 +30,14 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
                         wordSpacing="-1px"
                     />
                     <Text 
-                        onClick={onGoDetail}
                         multi="3"
+                        onClick={onGoDetail}
                         text={contents}
                         color="#9D9D9D"
-                    /> 
+                    />
                 </Grid>
                 <IconWrap>
-                    <Grid is_flex align="center" >
+                    <Grid is_flex align="center">
                         <StyledHeartIcon width="20" height="20" stroke="gray"/>
                         <span className='num'>{scrabCnt}</span>
                     </Grid>
@@ -59,12 +51,12 @@ const Card = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt
     );
 };
 
-export default Card;
+export default MainCard;
 
 const Container = styled.div`
-    padding: 15px 0px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr);
+    padding: 15px 0px;
     gap: 15px;
     border-bottom: 1px #e8e8e8 solid;
 `;
@@ -87,10 +79,6 @@ const ImageWrap = styled.div`
     background-position: center;
     background-size: cover;
     border-radius: 5px;
-
-    span {
-        text-indent: -9999;
-    }
 `;
 
 const IconWrap = styled.div`

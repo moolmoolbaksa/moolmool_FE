@@ -9,16 +9,18 @@ import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 const DetailContent = (props) => {
     const { title, date, contents, viewCnt, address, nickname } = useSelector(state => state.product.product_info);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
+    const is_login = useSelector(state => state.user.is_login);
     
     return (
         <Container>
             <Grid> 
-                <Grid flex margin="0 0 16px 0">
+                <Grid flex margin="0 0 16px 0" gap="10px">
                     <Text 
+                        multi="2"
                         text={title}
                         bold="bold"
                         size="18px"
-                        width="85%"
+                        // width="90%"
                     />
                     <Text 
                         text={timeForToday(date)}
@@ -26,12 +28,12 @@ const DetailContent = (props) => {
                         letterSpacing="-1px"
                         color="lightgray"
                         textAlign="right"
-                        width="15%"
+                        width="60px"
                         padding="0 0 5px 0"
                     />
                 </Grid>
                 <Text 
-                    multi="4"
+                    multi="20"
                     text={contents}
                 />
             </Grid>
@@ -49,7 +51,7 @@ const DetailContent = (props) => {
                     width="max-content"
                     color="lightgray"
                 />
-                {nickname !== my_nickname && 
+                {is_login && address && nickname !== my_nickname && 
                     <Grid flex>
                         <LocationIcon width="18" height="18" fill="lightgray"/>
                         <Text 
@@ -75,6 +77,5 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
 `;
-
 
 export default DetailContent;

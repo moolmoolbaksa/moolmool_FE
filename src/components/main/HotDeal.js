@@ -5,6 +5,7 @@ import HotItem from './HotItem';
 import { Text } from '../../elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { api as itemActions } from '../../redux/modules/item';
+import MainHotDealSkeleton from '../skeleton/MainHotDealSkeleton';
 
 const HotDeal = (props) => {
     const dispatch = useDispatch();
@@ -14,10 +15,6 @@ const HotDeal = (props) => {
         dispatch(itemActions.getStarItemAPi());
     }, []);
     
-    if(!star_item_list.length){
-        return null;
-    };
-
     return (
         <>
             <Text 
@@ -29,20 +26,24 @@ const HotDeal = (props) => {
                 margin="15px 16px"
                 width="max-content"
             />
-            <Container>
-                {star_item_list.length && star_item_list.map((v, i) => {
-                    return  <HotItem 
-                                key={v.itemId}
-                                rank={i+1}
-                                {...v}
-                            />
-                })}
-            </Container>
+            <HotContainer>
+                {star_item_list
+                    ?   star_item_list.map((v, i) => {
+                            return  <HotItem 
+                                        key={v.itemId}
+                                        rank={i+1}
+                                        {...v}
+                                    />
+                        })
+                    :   <MainHotDealSkeleton />
+                }
+                
+            </HotContainer>
         </>
     );
 };
 
-const Container = styled.div`
+const HotContainer = styled.div`
     width: 100%;
     display: flex;
     gap: 15px;
