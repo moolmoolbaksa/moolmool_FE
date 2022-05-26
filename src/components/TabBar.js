@@ -76,7 +76,7 @@ const TabBar = ({position}) => {
                 />
             </Wrap>
             <Wrap>
-                <CreateBtn onClick={goRegipage}>
+                <CreateBtn onClick={goRegipage} aria-label="물품등록 버튼">
                     <PlusIcon stroke="#000"/>
                 </CreateBtn>
                 <Text 

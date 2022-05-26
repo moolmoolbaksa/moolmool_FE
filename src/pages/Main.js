@@ -41,7 +41,7 @@ const Main = props => {
     }, []);
 
     useEffect(() => {
-        if (is_token) 
+        if (userId && is_token) 
         {
             client.connect({ Authorization: localStorage.getItem('token') }, () => {
                 client.subscribe(
@@ -58,20 +58,18 @@ const Main = props => {
         }
 
         return() => {
-              if(is_token)
-              {
-                client.disconnect(() => {
-                                          client.unsubscribe('sub-0');
-                                        },
-                  { Authorization: `${localStorage.getItem('token')}` },
-                );
-              }
-          };
-        
+            if(is_token && client.ws.readyState === 1)
+            {
+            client.disconnect(() => {
+                                        client.unsubscribe('sub-0');
+                                    },
+                { Authorization: `${localStorage.getItem('token')}` },
+            );
+            }
+        };   
     }, [userId]);
 
     useEffect(() => {
-        
       if(is_token){ChatAPI.getChatRoom()
             .then(res => {
               console.log(res);

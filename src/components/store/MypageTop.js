@@ -20,7 +20,7 @@ const MypageTop = ({user_info}) => {
                 width="100%"
                 is_flex
                 is_column
-                gap="10px"
+                gap="0px"
                 overflow="true"
             >
                 <div>
@@ -49,6 +49,12 @@ const MypageTop = ({user_info}) => {
                         </Grid>
                     </Grid>
                 </div>
+                <Text 
+                    multi="3"
+                    text='이메일: make_w@naver.com'
+                    letterSpacing="-1px"
+                    margin="0 0 10px 0"
+                />
                 <Text 
                     multi="3"
                     text={storeInfo ? storeInfo : '아직 보따리 소개가 없어요.'}

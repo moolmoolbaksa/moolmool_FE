@@ -8,7 +8,7 @@ import { history } from './redux/configureStore';
 import backgroundImg from './images/moolmool_background.png';
 import brandlogo from './images/brand_name.png';
 // page import
-import { Login, Signup, LoginProgress, Welcome, Address } from './pages/login/index';
+import { Login, Signup, KaKaoLogin, NaverLogin, Welcome, Address } from './pages/login/index';
 import {
     Detail,
     Mall,
@@ -72,7 +72,8 @@ function App() {
           <GlobalStyle>
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/auth/kakao/callback" component={LoginProgress} />
+            <Route exact path="/auth/kakao/callback" component={KaKaoLogin} />
+            <Route exact path="/auth/naver/callback" component={NaverLogin} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/address" component={Address} />
             <Route exact path="/welcome" component={Welcome} />
