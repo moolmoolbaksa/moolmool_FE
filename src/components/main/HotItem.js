@@ -26,7 +26,7 @@ const HotItem = ({image, contents, title, itemId, rank}) => {
                 }
             </RankLabel>
             <StyledImage src={image} />
-            <Grid is_flex is_column padding="10px 10px 15px" gap="5px">
+            <Grid is_column padding="10px 10px 15px" gap="5px">
                 <Text 
                     text={title}
                     bold="bold"
