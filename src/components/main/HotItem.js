@@ -69,17 +69,6 @@ const RankLabel = styled.div`
     align-items: center;
     right: 2%;
     top: 2%;
-
-    span {
-        position: absolute;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-    };
 `;
 
 export default HotItem;

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Grid = props => {
-
 	const { 
 		flex, 
 		gridBox,
@@ -23,6 +22,7 @@ const Grid = props => {
 		overflow,
 		borderB,
 		onClick,
+		grow,
 	} = props;
 
 	const styles = {
@@ -43,6 +43,7 @@ const Grid = props => {
 		cursor,
 		overflow,
 		borderB,
+		grow,
 	};
 
 	if (gridBox) {
@@ -89,11 +90,12 @@ const GridBox = styled.div`
 	${props => (props.align ? `align-items:${props.align}` : '')};
 	${props => (props.justify ? `justify-content:${props.justify}` : '')};
 	${props => (props.gap ? `gap:${props.gap}` : '')};
-	${props => (props.is_column ? `flex-direction: column` : '')};
+	${props => (props.is_column ? `display: flex; flex-flow: column nowrap;` : '')};
 	${props => (props.is_flex ? `display:flex` : '')};
 	${props => (props.cursor ? `cursor:pointer` : '')};
 	${props => (props.overflow ? `overflow: hidden` : '')};
 	${props => (props.borderB ? `border-bottom: ${props.borderB}` : '')};
+	${props => (props.grow ? `flex-grow: 1` : '')};
 `;
 
 const ParentsGridbox = styled.div`
