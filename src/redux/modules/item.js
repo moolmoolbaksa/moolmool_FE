@@ -54,7 +54,6 @@ export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, 
         } else {
             response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`);
         }
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('getStarItemAPi: ', error);
@@ -79,8 +78,8 @@ export const setReportItemApi = createAsyncThunk('item/setReportItemApi', async 
 export const item = createSlice({
     name: 'item',
     initialState: {
-        star_item_list: [],
-        item_list: [],
+        star_item_list: '',
+        item_list: '',
         paging: {
             total: 0,
             page: 0,

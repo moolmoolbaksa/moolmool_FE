@@ -7,8 +7,8 @@ import { ReactComponent as ArrowIcon } from '../../images/expand_more_arrow.svg'
 import { ReactComponent as RefrashIcon } from '../../images/refrash.svg';
 
 const CategoryBar = ({setfilter}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const category = useSelector(state => state.item.paging.category);
+    const [ isOpen, setIsOpen ] = useState(false);
+    const { total, category } = useSelector(state => state.item.paging);
     
     const category_list = [
         '디지털기기',
@@ -29,26 +29,29 @@ const CategoryBar = ({setfilter}) => {
     ];
 
     return (
-        <Container>
-            <Wrap>
-                <Grid flex gap="3px" >
-                    <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
-                    {category && <StyledRefrashIcon onClick={() => {setfilter('전체'); setIsOpen(false)}}/>}
-                </Grid>
-                <Grid width="100%" height="40px" flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
-                    <StyledArrowIcon open={isOpen}/>
-                </Grid>
-            </Wrap>
-            <CategoryContainer>
-                {isOpen &&
-                    <CategoryWrap>
-                        {category_list.map((v, i) => {
-                            return <Category key={i} onClick={() => {setfilter(v); setIsOpen(!isOpen);}}>{v}</Category>
-                        })}
-                    </CategoryWrap>
-                }
-            </CategoryContainer>
-        </Container>
+        <>
+            <Container>
+                <Wrap>
+                    <Grid flex gap="3px" >
+                        <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
+                        {category && <StyledRefrashIcon onClick={() => {setfilter('전체'); setIsOpen(false)}}/>}
+                    </Grid>
+                    <Grid width="100%" height="40px" flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
+                        <StyledArrowIcon open={isOpen}/>
+                    </Grid>
+                </Wrap>
+                <CategoryContainer>
+                    {isOpen &&
+                        <CategoryWrap>
+                            {category_list.map((v, i) => {
+                                return <Category key={i} onClick={() => {setfilter(v); setIsOpen(!isOpen);}}>{v}</Category>
+                            })}
+                        </CategoryWrap>
+                    }
+                </CategoryContainer>
+            </Container>
+            <TotalCnt> 총 {total}건의 물품이 있습니다. </TotalCnt>
+        </>
     );
 };
 
@@ -134,6 +137,14 @@ const Category = styled.li`
     list-style: none;
     letter-spacing: -0.23px;
     cursor: pointer;
+`;
+
+const TotalCnt = styled.span`
+    padding: 0 16px;
+    font-size: 14px;
+    color: #9d9d9d;
+    letter-spacing: -.22px;
+    word-spacing: -1px;
 `;
 
 export default CategoryBar;
