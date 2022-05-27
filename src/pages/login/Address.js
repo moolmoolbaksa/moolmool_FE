@@ -15,9 +15,7 @@ const Address = props => {
     const { road_address, general_address } = useSelector(state => state.user.address);
 
     const onUpdateAddress = () => {
-        console.log('zz', location.state)
         if (location.state) {
-            console.log('nn')
             history.goBack();
             return;
         }

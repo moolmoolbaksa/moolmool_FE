@@ -21,10 +21,12 @@ const SearchItem = ({image, contents, title, itemId}) => {
                     text={title}
                     bold="bold"
                     size="16px"
+                    is_overflow
                 />
                 <Text 
                     text={contents}
                     color="#9d9d9d"
+                    is_overflow
                 />
             </Grid>
         </Container>

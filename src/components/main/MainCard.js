@@ -5,20 +5,19 @@ import { Grid, Text } from '../../elements/index';
 import { api as productActions } from '../../redux/modules/product';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
-import { ReactComponent as ViewIcon } from '../../images/view.svg';
+// import { ReactComponent as ViewIcon } from '../../images/view.svg';
 import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
 import { history } from '../../redux/configureStore';
 
-const MainCard = ({itemId, image, address, title, contents, scrabCnt, viewCnt, nickname}) => {
+const MainCard = ({itemId, image, address, title, contents, scrabCnt, scrab, viewCnt, nickname}) => {
     const dispatch = useDispatch();
     const is_login = useSelector(state => state.user.is_login);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-    
-    console.log(is_login, my_nickname)
+  
     const onGoDetail = () => {
         dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
-
+    
     return (
         <Container>
             <ImageOutter onClick={onGoDetail}>
@@ -32,6 +31,7 @@ const MainCard = ({itemId, image, address, title, contents, scrabCnt, viewCnt, n
                         size="16px"
                         bold="bold"
                         wordSpacing="-1px"
+                        is_overflow
                     />
                     <Text 
                         multi="3"
@@ -42,13 +42,16 @@ const MainCard = ({itemId, image, address, title, contents, scrabCnt, viewCnt, n
                 </Grid>
                 <IconWrap>
                     <Grid is_flex align="center" gap="2px">
-                        <StyledHeartIcon width="20" height="20" stroke="gray"/>
+                        {scrab
+                            ?   <StyledHeartIcon width="20" height="20" stroke="none" fill="#d6485f"/>
+                            :   <StyledHeartIcon width="20" height="20" stroke="gray" fill="none"/>
+                        }
                         <span className='num'>{scrabCnt}</span>
                     </Grid>
-                    <Grid is_flex align="center" gap="2px">
+                    {/* <Grid is_flex align="center" gap="2px">
                         <ViewIcon />
                         <span className='num'>{viewCnt}</span>
-                    </Grid>
+                    </Grid> */}
                     {is_login && address && nickname !== my_nickname && 
                         <Grid is_flex align="center">
                             <LocationIcon width="18" height="18" fill="gray"/>

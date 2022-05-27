@@ -11,15 +11,6 @@ import { ReactComponent as GlassIcon } from "../../images/돋보기.svg";
 
 const { kakao } = window;
 
-const postCodeStyle = {
-    // display: "block",
-    // position: "relative",
-    // width: "100%",
-    // height: "100%",
-    // zIndex: "1000",
-    // flexGlow: 1,
-};
-
 const KakaoMap = () => {
     const dispatch = useDispatch();
     
@@ -172,7 +163,6 @@ const KakaoMap = () => {
             {isPopupOpen && <PostCardWrap>
                                 <Grid position="relative" is_column height="100%">
                                 <StyledPost  
-                                    style={postCodeStyle} 
                                     onComplete={handleComplete} 
                                 />
                                 <CancleBtn 
