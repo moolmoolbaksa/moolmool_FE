@@ -7,6 +7,10 @@ const useError = (title,contents,category,favors,preview,type,myitem_length,is_e
   {
     return [false,'제목을 입력해주세요'];
   }
+  else if(title.length>15)
+  {
+    return [false,'제목은 띄어쓰기 포함 15자 이내로 작성 가능합니다.'];
+  }
   else if(contents.length===0)
   {
     return [false,'내용을 입력해주세요'];

@@ -20,7 +20,8 @@ const RatingModal = (props) => {
     console.log(rating);
     HistoryAPI.Rating(props.barterId,props.userId,rating)
     .then((res)=>{
-      console.log(res); 
+      console.log(res);
+      props.closeModal();
     })
     .catch((error)=>{
       console.log(error);

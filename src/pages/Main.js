@@ -43,6 +43,7 @@ const Main = props => {
     useEffect(() => {
         if (userId && is_token) 
         {
+          console.log('connected check');
             client.connect({ Authorization: localStorage.getItem('token') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
