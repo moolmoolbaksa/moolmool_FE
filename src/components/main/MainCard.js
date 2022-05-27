@@ -3,16 +3,20 @@ import styled from 'styled-components';
 
 import { Grid, Text } from '../../elements/index';
 import { api as productActions } from '../../redux/modules/product';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as ViewIcon } from '../../images/view.svg';
 import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
+import { history } from '../../redux/configureStore';
 
-const MainCard = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}) => {
+const MainCard = ({itemId, image, address, title, contents, scrabCnt, viewCnt, nickname}) => {
     const dispatch = useDispatch();
-  
+    const is_login = useSelector(state => state.user.is_login);
+    const my_nickname = useSelector(state => state.user.user_info.nickname);
+    
+    console.log(is_login, my_nickname)
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
 
     return (
@@ -37,14 +41,20 @@ const MainCard = ({itemId, image, address, title, contents, scrab, scrabCnt, vie
                     />
                 </Grid>
                 <IconWrap>
-                    <Grid is_flex align="center">
+                    <Grid is_flex align="center" gap="2px">
                         <StyledHeartIcon width="20" height="20" stroke="gray"/>
                         <span className='num'>{scrabCnt}</span>
                     </Grid>
-                    <Grid is_flex align="center" gap="1px">
+                    <Grid is_flex align="center" gap="2px">
                         <ViewIcon />
                         <span className='num'>{viewCnt}</span>
                     </Grid>
+                    {is_login && address && nickname !== my_nickname && 
+                        <Grid is_flex align="center">
+                            <LocationIcon width="18" height="18" fill="gray"/>
+                            <span className='num'>{address === '인근' ? address : address.split(' ')[1]}</span>
+                        </Grid>
+                    }
                 </IconWrap>
             </Grid>
         </Container>
@@ -85,7 +95,7 @@ const IconWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 2px;
+    gap: 3px;
 
     & span {
         position: relative;

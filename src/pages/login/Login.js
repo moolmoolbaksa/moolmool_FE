@@ -3,24 +3,27 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { Grid } from '../../elements/index';
-import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 import { persistor } from '../../index';
 import { KAKAO_AUTH_URL, NAVER_AUTH_URL } from '../../shared/socialOAuth';
 
 const Login = (props) => {
+    
     useEffect(() => {
         localStorage.clear();
         persistor.purge();
     }, []);
 
     return (
-        <Grid height="100%" is_flex is_column justify="center" gap="50px">
+        <Grid height="100%" is_column justify="center" gap="50px">
             <Wrap>
-                <span>똑똑한 교환 생활</span>
-                <StyledLogo />
+                <Logo 
+                    src={require('../../images/brand_name.png')}
+                    alt="물물박사 로고"
+                    width="60%"
+                />
             </Wrap>
             <Grid padding="0 16px" is_column margin="0 0 30px" align="center" gap="8px">
-                <A href={NAVER_AUTH_URL}>
+                {/* <A href={NAVER_AUTH_URL}>
                     네이버로 시작하기
                     <LoginBtn 
                         src={require("../../images/naverLogo.png")} 
@@ -29,7 +32,7 @@ const Login = (props) => {
                         height="20px"
                         style={{padding: '0 0 0 4px'}}
                     />
-                </A>
+                </A> */}
                 <A href={KAKAO_AUTH_URL} login>
                     카카오로 시작하기
                     <LoginBtn 
@@ -63,13 +66,7 @@ const Wrap = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex-grow: 1;
-    & span {
-        font-family: 'Jua', sans-serif;
-        color: #FFD467;
-        font-size: 20px;
-        margin-bottom: 5px;
-    }   
+    flex-grow: 1;  
 `;
 
 const A = styled.a`
@@ -91,11 +88,10 @@ const A = styled.a`
 
 const LoginBtn = styled.img`
     position: absolute;
-    /* height: 30px; */
     left: 5%;
 `;
 
-const StyledLogo = styled(LogoIcon)`
+const Logo = styled.img`
     margin: 0 auto;
 `;
 

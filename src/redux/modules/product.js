@@ -16,7 +16,7 @@ export const getProductApi = createAsyncThunk('product/getProductApi', async (it
             response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/${itemId}`);
         }
         console.log(response)
-        history.push(`/detail/${itemId}`);
+        // history.push(`/detail/${itemId}`);
         return response.data;
     } catch (error) {
         console.log('getProductApi: ', error);

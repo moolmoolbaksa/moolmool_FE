@@ -7,7 +7,9 @@ import { history } from './redux/configureStore';
 // css
 import backgroundImg from './images/moolmool_background.png';
 import brandlogo from './images/brand_name.png';
-// page import
+import theme from './shared/theme';
+
+// pages
 import { Login, Signup, KaKaoLogin, NaverLogin, Welcome, Address } from './pages/login/index';
 import {
     Detail,
@@ -37,28 +39,19 @@ function App() {
   }
 
   const handleResize = () => {
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
   handleResize();
 
   useEffect(() => {
-      window.addEventListener('resize', handleResize);
-      return () => {
-          window.removeEventListener('resize', handleResize);
-      };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   });
 
-  const theme = {
-    palette: {
-      blue: '#0095b7',
-      yellow: '#FFD467',
-      gray: '#E8E8E8',
-      white: '#ffffff'
-    }
-  };
-  
   return (
     <>
       <Background />
@@ -145,6 +138,7 @@ const Background = styled.div`
 const GlobalStyle = styled.div`
   position: absolute;
   width: 100%;
+  min-width: 320px;
   max-width: 420px;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
