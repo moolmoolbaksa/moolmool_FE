@@ -15,7 +15,9 @@ const Address = props => {
     const { road_address, general_address } = useSelector(state => state.user.address);
 
     const onUpdateAddress = () => {
+        console.log('zz', location.state)
         if (location.state) {
+            console.log('nn')
             history.goBack();
             return;
         }
@@ -83,9 +85,8 @@ const Address = props => {
 const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    position: absolute;
+    position: relative;
     height: 100%;
-    width: 100%;
     padding: 0 0 16px;
     overflow-y: scroll;
     -ms-overflow-style: none;

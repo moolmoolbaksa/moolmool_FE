@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components";
 
 import DaumPostcode from "react-daum-postcode";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
-import { setAddress, setLatlng } from "../../redux/modules/user";
-import { Grid, Text, Button } from "../../elements/index";
+import { setAddress } from "../../redux/modules/user";
+import { Grid, Text  } from "../../elements/index";
 import { ReactComponent as LocationIcon } from "../../images/좌표.svg";
 import { ReactComponent as GlassIcon } from "../../images/돋보기.svg";
 
 const { kakao } = window;
 
 const postCodeStyle = {
-    display: "block",
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    zIndex: "1000",
-    flexGlow: 1,
+    // display: "block",
+    // position: "relative",
+    // width: "100%",
+    // height: "100%",
+    // zIndex: "1000",
+    // flexGlow: 1,
 };
 
 const KakaoMap = () => {
@@ -47,8 +47,8 @@ const KakaoMap = () => {
                 extraAddress +=
                 extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
             }
-            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-        }
+            fullAddress += extraAddress !== "" ? `${extraAddress}` : "";
+        };
         setIsAddress(fullAddress);
         setIsPopupOpen(false);
     };
@@ -170,6 +170,7 @@ const KakaoMap = () => {
                 </NowLocation>
             </Grid>
             {isPopupOpen && <PostCardWrap>
+                                <Grid position="relative" is_column height="100%">
                                 <StyledPost  
                                     style={postCodeStyle} 
                                     onComplete={handleComplete} 
@@ -182,6 +183,7 @@ const KakaoMap = () => {
                                     absolute
                                     onClick={() => {setIsPopupOpen(false)}}
                                 >닫기</CancleBtn>
+                                </Grid>
                             </PostCardWrap>
             }
         </>
@@ -192,15 +194,26 @@ const PostCardWrap = styled.div`
     display: flex;
     flex-flow: column nowrap;
     position: absolute;
+    z-index: 1000;
     right: 0;
     left: 0;
+    bottom: 0;
+    top: 0;
     height: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`;
+
+const StyledPost = styled(DaumPostcode)`
+    display: block;
+    width: 100%;
+    flex-grow: 1;
 `;
 
 const CancleBtn = styled.button`
-    position: absolute;
-    z-index: 1001;
-    bottom: 0;
     height: 60px;
     width: 100%;
     background: ${props => props.theme.palette.yellow};
@@ -212,7 +225,6 @@ const CancleBtn = styled.button`
 
 const MapContainer = styled.div`
     height: 100%;
-    min-height: 355px;
     width: 100%;
     margin-bottom: 18px;
     position: relative;
@@ -221,14 +233,6 @@ const MapContainer = styled.div`
 
 const Map = styled.div`
     height: 100%;
-`;
-
-const StyledPost = styled(DaumPostcode)`
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
 `;
 
 const Wrap = styled.div`

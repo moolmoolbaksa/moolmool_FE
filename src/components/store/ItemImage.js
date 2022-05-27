@@ -10,7 +10,7 @@ const ItemImage = ({itemId, image, status}) => {
     const onGoDetail = () => {
         dispatch(productActions.getProductApi(itemId));
     };
-    console.log(itemId)
+    
     return (
         <ImageOutter 
             onClick={onGoDetail}
