@@ -7,12 +7,13 @@ import { Text, Grid } from '../../elements';
 import { ReactComponent as GoldMedal } from '../../images/gold_medal.svg';
 import { ReactComponent as SilverMedal } from '../../images/silver_medal.svg';
 import { ReactComponent as BronzeMedal } from '../../images/bronze_medal.svg';
+import { history } from '../../redux/configureStore';
 
 const HotItem = ({image, contents, title, itemId, rank}) => {
     const dispatch = useDispatch();
   
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
    
     return (
@@ -30,11 +31,13 @@ const HotItem = ({image, contents, title, itemId, rank}) => {
                 <Text 
                     text={title}
                     bold="bold"
-                    size="16px"  
+                    size="16px" 
+                    is_overflow 
                 />
                 <Text 
                     text={contents}
                     color="#9d9d9d"
+                    is_overflow
                 />
             </Grid>
         </Container>

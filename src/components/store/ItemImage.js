@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 import { api as productActions } from '../../redux/modules/product';
+import { history } from '../../redux/configureStore';
 
 const ItemImage = ({itemId, image, status}) => {
     const dispatch = useDispatch();
 
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
-
+    
     return (
         <ImageOutter 
             onClick={onGoDetail}

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-import { Text, Grid } from '../../elements/index';
+import { Link } from 'react-router-dom';
 import { history } from '../../redux/configureStore';
+
 import TradeMyItem from '../trade/TradeMyItem';
 import ItemImage from './ItemImage';
+import { Text, Grid } from '../../elements/index';
 import { ReactComponent as PlusIcon } from '../../images/plus_round.svg';
 
 const ItemGrid = ({item_list, type}) => {
@@ -13,7 +13,7 @@ const ItemGrid = ({item_list, type}) => {
     const onGoCreateItem = () => {
         history.push('/registerproduct');
     };
-
+  
     if(type==='trade'){
         return (
             <Grid
@@ -116,8 +116,8 @@ const ItemGrid = ({item_list, type}) => {
                 size="22px"
                 letterSpacing="-1px"
             />
-            {!item_list.length 
-                ?   <PlusZone onClick={onGoCreateItem}>
+            {!item_list.length
+                ?   (<PlusZone onClick={onGoCreateItem}>
                         <Text 
                             text="보따리에 물건을 추가해보세요!"
                             textAlign="center"
@@ -126,8 +126,8 @@ const ItemGrid = ({item_list, type}) => {
                             bold="bold"
                             padding="50px 0"
                         />
-                    </PlusZone>
-                :   <Grid gridBox margin="20px 0">
+                    </PlusZone>)
+                :   (<Grid gridBox margin="20px 0">
                         {new_item_list && new_item_list.map((v, i) => {
                             return  v   ?   <ItemImage 
                                                 key={i}
@@ -137,7 +137,7 @@ const ItemGrid = ({item_list, type}) => {
                                                 <PlusIcon/>
                                             </PlusItem>   
                         })}
-                    </Grid>
+                    </Grid>)
             }
         </Grid> 
     );

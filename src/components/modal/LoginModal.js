@@ -42,14 +42,14 @@ const LoginModal = ({type}) => {
             <ModalContainer is_modal={is_login_modal}>
                 <Content>
                     <img src={logo} alt='로고' />
-                    <Grid>
+                    {/* <Grid>
                         <Text
                             text="로그인 후 이용가능합니다"
                             textAlign="center"
                             size="22px"
                             bold="bold"
                         />
-                    </Grid>
+                    </Grid> */}
                 </Content>
                 <BtnWrap>
                     <Button 
@@ -123,7 +123,7 @@ const Content = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 50px 0 30px;
+    padding: 40px 0 30px;
     gap: 30px;
     
     & span {

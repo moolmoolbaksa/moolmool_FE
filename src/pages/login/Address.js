@@ -83,9 +83,8 @@ const Address = props => {
 const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    position: absolute;
+    position: relative;
     height: 100%;
-    width: 100%;
     padding: 0 0 16px;
     overflow-y: scroll;
     -ms-overflow-style: none;

@@ -18,6 +18,7 @@ const Text = (props) => {
         onClick,
         maxWidth,
         multi,
+        is_overflow,
     } = props;
 
     const styles = {
@@ -34,6 +35,7 @@ const Text = (props) => {
         textAlign,
         borderB,
         multi,
+        is_overflow,
     }
 
     if(multi){
@@ -82,13 +84,14 @@ const ElText = styled.div`
     ${props => (props.letterSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67px`)};
     ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : `word-spacing: -0.67px`)};
     ${props => (props.maxWidth ? `max-width:${props.maxWidth}` : '')};
-    overflow: hidden;
+    ${props => (props.is_overflow ? `overflow: hidden; white-space: nowrap; text-overflow: ellipsis;` : '')}; 
+    /* overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
 `;
 
 const MultiLine = styled.div`
-font-size: ${props => props.size};
+    font-size: ${props => props.size};
     font-weight: ${props => props.bold};
     color: ${props => props.color};
     line-height: ${props => props.lineHeight};
@@ -99,7 +102,7 @@ font-size: ${props => props.size};
     text-align: ${props => props.textAlign};
     border-bottom: ${props => props.borderB};
     ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : '')};
-    word-wrap:break-word;
+    word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

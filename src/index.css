@@ -24,6 +24,10 @@ ul {
   font-family: 'Noto Sans CJK KR';
 }
 
+svg {
+  cursor: pointer;
+}
+
 input, textarea {
   -moz-user-select: auto;
   -webkit-user-select: auto;

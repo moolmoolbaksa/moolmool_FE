@@ -171,11 +171,10 @@ const Container = styled.div`
     height: calc(100% - 57px);
     padding: 20px 0 0;
     overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none; 
     &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none;
     };
-    /* gap: 25px; */
 `;
 
 const FileBox = styled.div`

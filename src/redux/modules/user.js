@@ -38,6 +38,25 @@ const kakaoLoginApi = createAsyncThunk('user/kakaoLogin', async (code, thunkAPI)
     }
 });
 
+const naverLoginApi = createAsyncThunk('user/naverLoginApi', async ({code, state}, thunkAPI) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/naver?code=${code}&state=${state}`);
+        console.log('네이버 토큰', response)
+        const token = response.headers.authorization;
+        localStorage.setItem('token', token);
+
+        if (!response.data.isFirst) {
+            history.replace('/');
+        } else {
+            thunkAPI.dispatch(loginCheckApi());
+            history.replace('/address');
+        }
+    } catch (error) {
+        console.log('naverLoginApi error: ', error);
+        alert('naverLoginApi error');
+    }
+});
+
 const setFirstUserInfoApi = createAsyncThunk('user/setFirstUserInfoApi', async address => {
     try {
         await axios.put(
@@ -119,7 +138,6 @@ const initialState = {
         other_item_list: [],
     },
     address: '',
-    latlng: '',
     item_list: [],
     myScrabList: [],
     preview: null,
@@ -135,9 +153,6 @@ export const user = createSlice({
         },
         setAddress: (state, action) => {
             state.address = action.payload;
-        },
-        setLatlng: (state, action) => {
-            state.latlng = action.payload;
         },
     },
     extraReducers: builder => {
@@ -181,11 +196,12 @@ export const user = createSlice({
     },
 });
 
-export const { setPreview, setAddress, setLoading, setLatlng } = user.actions;
+export const { setPreview, setAddress, setLoading } = user.actions;
 
 export const api = {
     loginCheckApi,
     kakaoLoginApi,
+    naverLoginApi,
     setFirstUserInfoApi,
     getMyInfoApi,
     updateMyInfoApi,

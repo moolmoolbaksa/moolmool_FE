@@ -3,13 +3,14 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { Text, Grid } from '../../elements';
+import { history } from '../../redux/configureStore';
 import { api as productActions } from '../../redux/modules/product';
 
 const SearchItem = ({image, contents, title, itemId}) => {
     const dispatch = useDispatch();
 
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(history.push(`/detail/${itemId}`));
     };
 
     return (
@@ -20,10 +21,12 @@ const SearchItem = ({image, contents, title, itemId}) => {
                     text={title}
                     bold="bold"
                     size="16px"
+                    is_overflow
                 />
                 <Text 
                     text={contents}
                     color="#9d9d9d"
+                    is_overflow
                 />
             </Grid>
         </Container>
