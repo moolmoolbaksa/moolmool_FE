@@ -28,7 +28,7 @@ const Scrab = (props) => {
                     })}  
                 </ScrabWrap>
             </ScrabContainer>
-            <TabBar position/>
+            <TabBar/>
         </Container>
     );
 };
@@ -45,16 +45,18 @@ const ScrabContainer = styled.div`
     flex-flow: column nowrap;
     flex-grow: 1;
     padding: 16px 16px 0px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none; 
+    };
 `;
 
 const ScrabWrap = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-        display: none; 
-    };
+    gap: 15px 10px;
+    padding-bottom: 10px;
 `;
 
 export default Scrab;

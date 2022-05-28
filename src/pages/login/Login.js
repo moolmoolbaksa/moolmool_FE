@@ -46,7 +46,7 @@ const Login = (props) => {
                 </A>
                 <A href={KAKAO_AUTH_URL} login>
                     카카오로 시작하기
-                    <LoginBtn 
+                    <KakaoIcon 
                         src={require("../../images/kakaoLogo.png")} 
                         alt='카카오로그인'
                         width="30px"
@@ -88,26 +88,25 @@ const A = styled.a`
     text-decoration: none;
     height: 50px;
     width: 100%;
-    background: ${props => props.login ? '#FEE500' : '#FFFFFF'};
-    color: ${props => props.login ? '#000000' : 'rgb(0, 0, 0)'};
-    border: ${props => props.login ? '' : '1px black solid'};
-
     letter-spacing: -.22px;
     font-size: 16px;
     border-radius: 12px;
     font-weight: bold;
     cursor: pointer;
+    background: ${props => props.login ? '#FEE500' : '#FFFFFF'};
+    color: ${props => props.login ? '#000000' : 'rgb(0, 0, 0)'};
+    border: ${props => props.login ? 'none' : '1px black solid'};
 `;
 
 const GoogleIcon = styled.svg`
     position: absolute;
     width: 40px;
     height: 40px;
-    left: 14px;
+    left: 3.5%;
     background-color: white;
 `;
 
-const LoginBtn = styled.img`
+const KakaoIcon = styled.img`
     position: absolute;
     left: 5%;
 `;
