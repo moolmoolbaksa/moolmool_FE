@@ -19,14 +19,13 @@ const MainCard = ({itemId, image, address, title, contents, scrabCnt, scrab, vie
     };
     
     return (
-        <Container>
-            <ImageOutter onClick={onGoDetail}>
+        <Container onClick={onGoDetail}>
+            <ImageOutter>
                 <ImageWrap src={image}/>
             </ImageOutter>
             <Grid is_column justify="space-between">
                 <Grid is_column gap="8px">
                     <Text 
-                        onClick={onGoDetail}
                         text={title}
                         size="16px"
                         bold="bold"
@@ -35,7 +34,6 @@ const MainCard = ({itemId, image, address, title, contents, scrabCnt, scrab, vie
                     />
                     <Text 
                         multi="3"
-                        onClick={onGoDetail}
                         text={contents}
                         color="#9D9D9D"
                     />
