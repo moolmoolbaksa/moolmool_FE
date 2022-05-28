@@ -103,7 +103,7 @@ export const setTradeApi = createAsyncThunk('propduct/setTradeApi', async (_, th
                 },
             },
         );
-        history.replace(`/detail/${itemId}`);
+        history.replace(`/`);
     } catch (error) {
         console.log('setTradeApi: ', error);
         alert('setTradeApi error');
