@@ -1,0 +1,34 @@
+@font-face {
+	font-family: 'Noto Sans CJK KR';
+	font-style: normal;
+	font-weight: normal;
+	src: url('./NotoSansKR-Light.otf') format('truetype'), 
+    url("./NotoSansKR-Light.woff2") format('woff2'),
+    url("./NotoSansKR-Light.woff") format('woff'),
+}
+
+@font-face {
+	font-family: 'Noto Sans CJK KR';
+	font-style: normal;
+	font-weight: 500;
+	src: url('/NotoSansKR-Regular.otf') format('truetype'),
+    url("./NotoSansKR-Regular.woff2") format('woff2'),
+    url("./NotoSansKR-Regular.woff") format('woff'),
+}
+
+@font-face {
+	font-family: 'Noto Sans CJK KR';
+	font-style: normal;
+	font-weight: bold;
+	src: url('./NotoSansKR-Bold.otf') format('truetype'),
+    url("./NotoSansKR-Bold.woff2") format('woff2'),
+    url("./NotoSansKR-Bold.woff") format('woff'),
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	src: url('./Roboto-Medium.ttf') format('truetype'),
+    url('./Roboto-Medium.ttf') format('woff')
+}

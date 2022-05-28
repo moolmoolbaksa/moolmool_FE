@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
-// import { Text, Grid, Input, Button,Image } from '../elements/index';
-import IconTabs from '../components/IconTabs';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -14,7 +12,7 @@ import { HistoryAPI } from '../shared/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHistory } from '../redux/modules/tradehistory';
 import TabBar from '../components/TabBar';
-import { acceptTrade, setOppentisTrade } from '../redux/modules/tradehistory';
+import { setOppentisTrade } from '../redux/modules/tradehistory';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
@@ -90,9 +88,9 @@ const Tradehistory = props => {
     };
 
     return (
-        <div style={{ height: '100%' }}>
+        <Container>
             <LocationBar title="나의 교환내역" />
-            <TabContext value={value}>
+            <TabContext value={value} sx={{ flexGrow: "1"}}>
                 <TabList
                     onChange={handleChange}
                     value={value}
@@ -113,7 +111,7 @@ const Tradehistory = props => {
                 </TabList>
                 <TabPanel sx={{ 
                   '&::-webkit-scrollbar': { width: '0' },
-                  padding: '0', height: 'calc(100% - 170px)', overflowY: 'auto' }} value="recived">
+                  padding: '0', flexGrow: '1', overflowY: 'auto' }} value="recived">
                     {receivedlist.slice().sort((a,b)=>a.status-b.status).map((p, idx) => {
                         return <Tradecard key={`trade_${p.barterId}`} {...p} />;
                     })}
@@ -122,7 +120,7 @@ const Tradehistory = props => {
                     sx={{
                         '&::-webkit-scrollbar': { width: '0' },
                         padding: '0',
-                        height: 'calc(100% - 170px)',
+                        flexGrow: '1',
                         overflowY: 'auto',
                     }}
                     value="sent">
@@ -132,8 +130,14 @@ const Tradehistory = props => {
                 </TabPanel>
             </TabContext>
             <TabBar />
-        </div>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    height: 100%;
+    display: flex; 
+    flex-flow: column nowrap;
+`;
    
 export default Tradehistory;
