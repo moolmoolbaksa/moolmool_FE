@@ -6,7 +6,7 @@ import { history } from '../configureStore';
 
 export const getNotiApi = createAsyncThunk('notification/getNotiApi', async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notifications`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notifications`, {
             headers: {
                 Authorization: localStorage.getItem('token'),
             },
@@ -24,7 +24,7 @@ export const getBarterNotiApi = createAsyncThunk(
     async ({ notificationId, changeId }) => {
         try {
             const response = await axios.get(
-                `${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/decision?baterId=${changeId}`,
+                `${process.env.REACT_APP_SERVER_URL}/user/notification/decision?barterId=${changeId}&notificationId=${notificationId}`,
                 {
                     headers: {
                         Authorization: localStorage.getItem('token'),
@@ -45,7 +45,7 @@ export const getChatNotiApi = createAsyncThunk(
     'notification/getChatNotiApi',
     async ({ notificationId, changeId }) => {
         try {
-            await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/chat?roomId=${changeId}`,
+            await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notification/chat?roomId=${changeId}&notificationId=${notificationId}`,
                 {
                     headers: {
                         Authorization: localStorage.getItem('token'),
@@ -64,7 +64,7 @@ export const getWelcomApi = createAsyncThunk(
     'notification/getWelcomApi',
     async (notificationId) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/signup`,
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notification/signup?notificationId=${notificationId}`,
                 {
                     headers: {
                         Authorization: localStorage.getItem('token'),
@@ -82,7 +82,7 @@ export const getWelcomApi = createAsyncThunk(
 export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, chageId }) => {
     try {
         const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/api/notification/${notificationId}/score?barterId=${chageId}`,
+            `${process.env.REACT_APP_SERVER_URL}/user/notification/score?barterId=${chageId}&notificationId${notificationId}`,
             {
                 headers: {
                     Authorization: localStorage.getItem('token'),
