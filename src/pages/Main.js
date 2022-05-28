@@ -23,10 +23,13 @@ import FetchMore from '../components/shared/FetchMore';
 import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
+import useScrollMove from '../hooks/useScrollMove';
+import { useHistory } from 'react-router-dom';
+
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
-
+    
     const userId = useSelector(state => state.user.user_info.userId);
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
@@ -103,6 +106,9 @@ const Main = props => {
         const category = filter === '전체' ? '' : `${filter}`;
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
+    
+    // const {scrollInfo, scrollRemove} = useScrollMove({path: `/`, dom: scrollRef.current});
+    // console.log(scrollInfo)
    
     return (
         <>

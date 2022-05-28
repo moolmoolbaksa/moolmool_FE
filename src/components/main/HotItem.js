@@ -11,11 +11,11 @@ import { history } from '../../redux/configureStore';
 
 const HotItem = ({image, contents, title, itemId, rank}) => {
     const dispatch = useDispatch();
-  
+    
     const onGoDetail = () => {
         dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
-   
+    
     return (
         <Container onClick={onGoDetail}>
             <RankLabel>

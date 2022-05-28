@@ -31,7 +31,7 @@ const Detail = (props) => {
         slidesToShow: 1, 
         slidesToScroll: 1,
     };
-
+    
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (

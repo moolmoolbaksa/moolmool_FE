@@ -4,17 +4,16 @@ import axios from "axios";
 export const getSearchApi = createAsyncThunk(
     'search/getSearchApi',
     async (search,thunkAPI) => {
-        console.log(search)
         try {
             let response;
             if(thunkAPI.getState().user.is_login){
-                response =  await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/item/search?keyword=${search}`,{
+                response =  await axios.get(`${process.env.REACT_APP_SERVER_URL}/item?keyword=${search}`,{
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     }
                 });
             } else {
-                response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/item/search?keyword=${search}`);
+                response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/item?keyword=${search}`);
             };
             return {response: response.data, search};
         } catch (error) {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { api as userActions } from '../redux/modules/user';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { persistor } from '../index';
 
 import ItemGrid from '../components/store/ItemGrid';
@@ -27,7 +27,7 @@ const Mypage = (props) => {
         localStorage.clear();
         persistor.purge();
     };
-   
+    
     return (
         <Grid height="100%" is_column>
             <LocationBar title="마이페이지"/>
