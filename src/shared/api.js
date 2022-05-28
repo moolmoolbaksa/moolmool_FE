@@ -20,6 +20,9 @@ export const userAPI = {
     // 카카오 로그인
     kakaoLogin: (code) => api.get(`/user/kakao?code=${code}`),
     
+    // 구글 로그인
+    googleLogin: (code) => api.get(`/user/google?code=${code}`),
+    
     // 최초 로그인 정보 수집
     firstUser: (address) => api.put(`/user/info`, {address}, {
         headers: {

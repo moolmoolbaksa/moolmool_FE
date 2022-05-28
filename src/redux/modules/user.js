@@ -39,6 +39,27 @@ const kakaoLoginApi = createAsyncThunk(
         }
     }
 );
+
+const googleLoginApi = createAsyncThunk(
+    'user/kakaoLogin', 
+    async (code, thunkAPI) => {
+        try {
+            const response = await userAPI.googleLogin(code);
+            console.log(response)
+            localStorage.setItem('token', response.headers.authorization);
+
+            if (!response.data.isFirst) {
+                history.replace('/');
+            } else {
+                thunkAPI.dispatch(loginCheckApi());
+                history.replace('/address');
+            }
+        } catch (error) {
+            console.log('googleLoginApi error: ', error);
+            alert('googleLoginApi error');
+        }
+    }
+);
    
 const setFirstUserInfoApi = createAsyncThunk(
     'user/setFirstUserInfoApi',
@@ -177,6 +198,7 @@ export const { setPreview, setAddress, setLoading } = user.actions;
 export const api = {
     loginCheckApi,
     kakaoLoginApi,
+    googleLoginApi,
     setFirstUserInfoApi,
     getMyInfoApi,
     updateMyInfoApi,

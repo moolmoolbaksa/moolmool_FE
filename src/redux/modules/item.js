@@ -16,13 +16,13 @@ export const getItemApi = createAsyncThunk(
             //     response = await ItemAPI.getItemsWitoutLogin(category, page);
             // };
             if (is_token) {
-                response = await axios.get(`https://langho968.shop/items/${page}?category=${category}`, {
+                response = await axios.get(`https://langho968.shop/items?page=${page}&category=${category}`, {
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     },
                 });
             } else {
-                response = await axios.get(`https://langho968.shop/items/${page}?category=${category}`);
+                response = await axios.get(`https://langho968.shop/items?page=${page}&category=${category}`);
             };
             console.log(response)
             let is_next;

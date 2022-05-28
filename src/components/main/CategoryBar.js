@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 
@@ -6,7 +6,7 @@ import { Grid } from '../../elements';
 import { ReactComponent as ArrowIcon } from '../../images/expand_more_arrow.svg';
 import { ReactComponent as RefrashIcon } from '../../images/refrash.svg';
 
-const CategoryBar = ({setfilter}) => {
+const CategoryBar = forwardRef((props, ref) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const { total, category } = useSelector(state => state.item.paging);
     
@@ -30,11 +30,11 @@ const CategoryBar = ({setfilter}) => {
 
     return (
         <>
-            <Container>
+            <Container ref={ref}>
                 <Wrap>
                     <Grid flex gap="3px" >
                         <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
-                        {category && <StyledRefrashIcon onClick={() => {setfilter('전체'); setIsOpen(false)}}/>}
+                        {category && <StyledRefrashIcon onClick={() => {props.setfilter('전체'); setIsOpen(false)}}/>}
                     </Grid>
                     <Grid width="100%" height="40px" flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
                         <StyledArrowIcon open={isOpen}/>
@@ -44,7 +44,7 @@ const CategoryBar = ({setfilter}) => {
                     {isOpen &&
                         <CategoryWrap>
                             {category_list.map((v, i) => {
-                                return <Category key={i} onClick={() => {setfilter(v); setIsOpen(!isOpen);}}>{v}</Category>
+                                return <Category key={i} onClick={() => {props.setfilter(v); setIsOpen(!isOpen);}}>{v}</Category>
                             })}
                         </CategoryWrap>
                     }
@@ -53,7 +53,7 @@ const CategoryBar = ({setfilter}) => {
             <TotalCnt> 총 {total}건의 물품이 있습니다. </TotalCnt>
         </>
     );
-};
+});
 
 const DrawIn = keyframes`
     0% {
