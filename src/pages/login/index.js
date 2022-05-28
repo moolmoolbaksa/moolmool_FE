@@ -1,7 +1,7 @@
 import Login from "./Login";
 import Signup from "./Signup";
 import KaKaoLogin from "./KakaoLogin";
-import NaverLogin from "./NaverLogin";
+import GoogleLogin from "./GoogleLogin";
 import Welcome from "./Welcome";
 import Address from "./Address";
 
@@ -9,7 +9,7 @@ export {
     Login,
     Signup,
     KaKaoLogin,
-    NaverLogin,
+    GoogleLogin,
     Welcome,
     Address,
 };

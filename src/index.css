@@ -1,7 +1,37 @@
-/* html {
-  font-size: 62.5%;
-} */
-/* css3이하 vw vh 안됌 */
+@font-face {
+	font-family: 'Noto Sans CJK KR';
+	font-style: normal;
+	font-weight: normal;
+	src: url('../src/fonts/NotoSansKR-Light.otf') format('truetype'), 
+    url("../src/fonts/NotoSansKR-Light.woff2") format('woff2'),
+    url("../src/fonts/NotoSansKR-Light.woff") format('woff'),
+}
+
+@font-face {
+	font-family: 'Noto Sans CJK KR';
+	font-style: normal;
+	font-weight: 500;
+	src: url('../src/fonts/NotoSansKR-Regular.otf') format('truetype'),
+    url("../src/fonts/NotoSansKR-Regular.woff2") format('woff2'),
+    url("../src/fonts/NotoSansKR-Regular.woff") format('woff'),
+}
+
+@font-face {
+	font-family: 'Noto Sans CJK KR';
+	font-style: normal;
+	font-weight: bold;
+	src: url('../src/fonts/NotoSansKR-Bold.otf') format('truetype'),
+    url("../src/fonts/NotoSansKR-Bold.woff2") format('woff2'),
+    url("../src/fonts/NotoSansKR-Bold.woff") format('woff'),
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	src: url('../src/fonts/Roboto-Medium.ttf') format('truetype'),
+    url('../src/fonts/Roboto-Medium.ttf') format('woff')
+}
 
 body, 
 button,  
@@ -21,7 +51,8 @@ ul {
   margin:0;
   padding:0;
   box-sizing: border-box;
-  font-family: 'Noto Sans CJK KR';
+  font-family: 'Noto Sans CJK KR', sans-serif;
+  /* font-family: 'Roboto'; */
 }
 
 svg {

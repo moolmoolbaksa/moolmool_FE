@@ -43,57 +43,58 @@ const Main = props => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, []);
 
-    useEffect(() => {
-        if (userId && is_token) 
-        {
-          console.log('connected check');
-            client.connect({ Authorization: localStorage.getItem('token') }, () => {
-                client.subscribe(
-                    `/sub/notification/${userId}`,
-                    data => {
-                        console.log(data.body);
-                        const unread_noti = JSON.parse(data.body);
-                        dispatch(setUnreadNoti(unread_noti.NotificationCnt));
-                    },
-                    { Authorization: localStorage.getItem('token') },
-                );
-                client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
-            });
-        }
+    // useEffect(() => {
+    //     if (userId && is_token) 
+    //     {
+    //       console.log('connected check');
+    //         client.connect({ Authorization: localStorage.getItem('token') }, () => {
+    //             client.subscribe(
+    //                 `/sub/notification/${userId}`,
+    //                 data => {
+    //                     console.log(data.body);
+    //                     const unread_noti = JSON.parse(data.body);
+    //                     dispatch(setUnreadNoti(unread_noti.NotificationCnt));
+    //                 },
+    //                 { Authorization: localStorage.getItem('token') },
+    //             );
+    //             client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
+    //         });
+    //     }
 
-        return() => {
-            if(is_token && client.ws.readyState === 1)
-            {
-            client.disconnect(() => {
-                                        client.unsubscribe('sub-0');
-                                    },
-                { Authorization: `${localStorage.getItem('token')}` },
-            );
-            }
-        };   
-    }, [userId]);
+    //     return() => {
+    //         if(is_token && client.ws.readyState === 1)
+    //         {
+    //         client.disconnect(() => {
+    //                                     client.unsubscribe('sub-0');
+    //                                 },
+    //             { Authorization: `${localStorage.getItem('token')}` },
+    //         );
+    //         }
+    //     };   
+    // }, [userId]);
 
-    useEffect(() => {
-      if(is_token){ChatAPI.getChatRoom()
-            .then(res => {
-              console.log(res);
-                dispatch(setRoomlist(res.data));
-            })
-            .catch(error => {
-                console.log(error);
-            });}
-    }, []);
+    // useEffect(() => {
+    //   if(is_token){ChatAPI.getChatRoom()
+    //         .then(res => {
+    //           console.log(res);
+    //             dispatch(setRoomlist(res.data));
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });}
+    // }, []);
 
     // 무한스크롤: 호출돼야할 함수 세팅
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
 
-    const scrollRef = useRef(null);
-   
+    const scrollRef = useRef();
+    const categoryRef = useRef();
     useEffect(() => { 
         // 카테고리 변경 시 화면 맨 위로 올리기 위함
-        if(scrollRef.current) {
+    
+        if(scrollRef?.current) {
             // 왜 아래는 안되는거지?
             // let scroll = scrollRef.current.scrollTop;
             // scroll <= 415 ? scroll = 0 : scroll = 415;
@@ -108,8 +109,13 @@ const Main = props => {
     }, [filter]);
     
     // const {scrollInfo, scrollRemove} = useScrollMove({path: `/`, dom: scrollRef.current});
-    // console.log(scrollInfo)
-   
+    // useEffect(() => {
+    //     return () => {
+    //         console.log('실행')
+    //         sessionStorage.setItem('scroll', scrollRef.current.scrollTop); 
+    //     }
+    // }, [scrollRef]);
+    
     return (
         <>
             <Container>
@@ -152,7 +158,7 @@ const Main = props => {
                     </Grid>
                     {/* 프로필 및 인사 끝 */}
                     <HotDeal />
-                    <CategoryBar setfilter={setfilter}/>
+                    <CategoryBar setfilter={setfilter} ref={categoryRef}/>
                     <MainItemWrap>
                         {item_list 
                             ?   item_list.map((v, _) => {

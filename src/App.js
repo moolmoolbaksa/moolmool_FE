@@ -10,7 +10,7 @@ import brandlogo from './images/brand_name.png';
 import theme from './shared/theme';
 
 // pages
-import { Login, Signup, KaKaoLogin, NaverLogin, Welcome, Address } from './pages/login/index';
+import { Login, Signup, KaKaoLogin, GoogleLogin, Welcome, Address } from './pages/login/index';
 import {
     Detail,
     Mall,
@@ -66,7 +66,7 @@ function App() {
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/auth/kakao/callback" component={KaKaoLogin} />
-            <Route exact path="/auth/naver/callback" component={NaverLogin} />
+            <Route exact path="/auth/google/callback" component={GoogleLogin} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/address" component={Address} />
             <Route exact path="/welcome" component={Welcome} />
