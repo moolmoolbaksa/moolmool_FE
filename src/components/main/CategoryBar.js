@@ -34,7 +34,7 @@ const CategoryBar = forwardRef((props, ref) => {
                 <Wrap>
                     <Grid flex gap="3px" >
                         <CategoryText category={category}>{category ? category : '카테고리 선택'}</CategoryText>
-                        {category && <StyledRefrashIcon onClick={() => {props.setfilter('전체'); setIsOpen(false)}}/>}
+                        {category && <StyledRefrashIcon onClick={() => {props.setfilter(''); setIsOpen(false)}}/>}
                     </Grid>
                     <Grid width="100%" height="40px" flex justify="flex-end" onClick={() => setIsOpen(!isOpen)}>
                         <StyledArrowIcon open={isOpen}/>

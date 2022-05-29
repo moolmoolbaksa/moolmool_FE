@@ -17,7 +17,7 @@ const MainCard = ({itemId, image, address, title, contents, scrabCnt, scrab, vie
     const onGoDetail = () => {
         dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
-    
+  
     return (
         <Container onClick={onGoDetail}>
             <ImageOutter>

@@ -23,8 +23,6 @@ import FetchMore from '../components/shared/FetchMore';
 import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
-import useScrollMove from '../hooks/useScrollMove';
-import { useHistory } from 'react-router-dom';
 
 const Main = props => {
     const dispatch = useDispatch();
@@ -34,7 +32,7 @@ const Main = props => {
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
-    const [filter, setfilter] = useState('전체');
+    const [filter, setfilter] = useState(paging.category);
  
     const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
@@ -74,48 +72,47 @@ const Main = props => {
     }, [userId]);
 
     useEffect(() => {
-      if(is_token){ChatAPI.getChatRoom()
-            .then(res => {
-              console.log(res);
-                dispatch(setRoomlist(res.data));
-            })
-            .catch(error => {
-                console.log(error);
-            });}
+        if(is_token){
+            ChatAPI.getChatRoom()
+                .then(res => {
+                    console.log(res);
+                    dispatch(setRoomlist(res.data));
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }, []);
-
-    // 무한스크롤: 호출돼야할 함수 세팅
-    const getNextList = (category, page) => {
-        dispatch(itemActions.getItemApi({category: category, page: page}));
-    };
 
     const scrollRef = useRef();
     const categoryRef = useRef();
+
     useEffect(() => { 
-        // 카테고리 변경 시 화면 맨 위로 올리기 위함
-    
-        if(scrollRef?.current) {
-            // 왜 아래는 안되는거지?
-            // let scroll = scrollRef.current.scrollTop;
-            // scroll <= 415 ? scroll = 0 : scroll = 415;
-            if(scrollRef.current.scrollTop < 415){
-                scrollRef.current.scrollTop = 0;
-            } else {
-                scrollRef.current.scrollTop = 415;
+        if(paging.is_first){
+            // 최초 아이템 호출
+            dispatch(itemActions.getItemApi({category: '', page: 0}));
+        } else {
+            // 카테고리가 변경되었을 경우
+            if(paging.category !== filter){
+                // 스크롤 이동
+                if(scrollRef.current) {
+                    if(scrollRef.current.scrollTop < 415){
+                        scrollRef.current.scrollTop = 0;
+                    } else {
+                        scrollRef.current.scrollTop = 415;
+                    }
+                }
+                // 변경된 카테고리 아이템 호출
+                dispatch(itemActions.getItemApi({category: filter, page: 0}));
             }
         }
-        const category = filter === '전체' ? '' : `${filter}`;
-        dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
-    
-    // const {scrollInfo, scrollRemove} = useScrollMove({path: `/`, dom: scrollRef.current});
-    // useEffect(() => {
-    //     return () => {
-    //         console.log('실행')
-    //         sessionStorage.setItem('scroll', scrollRef.current.scrollTop); 
-    //     }
-    // }, [scrollRef]);
-    
+
+    // 무한스크롤: 다음 호출 함수 세팅
+    const getNextList = (category, page) => {
+        dispatch(itemActions.getItemApi({category: category, page: page}));
+    };
+     
     return (
         <>
             <Container>
@@ -162,7 +159,7 @@ const Main = props => {
                     <MainItemWrap>
                         {item_list 
                             ?   item_list.map((v, _) => {
-                                    return <MainCard key={v.itemId} {...v} />
+                                    return <MainCard key={v.itemId} {...v}/>
                                 })
                             :   <MainContentSkeleton />
                         }

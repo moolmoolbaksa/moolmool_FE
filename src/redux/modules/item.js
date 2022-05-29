@@ -40,9 +40,9 @@ export const getItemApi = createAsyncThunk(
                     page: page + 1,
                     next: is_next,
                     category: category,
+                    is_first: false,
                 },
             };
-
             return data;
         } catch (error) {
             console.log('getItemApi: ', error);
@@ -95,6 +95,7 @@ export const item = createSlice({
             page: 0,
             next: false,
             category: null,
+            is_first: true,
         },
         is_loading: false,
     },

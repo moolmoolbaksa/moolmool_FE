@@ -26,7 +26,7 @@ const Detail = (props) => {
     const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
     const is_login = useSelector(state => state.user.is_login);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-
+    
     const settings = { 
         infinite: false,
         dots: true, 
@@ -40,7 +40,7 @@ const Detail = (props) => {
     return (
         <>
         <Container>
-            <LocationBar transparent />
+            <LocationBar type="detail"/>
             {is_login && nickname !== my_nickname && <StyledReportIcon width="36" height="36" onClick={() => {setIsOpen(!isOpen)}}/>}
             <Grid
                 position="relative"
