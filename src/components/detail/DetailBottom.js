@@ -1,18 +1,16 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChatAPI, HistoryAPI } from '../../shared/api';
+import { history } from '../../redux/configureStore';
+import { api as productActions } from '../../redux/modules/product';
+import { enterRoom } from '../../redux/modules/chat';
 
 import { Grid, Button, Text } from '../../elements/index';
 import { setAlertModal, setDeleteModal, setLoginModal } from '../../redux/modules/modal';
-import { api as productActions } from '../../redux/modules/product';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as HeartIconRed } from '../../images/하트(빨강).svg';
-import LoginModal from '../modal/LoginModal';
-import DeleteModal from '../modal/DeleteModal';
-import { ChatAPI, HistoryAPI } from '../../shared/api';
-import { history } from '../../redux/configureStore';
-import { enterRoom } from '../../redux/modules/chat';
-import AlertModal from '../modal/AlertModal';
+
 
 const DetailBottom = props => {
     const dispatch = useDispatch();
@@ -144,9 +142,6 @@ const DetailBottom = props => {
                     )}
                 </Grid>
             </Container>
-            <LoginModal />
-            <DeleteModal itemId={itemId} />
-            <AlertModal>{status === 2 ? '교환 진행 중인 상품입니다.' : '교환 완료된 상품입니다.'}</AlertModal>
         </>
     );
 };

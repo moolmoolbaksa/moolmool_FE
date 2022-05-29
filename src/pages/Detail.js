@@ -18,12 +18,15 @@ import StatusLabel from '../components/shared/StatusLabel';
 import Drawer from '../components/modal/Drawer';
 import { ReactComponent as ReportIcon } from '../images/report.svg';
 import ReportModal from '../components/modal/ReportModal';
+import LoginModal from '../components/modal/LoginModal';
+import DeleteModal from '../components/modal/DeleteModal';
+import AlertModal from '../components/modal/AlertModal';
 
 const Detail = (props) => {
     const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
     const is_login = useSelector(state => state.user.is_login);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-    console.log(images)
+
     const settings = { 
         infinite: false,
         dots: true, 
@@ -70,6 +73,9 @@ const Detail = (props) => {
                     />
         }
         <ReportModal />
+        <LoginModal />
+        <DeleteModal itemId={itemId} />
+        <AlertModal>{status === 2 ? '교환 진행 중인 상품입니다.' : '교환 완료된 상품입니다.'}</AlertModal>
         </>
     );
 };
