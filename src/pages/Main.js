@@ -23,6 +23,7 @@ import FetchMore from '../components/shared/FetchMore';
 import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
+import useScrollRestoration from '../hooks/useScrollRestoration';
 
 const Main = props => {
     const dispatch = useDispatch();
@@ -84,9 +85,10 @@ const Main = props => {
         }
     }, []);
 
-    const scrollRef = useRef();
+    const scrollRef = useRef(null);
     const categoryRef = useRef();
-
+    const {scrollInfo} = useScrollRestoration({dom: scrollRef.current});
+    
     useEffect(() => { 
         if(paging.is_first){
             // 최초 아이템 호출
@@ -104,6 +106,9 @@ const Main = props => {
                 }
                 // 변경된 카테고리 아이템 호출
                 dispatch(itemActions.getItemApi({category: filter, page: 0}));
+            } else {
+                // 이전 스크롤 위치 복원
+                scrollRef.current.scrollTo(0, scrollInfo);
             }
         }
     }, [filter]);
@@ -112,7 +117,7 @@ const Main = props => {
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
-     
+
     return (
         <>
             <Container>
