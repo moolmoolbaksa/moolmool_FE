@@ -43,46 +43,46 @@ const Main = props => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, []);
 
-    // useEffect(() => {
-    //     if (userId && is_token) 
-    //     {
-    //       console.log('connected check');
-    //         client.connect({ Authorization: localStorage.getItem('token') }, () => {
-    //             client.subscribe(
-    //                 `/sub/notification/${userId}`,
-    //                 data => {
-    //                     console.log(data.body);
-    //                     const unread_noti = JSON.parse(data.body);
-    //                     dispatch(setUnreadNoti(unread_noti.NotificationCnt));
-    //                 },
-    //                 { Authorization: localStorage.getItem('token') },
-    //             );
-    //             client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
-    //         });
-    //     }
+    useEffect(() => {
+        if (userId && is_token) 
+        {
+          console.log('connected check');
+            client.connect({ Authorization: localStorage.getItem('token') }, () => {
+                client.subscribe(
+                    `/sub/notification/${userId}`,
+                    data => {
+                        console.log(data.body);
+                        const unread_noti = JSON.parse(data.body);
+                        dispatch(setUnreadNoti(unread_noti.NotificationCnt));
+                    },
+                    { Authorization: localStorage.getItem('token') },
+                );
+                client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
+            });
+        }
 
-    //     return() => {
-    //         if(is_token && client.ws.readyState === 1)
-    //         {
-    //         client.disconnect(() => {
-    //                                     client.unsubscribe('sub-0');
-    //                                 },
-    //             { Authorization: `${localStorage.getItem('token')}` },
-    //         );
-    //         }
-    //     };   
-    // }, [userId]);
+        return() => {
+            if(is_token && client.ws.readyState === 1)
+            {
+            client.disconnect(() => {
+                                        client.unsubscribe('sub-0');
+                                    },
+                { Authorization: `${localStorage.getItem('token')}` },
+            );
+            }
+        };   
+    }, [userId]);
 
-    // useEffect(() => {
-    //   if(is_token){ChatAPI.getChatRoom()
-    //         .then(res => {
-    //           console.log(res);
-    //             dispatch(setRoomlist(res.data));
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });}
-    // }, []);
+    useEffect(() => {
+      if(is_token){ChatAPI.getChatRoom()
+            .then(res => {
+              console.log(res);
+                dispatch(setRoomlist(res.data));
+            })
+            .catch(error => {
+                console.log(error);
+            });}
+    }, []);
 
     // 무한스크롤: 호출돼야할 함수 세팅
     const getNextList = (category, page) => {
