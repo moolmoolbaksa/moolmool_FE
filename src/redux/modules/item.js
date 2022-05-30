@@ -1,30 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { history } from '../configureStore';
 import { ItemAPI } from '../../shared/api';
 
 export const getItemApi = createAsyncThunk(
     'item/getItemApi', 
     async ({category, page}) => {
         try {
-            const is_token = localStorage.getItem('token');
+            const response = await ItemAPI.getItems(category, page);
             
-            let response;
-            // if (is_token) {
-            //     response = await ItemAPI.getItems(category, page);
-            // } else {
-            //     response = await ItemAPI.getItemsWitoutLogin(category, page);
-            // };
-            if (is_token) {
-                response = await axios.get(`https://langho968.shop/items?page=${page}&category=${category}`, {
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    },
-                });
-            } else {
-                response = await axios.get(`https://langho968.shop/items?page=${page}&category=${category}`);
-            };
-            console.log(response)
             let is_next;
             
             if(response.data.items.length < 10){
@@ -46,44 +28,35 @@ export const getItemApi = createAsyncThunk(
             return data;
         } catch (error) {
             console.log('getItemApi: ', error);
-            history.push('/login');
         }
     }
 );
 
-export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, thunkAPI) => {
-    try {
-        const is_token = localStorage.getItem('token');
-        let response;
-        if (is_token) {
-            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/items/star`, {
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                },
-            });
-        } else {
-            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/items/star`);
+export const getStarItemAPi = createAsyncThunk(
+    'item/getStarItemAPi', 
+    async () => {
+        try {
+            const response = await ItemAPI.getHotDeal();
+            return response.data;
+        } catch (error) {
+            console.log('getStarItemAPi: ', error);
+            // alert('getStarItemAPi error');
+            // history.push('/login');
         }
-        return response.data;
-    } catch (error) {
-        console.log('getStarItemAPi: ', error);
-        alert('getStarItemAPi error');
-        history.push('/login');
     }
-});
+);
 
-export const setReportItemApi = createAsyncThunk('item/setReportItemApi', async (itemId) => {
-    try {
-        await axios.put(`${process.env.REACT_APP_SERVER_URL}/item/report?itemId=${itemId}`,{},{
-            headers: {
-                Authorization: localStorage.getItem('token'),
-            },
-        });
-    } catch (error) {
-        console.log('setReportItemApi: ', error);
-        alert('setReportItemApi error');
+export const setReportItemApi = createAsyncThunk(
+    'item/setReportItemApi', 
+    async (itemId) => {
+        try {
+            await ItemAPI.setReportItem(itemId);
+        } catch (error) {
+            console.log('setReportItemApi: ', error);
+            // alert('setReportItemApi error');
+        }
     }
-});
+);
 
 export const item = createSlice({
     name: 'item',

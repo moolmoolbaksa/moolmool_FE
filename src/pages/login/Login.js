@@ -10,6 +10,7 @@ const Login = (props) => {
     
     useEffect(() => {
         localStorage.clear();
+        sessionStorage.clear();
         persistor.purge();
     }, []);
 

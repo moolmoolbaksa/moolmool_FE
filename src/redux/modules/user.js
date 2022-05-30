@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { PURGE } from 'redux-persist';
+import { instance } from '../../shared/api';
 
 import { history } from '../configureStore';
 import { userAPI } from '../../shared/api';
@@ -12,9 +13,12 @@ const loginCheckApi = createAsyncThunk(
             const response = await userAPI.loginCheck();
             return response.data;
         } catch (error) {
-            console.log('loginCheck error: ', error);
-            localStorage.removeItem('token');
-            history.push('/login');
+            // console.log('loginCheck error: ', error);
+            // localStorage.removeItem('token');
+            // history.push('/login');
+            if(axios.isAxiosError(error)){
+                console.log(error)
+            }
         }
     }
 );
@@ -24,8 +28,9 @@ const kakaoLoginApi = createAsyncThunk(
     async (code, thunkAPI) => {
         try {
             const response = await userAPI.kakaoLogin(code);
-            console.log(response)
-            localStorage.setItem('token', response.headers.authorization);
+            localStorage.setItem('accessToken', response.headers.authorization);
+            localStorage.setItem('refreshToken', response.headers.refresh);
+            instance.defaults.headers.common['Authorization'] = localStorage.getItem('accessToken');
 
             if (!response.data.isFirst) {
                 history.replace('/');
@@ -41,12 +46,13 @@ const kakaoLoginApi = createAsyncThunk(
 );
 
 const googleLoginApi = createAsyncThunk(
-    'user/kakaoLogin', 
+    'user/googleLoginApi', 
     async (code, thunkAPI) => {
         try {
             const response = await userAPI.googleLogin(code);
-            console.log(response)
-            localStorage.setItem('token', response.headers.authorization);
+            localStorage.setItem('accessToken', response.headers.authorization);
+            localStorage.setItem('refreshToken', response.headers.refresh);
+            instance.defaults.headers.common['Authorization'] = localStorage.getItem('accessToken');
 
             if (!response.data.isFirst) {
                 history.replace('/');
@@ -69,7 +75,7 @@ const setFirstUserInfoApi = createAsyncThunk(
             return address;
         } catch (error) {
             console.log('setFirstUserInfoApi error: ', error);
-            alert('setFirstUserInfoApi error');
+            // alert('setFirstUserInfoApi error');
         }   
     }
 );
@@ -82,7 +88,7 @@ const getMyInfoApi = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.log('getMyInfo: ', error);
-            alert('getMyInfo error');
+            // alert('getMyInfo error');
         }
     }
 );
@@ -96,7 +102,7 @@ const updateMyInfoApi = createAsyncThunk(
             return response.data.result;
         } catch (error) {
             console.log('updateMyInfoApi: ', error);
-            alert('updateMyInfoApi error');
+            // alert('updateMyInfoApi error');
         }
     }
 );
@@ -110,7 +116,7 @@ const getCounterUserInfoApi = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.log('getCounterUserInfoApi: ', error);
-            alert('getCounterUserInfoApi error');
+            // alert('getCounterUserInfoApi error');
         }
     }
 );

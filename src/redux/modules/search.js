@@ -9,7 +9,7 @@ export const getSearchApi = createAsyncThunk(
             if(thunkAPI.getState().user.is_login){
                 response =  await axios.get(`${process.env.REACT_APP_SERVER_URL}/item?keyword=${search}`,{
                     headers: {
-                        Authorization: localStorage.getItem('token'),
+                        Authorization: localStorage.getItem('accessToken'),
                     }
                 });
             } else {

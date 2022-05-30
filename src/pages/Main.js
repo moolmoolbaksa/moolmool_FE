@@ -27,7 +27,7 @@ import useScrollRestoration from '../hooks/useScrollRestoration';
 
 const Main = props => {
     const dispatch = useDispatch();
-    const is_token = localStorage.getItem('token');
+    const is_token = localStorage.getItem('accessToken');
     
     const userId = useSelector(state => state.user.user_info.userId);
     const { paging, item_list } = useSelector(state => state.item);
@@ -40,13 +40,13 @@ const Main = props => {
     
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
-    }, []);
+    }, [is_token]);
 
     useEffect(() => {
         if (userId && is_token) 
         {
           console.log('connected check');
-            client.connect({ Authorization: localStorage.getItem('token') }, () => {
+            client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
                     data => {
@@ -54,9 +54,9 @@ const Main = props => {
                         const unread_noti = JSON.parse(data.body);
                         dispatch(setUnreadNoti(unread_noti.NotificationCnt));
                     },
-                    { Authorization: localStorage.getItem('token') },
+                    { Authorization: localStorage.getItem('accessToken') },
                 );
-                client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
+                client.send(`/pub/notification`, { Authorization: localStorage.getItem('accessToken') }, {});
             });
         }
 
@@ -66,7 +66,7 @@ const Main = props => {
             client.disconnect(() => {
                                         client.unsubscribe('sub-0');
                                     },
-                { Authorization: `${localStorage.getItem('token')}` },
+                { Authorization: `${localStorage.getItem('accessToken')}` },
             );
             }
         };   
