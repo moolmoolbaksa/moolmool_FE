@@ -20,7 +20,6 @@ const DetailContent = (props) => {
                         text={title}
                         bold="bold"
                         size="18px"
-                        // width="90%"
                     />
                     <Text 
                         text={timeForToday(date)}
@@ -41,12 +40,13 @@ const DetailContent = (props) => {
                 is_flex
                 align="center"
                 justify="flex-end"
-                gap="10px"
+                gap="5px"
             >
                 <Text 
-                    text={`조회수 ${viewCnt}`}
+                    text={`조회수 ${viewCnt} `}
                     size="12px"
                     lineHeight="12px"
+                    textAlign="right"
                     letterSpacing="-1px"
                     width="max-content"
                     color="lightgray"
@@ -71,6 +71,7 @@ const DetailContent = (props) => {
 
 const Container = styled.div`
     flex-grow: 1;
+    min-height: 120px;
     padding: 10px 16px 5px;
     border-top: 1px #f5f5f5 solid;
     display: flex;

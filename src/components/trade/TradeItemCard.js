@@ -10,13 +10,11 @@ const TradeItemCard = ({nickname, degree, title, contents, image}) => {
                 <ImageWrap src={image}/>
             </ImageOutter>
             <Grid
-                is_flex
                 is_column
                 gap="10px"
                 is_overflow
             >
                 <Grid
-                    is_flex
                     is_column
                     gap="5px"
                     is_overflow
@@ -39,10 +37,11 @@ const TradeItemCard = ({nickname, degree, title, contents, image}) => {
                         text={title}
                         size="20px"
                         bold="bold"
+                        is_overflow
                     />
                 </Grid>
                 <Text 
-                    multi="2"
+                    multi="4"
                     text={contents}
                     color="#9D9D9D"
                 /> 

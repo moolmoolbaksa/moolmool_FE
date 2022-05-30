@@ -408,9 +408,7 @@ const myitem=useSelector(state=>state.user.item_list);
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
-
-			
+			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)</span>
 			<Imagelist >
 			{preview.map((n,idx) => {
 					return <ImageSlide   idx={idx} key={idx} src={n} _onclick={()=>{deletePreview(idx)}}></ImageSlide>;

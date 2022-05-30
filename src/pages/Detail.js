@@ -23,7 +23,7 @@ const Detail = (props) => {
     const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
     const is_login = useSelector(state => state.user.is_login);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-    console.log(images);
+    console.log(images)
     const settings = { 
         infinite: false,
         dots: true, 
@@ -31,7 +31,7 @@ const Detail = (props) => {
         slidesToShow: 1, 
         slidesToScroll: 1,
     };
-
+    
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
@@ -43,7 +43,7 @@ const Detail = (props) => {
                 position="relative"
             >
                 <StyledSlider {...settings}>
-                    {images.length&& images.map((v ,i) => {
+                    {images.length && images.map((v ,i) => {
                         return(
                             <Image 
                                 key={i}
@@ -106,11 +106,11 @@ const Wrap = styled.div`
 `;
 
 const StyledReportIcon = styled(ReportIcon)`
-  cursor: pointer;
-  position: absolute;
-  right: 7px;
-  top: 7px;
-  z-index: 200;
+    cursor: pointer;
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    z-index: 200;
 `;
 
 export default Detail;

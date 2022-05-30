@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
+import { api as userActions } from '../redux/modules/user';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { persistor } from '../index';
 
 import ItemGrid from '../components/store/ItemGrid';
 import MypageTop from '../components/store/MypageTop';
 import LocationBar from '../components/LocationBar';
 import TabBar from '../components/TabBar';
-import { history } from '../redux/configureStore';
-import { api as userActions } from '../redux/modules/user';
-import { Link } from 'react-router-dom';
 import { Grid } from '../elements/index';
-import { persistor } from '../index';
+import { ReactComponent as ArrowIcon } from '../images/arrow.svg';
 
 const Mypage = (props) => {
     const dispatch = useDispatch();
@@ -22,17 +23,15 @@ const Mypage = (props) => {
     }, []);
 
     const Logout = () => {
+        // 로그아웃 시 스토리지를 비웁니다.
         localStorage.clear();
         persistor.purge();
     };
-   
+    
     return (
-        <Grid height="100%" is_flex is_column>
+        <Grid height="100%" is_column>
             <LocationBar title="마이페이지"/>
-            <Container
-                padding="0 16px"
-                position="relative"
-            >
+            <Container>
                 <MypageTop user_info={user_info}/>
                 <ItemGrid item_list={item_list}/>
                 <ItemGrid item_list={myScrabList} type="scrab"/>
@@ -40,9 +39,7 @@ const Mypage = (props) => {
                     onClick={() => {history.push('/banlist')}}
                 >
                     차단 목록
-                    <span className="material-symbols-outlined">
-                        chevron_right
-                    </span>
+                    <StyledArrowIcon width="22" height="22"/>
                 </MenuTab>
                 {is_login && <StyledLink to="/" onClick={Logout}>로그아웃</StyledLink>}
             </Container>
@@ -73,9 +70,6 @@ const MenuTab = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    & span {
-        font-size: 25px;
-    };
     &:active {
         background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
     };
@@ -92,6 +86,10 @@ const StyledLink = styled(Link)`
     letter-spacing: -1px;
     border-bottom: 1px #9d9d9d solid;
     cursor: pointer;
+`;
+
+const StyledArrowIcon = styled(ArrowIcon)`
+    transform: rotate(180deg);
 `;
 
 export default Mypage;

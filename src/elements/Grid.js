@@ -19,7 +19,7 @@ const Grid = props => {
 		align,
 		is_flex,
 		cursor,
-		overflow,
+		is_overflow,
 		borderB,
 		onClick,
 		grow,
@@ -41,7 +41,7 @@ const Grid = props => {
 		align,
 		is_flex,
 		cursor,
-		overflow,
+		is_overflow,
 		borderB,
 		grow,
 	};
@@ -93,7 +93,7 @@ const GridBox = styled.div`
 	${props => (props.is_column ? `display: flex; flex-flow: column nowrap;` : '')};
 	${props => (props.is_flex ? `display:flex` : '')};
 	${props => (props.cursor ? `cursor:pointer` : '')};
-	${props => (props.overflow ? `overflow: hidden` : '')};
+	${props => (props.is_overflow ? `overflow: hidden` : '')};
 	${props => (props.borderB ? `border-bottom: ${props.borderB}` : '')};
 	${props => (props.grow ? `flex-grow: 1` : '')};
 `;

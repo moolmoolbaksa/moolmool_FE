@@ -8,9 +8,9 @@ const ItemImage = ({itemId, image, status}) => {
     const dispatch = useDispatch();
 
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId)).then(()=>history.push(`/detail/${itemId}`));
+        dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
-
+    
     return (
         <ImageOutter 
             onClick={onGoDetail}

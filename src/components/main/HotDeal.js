@@ -55,8 +55,18 @@ const HotContainer = styled.div`
     -ms-overflow-style: none;
     scrollbar-width: none;
     &::-webkit-scrollbar {
-        display: none; 
+        display: none;
     };
+    /* &::-webkit-scrollbar {
+        width: 6px; 
+    };
+    &::-webkit-scrollbar-thumb {
+        height: 10px;
+        background-color: rgba(255,255,255,1);
+    };
+    &::-webkit-scrollbar-track{
+    background-color: rgba(0,0,0,0);
+    } */
     scroll-behavior: smooth;
 `;
 

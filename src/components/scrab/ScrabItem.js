@@ -5,6 +5,7 @@ import { Text, Grid } from '../../elements/index';
 import { useDispatch } from 'react-redux';
 import { api as productActions } from '../../redux/modules/product';
 import { ReactComponent as CancleIcon } from '../../images/round_cancle.svg';
+import { history } from '../../redux/configureStore';
 
 const ScrabItem = ({itemId, title, contents, image, status}) => {
     const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const ScrabItem = ({itemId, title, contents, image, status}) => {
 
     const onGoDetail = () => {
         if(status === 3) return;
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(() => {history.push(`/detail/${itemId}`)});
     };
     
     const onDelete = () => {
@@ -35,10 +36,12 @@ const ScrabItem = ({itemId, title, contents, image, status}) => {
                         text={title}
                         bold="bold"
                         size="16px"
+                        is_overflow
                     />
                     <Text 
                         text={contents}
                         color="#9d9d9d"
+                        is_overflow
                     />
                 </Grid>
             </Grid>

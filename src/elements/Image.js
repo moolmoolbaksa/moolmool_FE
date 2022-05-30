@@ -89,7 +89,7 @@ const SlideOutter = styled.div`
 
 const SlideInner = styled.div`
     position: relative;
-    padding-top: 80%;
+    padding-top: 120%;
     overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;

@@ -1,19 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { ReactComponent as HomeIcon } from "../images/홈.svg";
-import { ReactComponent as HomeIconYellow } from "../images/홈(노랑).svg";
-import { ReactComponent as ChatIcon } from "../images/채팅.svg";
-import { ReactComponent as ChatIconYellow } from "../images/채팅(노랑).svg";
-import { ReactComponent as MyIcon } from "../images/마이페이지.svg";
-import { ReactComponent as MyIconYellow } from "../images/마이페이지(노랑).svg";
-import { ReactComponent as PlusIcon } from "../images/plus.svg";
-import { ReactComponent as TradeIcon } from "../images/trade_history.svg";
-import { Text } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
-import { setLoginModal } from '../redux/modules/modal';
 import { useLocation } from 'react-router-dom';
+
+import { ReactComponent as HomeIcon } from "../images/home.svg";
+import { ReactComponent as TradeIcon } from "../images/barter.svg";
+import { ReactComponent as ChatIcon } from "../images/chat.svg";
+import { ReactComponent as MyIcon } from "../images/myPage.svg";
+import { ReactComponent as PlusIcon } from "../images/plus.svg";
+import { setLoginModal } from '../redux/modules/modal';
 
 const TabBar = ({position}) => {
     const dispatch = useDispatch();
@@ -53,72 +49,40 @@ const TabBar = ({position}) => {
         <Container position={position}>
             <Wrap onClick={goHome}>
                 {location.pathname === '/'
-                    ? <HomeIconYellow/>
-                    : <HomeIcon/>
+                    ? <HomeIcon fill="#0095b7" stroke="#0095b7"/>
+                    : <HomeIcon fill="#000" stroke="#000"/>
                 }
-                <Text 
-                    text="홈"
-                    textAlign="center"
-                    size="12px"
-                    color={location.pathname === '/' ? '#FFD467' : 'black'}
-                />
             </Wrap>
             <Wrap onClick={goHistory}>
                 {location.pathname === '/trhistory'
-                    ? <TradeIcon fill="#FFD467"/>
-                    : <TradeIcon />
+                    ? <TradeIcon fill="#0095b7"/>
+                    : <TradeIcon fill="#1C1C1E"/>
                 }
-                <Text 
-                    text="교환내역"
-                    textAlign="center"
-                    size="12px"
-                    color={location.pathname === '/trhistory' ? '#FFD467' : 'black'}
-                />
             </Wrap>
             <Wrap>
-                <CreateBtn onClick={goRegipage}>
-                    <PlusIcon stroke="#000"/>
+                <CreateBtn onClick={goRegipage} aria-label="물품등록 버튼">
+                    <PlusIcon stroke="white"/>
                 </CreateBtn>
-                <Text 
-                    text="물품등록"
-                    textAlign="center"
-                    size="12px"
-                />
             </Wrap>
             <Wrap onClick={goChat}>
                 {location.pathname === '/chat'
-                    ? <ChatIconYellow/>
-                    : <ChatIcon/>
+                    ? <ChatIcon fill="#0095b7" stroke="#0095b7"/>
+                    : <ChatIcon fill="#1C1C1E" storke="#1C1C1E"/>
                 }
-                <Text
-                    text="채팅"
-                    textAlign="center"
-                    size="12px"
-                    color={location.pathname === '/chat' ? '#FFD467' : 'black'}
-                />
             </Wrap>
-            <Wrap onClick={goMypage} color={location.pathname === '/mypage' ? '#FFD467' : 'black'}>
+            <Wrap onClick={goMypage}>
                 {location.pathname === '/mypage'
-                    ? <MyIconYellow/>
-                    : <MyIcon/>
+                    ? <MyIcon fill="#0095b7"/>
+                    : <MyIcon fill="#1C1C1E"/>
                 }
-                <span>마이페이지</span>
             </Wrap>
         </Container>
     );
 };
 
 const Container = styled.div`
-    ${props => 
-        !props.position 
-            ?   `   position: absolute;
-                    bottom: 0;
-                `
-            :   ''
-    };
-    /* position: absolute; */
     width: 100%;
-    height: 60px;
+    min-height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,23 +95,17 @@ const Wrap = styled.div`
     display: flex;
     height: 100%;
     width: 50px;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     cursor: pointer;
-    & span {
-        text-align: center;
-        font-size: 12px;
-        white-space: nowrap;
-        color: ${props => props.color};
-    }
 `;
 
 const CreateBtn = styled.button`
     position: absolute;
-    bottom: 20px;
-    width: 50px;
-    height: 50px;
+    bottom: 15px;
+    width: 55px;
+    height: 55px;
     background: ${props => props.theme.palette.yellow};
     border: none;
     border-radius: 50px;

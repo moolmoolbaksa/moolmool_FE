@@ -41,7 +41,7 @@ const LocationBar = ({ title, transparent }) => {
     if(transparent){
         return (
             <ArrowContainer>
-                <StyledWhiteArrowIcon width="40" height="40" stroke="white" onClick={() => history.push('/')}/>
+                <StyledWhiteArrowIcon width="40" height="40" stroke="white" onClick={() => history.goBack()}/>
             </ArrowContainer>
         );
     };

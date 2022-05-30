@@ -1,58 +1,68 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { history } from '../configureStore';
+import { ItemAPI } from '../../shared/api';
 
-export const getItemApi = createAsyncThunk('item/getItemApi', async ({category, page}) => {
-    try {
-        const is_token = localStorage.getItem('token');
-        let response;
-        if (is_token) {
-            response = await axios.get(`https://langho968.shop/items/${page}?category=${category}`, {
-                headers: {
-                    Authorization: localStorage.getItem('token'),
+export const getItemApi = createAsyncThunk(
+    'item/getItemApi', 
+    async ({category, page}) => {
+        try {
+            const is_token = localStorage.getItem('token');
+            
+            let response;
+            // if (is_token) {
+            //     response = await ItemAPI.getItems(category, page);
+            // } else {
+            //     response = await ItemAPI.getItemsWitoutLogin(category, page);
+            // };
+            if (is_token) {
+                response = await axios.get(`https://langho968.shop/items?page=${page}&category=${category}`, {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                });
+            } else {
+                response = await axios.get(`https://langho968.shop/items?page=${page}&category=${category}`);
+            };
+            console.log(response)
+            let is_next;
+            
+            if(response.data.items.length < 10){
+                is_next = false;
+            } else {
+                is_next = true;
+            };
+            
+            const data = {
+                list: response.data.items,
+                paging: {
+                    total: response.data.totalCnt,
+                    page: page + 1,
+                    next: is_next,
+                    category: category,
                 },
-            });
-        } else {
-            response = await axios.get(`https://langho968.shop/items/${page}?category=${category}`);
-        };
-        
-        let is_next;
-        
-        if(response.data.items.length < 10){
-            is_next = false;
-        } else {
-            is_next = true;
-        };
-        
-        const data = {
-            list: response.data.items,
-            paging: {
-                total: response.data.totalCnt,
-                page: page + 1,
-                next: is_next,
-                category: category,
-            },
-        };
+            };
 
-        return data;
-    } catch (error) {
-        console.log('getItemApi: ', error);
-        history.push('/login');
+            return data;
+        } catch (error) {
+            console.log('getItemApi: ', error);
+            history.push('/login');
+        }
     }
-})
+);
 
 export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, thunkAPI) => {
     try {
         const is_token = localStorage.getItem('token');
         let response;
         if (is_token) {
-            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`, {
+            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/items/star`, {
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 },
             });
         } else {
-            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/items/star`);
+            response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/items/star`);
         }
         return response.data;
     } catch (error) {
@@ -64,7 +74,7 @@ export const getStarItemAPi = createAsyncThunk('item/getStarItemAPi', async (_, 
 
 export const setReportItemApi = createAsyncThunk('item/setReportItemApi', async (itemId) => {
     try {
-        await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/report/item?itemId=${itemId}`,{},{
+        await axios.put(`${process.env.REACT_APP_SERVER_URL}/item/report?itemId=${itemId}`,{},{
             headers: {
                 Authorization: localStorage.getItem('token'),
             },

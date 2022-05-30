@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import SearchBar from '../components/search/SearchBar';
 import SearchHistory from '../components/search/SearchHistory';
 import SearchList from '../components/search/SearchList';
-import TabBar from '../components/TabBar';
 import LocationBar from '../components/LocationBar';
-import { Grid } from '../elements/index';
+
 const Search = (props) => {
     return (
         <Container>
@@ -14,7 +13,6 @@ const Search = (props) => {
             <SearchBar />
             <SearchHistory />
             <SearchList />
-            {/* <TabBar position="false"/> */}
         </Container>
     );
 };

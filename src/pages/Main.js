@@ -23,10 +23,13 @@ import FetchMore from '../components/shared/FetchMore';
 import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
+import useScrollMove from '../hooks/useScrollMove';
+import { useHistory } from 'react-router-dom';
+
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('token');
-
+    
     const userId = useSelector(state => state.user.user_info.userId);
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
@@ -41,7 +44,7 @@ const Main = props => {
     }, []);
 
     useEffect(() => {
-        if (is_token) 
+        if (userId && is_token) 
         {
           console.log('connected check');
             client.connect({ Authorization: localStorage.getItem('token') }, () => {
@@ -59,21 +62,18 @@ const Main = props => {
         }
 
         return() => {
-              if(is_token&&client.ws.readyState===1)
-              {
-                console.log('connected check');
-                client.disconnect(() => {
-                                          client.unsubscribe('sub-0');
-                                        },
-                  { Authorization: `${localStorage.getItem('token')}` },
-                );
-              }
-          };
-        
+            if(is_token && client.ws.readyState === 1)
+            {
+            client.disconnect(() => {
+                                        client.unsubscribe('sub-0');
+                                    },
+                { Authorization: `${localStorage.getItem('token')}` },
+            );
+            }
+        };   
     }, [userId]);
     console.log(userId.length);
     useEffect(() => {
-        
       if(is_token){ChatAPI.getChatRoom()
             .then(res => {
               console.log(res);
@@ -89,11 +89,12 @@ const Main = props => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
 
-    const scrollRef = useRef(null);
-   
+    const scrollRef = useRef();
+    const categoryRef = useRef();
     useEffect(() => { 
         // 카테고리 변경 시 화면 맨 위로 올리기 위함
-        if(scrollRef.current) {
+    
+        if(scrollRef?.current) {
             // 왜 아래는 안되는거지?
             // let scroll = scrollRef.current.scrollTop;
             // scroll <= 415 ? scroll = 0 : scroll = 415;
@@ -106,7 +107,15 @@ const Main = props => {
         const category = filter === '전체' ? '' : `${filter}`;
         dispatch(itemActions.getItemApi({category, page: 0}));
     }, [filter]);
-   
+    
+    // const {scrollInfo, scrollRemove} = useScrollMove({path: `/`, dom: scrollRef.current});
+    // useEffect(() => {
+    //     return () => {
+    //         console.log('실행')
+    //         sessionStorage.setItem('scroll', scrollRef.current.scrollTop); 
+    //     }
+    // }, [scrollRef]);
+    
     return (
         <>
             <Container>
@@ -149,7 +158,7 @@ const Main = props => {
                     </Grid>
                     {/* 프로필 및 인사 끝 */}
                     <HotDeal />
-                    <CategoryBar setfilter={setfilter}/>
+                    <CategoryBar setfilter={setfilter} ref={categoryRef}/>
                     <MainItemWrap>
                         {item_list 
                             ?   item_list.map((v, _) => {
