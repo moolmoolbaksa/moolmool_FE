@@ -52,5 +52,4 @@
 
 <img src="https://img.shields.io/badge/AWS CodeDeploy-6DB33F??style=flat&logo=AWS Codedeploy&logoColor=white"> <img src="https://img.shields.io/badge/Apache JMeter-D22128?style=flat&logo=Apache JMeter&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/spring security-6DB33F?style=flat&logo=spring security&logoColor=white">
 
-<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black"> <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black">
-
+<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black">
