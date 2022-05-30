@@ -71,7 +71,7 @@ const Main = props => {
           };
         
     }, [userId]);
-
+    console.log(userId.length);
     useEffect(() => {
         
       if(is_token){ChatAPI.getChatRoom()

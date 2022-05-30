@@ -124,19 +124,19 @@ const myitem=useSelector(state=>state.user.item_list);
         // 1. 파일 객체 하나씩 돌립니다.
         // 2. 파일하나씩 URL 형태로 읽어옴
         filelist.map((file)=>{
-          
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => {
             
             var image= new Image();
-            const max_size=500;
+            const max_size=768
+            
+            ;
             const type=file.type;
             console.log(type);
             image.src=reader.result;
             image.onload=()=>{
-              
-              // console.log(image);
+              //캔버스형태 생성
               var canvas = document.createElement('canvas'); 
               console.log('input size: '+image.width+'X'+image.height);
               const current_width=image.width;
@@ -165,6 +165,10 @@ const myitem=useSelector(state=>state.user.item_list);
                   output_width = current_width*(max_size/current_height);
                   output_height = max_size;
                 }
+                else{
+                  output_width= current_width;
+                  output_height= current_height;
+                }
               }
               // 세로==길이 일때
               else
@@ -187,15 +191,30 @@ const myitem=useSelector(state=>state.user.item_list);
               const context = canvas.getContext('2d');
               context.drawImage(image,0,0,output_width,output_height);
               // 데이터 URL
-              const dataUrl=canvas.toDataURL(type);
-              let example = '';
-              context.canvas.toBlob(
-                newImageBlob=>{
-                  example=new File([newImageBlob],file.name,{type:type});
-                  setFileslist(state=>state.concat(example));
-                }
-               )
-              console.log(example)
+              const dataUrl=canvas.toDataURL(type,0.5);
+              
+              
+              var byteString = atob(dataUrl.split(',')[1]);
+              var mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+              var ab = new ArrayBuffer(byteString.length);
+              var ia = new Uint8Array(ab);
+              for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+              }
+              const blobimage= new Blob([ab],{type:mimeString});
+              
+              let example=new File([blobimage],file.name,{type:type});
+              setFileslist(state=>state.concat(example));
+              // let example='';
+              // context.canvas.toBlob(
+              //   newImageBlob=>{
+              //     example=new File([newImageBlob],file.name,{type:type});
+                  
+              //     setFileslist(state=>state.concat(example));
+              //     console.log(example);
+              //   }
+              //  )
+              console.log(example);
               // console.log(dataUrl);
               
               setPreview(state=>state.concat([dataUrl]));
@@ -287,8 +306,8 @@ const myitem=useSelector(state=>state.user.item_list);
         .then((res)=>
         {
             console.log(res);
+            // dispatch(productActions.getProductApi(res.data)).then(()=>history.push(`/detail/${res.data}`));
             dispatch(productActions.getProductApi(res.data));
-            history.replace(`detail/${res.data}`)
         })
         .catch((error)=>{
             console.log(error);
@@ -303,8 +322,6 @@ const myitem=useSelector(state=>state.user.item_list);
           setErrorModal(true);
           return;
         }
-      console.log('edit');
-      console.log('submit_success');
       const formData = new FormData();
       formData.append('category',category);
       formData.append('favored',favors);
@@ -320,8 +337,7 @@ const myitem=useSelector(state=>state.user.item_list);
         .then((res)=>
         {
             console.log(res);
-            dispatch(productActions.getProductApi(itemId));
-            history.replace(`/detail/${itemId}`);
+            dispatch(productActions.getProductApi(itemId)).then(()=>history.push(`/detail/${res.data}`));
         })
         .catch((error)=>{
             console.log(error);
@@ -392,11 +408,10 @@ const myitem=useSelector(state=>state.user.item_list);
 	
 	<Empty/>
 	<Grid>
-			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개 파일개수 ({fileslist.length}/8개)</span>
+			<span style={{display:'block' , margin:'16px 16px',fontSize:'1rem'}}>사진 등록 미리보기 ({preview.length}/8)개</span>
 
 			
 			<Imagelist >
-			{/* _onclick={deletePreview(idx)} */}
 			{preview.map((n,idx) => {
 					return <ImageSlide   idx={idx} key={idx} src={n} _onclick={()=>{deletePreview(idx)}}></ImageSlide>;
 			

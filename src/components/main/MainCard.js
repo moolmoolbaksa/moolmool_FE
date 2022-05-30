@@ -7,12 +7,13 @@ import { useDispatch } from 'react-redux';
 import { ReactComponent as HeartIcon } from '../../images/하트.svg';
 import { ReactComponent as ViewIcon } from '../../images/view.svg';
 import { ReactComponent as LocationIcon } from '../../images/좌표.svg';
-
+ import { history } from '../../redux/configureStore';
 const MainCard = ({itemId, image, address, title, contents, scrab, scrabCnt, viewCnt}) => {
     const dispatch = useDispatch();
   
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(()=>history.push(`/detail/${itemId}`));
+        // dispatch(productActions.getProductApi(itemId));
     };
 
     return (

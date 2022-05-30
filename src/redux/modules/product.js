@@ -167,6 +167,7 @@ export const product = createSlice({
             })
             .addCase(getTradeProductApi.fulfilled, (state, action) => {
                 state.barter_info = action.payload;
+                console.log(action.payload.itemId);
             })
             .addCase(setTradeApi.fulfilled, (state, action) => {
                 state.trade_item = [];

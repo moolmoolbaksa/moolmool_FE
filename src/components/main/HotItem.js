@@ -7,12 +7,12 @@ import { Text, Grid } from '../../elements';
 import { ReactComponent as GoldMedal } from '../../images/gold_medal.svg';
 import { ReactComponent as SilverMedal } from '../../images/silver_medal.svg';
 import { ReactComponent as BronzeMedal } from '../../images/bronze_medal.svg';
-
+import { history } from '../../redux/configureStore';
 const HotItem = ({image, contents, title, itemId, rank}) => {
     const dispatch = useDispatch();
   
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId));
+        dispatch(productActions.getProductApi(itemId)).then(history.push(`/detail/${itemId}`));
     };
    
     return (

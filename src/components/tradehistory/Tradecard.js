@@ -8,8 +8,6 @@ import { delHistory, completeTrade, acceptTrade, getCheckHistory,cancelCompleteT
 import { history } from '../../redux/configureStore';
 import RatingModal from './RatingModal';
 
-
-
 const Tradecard = (props) => {
     const {barterId, barterItem, date, isScore, isTrade, myItem, myPosition, profile, status, userId, usernickname,userIsTrade } = props;
     // const barter= myPosition==="buyer"?:useSelector(state=>state.)
@@ -54,12 +52,26 @@ const Tradecard = (props) => {
             })
         history.push('/trcheck');
     };
+    const onEdit=()=>{
+      HistoryAPI.getTradeCheck(barterId)
+            .then((res)=>{
+                console.log(res);
+                dispatch(getCheckHistory(res.data));
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+            .then(()=>{
+              history.push(`/editTrade/${barterId}`)
+            })
+        
 
+    }
     const buttonSetting = () => {
         if(status===1 && myPosition==="buyer"){
             return  <Buttonwrap>
                         <LeftBtn onClick={handleCancelTrade}>신청 취소</LeftBtn>
-                        <RightBtn onClick={()=>history.push(`/editproduct/`)}>교환 수정</RightBtn>
+                        <RightBtn onClick={onEdit}>교환 수정</RightBtn>
                     </Buttonwrap>
         }
         else if(status===1 && myPosition==="seller"){
@@ -145,8 +157,6 @@ const Tradecard = (props) => {
 
         })
     };
-    
-      
     return (
         <Container>
             <Cardwrap>
