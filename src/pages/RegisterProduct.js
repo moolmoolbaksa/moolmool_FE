@@ -306,8 +306,8 @@ const myitem=useSelector(state=>state.user.item_list);
         .then((res)=>
         {
             console.log(res);
-            // dispatch(productActions.getProductApi(res.data)).then(()=>history.push(`/detail/${res.data}`));
-            dispatch(productActions.getProductApi(res.data));
+            dispatch(productActions.getProductApi(res.data)).then(()=>history.push(`/detail/${res.data}`));
+            // dispatch(productActions.getProductApi(res.data));
         })
         .catch((error)=>{
             console.log(error);
@@ -436,7 +436,7 @@ const myitem=useSelector(state=>state.user.item_list);
 			{type_list.map((p,idx)=>{
 					return(
 							<div key={`type_div_${idx}`}>
-                  <CheckInput  key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} defaultChecked={type.includes(p.value)} onClick={handleType}/>
+                  <CheckInput key={`type_input_${idx}`} name="type" id={p.value} type="radio" value={p.value} defaultChecked={type.includes(p.value)} onClick={handleType}/>
 									<CheckLabel key={`type_label_${idx}`} htmlFor={p.value}>
                     <div>{type.includes(p.value)?<CheckBox width="1rem" height="1rem"/>:<UncheckedBox width="1rem" height="1rem"/>} <span>{p.value}</span></div> 
                   </CheckLabel>
