@@ -16,9 +16,11 @@
 | [엄성훈](https://github.com/cbjjzzang)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
 
 ## 👩‍🎓 서비스 소개
-물물박사 바로가기
-서비스 시연영상
-발표 영상
+[물물박사 바로가기](https://moolmooldoctor.firebaseapp.com)
+
+[서비스 시연영상]()
+
+[발표 영상]()
 
 ## 📆 프로젝트 기간
 2022/04/22 ~ 2022/06/03
