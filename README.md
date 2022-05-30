@@ -15,12 +15,24 @@
 | [이승재](https://github.com/bonoo1)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
 | [엄성훈](https://github.com/cbjjzzang)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
 
+## 📆 서비스 소개
+물물박사 바로가기
+서비스 시연영상
+발표 영상
+
+## 📆 프로젝트 기간
+2022/04/22 ~ 2022/06/03
+배포 2022/05/24
 
 ## ⚙ 주요 기능
+**`보따리(인벤토리) 기반의 사용별 교환상품 등록`**
+**`교환상품의 6가지 교환 상태 변화 컨트롤`**
+**`교환상품의 일대다 거래`**
+
+## 🔨 API 설계
 
 
-
-## 🔨기술스택
+## 🔨 기술스택
 ### - FE
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/Axios-56347C?style=flat-square&logo=Axios&logoColor=white"/> <img src="https://img.shields.io/badge/Stomp-010101?style=flat-square&logo=Stomp&logoColor=white"/> 
@@ -41,8 +53,9 @@
 <img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat&logo=Amazon S3&logoColor=white">
 <img src="https://img.shields.io/badge/GitHub Actions-2088FF??style=flat&logo=GitHub Actions&logoColor=white"> 
 <img src="https://img.shields.io/badge/AWS CodeDeploy-6DB33F??style=flat&logo=AWS Codedeploy&logoColor=white">
-<img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=JUnit5&logoColor=white">
 <img src="https://img.shields.io/badge/Apache JMeter-D22128?style=flat&logo=Apache JMeter&logoColor=white">
 <img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=NGINX&logoColor=white">
 <img src="https://img.shields.io/badge/spring security-6DB33F?style=flat&logo=spring security&logoColor=white">
 <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black">
+<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black">
+
