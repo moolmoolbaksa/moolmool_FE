@@ -6,6 +6,7 @@ import { setDeleteModal } from '../../redux/modules/modal';
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as CheckIcon } from '../../images/체크.svg';
 import { api as productActions } from '../../redux/modules/product';
+import { setReload } from '../../redux/modules/item';
 
 const DeleteModal = ({itemId}) => {
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const DeleteModal = ({itemId}) => {
 
     const onDeleteProduct = () => {
         dispatch(setDeleteModal(false));
+        dispatch(setReload());
         dispatch(productActions.deleteProductApi(itemId));
     };
 

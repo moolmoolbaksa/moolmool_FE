@@ -92,7 +92,7 @@ const DetailBottom = props => {
     const onEdit = () => {
         history.push(`/editproduct/${itemId}`);
     };
-    console.log(scrab)
+ 
     return (
         <>
             <Container bg={my_nickname === nickname}>

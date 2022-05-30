@@ -73,11 +73,14 @@ export const item = createSlice({
         is_loading: false,
     },
     reducers: {
-        clearList: (state, action) => {
+        clearList: (state) => {
             state.item_list = [];
             state.is_next = false;
             state.is_loading = true;
-        }
+        },
+        setReload: (state) => {
+            state.paging.is_first = true;
+        },
     },
     extraReducers: builder => {
         builder
@@ -103,6 +106,7 @@ export const item = createSlice({
 
 export const {
     clearList,
+    setReload,
 } = item.actions;
 
 export const api = {
