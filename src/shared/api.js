@@ -24,37 +24,44 @@ instance.interceptors.response.use(
     },
     async (error) => {
         if (axios.isAxiosError(error)) {
-            const originalRequest = error.config;
-            if (error.response.status === 401){
-                const retryOriginalRequest = new Promise((resolve) => {
-                    addRefreshSubscriber((accessToken) => {
-                        if (originalRequest.headers) {
-                            originalRequest.headers.Authorization = 'BEARER ' + accessToken;
-                            resolve(instance(originalRequest));
-                        }
-                    });
+            if (error.response.status !== 401) {
+                return new Promise((_, reject) => {
+                    reject(error);
                 });
-                if (!isRefreshing) {
-                    try {
-                        isRefreshing = true;
-                        const response = await instance.get('/user/refresh', {headers: {Authorization: localStorage.getItem('refreshToken')}});
-                        const newAccessToken = response.headers.authorization;
-                        localStorage.setItem('accessToken', `BEARER ${newAccessToken}`);
-                        isRefreshing = false;
-                        instance.defaults.headers.common['Authorization'] = `BEARER ${newAccessToken}`;
-                        refreshSubscribers.map((callback) => callback(newAccessToken));
-                        refreshSubscribers = [];
-                    } catch (err) {
-                        localStorage.clear();
-                        sessionStorage.clear();
-                        persistor.purge();
-                        window.location.href = "/login";
+            };
+
+            const originalRequest = error.config;
+
+            if(originalRequest.url === '/user/refresh'){
+                console.log('...')
+                localStorage.clear();
+                sessionStorage.clear();
+                persistor.purge();
+                window.location.href = "/login";
+                return;
+            };
+            
+            const retryOriginalRequest = new Promise((resolve) => {
+                addRefreshSubscriber((accessToken) => {
+                    if (originalRequest.headers) {
+                        originalRequest.headers.Authorization = 'BEARER ' + accessToken;
+                        resolve(instance(originalRequest));
                     }
-                };
-                return retryOriginalRequest; //pending
-            }
-            return Promise.reject(error);
-        }
+                });
+            });
+            
+            if (!isRefreshing) {
+                isRefreshing = true;
+                const response = await instance.get('/user/refresh', {headers: {Authorization: localStorage.getItem('refreshToken')}});
+                const newAccessToken = response.headers.authorization;
+                localStorage.setItem('accessToken', `BEARER ${newAccessToken}`);
+                isRefreshing = false;
+                instance.defaults.headers.common['Authorization'] = `BEARER ${newAccessToken}`;
+                refreshSubscribers.map((callback) => callback(newAccessToken));
+                refreshSubscribers = [];
+            };
+            return retryOriginalRequest; //pending
+        };
     }
 );
 
