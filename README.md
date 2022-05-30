@@ -11,11 +11,11 @@
 |[⭐강동현](https://github.com/rriverr)|<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>|
 |[김진현](https://github.com/wlsgus93)|<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>|
 |**BacK End**|[**GitHub**](https://github.com/CloneCoding-team1-6/BE)|
-| [⭐황석준](https://github.com/Zoe-Jiho-Kim)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
+| [⭐황석준](https://github.com/hwangseokjun)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
 | [이승재](https://github.com/bonoo1)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
 | [엄성훈](https://github.com/cbjjzzang)|<img src="https://img.shields.io/badge/Springboot-6DB33F?style=flat-square&logo=Springboot&logoColor=white"/>|
 
-## 📆 서비스 소개
+## 👩‍🎓 서비스 소개
 물물박사 바로가기
 서비스 시연영상
 발표 영상
@@ -31,8 +31,8 @@
 
 **`교환상품의 일대다 거래`**
 
-## 🔨 API 설계
-
+## 🗺 API 설계
+[API 설계 보러가기](https://www.notion.so/b308c025e9954cadb9fdc19d86bd411f?v=b6b1eb52cfe24793b97163d7b4825b07)
 
 ## 🔨 기술스택
 ### - FE
