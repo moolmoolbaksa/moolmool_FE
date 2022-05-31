@@ -64,7 +64,6 @@ instance.interceptors.response.use(
     }
 );
 
-
 export const userAPI = {
     // 로그인 체크
     loginCheck: () => instance.get(`user/check`),
@@ -128,6 +127,9 @@ export const ItemAPI = {
     // 아이템 신고
     setReportItem: (itemId) => instance.put(`/item/report?itemId=${itemId}`, {}),
 
+    // 아이템 검색
+    getSearchItem: (search) => instance.get(`/item?keyword=${search}`),
+    
     //교환내역 불러오기
     getMyhistory: () => instance.get('/user/barters'),
 };

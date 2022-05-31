@@ -31,9 +31,8 @@ const Mypage = (props) => {
     
     return (
         <Grid height="100%" is_column>
-            <LocationBar title="마이페이지"/>
+            <MypageTop user_info={user_info}/>
             <Container>
-                <MypageTop user_info={user_info}/>
                 <ItemGrid item_list={item_list}/>
                 <ItemGrid item_list={myScrabList} type="scrab"/>
                 <MenuTab 
