@@ -103,6 +103,7 @@ const Wrap = styled.div`
 
 const CreateBtn = styled.button`
     position: absolute;
+    z-index: 10000;
     bottom: 15px;
     width: 55px;
     height: 55px;

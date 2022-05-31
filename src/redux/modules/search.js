@@ -1,20 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { ItemAPI } from "../../shared/api";
 
 export const getSearchApi = createAsyncThunk(
     'search/getSearchApi',
-    async (search,thunkAPI) => {
+    async (search) => {
         try {
-            let response;
-            if(thunkAPI.getState().user.is_login){
-                response =  await axios.get(`${process.env.REACT_APP_SERVER_URL}/item?keyword=${search}`,{
-                    headers: {
-                        Authorization: localStorage.getItem('accessToken'),
-                    }
-                });
-            } else {
-                response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/item?keyword=${search}`);
-            };
+            const response = await ItemAPI.getSearchItem(search);
             return {response: response.data, search};
         } catch (error) {
             console.log("getSearchApi: ", error);

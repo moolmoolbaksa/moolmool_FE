@@ -7,6 +7,7 @@ import { NotiApi } from '../../shared/api';
 export const getNotiApi = createAsyncThunk('notification/getNotiApi', async () => {
     try {
         const response = await NotiApi.getNoti();
+        console.log(response)
         return response.data;
     } catch (error) {
         console.log('getNotiApi: ', error);
