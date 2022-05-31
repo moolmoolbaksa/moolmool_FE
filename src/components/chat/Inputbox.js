@@ -39,7 +39,7 @@ const Inputbox = (props) => {
       type: 'TALK',
     }
     props.client.send('/pub/chat/message', 
-      {"Authorization": `${localStorage.getItem('token')}`},
+      {"Authorization": `${localStorage.getItem('accessToken')}`},
       JSON.stringify(text)
     );
     setMessage("");

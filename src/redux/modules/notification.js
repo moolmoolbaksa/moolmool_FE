@@ -1,21 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { PURGE } from 'redux-persist';
 
 import { history } from '../configureStore';
+import { NotiApi } from '../../shared/api';
 
 export const getNotiApi = createAsyncThunk('notification/getNotiApi', async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notifications`, {
-            headers: {
-                Authorization: localStorage.getItem('token'),
-            },
-        });
-        console.log(response);
+        const response = await NotiApi.getNoti();
         return response.data;
     } catch (error) {
         console.log('getNotiApi: ', error);
-        alert('getNotiApi error');
+        // alert('getNotiApi error');
     }
 });
 
@@ -23,20 +18,12 @@ export const getBarterNotiApi = createAsyncThunk(
     'notification/getBarterNotiApi',
     async ({ notificationId, changeId }) => {
         try {
-            const response = await axios.get(
-                `${process.env.REACT_APP_SERVER_URL}/user/notification/decision?barterId=${changeId}&notificationId=${notificationId}`,
-                {
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    },
-                },
-            );
+            const response = await NotiApi.getBarterNoti(changeId, notificationId);
             history.push(`/trproposal/${changeId}`);
-            console.log(response);
             return response.data;
         } catch (error) {
             console.log('getBarterNotiApi: ', error);
-            alert('getBarterNotiApi error');
+            // alert('getBarterNotiApi error');
         }
     },
 );
@@ -45,17 +32,11 @@ export const getChatNotiApi = createAsyncThunk(
     'notification/getChatNotiApi',
     async ({ notificationId, changeId }) => {
         try {
-            await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notification/chat?roomId=${changeId}&notificationId=${notificationId}`,
-                {
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    },
-                },
-            );
+            await NotiApi.getChatNoti(changeId, notificationId);
             history.push(`/chat/${changeId}`);
         } catch (error) {
             console.log('getChatNotiApi: ', error);
-            alert('getChatNotiApi error');
+            // alert('getChatNotiApi error');
         }
     },
 );
@@ -64,37 +45,21 @@ export const getWelcomApi = createAsyncThunk(
     'notification/getWelcomApi',
     async (notificationId) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notification/signup?notificationId=${notificationId}`,
-                {
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    },
-                },
-            );
-            console.log(response)
+            await NotiApi.getWelcomNoti(notificationId);
         } catch (error) {
             console.log('getChatNotiApi: ', error);
-            alert('getChatNotiApi error');
+            // alert('getChatNotiApi error');
         }
     },
 );
 
-export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, chageId }) => {
+export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, changeId }) => {
     try {
-        const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/user/notification/score?barterId=${chageId}&notificationId${notificationId}`,
-            {
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                },
-            },
-        );
-        // history.push('/')
-        console.log(response);
+        const response = await NotiApi.getScoreNoti(changeId, notificationId);
         return response.data;
     } catch (error) {
         console.log('getScoreNotiApi: ', error);
-        alert('getScoreNotiApi error');
+        // alert('getScoreNotiApi error');
     }
 });
 

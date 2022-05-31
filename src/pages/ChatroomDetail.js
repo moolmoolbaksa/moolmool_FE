@@ -54,7 +54,7 @@ const ChatroomDetail = props => {
     };
     
     React.useEffect(() => {
-        client.connect({ Authorization: `${localStorage.getItem('token')}` }, function () {
+        client.connect({ Authorization: `${localStorage.getItem('accessToken')}` }, function () {
             console.log('connected');
             console.log(client.ws.readyState);
             client.subscribe(
@@ -71,7 +71,7 @@ const ChatroomDetail = props => {
                         dispatch(changeRoomtype('FULL'));
                     }
                 },
-                { Authorization: localStorage.getItem('token') },
+                { Authorization: localStorage.getItem('accessToken') },
             );
             const data = {
                 roomId: roomid.roomid,
@@ -79,7 +79,7 @@ const ChatroomDetail = props => {
             };
             client.send(
                 `/pub/chat/connect-status`,
-                { Authorization: `${localStorage.getItem('token')}` },
+                { Authorization: `${localStorage.getItem('accessToken')}` },
                 JSON.stringify(data),
             );
             //   window.alert('room in')
@@ -94,14 +94,14 @@ const ChatroomDetail = props => {
             };
             client.send(
                 `/pub/chat/connect-status`,
-                { Authorization: `${localStorage.getItem('token')}` },
+                { Authorization: `${localStorage.getItem('accessToken')}` },
                 JSON.stringify(data),
             );
             client.disconnect(
                 () => {
                     client.unsubscribe('sub-0');
                 },
-                { Authorization: `${localStorage.getItem('token')}` },
+                { Authorization: `${localStorage.getItem('accessToken')}` },
             );
             //방퇴장할때 OUT 했다는 메시지 Send
         };

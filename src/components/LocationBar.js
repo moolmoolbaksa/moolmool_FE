@@ -10,7 +10,7 @@ import { ReactComponent as WhiteArrowIcon } from "../images/white_arrow.svg";
 import { setAddress, setPreview } from '../redux/modules/user';
 import { resetTrade } from '../redux/modules/product';
 
-const LocationBar = ({ title, transparent }) => {
+const LocationBar = ({ title, type }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const is_login = useSelector(state => state.user.is_login);
@@ -37,8 +37,8 @@ const LocationBar = ({ title, transparent }) => {
                 history.goBack();
         };
     };
-   
-    if(transparent){
+
+    if(type==='detail'){
         return (
             <ArrowContainer>
                 <StyledWhiteArrowIcon width="40" height="40" stroke="white" onClick={() => history.goBack()}/>

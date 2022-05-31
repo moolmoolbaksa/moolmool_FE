@@ -14,7 +14,7 @@ const Notification = props => {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.user.user_info.userId);
     const noti_list = useSelector(state => state.notification.noti_list);
-    const is_token = localStorage.getItem('token');
+    const is_token = localStorage.getItem('accessToken');
 
     useEffect(() => {
         if (is_token) {
@@ -27,7 +27,7 @@ const Notification = props => {
 
     useEffect(() => {
         if (is_token) {
-            client.connect({ Authorization: localStorage.getItem('token') }, () => {
+            client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
                     data => {
@@ -35,7 +35,7 @@ const Notification = props => {
                         console.log(response);
                         dispatch(setNoti(response));
                     },
-                    { Authorization: localStorage.getItem('token') },
+                    { Authorization: localStorage.getItem('accessToken') },
                 );
             });
             return () => {

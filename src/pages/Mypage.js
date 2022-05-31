@@ -25,6 +25,7 @@ const Mypage = (props) => {
     const Logout = () => {
         // 로그아웃 시 스토리지를 비웁니다.
         localStorage.clear();
+        sessionStorage.clear();
         persistor.purge();
     };
     

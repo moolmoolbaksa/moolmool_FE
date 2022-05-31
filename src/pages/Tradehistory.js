@@ -32,7 +32,7 @@ const Tradehistory = props => {
     let client = Stomp.over(sock);
     const message = '';
     React.useEffect(() => {
-        client.connect({ Authorization: `${localStorage.getItem('token')}` }, function () {
+        client.connect({ Authorization: `${localStorage.getItem('accessToken')}` }, function () {
             console.log('connected');
             console.log(client.ws.readyState);
             client.subscribe(
@@ -54,7 +54,7 @@ const Tradehistory = props => {
                         ? window.alert('상대방이 교환을 완료하였습니다.')
                         : window.alert('상대방이 교환을 완료하지않았습니다.');
                 },
-                { Authorization: localStorage.getItem('token') },
+                { Authorization: localStorage.getItem('accessToken') },
             );
         });
 
@@ -63,7 +63,7 @@ const Tradehistory = props => {
             () => {
                 client.unsubscribe('sub-0');
             },
-            { Authorization: `${localStorage.getItem('token')}` },
+            { Authorization: `${localStorage.getItem('accessToken')}` },
         );
         };
     }, []);
