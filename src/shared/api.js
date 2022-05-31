@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { persistor } from '../index';
 
-axios.defaults.withCredentials = true;
-
 export const instance = axios.create({
   	baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+    withCredentials: true,
 });
 
 if(localStorage.getItem("accessToken")) {

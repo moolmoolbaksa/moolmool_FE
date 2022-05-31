@@ -21,6 +21,7 @@ import ReportModal from '../components/modal/ReportModal';
 import LoginModal from '../components/modal/LoginModal';
 import DeleteModal from '../components/modal/DeleteModal';
 import AlertModal from '../components/modal/AlertModal';
+import NoneModal from '../components/modal/NoneModal';
 
 const Detail = (props) => {
     const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
@@ -66,6 +67,7 @@ const Detail = (props) => {
             </Wrap>
             <DetailBottom />
         </Container>
+        {status === 6 && <NoneModal />}
         {isOpen &&  <Drawer 
                         location="detail" 
                         itemId={itemId} 

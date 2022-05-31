@@ -5,6 +5,7 @@ import { instance } from '../../shared/api';
 
 import { history } from '../configureStore';
 import { userAPI } from '../../shared/api';
+// import { setCookie } from '../../shared/cookie';
 
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi', 
@@ -31,6 +32,8 @@ const kakaoLoginApi = createAsyncThunk(
             localStorage.setItem('accessToken', response.headers.authorization);
             localStorage.setItem('refreshToken', response.headers.refresh);
             instance.defaults.headers.common['Authorization'] = localStorage.getItem('accessToken');
+            // document.cookie = `refreshToken = ${response.headers.refresh};path=/`
+            // setCookie('refreshToken', response.headers.refresh);
 
             if (!response.data.isFirst) {
                 history.replace('/');
