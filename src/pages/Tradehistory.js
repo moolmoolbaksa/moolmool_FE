@@ -157,10 +157,10 @@ const Tradehistory = props => {
 };
 
 const Container = styled.div`
-    height: 100%;
-    display: flex; 
-    flex-flow: column nowrap;
-    background: #E8E8E8;
+  height: 100%;
+  display: flex; 
+  flex-flow: column nowrap;
+  background: #E8E8E8;
     
 `;
 const SecondTab=styled.div`
