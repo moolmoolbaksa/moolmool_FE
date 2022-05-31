@@ -1,60 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setAlertModal } from '../../redux/modules/modal';
+import { useDispatch } from 'react-redux';
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as ExclamationIcon } from '../../images/exclamation_mark.svg';
+import { setReload } from '../../redux/modules/item';
+import { history } from '../../redux/configureStore';
 
-const AlertModal = ({children}) => {
+const NoneModal = (props) => {
     const dispatch = useDispatch();
-    const [isOpen, setIsOpen] = useState(false);
-    const is_alert_modal = useSelector(state => state.modal.is_alert_modal);
  
-    useEffect(() => {
-        let timeout;
-        if(is_alert_modal){
-            setIsOpen(true);
-        } else {
-            timeout = setTimeout(() => setIsOpen(false), 200);
-        };
-        return () => clearTimeout(timeout);
-    }, [is_alert_modal]);
-
-    if(!isOpen){
-        return null;
-    };
-    
     const onClose = () => {
-        dispatch(setAlertModal(false));
+        dispatch(setReload());
+        history.replace('/');
     };
     
     return (
         <ModalBackground>
-            <ModalContainer is_modal={is_alert_modal}>
+            <ModalContainer >
                 <Content>
                     <Round>
                         <ExclamationIcon />
                     </Round>
                     <Grid>
-                        {children.length < 20
-                            ?   <Text
-                                    text={children}
-                                    textAlign="center"
-                                    letterSpacing="-1px"
-                                    wordSpacing="-1px"
-                                    size="20px"
-                                    bold="bold"
-                                />
-                            :   <Text
-                                    text={children}
-                                    textAlign="center"
-                                    letterSpacing="-1px"
-                                    wordSpacing="-1px"
-                                    size="16px"
-                                    bold="bold"
-                                />
-                        }
+                        <Text
+                            text='삭제된 게시물입니다.'
+                            textAlign="center"
+                            letterSpacing="-1px"
+                            wordSpacing="-1px"
+                            size="20px"
+                            bold="bold"
+                        />
                     </Grid>
                 </Content>
                 <BtnWrap>
@@ -80,18 +56,6 @@ const FadeIn = keyframes`
     }
 `;
 
-const FadeOut = keyframes`
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-    100%{
-        opacity: 0;
-        transform: translate(-50%, -20%);
-        pointer-events: none;
-    }
-`;
-
 const ModalBackground = styled.div`
     position: absolute;
     z-index: 10000;
@@ -112,7 +76,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
-    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out;
+    animation: ${FadeIn} 0.3s ease-out;
 `;
 
 const Content = styled.div`
@@ -151,4 +115,4 @@ const Round = styled.div`
     justify-content: center;
 `;
 
-export default AlertModal;
+export default NoneModal;

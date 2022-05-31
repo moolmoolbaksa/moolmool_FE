@@ -19,6 +19,7 @@ import AlertModal from '../components/modal/AlertModal';
 import { api as userActions } from '../redux/modules/user';
 import {resize} from '../shared/resize';
 import { height } from '@mui/system';
+import { setReload } from '../redux/modules/item';
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   const itemId = useParams().itemId;
@@ -306,8 +307,8 @@ const myitem=useSelector(state=>state.user.item_list);
         .then((res)=>
         {
             console.log(res);
+            dispatch(setReload());
             dispatch(productActions.getProductApi(res.data)).then(()=>history.push(`/detail/${res.data}`));
-            // dispatch(productActions.getProductApi(res.data));
         })
         .catch((error)=>{
             console.log(error);
@@ -318,7 +319,7 @@ const myitem=useSelector(state=>state.user.item_list);
       console.log(ErrorMessage[0]);
         if(!ErrorMessage[0])
         {
-          dispatch(setAlertModal(true))
+          dispatch(setAlertModal(true));
           setErrorModal(true);
           return;
         }
@@ -336,7 +337,8 @@ const myitem=useSelector(state=>state.user.item_list);
       ItemAPI.editItem(itemId,formData)
         .then((res)=>
         {
-            console.log(res);
+            console.log(res);        
+            dispatch(setReload());
             dispatch(productActions.getProductApi(itemId)).then(()=>history.push(`/detail/${res.data}`));
         })
         .catch((error)=>{

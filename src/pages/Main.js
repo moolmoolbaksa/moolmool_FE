@@ -23,31 +23,30 @@ import FetchMore from '../components/shared/FetchMore';
 import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
-import useScrollMove from '../hooks/useScrollMove';
-import { useHistory } from 'react-router-dom';
+import useScrollRestoration from '../hooks/useScrollRestoration';
 
 const Main = props => {
     const dispatch = useDispatch();
-    const is_token = localStorage.getItem('token');
+    const is_token = localStorage.getItem('accessToken');
     
     const userId = useSelector(state => state.user.user_info.userId);
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
-    const [filter, setfilter] = useState('전체');
+    const [filter, setfilter] = useState(paging.category);
  
     const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     const client = Stomp.over(sock);
     
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
-    }, []);
+    }, [is_token]);
 
     useEffect(() => {
         if (userId && is_token) 
         {
           console.log('connected check');
-            client.connect({ Authorization: localStorage.getItem('token') }, () => {
+            client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
                     data => {
@@ -55,9 +54,9 @@ const Main = props => {
                         const unread_noti = JSON.parse(data.body);
                         dispatch(setUnreadNoti(unread_noti.NotificationCnt));
                     },
-                    { Authorization: localStorage.getItem('token') },
+                    { Authorization: localStorage.getItem('accessToken') },
                 );
-                client.send(`/pub/notification`, { Authorization: localStorage.getItem('token') }, {});
+                client.send(`/pub/notification`, { Authorization: localStorage.getItem('accessToken') }, {});
             });
         }
 
@@ -67,55 +66,58 @@ const Main = props => {
             client.disconnect(() => {
                                         client.unsubscribe('sub-0');
                                     },
-                { Authorization: `${localStorage.getItem('token')}` },
+                { Authorization: `${localStorage.getItem('accessToken')}` },
             );
             }
         };   
     }, [userId]);
     console.log(userId.length);
     useEffect(() => {
-      if(is_token){ChatAPI.getChatRoom()
-            .then(res => {
-              console.log(res);
-                dispatch(setRoomlist(res.data));
-            })
-            .catch(error => {
-                console.log(error);
-            });}
+        if(is_token){
+            ChatAPI.getChatRoom()
+                .then(res => {
+                    console.log(res);
+                    dispatch(setRoomlist(res.data));
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }, []);
 
-    // 무한스크롤: 호출돼야할 함수 세팅
+    const scrollRef = useRef(null);
+    const categoryRef = useRef();
+    const {scrollInfo} = useScrollRestoration({dom: scrollRef.current});
+    
+    useEffect(() => { 
+        if(paging.is_first){
+            // 최초 아이템 호출
+            dispatch(itemActions.getItemApi({category: '', page: 0}));
+        } else {
+            // 카테고리가 변경되었을 경우
+            if(paging.category !== filter){
+                // 스크롤 이동
+                if(scrollRef.current) {
+                    if(scrollRef.current.scrollTop < 415){
+                        scrollRef.current.scrollTop = 0;
+                    } else {
+                        scrollRef.current.scrollTop = 415;
+                    }
+                }
+                // 변경된 카테고리 아이템 호출
+                dispatch(itemActions.getItemApi({category: filter, page: 0}));
+            } else {
+                // 이전 스크롤 위치 복원
+                scrollRef.current.scrollTo(0, scrollInfo);
+            }
+        }
+    }, [filter]);
+
+    // 무한스크롤: 다음 호출 함수 세팅
     const getNextList = (category, page) => {
         dispatch(itemActions.getItemApi({category: category, page: page}));
     };
 
-    const scrollRef = useRef();
-    const categoryRef = useRef();
-    useEffect(() => { 
-        // 카테고리 변경 시 화면 맨 위로 올리기 위함
-    
-        if(scrollRef?.current) {
-            // 왜 아래는 안되는거지?
-            // let scroll = scrollRef.current.scrollTop;
-            // scroll <= 415 ? scroll = 0 : scroll = 415;
-            if(scrollRef.current.scrollTop < 415){
-                scrollRef.current.scrollTop = 0;
-            } else {
-                scrollRef.current.scrollTop = 415;
-            }
-        }
-        const category = filter === '전체' ? '' : `${filter}`;
-        dispatch(itemActions.getItemApi({category, page: 0}));
-    }, [filter]);
-    
-    // const {scrollInfo, scrollRemove} = useScrollMove({path: `/`, dom: scrollRef.current});
-    // useEffect(() => {
-    //     return () => {
-    //         console.log('실행')
-    //         sessionStorage.setItem('scroll', scrollRef.current.scrollTop); 
-    //     }
-    // }, [scrollRef]);
-    
     return (
         <>
             <Container>
@@ -162,7 +164,7 @@ const Main = props => {
                     <MainItemWrap>
                         {item_list 
                             ?   item_list.map((v, _) => {
-                                    return <MainCard key={v.itemId} {...v} />
+                                    return <MainCard key={v.itemId} {...v}/>
                                 })
                             :   <MainContentSkeleton />
                         }

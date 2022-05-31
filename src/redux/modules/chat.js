@@ -1,22 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-import { history } from "../configureStore";
-import { response } from "../../shared/mock";
+import { createSlice } from "@reduxjs/toolkit";
 import { PURGE } from "redux-persist";
 
-
-// const rommlist={date: "2022-05-10T19:13:00.766",
-// isRead: true,
-// message: "ㅏ",
-// nickname: "김진현",
-// profile: "http://k.kakaocdn.net/dn/Evbux/btrc1u2Rj9J/6Uy9FHQPHTlKKoMFBidbGK/img_640x640.jpg",
-// readCnt: 3,
-// roomId: 1,
-// userId: 2}
-
-const initialState={
-
+const initialState = {
     Roomlist: [],
     Opponent:{
         userId:"",
@@ -34,7 +19,7 @@ const initialState={
     messages:[],
     moveScroll:1,
     BanList:[],
-}
+};
 
 
 export const chat = createSlice({
@@ -77,8 +62,6 @@ export const chat = createSlice({
         releaseUser: (state,action)=>{
           state.BanList=state.BanList.filter((p,idx)=>p.userId!==action.payload);
         },
-        
-
     },
 
     extraReducers: (builder) => {
