@@ -17,10 +17,13 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import {ReactComponent as CheckIcon} from '../images/check_icon.svg';
 import {ReactComponent as Round} from '../images/Ellipse_grey.svg';
+import { useLocation } from 'react-router-dom';
 
-const Tradehistory = props => {
+const Tradehistory = (props) => {
     const dispatch = useDispatch();
-    const [value, setValue] = React.useState('recived');
+    const location = useLocation();
+    console.log(location)
+    const [value, setValue] = React.useState(location.state?.value ? 'sent' : 'recived');
     const [tradeState,setTradeState]=useState("1");
     const handleChange = (event, newValue) => {
         setValue(newValue);

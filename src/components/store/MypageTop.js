@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { history } from '../../redux/configureStore';
 
 import { Grid, Image, Text } from '../../elements/index';
 import { ReactComponent as EditIcon } from '../../images/edit.svg';
@@ -10,7 +11,7 @@ import { ReactComponent as Level3 } from '../../images/level/level_3.svg';
 import { ReactComponent as Level4 } from '../../images/level/level_4.svg';
 
 const MypageTop = ({user_info, page}) => {
-    const {nickname, profile, storeInfo, degree, address} = user_info;
+    const {nickname, profile, storeInfo, degree, address, acceptorCnt, requesterCnt, scoreCnt, degreePoint, totalPoint } = user_info;
     
     return (
         <>  
@@ -55,17 +56,17 @@ const MypageTop = ({user_info, page}) => {
                 </UserInfo>
                 {page !== 'mall' &&
                 <BarterInfoWrap>
-                    <BarterInfo>
+                    <BarterInfo onClick={() => history.push('/trhistory')}>
                         <span className='title'>받은 교환</span>
-                        <span className='content'><span>1</span>건</span>
+                        <span className='content'><span>{acceptorCnt}</span>건</span>
                     </BarterInfo>
-                    <BarterInfo>
+                    <BarterInfo onClick={() => history.push({pathname: '/trhistory', state:{value: true}})}>
                         <span className='title'>신청한 교환</span>
-                        <span className='content'><span>1</span>건</span>
+                        <span className='content'><span>{requesterCnt}</span>건</span>
                     </BarterInfo>
                     <BarterInfo>
-                        <span className='title'>받은 교환 평가</span>
-                        <span className='content'><span>1</span>건</span>
+                        <span className='title'>받은 평가</span>
+                        <span className='content'><span>{scoreCnt}</span>건</span>
                     </BarterInfo>
                 </BarterInfoWrap>
                 }
@@ -85,12 +86,7 @@ const MypageTop = ({user_info, page}) => {
                             width="auto"
                             bold="bold"
                         />
-                        <Text 
-                            text={`EXP 24/150`}
-                            size="16px"
-                            width="max-content" 
-                        />
-
+                        <span>EXP <span className='point'>{totalPoint}</span>/{degreePoint}</span>
                     </Grid>
                 </UserExp>
             </Container>
@@ -142,6 +138,7 @@ const BarterInfo = styled.div`
     border-radius: 4px;
     padding: 5px 0px;
     background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
 
     span.title {
         font-size: 12px;
@@ -168,6 +165,13 @@ const UserExp = styled.div`
     border-radius: 8px;
     box-shadow: 0 2px 7px -2px rgba(40, 40, 40, 0.4);
     background-color: #fff;
+
+    span.point {
+        font-size: 18px;
+        color: ${props => props.theme.palette.blue};
+        font-weight: bold;
+        text-align: center;
+    }
 `;  
 
 export default MypageTop;

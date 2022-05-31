@@ -40,34 +40,18 @@ import {
   Banlist,
 } from './pages/index';
 import Test from './pages/Test';
-import Loading from './components/shared/Loading';
 
 function App() {
   if (process.env.NODE_ENV === "production") {
     // console.log = function no_console() {};
     // console.warn = function no_console() {};
   }
-
-  // const handleResize = () => {
-  //   let vh = window.innerHeight * 0.01;
-  //   document.documentElement.style.setProperty('--vh', `${vh}px`);
-  // };
-
-  // handleResize();
-
-  // useEffect(() => {
-  //   window.addEventListener('resize', handleResize);
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // });
-
+  
   return (
     <>
       <Background />
       <ConnectedRouter history={history}>
         <ThemeProvider theme={theme}>
-          {/* <Loading /> */}
           <BrandInfo>
             <h1>똑똑한 교환생활, 물물박사</h1>
             <img src={brandlogo} alt="물물박사 로고"/>

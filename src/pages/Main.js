@@ -25,6 +25,7 @@ import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
 import useScrollRestoration from '../hooks/useScrollRestoration';
 
+
 const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('accessToken');
@@ -49,7 +50,7 @@ const Main = props => {
             client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
                 client.subscribe(
                     `/sub/notification/${userId}`,
-                    data => {
+                    (data) => {
                         console.log(data.body);
                         const unread_noti = JSON.parse(data.body);
                         dispatch(setUnreadNoti(unread_noti.NotificationCnt));
@@ -71,7 +72,7 @@ const Main = props => {
             }
         };   
     }, [userId]);
-    console.log(userId.length);
+   
     useEffect(() => {
         if(is_token){
             ChatAPI.getChatRoom()
