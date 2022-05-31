@@ -61,7 +61,7 @@ const ItemGrid = ({item_list, type,is_edit}) => {
     if(type==='mall'){
         return (
             <Grid>
-                <Grid gridBox margin="20px 0">
+                <Grid gridBox>
                     {item_list && item_list.map((v, i) => {
                         return  <ItemImage 
                                     key={i}

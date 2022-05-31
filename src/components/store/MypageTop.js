@@ -9,16 +9,18 @@ import { ReactComponent as Level2 } from '../../images/level/level_2.svg';
 import { ReactComponent as Level3 } from '../../images/level/level_3.svg';
 import { ReactComponent as Level4 } from '../../images/level/level_4.svg';
 
-const MypageTop = ({user_info}) => {
+const MypageTop = ({user_info, page}) => {
     const {nickname, profile, storeInfo, degree, address} = user_info;
     
     return (
         <>  
-            <Background />
-            <Container>
-                <StyledLink to="/editmyinfo">   
-                        <EditIcon />
-                </StyledLink>
+            <Background page={page}/>
+            <Container page={page}>
+                {page !== 'mall' &&
+                    <StyledLink to="/editmyinfo">   
+                            <EditIcon />
+                    </StyledLink>
+                }
                 <UserInfo>
                     <Image
                         type="circle"
@@ -27,7 +29,7 @@ const MypageTop = ({user_info}) => {
                         margin="0"
                     />
                     <Grid is_column gap="4px" is_overflow>
-                        <Grid flex  gap="7px">
+                        <Grid is_flex align="center" gap="7px">
                             <Text 
                                 text={nickname}
                                 bold="bold"
@@ -36,7 +38,7 @@ const MypageTop = ({user_info}) => {
                                 letterSpacing="-1px"
                             />
                                 <Text 
-                                text={address ? address.split(' ').splice(0, 2).join(' ') : '주소를 설정해주세요.'}
+                                text={address ? `· ${address.split(' ').splice(0, 2).join(' ')}` : '주소를 설정해주세요.'}
                                 color="gray"
                                 size="12px"
                                 width="max-content"
@@ -51,6 +53,7 @@ const MypageTop = ({user_info}) => {
                         />
                     </Grid>
                 </UserInfo>
+                {page !== 'mall' &&
                 <BarterInfoWrap>
                     <BarterInfo>
                         <span className='title'>받은 교환</span>
@@ -65,6 +68,7 @@ const MypageTop = ({user_info}) => {
                         <span className='content'><span>1</span>건</span>
                     </BarterInfo>
                 </BarterInfoWrap>
+                }
                 <UserExp>
                     {degree === '물물어린이' 
                         ?   <Level1/>
@@ -99,13 +103,13 @@ const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     gap: 15px;
-    padding: 30px 16px 0 ;
+    ${props => props.page ? 'padding: 20px 16px 0' : 'padding: 30px 16px 0'};
 `;
 
 const Background = styled.div`
     position: absolute;
     width: 100%;
-    height: 212px;
+    ${props => props.page ? 'height: 200px' : 'height: 212px'};
     border-radius: 0 0 20px 20px;
     background: linear-gradient(313deg, rgba(255, 212, 103, 1) 60%, rgba(255, 238, 194, 1));
 `;
