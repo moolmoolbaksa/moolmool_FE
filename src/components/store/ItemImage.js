@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import { api as productActions } from '../../redux/modules/product';
 import { history } from '../../redux/configureStore';
-
 const ItemImage = ({itemId, image, status}) => {
     const dispatch = useDispatch();
 

@@ -34,8 +34,8 @@ import Test from './pages/Test';
 
 function App() {
   if (process.env.NODE_ENV === "production") {
-    console.log = function no_console() {};
-    console.warn = function no_console() {};
+    // console.log = function no_console() {};
+    // console.warn = function no_console() {};
   }
 
   const handleResize = () => {
@@ -88,6 +88,7 @@ function App() {
             <Route exact path="/test" component={Test}/>
             <Route exact path="/editproduct/:itemId" component={RegisterProduct} />
             <Route exact path="/Banlist" component={Banlist} />
+            <Route exact path="/editTrade/:barterId" component={Trade} />
           </GlobalStyle>
         </ThemeProvider>
       </ConnectedRouter>

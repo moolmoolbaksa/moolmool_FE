@@ -10,14 +10,28 @@ import { setAlertModal, setTradeModal } from '../redux/modules/modal';
 import TradeModal from '../components/modal/TradeModal';
 import AlertModal from '../components/modal/AlertModal';
 import { ReactComponent as EmptyIcon } from '../images/outline_error_outline_black_48pt_2x 1.svg';
-
+import { useParams } from 'react-router-dom';
+import {} from '../redux/modules/tradehistory';
 const Trade = (props) => {
     const dispatch = useDispatch();
+
    
     const {myImages, ...opponent_info} = useSelector(state => state.product.barter_info);
     const {nickname, degree, title, contents} = useSelector(state => state.product.product_info);
     const trade_item = useSelector(state => state.product.trade_item);
     
+       //교환수정시 세팅
+    const barterId = useParams().barterId;
+    const is_edit = barterId?true:false;
+    console.log(is_edit);
+    const mytrade=useSelector(state=>state.tradehistory.Senthistory).filter((arr)=>arr.barterId==barterId); //string==number
+    const {barterItem, ...other_info} = useSelector(state => state.tradehistory.Checkhistory);
+    console.log(barterItem);
+    console.log(other_info);
+    // console.log(mytrade[0]);
+    console.log(myImages);
+    // const editItemList=
+
     const onDoTrade = () => {
         if(!trade_item.length) return dispatch(setAlertModal(true));
         dispatch(setTradeModal(true));
@@ -30,32 +44,47 @@ const Trade = (props) => {
             is_flex
             is_column
         >
-            <LocationBar title="교환신청" />
+            {is_edit?<LocationBar title="교환수정" />:<LocationBar title="교환신청" />}
+            {/* <LocationBar title="교환신청" /> */}
             <TradeItemCard
-                nickname={nickname}
-                degree={degree}
-                title={title}
-                contents={contents}
-                image={opponent_info.sellerImages}
+                nickname={is_edit?other_info.nickname:nickname}
+                degree={is_edit?other_info.degree:degree}
+                title={is_edit?other_info.title:title}
+                contents={is_edit?other_info.contents:contents}
+                image={is_edit?other_info.image:opponent_info.sellerImages}
             />
             {myImages.length
-                ?   <ItemWrap>
-                        <ItemGrid type="trade" item_list={myImages}/>
-                    </ItemWrap>
-                :   <EmptyWrap>
-                        <EmptyIcon />
-                        <Grid is_flex is_column gap="3px">
-                            <Text>보따리가 비어있어요.</Text> 
-                            <Text>아이템을 추가한 후 교환을 진행하세요.</Text>
-                        </Grid>
-                    </EmptyWrap>
+                ?  
+                {is_edit}? 
+                  <ItemWrap>
+                    <ItemGrid is_edit={is_edit} type="trade" item_list={myImages}/>
+                  </ItemWrap>
+                : //교환수정인지 아닌지
+                  <ItemWrap>
+                    <ItemGrid is_edit={is_edit} type="trade" item_list={myImages}/>
+                  </ItemWrap>
+                : // image.length가 아무것도 없을때 
+                <EmptyWrap>
+                  <EmptyIcon />
+                  <Grid is_flex is_column gap="3px">
+                    <Text>보따리가 비어있어요.</Text> 
+                    <Text>아이템을 추가한 후 교환을 진행하세요.</Text>
+                  </Grid>
+                </EmptyWrap>
             }
+            {is_edit?
             <Button
-                onClick={onDoTrade}
+                // onClick={onDoTrade}
                 disabled={myImages.length === 0}
             >
-                교환신청하기
-            </Button>
+                교환 수정하기
+            </Button>:
+            <Button
+            onClick={onDoTrade}
+            disabled={myImages.length === 0}
+            >
+              교환 신청하기
+            </Button>}
         </Grid>
         <TradeModal />
         <AlertModal>아이템을 선택해주세요.</AlertModal>

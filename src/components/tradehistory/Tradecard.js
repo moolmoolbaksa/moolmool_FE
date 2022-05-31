@@ -8,8 +8,6 @@ import { delHistory, completeTrade, acceptTrade, getCheckHistory,cancelCompleteT
 import { history } from '../../redux/configureStore';
 import RatingModal from './RatingModal';
 
-
-
 const Tradecard = (props) => {
     const {barterId, barterItem, date, isScore, isTrade, myItem, myPosition, profile, status, userId, usernickname,userIsTrade } = props;
     // const barter= myPosition==="buyer"?:useSelector(state=>state.)
@@ -19,21 +17,25 @@ const Tradecard = (props) => {
     const statusLbel1=()=>{
       if(status===1)
       {
-        return <StatusLabel>교환수락 대기중</StatusLabel>
+        return 
+        // <StatusLabel>교환수락 대기중</StatusLabel>
       }
       else if(status===2 && userIsTrade===false)
       {
-        return <><StatusLabel>교환중</StatusLabel>
+        return <>
+        {/* <StatusLabel>교환중</StatusLabel> */}
         <StatusLabel color=" #FFCA39">상대방 기다리는중</StatusLabel></>
       }
       else if(status===2 && userIsTrade===true)
       {
-        return <><StatusLabel>교환중</StatusLabel>
-        <StatusLabel color=" #FFCA39">상대방 교환확정!!</StatusLabel></>
+        return <>
+        {/* <StatusLabel>교환중</StatusLabel> */}
+        <StatusLabel color="red">상대방 교환확정!!</StatusLabel></>
       }
       else if(status===3)
       {
-        return <StatusLabel color="red">교환완료</StatusLabel>
+        return 
+        // <StatusLabel color="red">교환완료</StatusLabel>
       }
     };
     const openModal=()=>{
@@ -54,12 +56,26 @@ const Tradecard = (props) => {
             })
         history.push('/trcheck');
     };
+    const onEdit=()=>{
+      HistoryAPI.getTradeCheck(barterId)
+            .then((res)=>{
+                console.log(res);
+                dispatch(getCheckHistory(res.data));
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+            .then(()=>{
+              history.push(`/editTrade/${barterId}`)
+            })
+        
 
+    }
     const buttonSetting = () => {
         if(status===1 && myPosition==="buyer"){
             return  <Buttonwrap>
                         <LeftBtn onClick={handleCancelTrade}>신청 취소</LeftBtn>
-                        <RightBtn onClick={()=>history.push(`/editproduct/`)}>교환 수정</RightBtn>
+                        <RightBtn onClick={onEdit}>교환 수정</RightBtn>
                     </Buttonwrap>
         }
         else if(status===1 && myPosition==="seller"){
@@ -145,8 +161,6 @@ const Tradecard = (props) => {
 
         })
     };
-    
-      
     return (
         <Container>
             <Cardwrap>
@@ -176,13 +190,14 @@ const Tradecard = (props) => {
                         />
                     </Grid>
                 </Wrap>
-                {buttonSetting()}
+                
                 {isModalOpen&&<RatingModal barterId={barterId} userId={userId} nickcname={usernickname} 
                           src={myPosition === "buyer" ? barterItem[0].itemImg : myItem[0].itemImg}
                           myPosition={myPosition} closeModal={closeModal} open={isModalOpen}
                   ></RatingModal>}
                 
             </Cardwrap>
+            {buttonSetting()}
         </Container>
     );
 };
@@ -190,8 +205,9 @@ const Tradecard = (props) => {
 export default Tradecard;
 
 const Container = styled.div`
-    padding: 0 16px;
-    margin-top: 15px;
+    // margin-top: 15px;
+    background: white;
+    margin-bottom:5px;
 `;
 
 const StatusLabel = styled.div`
@@ -206,11 +222,11 @@ const StatusLabel = styled.div`
 `;
 
 const Wrap = styled.div`
-    padding: 15px 0px 15px;
-    display: grid;
+  padding: 15px 0px 15px;
+  display: grid;
 	position: relative;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-    gap: 15px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 15px;
 `;
 
 const ImageOutter = styled.div`
@@ -221,59 +237,62 @@ const ImageOutter = styled.div`
 `;
 
 const ImageWrap = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 	height: 100%;
-    background: url('${props => props.src}');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    border-radius: 5px;
+  background: url('${props => props.src}');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
 `;
 
 const Cardwrap = styled.div`
-    padding: 0 10px;
-    border-bottom: 1px #c4c4c4 solid;
+  padding: 16px 16px 0 16px;
+  border-bottom: 1px #c4c4c4 solid;
 `;
 
 const Tradetitle = styled.div`
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 `;
 
 const Buttonwrap = styled.div`
-    display:flex;
-    gap: 10px;
-    margin-bottom: 10px;
+  display:flex;
 `;
 
 const LeftBtn = styled.button`
-    background-color: #9d9d9d;
-    color: white;
-    height: 40px;
-    width: 100%;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 40px;
-    letter-spacing: -.67px;
-    cursor: pointer;
+  background-color: white;
+  color: #666666;
+  height: 40px;
+  width:50%;
+  font-weight: bold;
+  font-size: 16px;
+  border:none;
+  // border-top: 1px solid #C4C4C4;
+  border-bottom: 1px solid #C4C4C4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
+  letter-spacing: -.67px;
+  cursor: pointer;
 `;
 
 const RightBtn = styled.button`
-    background-color: #FFCA39;
+padding: 10px 0;
+    background-color:white;
+    color:#666666;
     height: 40px;
-    width: 100%;
+    width: 50%;
     font-weight: bold;
     font-size: 16px;
-    border-radius: 5px;
-    border: none;
+    border:none;
+    // border-top: 1px solid #C4C4C4;
+    border-left: 1px solid #C4C4C4;
+    border-bottom: 1px solid #C4C4C4;
     display: flex;
     justify-content: center;
     align-items: center;

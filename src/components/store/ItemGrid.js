@@ -8,12 +8,33 @@ import ItemImage from './ItemImage';
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as PlusIcon } from '../../images/plus_round.svg';
 
-const ItemGrid = ({item_list, type}) => {
-    
+const ItemGrid = ({item_list, type,is_edit}) => {
+    console.log(is_edit);
     const onGoCreateItem = () => {
         history.push('/registerproduct');
     };
-  
+    if(type==='trade'&& is_edit){
+      return (
+          <Grid
+              padding="20px 0 0 0"
+          >
+              <Text
+                  text="나의 보따리"
+                  bold="bold"
+                  size="22px"
+                  letterSpacing="-1px"
+              />
+              <Grid gridBox margin="20px 0">
+                  {item_list && item_list.map((v, i) => {
+                      return  <TradeMyItem 
+                                  key={i}
+                                  {...v}
+                              />       
+                  })}
+              </Grid>
+          </Grid> 
+      );
+  };
     if(type==='trade'){
         return (
             <Grid
