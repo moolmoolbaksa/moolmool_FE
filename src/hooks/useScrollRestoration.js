@@ -11,7 +11,6 @@ const useScrollRestoration = ({dom}) => {
     }, 500), [dom]);
 
     useEffect(() => {
-        // 언마운트 이전에 실행되는데 왜 계속 0이 찍혀??
         if(dom){
             dom.addEventListener('scroll', scrollSave);
         }
