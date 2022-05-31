@@ -20,10 +20,12 @@ import { api as userActions } from '../redux/modules/user';
 import {resize} from '../shared/resize';
 import { height } from '@mui/system';
 import { setReload } from '../redux/modules/item';
+import Loading from '../components/shared/Loading';
 const RegisterProduct = (props) => {
   const dispatch=useDispatch();
   const itemId = useParams().itemId;
   const is_edit = itemId?true:false;
+  const [loading, setLoading] = useState(false);
   
   React.useEffect(() => {
     dispatch(userActions.getMyInfoApi());
@@ -308,7 +310,8 @@ const myitem=useSelector(state=>state.user.item_list);
         {
             console.log(res);
             dispatch(setReload());
-            dispatch(productActions.getProductApi(res.data)).then(()=>history.push(`/detail/${res.data}`));
+            setLoading(true);
+            dispatch(productActions.getProductApi(res.data)).then(()=>history.replace(`/detail/${res.data}`));
         })
         .catch((error)=>{
             console.log(error);
@@ -339,7 +342,8 @@ const myitem=useSelector(state=>state.user.item_list);
         {
             console.log(res);        
             dispatch(setReload());
-            dispatch(productActions.getProductApi(itemId)).then(()=>history.push(`/detail/${res.data}`));
+            setLoading(true);
+            dispatch(productActions.getProductApi(itemId)).then(()=>history.replace(`/detail/${res.data}`));
         })
         .catch((error)=>{
             console.log(error);
@@ -350,6 +354,7 @@ const myitem=useSelector(state=>state.user.item_list);
     // console.log(preview)
 	return (
     <>
+     {loading && <Loading/>}
 	<Base>
 	{ is_edit?<LocationBar title="상품 수정"/>:<LocationBar title="상품 등록"/>}
 	<Noti></Noti>

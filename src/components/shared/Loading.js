@@ -3,15 +3,19 @@ import styled, { keyframes } from 'styled-components';
 
 import { ReactComponent as LogoIcon } from '../../images/로고.svg';
 
-const Loading = (props) => {
+const Loading = () => {
     return (
-        <Container>
-            <Wrap>
-                <span>똑똑한 교환 생활</span>
-                <LogoIcon/>
-                <Spinner className='loader' />
-            </Wrap>
-        </Container>
+        <>
+            {/* {loading &&  */}
+                <Container>
+                    <Wrap>
+                        <span>똑똑한 교환 생활</span>
+                        <LogoIcon/>
+                        <Spinner className='loader' />
+                    </Wrap>
+                </Container>
+            {/* } */}
+        </>
     );
 };
 

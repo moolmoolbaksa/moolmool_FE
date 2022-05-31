@@ -71,7 +71,7 @@ const DetailContent = (props) => {
 
 const Container = styled.div`
     flex-grow: 1;
-    min-height: 120px;
+    /* min-height: 100px; */
     padding: 10px 16px 5px;
     border-top: 1px #f5f5f5 solid;
     display: flex;
