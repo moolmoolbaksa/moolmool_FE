@@ -30,14 +30,17 @@ const Main = props => {
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const [filter, setfilter] = useState(paging.category);
-    const websocket_temp=useSelector(state=>state.chat.connected);
+    // const websocket_temp=useSelector(state=>state.chat.connected);
 
-    if(!websocket_temp)
-    {
-      var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-      var client = Stomp.over(sock);
-      dispatch(setConnect(true));
-    }
+    // if(!websocket_temp)
+    // {
+    //   var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+    //   var client = Stomp.over(sock);
+    //   dispatch(setConnect(true));
+    // }
+
+    let sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+    let client = Stomp.over(sock);
   
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
@@ -47,7 +50,6 @@ const Main = props => {
       
         if (userId && is_token) 
         {
-          
           console.log('connected check');
             client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
                 client.subscribe(
