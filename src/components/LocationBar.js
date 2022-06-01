@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { history } from '../redux/configureStore';
 
@@ -13,7 +13,6 @@ import { resetTrade } from '../redux/modules/product';
 const LocationBar = ({ title, type,color }) => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const is_login = useSelector(state => state.user.is_login);
 
     const onGoBack = () => {
         const page = location.pathname;
@@ -26,9 +25,6 @@ const LocationBar = ({ title, type,color }) => {
             case '/trade':
                 dispatch(resetTrade());
                 history.replace('/');
-                break;
-            case '/mypage':
-                history.push('/');
                 break;
             case '/trproposal':
                 history.replace('/noti');
@@ -59,11 +55,6 @@ const LocationBar = ({ title, type,color }) => {
                         width="max-content"
                     />
                 </Wrap>
-                {is_login && location.pathname === '/mypage'
-                    &&  <StyledLink to="/editmyinfo">
-                            프로필 수정
-                        </StyledLink>
-                }
             </Container>
         </>
     );
@@ -108,18 +99,6 @@ background:yellow;
         padding-bottom: 2px;
         cursor: pointer;
     }
-`;
-
-const StyledLink = styled(Link)`;
-    text-decoration: none;
-    border-bottom: 1px black solid;
-    line-height: 14px;
-    color: black;
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: -.67px;
-    word-spacing: -.67px;
-    cursor: pointer;
 `;
 
 export default LocationBar;

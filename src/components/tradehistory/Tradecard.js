@@ -98,12 +98,12 @@ const Tradecard = (props) => {
         }
         else if(isScore===false && isTrade===true&& userIsTrade===true){
             return  <Buttonwrap>
-                        <RightBtn onClick={openModal}>평가하기</RightBtn>
+                        <Btn onClick={openModal}>평가하기</Btn>
                     </Buttonwrap>
         }
         else if(isScore===true){
             return  <Buttonwrap>
-                        <LeftBtn disabled>평가완료</LeftBtn>
+                        <Btn disabled>평가완료</Btn>
                     </Buttonwrap>
         }   
     };
@@ -211,7 +211,7 @@ const Container = styled.div`
 `;
 
 const StatusLabel = styled.div`
-    background-color:${props=>props.color?props.color:"#2B9ECF"}} ;
+    background-color:${props=>props.color?props.color:"#2B9ECF"} ;
     font-size: 12px;
     color: white;
     padding: 0px 10px;
@@ -282,11 +282,31 @@ const LeftBtn = styled.button`
 `;
 
 const RightBtn = styled.button`
-padding: 10px 0;
+    padding: 10px 0;
     background-color:white;
     color:#666666;
     height: 40px;
     width: 50%;
+    font-weight: bold;
+    font-size: 16px;
+    border:none;
+    // border-top: 1px solid #C4C4C4;
+    border-left: 1px solid #C4C4C4;
+    border-bottom: 1px solid #C4C4C4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 40px;
+    letter-spacing: -.67px;
+    cursor: pointer;
+`;
+
+const Btn = styled.button`
+    padding: 10px 0;
+    background-color:white;
+    color:#666666;
+    height: 40px;
+    width: 100%;
     font-weight: bold;
     font-size: 16px;
     border:none;

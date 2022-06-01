@@ -7,6 +7,7 @@ import { NotiApi } from '../../shared/api';
 export const getNotiApi = createAsyncThunk('notification/getNotiApi', async () => {
     try {
         const response = await NotiApi.getNoti();
+        console.log(response)
         return response.data;
     } catch (error) {
         console.log('getNotiApi: ', error);
@@ -53,12 +54,26 @@ export const getWelcomApi = createAsyncThunk(
     },
 );
 
-export const getScoreNotiApi = createAsyncThunk('notification/getScoreNotiApi', async ({ notificationId, changeId }) => {
+export const getScoreNotiApi = createAsyncThunk(
+    'notification/getScoreNotiApi',
+    async ({ notificationId, changeId }) => {
+        try {
+            await NotiApi.getScoreNoti(changeId, notificationId);
+            // return response.data;
+        } catch (error) {
+            console.log('getScoreNotiApi: ', error);
+            // alert('getScoreNotiApi error');
+        }
+    }
+);
+
+export const getFinishNotiApi = createAsyncThunk(
+    'notification/getFinishNotiApi', 
+    async ({ notificationId}) => {
     try {
-        const response = await NotiApi.getScoreNoti(changeId, notificationId);
-        return response.data;
+        await NotiApi.getFinishNoti(notificationId);
     } catch (error) {
-        console.log('getScoreNotiApi: ', error);
+        console.log('getFinishNotiApi: ', error);
         // alert('getScoreNotiApi error');
     }
 });
@@ -110,6 +125,8 @@ export const api = {
     getBarterNotiApi,
     getChatNotiApi,
     getWelcomApi,
+    getScoreNotiApi,
+    getFinishNotiApi,
 };
 
 export const { setNoti, setUnreadNoti } = notification.actions;

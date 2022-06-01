@@ -8,8 +8,7 @@ import ItemImage from './ItemImage';
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as PlusIcon } from '../../images/plus_round.svg';
 
-const ItemGrid = ({item_list, type,is_edit}) => {
-    console.log(is_edit);
+const ItemGrid = ({item_list, type, is_edit}) => {
     const onGoCreateItem = () => {
         history.push('/registerproduct');
     };
@@ -61,7 +60,7 @@ const ItemGrid = ({item_list, type,is_edit}) => {
     if(type==='mall'){
         return (
             <Grid>
-                <Grid gridBox margin="20px 0">
+                <Grid gridBox>
                     {item_list && item_list.map((v, i) => {
                         return  <ItemImage 
                                     key={i}

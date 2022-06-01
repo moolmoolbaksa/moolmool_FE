@@ -8,27 +8,36 @@ import { history } from './redux/configureStore';
 import backgroundImg from './images/moolmool_background.png';
 import brandlogo from './images/brand_name.png';
 import theme from './shared/theme';
+import GlobalStyle from './components/shared/GlobalStyle';
 
 // pages
-import { Login, Signup, KaKaoLogin, GoogleLogin, Welcome, Address } from './pages/login/index';
+import { 
+  Login, 
+  Signup, 
+  KaKaoLogin, 
+  GoogleLogin, 
+  Welcome, 
+  Address 
+} from './pages/login/index';
+
 import {
-    Detail,
-    Mall,
-    Trade,
-    Main,
-    Mypage,
-    Notification,
-    EditMyInfo,
-    RegisterProduct,
-    Tradehistory,
-    Scrab,
-    Chatroomlist,
-    ChatroomDetail,
-    Decidetrade,
-    TradeProposal,
-    TradeCheck,
-    Search,
-    Banlist,
+  Detail,
+  Mall,
+  Trade,
+  Main,
+  Mypage,
+  Notification,
+  EditMyInfo,
+  RegisterProduct,
+  Tradehistory,
+  Scrab,
+  Chatroomlist,
+  ChatroomDetail,
+  Decidetrade,
+  TradeProposal,
+  TradeCheck,
+  Search,
+  Banlist,
 } from './pages/index';
 import Test from './pages/Test';
 
@@ -37,26 +46,12 @@ function App() {
     // console.log = function no_console() {};
     // console.warn = function no_console() {};
   }
-
-  const handleResize = () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  };
-
-  handleResize();
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-
+  
   return (
     <>
       <Background />
       <ConnectedRouter history={history}>
-        <ThemeProvider theme={theme}> 
+        <ThemeProvider theme={theme}>
           <BrandInfo>
             <h1>똑똑한 교환생활, 물물박사</h1>
             <img src={brandlogo} alt="물물박사 로고"/>
@@ -135,48 +130,5 @@ const Background = styled.div`
   bottom: 0;
   left: 0;
 `;
-
-const GlobalStyle = styled.div`
-  position: absolute;
-  width: 100%;
-  min-width: 320px;
-  max-width: 420px;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  background-color: white;
-  box-shadow: 0 48px 100px 0 rgb(17 12 46 / 15%);
-
-  @media screen and (min-width: 420px) {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  @media screen and (min-width: 900px) {
-    top: 50%;
-    left: 50%;
-    transform: translate(-15%, -50%);
-  }
-
-  @media screen and (min-width: 1120px) {
-    top: 50%;
-    left: 50%;
-    transform: translate(30%, -50%);
-  }
-
-  @media screen and (min-width: 1700px) {
-    top: 50%;
-    left: 50%;
-    transform: translate(40%, -50%);
-  }
-
-  @media screen and (min-width: 2000px) {
-    top: 50%;
-    left: 50%;
-    transform: translate(50%, -50%); 
-  }
-`;
-
-
 
 export default App;

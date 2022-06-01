@@ -88,6 +88,7 @@ const getMyInfoApi = createAsyncThunk(
     async () => {
         try {
             const response = await userAPI.getMyInfo();
+            console.log(response)
             return response.data;
         } catch (error) {
             console.log('getMyInfo: ', error);
@@ -132,7 +133,11 @@ const initialState = {
         storeInfo: '',
         address: '',
         degree: '',
-        grade: '',
+        degreePoint: '',
+        totalPoint: '',
+        requesterCnt: '',
+        acceptorCnt: '',
+        scoreCnt: '',
     },
     other: {
         nickname: '',

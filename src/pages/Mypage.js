@@ -31,18 +31,19 @@ const Mypage = (props) => {
     
     return (
         <Grid height="100%" is_column>
-            <LocationBar title="마이페이지"/>
             <Container>
                 <MypageTop user_info={user_info}/>
-                <ItemGrid item_list={item_list}/>
-                <ItemGrid item_list={myScrabList} type="scrab"/>
-                <MenuTab 
-                    onClick={() => {history.push('/banlist')}}
-                >
-                    차단 목록
-                    <StyledArrowIcon width="22" height="22"/>
-                </MenuTab>
-                {is_login && <StyledLink to="/" onClick={Logout}>로그아웃</StyledLink>}
+                <Grid is_column padding="0 16px">
+                    <ItemGrid item_list={item_list}/>
+                    <ItemGrid item_list={myScrabList} type="scrab"/>
+                    <MenuTab 
+                        onClick={() => {history.push('/banlist')}}
+                    >
+                        차단 목록
+                        <StyledArrowIcon width="22" height="22"/>
+                    </MenuTab>
+                    {is_login && <StyledLink to="/" onClick={Logout}>로그아웃</StyledLink>}
+                </Grid>
             </Container>
             <TabBar position/>
         </Grid>
@@ -52,7 +53,7 @@ const Mypage = (props) => {
 const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    padding: 0 16px 20px;
+    padding: 0 0px 20px;
     position: relative;
     flex-grow: 1;
     overflow-y: scroll;

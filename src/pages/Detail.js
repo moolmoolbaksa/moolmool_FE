@@ -27,7 +27,7 @@ const Detail = (props) => {
     const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
     const is_login = useSelector(state => state.user.is_login);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-    
+  
     const settings = { 
         infinite: false,
         dots: true, 

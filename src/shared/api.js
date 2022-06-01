@@ -64,7 +64,6 @@ instance.interceptors.response.use(
     }
 );
 
-
 export const userAPI = {
     // 로그인 체크
     loginCheck: () => instance.get(`user/check`),
@@ -116,7 +115,7 @@ export const ItemAPI = {
     setScrabItem: (itemId) => instance.post(`/item/scrabs/${itemId}`, {}),
 
     // 좋아요 아이템 조회
-    getScrabList: (itemId) => instance.get(`/user/mypage/scrabs`),
+    getScrabList: () => instance.get(`/user/mypage/scrabs`),
 
     // 아이템 수정
     editItem: (itemId,Formitem) => instance.put(`/item/${itemId}`, Formitem, {
@@ -128,6 +127,9 @@ export const ItemAPI = {
     // 아이템 신고
     setReportItem: (itemId) => instance.put(`/item/report?itemId=${itemId}`, {}),
 
+    // 아이템 검색
+    getSearchItem: (search) => instance.get(`/item?keyword=${search}`),
+    
     //교환내역 불러오기
     getMyhistory: () => instance.get('/user/barters'),
 };
@@ -160,7 +162,7 @@ export const ChatAPI = {
     banUser: (userId) => instance.get(`chat/room/banned/${userId}`),
 
     //차단한 유저 확인
-    getBanUser: (userId) => instance.get('/chat/room/banned'),
+    getBanUser: () => instance.get('/chat/room/banned'),
 
     //차단한 유저 해제
     releaseUser: (userId) => instance.put(`/chat/room/banned/${userId}`, {}),    
@@ -209,6 +211,12 @@ export const NotiApi = {
 
     // 평가 알림
     getScoreNoti: (changeId, notificationId) => 
-        instance.get(`/user/notification/score?barterId=${changeId}&notificationId${notificationId}`),
+        instance.get(`/user/notification/score?barterId=${changeId}&notificationId=${notificationId}`),
+
+    // 확정 알림
+    getFinishNoti: (notificationId) => instance.get(`/user/notification/barter-complete?notificationId=${notificationId}`),
+    
+    // 알림 삭제
+    deleteNoti: (notificationId) => instance.delete(`/notification/${notificationId}`),
 };
 
