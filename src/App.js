@@ -46,7 +46,7 @@ function App() {
     // console.log = function no_console() {};
     // console.warn = function no_console() {};
   }
-  
+
   return (
     <>
       <Background />

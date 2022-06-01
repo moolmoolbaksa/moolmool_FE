@@ -1,48 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import { ChatAPI } from '../shared/api';
+import { setRoomlist } from '../redux/modules/chat';
+import { setUnreadNoti } from '../redux/modules/notification';
+import { useDispatch, useSelector } from 'react-redux';
+import { api as userActions } from '../redux/modules/user';
+import { api as itemActions } from '../redux/modules/item';
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
 
 import { Image, Grid, Text } from '../elements/index';
 import MainCard from '../components/main/MainCard';
 import TabBar from '../components/TabBar';
 import LoginModal from '../components/modal/LoginModal';
-import { ReactComponent as NotiIcon } from '../images/종.svg';
-import { ReactComponent as SearchIcon } from '../images/돋보기.svg';
-
-import { ChatAPI } from '../shared/api';
-import { setRoomlist } from '../redux/modules/chat';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import { setUnreadNoti } from '../redux/modules/notification';
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
 import HotDeal from '../components/main/HotDeal';
-import { api as userActions } from '../redux/modules/user';
-import { api as itemActions } from '../redux/modules/item';
 import FetchMore from '../components/shared/FetchMore';
 import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
 import useScrollRestoration from '../hooks/useScrollRestoration';
+import MainHeader from '../components/main/MainHeader';
 
+const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+const client = Stomp.over(sock);
 
-const Main = props => {
+const Main = (props) => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('accessToken');
-    
+
     const userId = useSelector(state => state.user.user_info.userId);
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
-    const unread_noti = useSelector(state => state.notification.unread_noti);
     const [filter, setfilter] = useState(paging.category);
- 
-    const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-    const client = Stomp.over(sock);
-    
+     
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, [is_token]);
-
+    
     useEffect(() => {
         if (userId && is_token) 
         {
@@ -122,22 +116,7 @@ const Main = props => {
     return (
         <>
             <Container>
-                {/* 상단바 */}
-                <Grid flex padding="10px 16px" justify="flex-end">
-                    <Grid flex gap="10px">
-                        <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
-                        <NotiWrap>
-                            <NotiIcon
-                                onClick={() => {
-                                    history.push('/noti');
-                                }}
-                            />
-                            {unread_noti !== 0 && <NotiSign />}
-                        </NotiWrap>
-                    </Grid>
-                </Grid>
-                {/* 상단바끝 */}
-                {/* 프로필 및 인사 */}
+                <MainHeader dom={scrollRef.current}/>
                 <ScrollWrap ref={scrollRef}>
                     <Grid is_flex align="center" padding="0px 16px 10px" gap="7px" borderB="1px #e8e8e8 solid">
                         <Image
@@ -159,7 +138,6 @@ const Main = props => {
                             />
                         </Grid>
                     </Grid>
-                    {/* 프로필 및 인사 끝 */}
                     <HotDeal />
                     <CategoryBar setfilter={setfilter} ref={categoryRef}/>
                     <MainItemWrap>
@@ -172,29 +150,18 @@ const Main = props => {
                     </MainItemWrap>
                     <FetchMore paging={paging} callNext={() => getNextList(paging.category, paging.page)}/>
                 </ScrollWrap>
-                <TabBar position />
+                <TabBar />
             </Container>
             <LoginModal />
         </>
     );
 };
 
-const BlinkSign = keyframes`
-	0% {
-		opacity: 0;
-	}
-	50%{
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-`;
-
 const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
+    position: relative;
 `;
 
 const ScrollWrap = styled.div`
@@ -204,23 +171,6 @@ const ScrollWrap = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
-`;
-
-const NotiWrap = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-`;
-
-const NotiSign = styled.div`
-    position: absolute;
-    top: 4px;
-    right: -1px;
-    width: 7px;
-    height: 7px;
-    background-color: red;
-    border-radius: 10px;
-    animation: ${BlinkSign} 3s infinite ease-out;
 `;
 
 const MainItemWrap = styled.div`

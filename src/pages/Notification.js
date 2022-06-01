@@ -45,7 +45,7 @@ const Notification = props => {
     }, []);
 
     return (
-        <Grid height="100%" is_flex is_column>
+        <Grid height="100%" is_column>
             <LocationBar title="알림" />
             <Container>
                 {noti_list.length

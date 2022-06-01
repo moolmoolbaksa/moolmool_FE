@@ -53,7 +53,7 @@ const MultiLine = styled.div`
     -webkit-box-orient: vertical;
 
     /* 조정 스타일 */
-    ${props => (props.size ? `font-size:${props.size};` : '')}
+    ${props => (props.size ? `font-size:${props.size};` : 'font-size: 14px;')}
     ${props => (props.bold ? `font-weight:${props.bold};` : ``)}
     ${props => (props.color ? `color:${props.color};` : ``)}
     ${props => (props.letterSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67px`)};

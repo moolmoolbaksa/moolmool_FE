@@ -155,43 +155,43 @@ export const ChatAPI = {
     // 이전 메세지 가져오기
     getMessage: (roomId) => instance.get(`/chat/room/${roomId}`),
 
-    //채팅방 나가기
+    // 채팅방 나가기
     exitRoom: (roomId) => instance.get(`chat/room/exit/${roomId}`),
     
-    //채팅방 유저차단
+    // 채팅방 유저차단
     banUser: (userId) => instance.get(`chat/room/banned/${userId}`),
 
-    //차단한 유저 확인
+    // 차단한 유저 확인
     getBanUser: () => instance.get('/chat/room/banned'),
 
-    //차단한 유저 해제
+    // 차단한 유저 해제
     releaseUser: (userId) => instance.put(`/chat/room/banned/${userId}`, {}),    
 };
 
 
 export const HistoryAPI = {
-    //교환내역 불러오기
+    // 교환내역 불러오기
     getMyhistory: () => instance.get('/user/barters'),
 
-    //거래확인 불러오기
+    // 거래확인 불러오기
     getTradeCheck: (barterId) => instance.get(`/items/trade/decision?barterId=${barterId}`),
 
-    //교환 수락
+    // 교환 수락
     acceptTrade: (barterid) => instance.put(`/items/trade/decision?barterId=${barterid}`, {}),
 
-    //교환 거절
+    // 교환 거절
     rejectTrade: (barterid) => instance.delete(`/items/trade/decision?barterId=${barterid}`),
 
-    //교환 완료하기
+    // 교환 완료하기
     completeTrade: (barterid) => instance.put(`/user/barters/handshake?barterId=${barterid}`, {}),
 
-    //교환 취소하기
+    // 교환 취소하기
     cancelTrade: (barterid) => instance.delete(`/user/barters?barterId=${barterid}`),
 
     gobackCompleteTrade: (barterid) => instance.put(`/user/barters/cancel?barterId=${barterid}`, {}),
 
-    //평가하기
-    Rating: (barterId, userId, score) => instance.put( '/user/score', { barterId, userId, score }),
+    // 평가하기
+    Rating: (barterId, userId, score) => instance.put('/user/score', { barterId, userId, score }),
 };
 
 export const NotiApi = {

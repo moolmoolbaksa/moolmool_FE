@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { api as searchActions, deleteSearchHistory,  } from '../../redux/modules/search';
+import { ReactComponent as DeleteIcon } from '../../images/delete.svg';
 
 const SearchWord = ({word}) => {
     const dispatch = useDispatch();
@@ -17,12 +18,7 @@ const SearchWord = ({word}) => {
     return (
         <SearchLabel>
             <Word onClick={onSearch}>{word}</Word>
-            <span 
-                className="material-symbols-outlined"
-                onClick={onDelete}
-            >
-                close
-            </span>
+            <DeleteIcon onClick={onDelete}/>
         </SearchLabel>
     );
 };
