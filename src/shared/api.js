@@ -211,8 +211,11 @@ export const NotiApi = {
 
     // 평가 알림
     getScoreNoti: (changeId, notificationId) => 
-        instance.get(`/user/notification/score?barterId=${changeId}&notificationId${notificationId}`),
+        instance.get(`/user/notification/score?barterId=${changeId}&notificationId=${notificationId}`),
 
+    // 확정 알림
+    getFinishNoti: (notificationId) => instance.get(`/user/notification/barter-complete?notificationId=${notificationId}`),
+    
     // 알림 삭제
     deleteNoti: (notificationId) => instance.delete(`/notification/${notificationId}`),
 };
