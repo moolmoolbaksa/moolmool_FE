@@ -10,7 +10,7 @@ import { ReactComponent as WhiteArrowIcon } from "../images/white_arrow.svg";
 import { setAddress, setPreview } from '../redux/modules/user';
 import { resetTrade } from '../redux/modules/product';
 
-const LocationBar = ({ title, type }) => {
+const LocationBar = ({ title, type,color }) => {
     const dispatch = useDispatch();
     const location = useLocation();
 
@@ -61,14 +61,16 @@ const LocationBar = ({ title, type }) => {
 };
 
 const Container = styled.div`
+
     display: flex;
     align-items: center;
     padding: 15px 16px 15px 8px;
     justify-content: space-between;
-    background-color: white;
+    background:yellow;
 `;
 
 const ArrowContainer = styled.div`
+
     position: absolute;
     top: 0;
     z-index: 100;
@@ -86,11 +88,12 @@ const StyledArrowIcon = styled(ArrowIcon)`
 `;
 
 const Wrap = styled.div`
+background:yellow;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-
+  
     & span {
         text-indent: -9999;
         padding-bottom: 2px;

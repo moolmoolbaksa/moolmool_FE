@@ -20,11 +20,9 @@ import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
 import useScrollRestoration from '../hooks/useScrollRestoration';
 import MainHeader from '../components/main/MainHeader';
+import {setConnect} from '../redux/modules/chat';
 
-const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-const client = Stomp.over(sock);
-
-const Main = (props) => {
+const Main = props => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('accessToken');
 
@@ -32,14 +30,25 @@ const Main = (props) => {
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const [filter, setfilter] = useState(paging.category);
-     
+    const [websocket,setWebsocket]=useState(false);
+    const websocket_temp=useSelector(state=>state.chat.connected);
+
+    if(!websocket_temp)
+    {
+      var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+      var client = Stomp.over(sock);
+      dispatch(setConnect(true));
+    }
+  
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, [is_token]);
     
     useEffect(() => {
+      
         if (userId && is_token) 
         {
+          
           console.log('connected check');
             client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
                 client.subscribe(
@@ -63,6 +72,7 @@ const Main = (props) => {
                                     },
                 { Authorization: `${localStorage.getItem('accessToken')}` },
             );
+            dispatch(setConnect(false));
             }
         };   
     }, [userId]);

@@ -91,16 +91,16 @@ const ImageOutter = styled.div`
 `;
 
 const ImageWrap = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 	height: 100%;
-    background: url('${props => props.src}');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    border-radius: 5px;
+  background: url('${props => props.src}');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100%;
 `;
 
 const UnreadNum = styled.div`

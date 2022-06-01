@@ -19,6 +19,7 @@ const initialState = {
     messages:[],
     moveScroll:1,
     BanList:[],
+    connected:false,
 };
 
 
@@ -62,6 +63,9 @@ export const chat = createSlice({
         releaseUser: (state,action)=>{
           state.BanList=state.BanList.filter((p,idx)=>p.userId!==action.payload);
         },
+        setConnect: (state,action)=>{
+          state.connected=action.payload;
+        },
     },
 
     extraReducers: (builder) => {
@@ -80,6 +84,7 @@ export const {
     moveScroll,
     setBanList,
     releaseUser,
+    setConnect,
 } = chat.actions;
 
 export const api = {
