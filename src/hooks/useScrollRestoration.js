@@ -13,9 +13,7 @@ const useScrollRestoration = ({dom}) => {
     useEffect(() => {
         if(dom){
             dom.addEventListener('scroll', scrollSave);
-        }
-
-        if(dom){
+        
             return () => {
                 dom.removeEventListener('scroll', scrollSave);
             }
@@ -23,6 +21,6 @@ const useScrollRestoration = ({dom}) => {
     }, [dom, scrollSave]);
 
     return {scrollInfo}
-}
+};
 
 export default useScrollRestoration;

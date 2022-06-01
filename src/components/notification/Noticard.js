@@ -8,7 +8,7 @@ import timeForToday from "../../shared/timeForToday";
 
 const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userId, profile}) => {    
     const dispatch = useDispatch();
-	console.log(changeId)
+	
 	const onNotiClick = () => {
 		// switch문 효용에 대해 알아보기
 		switch(type){
