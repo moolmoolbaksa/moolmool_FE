@@ -33,6 +33,7 @@ const MainCard = ({itemId, image, address, title, contents, scrabCnt, scrab, vie
                         is_overflow
                     />
                     <Text 
+                        multiLine 
                         multi="3"
                         text={contents}
                         color="#9D9D9D"

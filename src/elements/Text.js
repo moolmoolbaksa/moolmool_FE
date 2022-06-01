@@ -1,50 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Text = (props) => {
-    const { 
-        size,
-        bold,
-        color,
-        lineHeight,
-        letterSpacing,
-        wordSpacing,
-        text,
-        padding,
-        margin,
-        width,
-        textAlign,
-        borderB,
-        onClick,
-        maxWidth,
-        multi,
-        is_overflow,
-    } = props;
-
-    const styles = {
-        size,
-        bold,
-        color,
-        lineHeight,
-        letterSpacing,
-        wordSpacing,
-        padding,
-        margin,
-        width,
-        maxWidth,
-        textAlign,
-        borderB,
-        multi,
-        is_overflow,
-    }
-
-    if(multi){
+const Text = ({text, onClick, multiLine, ...styles}) => {
+   
+    if(multiLine ){
        return (
             <MultiLine
                 {...styles}
                 onClick={onClick}
             >
-                {text ? text : ""}
+                {text}
             </MultiLine>
        ); 
     }
@@ -53,61 +18,47 @@ const Text = (props) => {
             {...styles}
             onClick={onClick}
         >
-            {text ? text : ""}
+            {text}
         </ElText>
     );
 };
 
 Text.defaultProps = {
-    size: "14px",
-    bold: "normal",
-    color: "black",
-    lineHeight: "initial",
-    padding: false,
-    margin: false,
-    width: "100%",
-    textAlign: "auto",
-    borderB: "none",
     onClick: () => {},
 };
 
 const ElText = styled.div`
-    font-size: ${props => props.size};
-    font-weight: ${props => props.bold};
-    color: ${props => props.color};
-    line-height: ${props => props.lineHeight};
-    padding: ${props => props.padding};
-    margin: ${props => props.margin};
-    width: ${props => props.width};
-    text-align: ${props => props.textAlign};
-    border-bottom: ${props => props.borderB};
+    /* 조정 스타일 */
+    ${props => (props.size ? `font-size:${props.size};` : `font-size: 14px;`)}
+    ${props => (props.bold ? `font-weight:${props.bold};` : ``)}
+    ${props => (props.color ? `color:${props.color};` : ``)}
+    ${props => (props.lineHeight ? `line-height:${props.size};` : ``)}
+    ${props => (props.padding ? `padding:${props.padding};` : ``)}
+    ${props => (props.margin ? `margin:${props.margin};` : ``)}
+    ${props => (props.width ? `width:${props.width};` : ``)}
+    ${props => (props.textAlign ? `text-align:${props.textAlign};` : ``)}
+    ${props => (props.borderB ? `border-bottom:${props.borderB};` : ``)}
     ${props => (props.letterSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67px`)};
     ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : `word-spacing: -0.67px`)};
     ${props => (props.maxWidth ? `max-width:${props.maxWidth}` : '')};
     ${props => (props.is_overflow ? `overflow: hidden; white-space: nowrap; text-overflow: ellipsis;` : '')}; 
-    /* overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; */
 `;
 
 const MultiLine = styled.div`
-    font-size: ${props => props.size};
-    font-weight: ${props => props.bold};
-    color: ${props => props.color};
-    line-height: ${props => props.lineHeight};
-    letter-spacing: ${props => props.letterSpacing};
-    padding: ${props => props.padding};
-    margin: ${props => props.margin};
-    width: ${props => props.width};
-    text-align: ${props => props.textAlign};
-    border-bottom: ${props => props.borderB};
-    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : '')};
+    /* 공통 스타일 */
+    display: -webkit-box;
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: ${props => props.multi}; 
     -webkit-box-orient: vertical;
+
+    /* 조정 스타일 */
+    ${props => (props.size ? `font-size:${props.size};` : '')}
+    ${props => (props.bold ? `font-weight:${props.bold};` : ``)}
+    ${props => (props.color ? `color:${props.color};` : ``)}
+    ${props => (props.letterSpacing ? `letter-spacing:${props.letterSpacing}` : `letter-spacing: -0.67px`)};
+    ${props => (props.wordSpacing ? `word-spacing:${props.wordSpacing}` : `word-spacing: -0.67px`)};
+    ${props => (props.multi ? `-webkit-line-clamp:${props.multi}` : ``)};
 `;
         
 export default Text;

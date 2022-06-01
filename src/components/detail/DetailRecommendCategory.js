@@ -41,6 +41,7 @@ const Wrap = styled.div`
     display: flex;
     flex-flow: column nowrap;
     flex-grow: 1;
+    gap: 2px;
     justify-content: center;
     overflow: hidden;
 `;
