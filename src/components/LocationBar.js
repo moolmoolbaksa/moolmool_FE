@@ -65,6 +65,7 @@ const Container = styled.div`
     align-items: center;
     padding: 15px 16px 15px 8px;
     justify-content: space-between;
+    background-color: white;
 `;
 
 const ArrowContainer = styled.div`
@@ -85,7 +86,7 @@ const StyledArrowIcon = styled(ArrowIcon)`
 `;
 
 const Wrap = styled.div`
-    background:yellow;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
