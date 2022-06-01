@@ -30,7 +30,6 @@ const Main = props => {
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const [filter, setfilter] = useState(paging.category);
-    const [websocket,setWebsocket]=useState(false);
     const websocket_temp=useSelector(state=>state.chat.connected);
 
     if(!websocket_temp)
