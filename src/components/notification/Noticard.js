@@ -5,9 +5,10 @@ import { history } from "../../redux/configureStore";
 import { enterRoom } from "../../redux/modules/chat";
 import { api as notiActions } from "../../redux/modules/notification";
 import timeForToday from "../../shared/timeForToday";
+
 const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userId, profile}) => {    
     const dispatch = useDispatch();
-	
+	console.log(changeId)
 	const onNotiClick = () => {
 		// switch문 효용에 대해 알아보기
 		switch(type){
@@ -17,6 +18,14 @@ const Noticard = ({notificationId, isRead, type, nickname, changeId, date, userI
 			case 'CHAT':
 				dispatch(enterRoom({changeId, nickname, userId, profile}));
 				dispatch(notiActions.getChatNotiApi({notificationId, changeId}));
+				break;
+			case 'FINISH':
+				dispatch(notiActions.getFinishNotiApi({notificationId, changeId}));
+				history.push({pathname: '/trhistory'});
+				break;
+			case 'SCORE':
+				dispatch(notiActions.getScoreNotiApi({notificationId, changeId}));
+				history.push({pathname: '/trhistory'});
 				break;
 			case 'ETC':
 				dispatch(notiActions.getWelcomApi(notificationId));
