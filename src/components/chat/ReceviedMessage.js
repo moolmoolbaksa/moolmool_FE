@@ -21,18 +21,20 @@ const Messagewrap = styled.div`
 const ChatRecived = styled.div`
     position: relative;
     max-width: 300px;
-    background-color: ${props => props.theme.palette.yellow};
+    // background-color: ${props => props.theme.palette.yellow};
+    background-color: ${props => props.theme.palette.white };
     border-radius: 0px 5px 5px 5px;
     margin: 5px 0px 0px 10px;
     
     &:before{
+      ${props => props.is_check ? 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),' : ''} url('${props => props.src}');
         content: '';
         position: absolute;
         right: 100%;
         top: 0%;
         
-        border-top: 5px solid ${props => props.theme.palette.yellow};
-        border-right: 5px solid ${props => props.theme.palette.yellow};
+        border-top: 5px solid ${props => props.theme.palette.white};
+        border-right: 5px solid ${props => props.theme.palette.white};
         border-bottom: 5px solid transparent;
         border-left: 5px solid transparent;        
     }

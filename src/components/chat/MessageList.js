@@ -62,7 +62,7 @@ const MessageList = (props) => {
         <Base ref={messageref}>
         {/* {   listmessage.sort((a,b)=>a.messageId-b.messageId) */}
         {    messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
-            message.type==="STATUS"?<NotiMessage key={'keyid'+message.messageId}  message={message.message}></NotiMessage>:message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} message={message.message}/>))
+            message.type==="STATUS"?<NotiMessage key={'keyid'+message.messageId} date={message.date} message={message.message}></NotiMessage>:message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} date={message.date} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} date={message.date} message={message.message}/>))
             
 
         }
@@ -79,6 +79,7 @@ const Base = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+    background:#F4F2EF;
 `;
 
 
