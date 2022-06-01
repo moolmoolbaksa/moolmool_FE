@@ -17,7 +17,6 @@ const MainHeader = ({dom}) => {
     
     const handleScroll = () => {
         const scrollTop = dom.scrollTop;
-        console.log(scrollTop)
         const deltaY = scrollTop - pageY;
         const hide = scrollTop !== 0 && deltaY >= 0;
         setHide(hide);
