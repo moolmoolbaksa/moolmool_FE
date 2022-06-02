@@ -12,7 +12,7 @@ const HotItem = ({image, contents, title, itemId, rank}) => {
     const dispatch = useDispatch();
     
     const onGoDetail = () => {
-        dispatch(productActions.getProductApi(itemId)).then(history.push(`/detail/${itemId}`));
+        dispatch(productActions.getProductApi(itemId)).then(() => history.push(`/detail/${itemId}`));
     };
     
     return (
