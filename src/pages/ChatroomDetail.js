@@ -117,6 +117,10 @@ const ChatroomDetail = props => {
                     width="30"
                     height="30"
                 />
+                
+                {/* <label htmlFor='date1'>calender</label> 
+                <Calender type="date" id="date1" style={{display:'hidden'}} ></Calender> */}
+                
                 <span>{Opponent.nickname}</span>
                 <Styled3dots onClick={openModal}/>
                 {/* <Drawer open={ModalOpen}closeModal={closeModal}></Drawer> */}
@@ -161,6 +165,20 @@ const StyledArrowIcon = styled(ArrowIcon)`
     left: 8px;
     cursor: pointer;
 `;
-
+const Calender=styled.input`
+    background-color:#0080ff;
+    padding:15px;
+    position:absolute;
+    transform: translate(-50%,-50%);
+    top:50%;
+    left:50%;
+    color:white;
+    font-size:16px;
+    border:none;
+    outline:none;
+    &::-webkit-calendar-picker-indicator {
+      background-color:yellow;
+    }
+`;
 
 export default ChatroomDetail;

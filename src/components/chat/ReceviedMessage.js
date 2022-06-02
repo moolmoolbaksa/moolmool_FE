@@ -17,7 +17,7 @@ const ReceviedMessage = ({message, isRead, profile, nickname, date}) => {
 
 const Messagewrap = styled.div`
     display: flex;
-    margin: 20px 0px 0px 0px;
+    margin: 20px 0px 0px 16px;
 `;
 
 const ChatRecived = styled.div`

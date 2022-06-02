@@ -40,10 +40,11 @@ const Main = props => {
     
     useEffect(() => {
       
+        var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+        var client = Stomp.over(sock);
         if (userId && is_token) 
         {
-          var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-          var client = Stomp.over(sock);
+          
           console.log(client);
           console.log('connected check');
           client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
@@ -69,7 +70,7 @@ const Main = props => {
                 { Authorization: `${localStorage.getItem('accessToken')}` },
             );
             }
-        };   
+        };
     }, [userId]);
    
     useEffect(() => {

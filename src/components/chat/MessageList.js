@@ -11,6 +11,7 @@ import { ChatAPI } from '../../shared/api';
 
 import {useDispatch,useSelector} from 'react-redux';
 import {getPreviousMessages,addMessage,changeRoomtype} from '../../redux/modules/chat'
+import Devide from './Devide';
 
 const MessageList = (props) => {
         
@@ -21,20 +22,15 @@ const MessageList = (props) => {
     const Opponent=useSelector(state=>state.chat.Opponent);
     const messages=useSelector(state=>state.chat.messages);
     const ScrollState=useSelector(state=>state.chat.moveScroll);
-  console.log(ScrollState);
+  // console.log(ScrollState);
     const messageref=React.useRef(null);
 
     const apiroomid=parseInt(roomid.roomid);
-
-    console.log()
-    console.log(typeof(apiroomid));    
+ 
     React.useEffect(()=>{
         ChatAPI.getMessage(apiroomid)
         .then((res)=>{
-        console.log(res);
         dispatch(getPreviousMessages(res.data));
-        console.log(res.data);
-        
         })
         .catch((error)=>{
         console.log(error);
@@ -57,12 +53,15 @@ const MessageList = (props) => {
         return()=>{
     }
     },[messages,ScrollState])
+    // console.log(message_temp);
     
     return(
         <Base ref={messageref}>
         {/* {   listmessage.sort((a,b)=>a.messageId-b.messageId) */}
         {    messages.slice().sort((a,b)=>a.messageId-b.messageId)?.map((message,idx)=>
-            message.type==="STATUS"?<NotiMessage key={'keyid'+message.messageId} date={message.date} message={message.message}></NotiMessage>:message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} date={message.date} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} date={message.date}
+            message.type==="STATUS"?<NotiMessage key={'keyid'+message.messageId} date={message.date} message={message.message}></NotiMessage>
+            :message.type==="DEVIDE"?<Devide key={'keyid'+message.messageId} date={message.date}/>:
+            message.senderId===Opponent.userId?(<ReceviedMessage key={'keyid'+message.messageId} date={message.date} profile={Opponent.profile} message={message.message}/>):(<Sentmessage key={'keyid'+message.messageId} date={message.date}
              message={message.message}/>))
             
 
@@ -74,7 +73,7 @@ const MessageList = (props) => {
 };
 const Base = styled.div`
     height: calc(100% - 130px);
-    padding: 0 16px 10px;
+    padding: 0 0 10px 0;
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {

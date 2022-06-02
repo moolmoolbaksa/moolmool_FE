@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Sentmessage = ({message,date}) => {
-  console.log(date);
+  // console.log(date);
   const date1=date.split('T')[1].slice(0,5);
   // const monthdate=
-  console.log(date1);
+  // console.log(date1);
     return(
         <Messagewrap date={date1}>
             <ChatSender date={date1}>
@@ -56,6 +56,8 @@ const Messagetext = styled.p`
 const Messagewrap=styled.div`
     display: flex;
     justify-content: flex-end;
+    padding-right:16px;
+
 `;
 
 
