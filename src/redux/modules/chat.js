@@ -60,7 +60,6 @@ export const chat = createSlice({
               let preMessageId=action.payload[i].messageId;
               let nextMessageId=action.payload[i-1].messageId;
               let newMessageId=preMessageId-0.1;
-
               if (i===temp_message.length-1)
               {
                 action.payload.splice(i+1,0,{messageId:newMessageId,date:temp_message[i].date, message:"", type:"DEVIDE"});
@@ -80,6 +79,17 @@ export const chat = createSlice({
             state.messages=action.payload;
         },
         addMessage:(state,action)=>{
+            let lastMessage=state.messages[0];
+            let currentMessageDate= new Date(action.payload.date.split('T')[0].slice(0,10));
+            let lastMessageDate=new Date(state.messages[0].date.split('T')[0].slice(0,10));
+            console.log(lastMessageDate-currentMessageDate);
+            if (lastMessageDate-currentMessageDate<0)
+            {
+              state.messages.unshift({messageId:lastMessage.messageId+0.1,date:action.payload.date, message:"", type:"DEVIDE"})
+              state.messages.unshift(action.payload);
+            }
+            
+            console.log(action.payload.date);
             state.messages.unshift(action.payload);
         },
         changeRoomtype: (state,action)=>{
