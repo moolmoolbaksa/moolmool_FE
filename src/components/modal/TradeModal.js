@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTradeModal } from '../../redux/modules/modal';
+import { api as productActions } from '../../redux/modules/product';
+import { fadeIn, fadeOut } from '../../animation/fade';
+
 import { Text, Grid } from '../../elements/index';
 import { ReactComponent as CheckIcon } from '../../images/체크.svg';
-import { api as productActions } from '../../redux/modules/product';
 
 const TradeModal = () => {
     const dispatch = useDispatch();
@@ -72,29 +73,6 @@ const TradeModal = () => {
     );
 };
 
-const FadeIn = keyframes`
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -30%);
-    }
-    100%{
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-`;
-
-const FadeOut = keyframes`
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-    100%{
-        opacity: 0;
-        transform: translate(-50%, -30%);
-        pointer-events: none;
-    }
-`;
-
 const ModalBackground = styled.div`
     position: absolute;
     z-index: 10000;
@@ -115,7 +93,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
-    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out;
+    animation: ${props => props.is_modal ? fadeIn : fadeOut} 0.3s ease-out;
 `;
 
 const StyledCheckIcon = styled(CheckIcon)``;

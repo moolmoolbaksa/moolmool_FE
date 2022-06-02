@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { useSelector } from 'react-redux';
-
 import { blickSign } from '../../animation/blinkSign';
 
 import { Grid } from '../../elements/index';
@@ -36,29 +35,21 @@ const MainHeader = ({dom}) => {
     }, [dom, throttleScroll]);
     
     return (
-        // <HeaderContainer>
-            <HeaderWrap className={hide && 'hide'}>
-                <Grid flex gap="10px">
-                <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
-                <NotiWrap>
-                    <NotiIcon
-                        onClick={() => {
-                            history.push('/noti');
-                        }}
-                    />
-                    {unread_noti !== 0 && <NotiSign />}
-                </NotiWrap>
-                </Grid>
-            </HeaderWrap>
-        /* </HeaderContainer> */
+        <HeaderWrap className={hide && 'hide'}>
+            <Grid flex gap="10px">
+            <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
+            <NotiWrap>
+                <NotiIcon
+                    onClick={() => {
+                        history.push('/noti');
+                    }}
+                />
+                {unread_noti !== 0 && <NotiSign />}
+            </NotiWrap>
+            </Grid>
+        </HeaderWrap>
     );
 };
-
-const HeaderContainer = styled.div`
-    height: 48px;
-    /* min-height: 48px; */
-    position: relative;
-`;
 
 const HeaderWrap = styled.div`
     display: flex;
