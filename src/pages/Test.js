@@ -6,12 +6,34 @@ import { response } from '../shared/mock';
 const Test = (props) => {
     const wrapRef = useRef();
     const dotRef = useRef([]);
+    const imageRef = useRef([]);
     let start_x, end_x;
     let curPos = 0;
 
     useEffect(() => {
         dotRef.current[0].classList.add('btn-style');
     }, []);
+
+    useEffect(() => {
+        wrapRef.current.addEventListener('touchstart', (e) => {
+            start_x = e.touches[0].pageX;
+        });
+    }, [])
+
+    useEffect(() => {
+        wrapRef.current.addEventListener('touchmove', (e) => {
+            let offset = (e.touches[0].pageX - start_x);
+            wrapRef.current.style.transform = `translate(${offset}px, 0px)`;
+            wrapRef.current.style.transitionDuration = '0ms';
+            start_x = e.touches[0].pageX;
+        });
+    }, [])
+
+    useEffect(() => {
+        wrapRef.current.addEventListener('touchend', (e) => {
+            
+        });
+    }, [])
 
     const onClickSlide = (e) => {
         const idx = dotRef.current.indexOf(e.target);
@@ -26,6 +48,7 @@ const Test = (props) => {
 
     const touchEnd = (e) => {
         end_x = e.changedTouches[0].pageX;
+        const delta = 150;
         start_x > end_x ? next() : prev();
     };
 
@@ -49,11 +72,12 @@ const Test = (props) => {
 
     return (
         <SlideContainer>
-            <SlideWrap ref={wrapRef} onTouchStart={touchStart} onTouchEnd={touchEnd}>
+            <SlideWrap ref={wrapRef} onTouchEnd={touchEnd}>
                 {response.list.map((v,i) => {
                     return  <SlideImage 
                                 key={i}
                                 src={v.image}
+                                ref={el => imageRef.current[i] = el}
                             />
                 })}
             </SlideWrap>
@@ -87,7 +111,7 @@ const SlideImage = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    padding-bottom: calc(3 / 4 * 100%);
+    padding-bottom: calc(120%);
 `;
 
 const SlideDotsWrap = styled.div`

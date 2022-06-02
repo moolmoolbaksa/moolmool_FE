@@ -12,6 +12,8 @@ import LocationBar from '../components/LocationBar';
 import TabBar from '../components/TabBar';
 import { Grid } from '../elements/index';
 import { ReactComponent as ArrowIcon } from '../images/arrow.svg';
+import { deleteCookie } from '../shared/cookie';
+import { instance } from '../shared/api';
 
 const Mypage = (props) => {
     const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const Mypage = (props) => {
         // 로그아웃 시 스토리지를 비웁니다.
         localStorage.clear();
         sessionStorage.clear();
+        deleteCookie('refreshToken');
         persistor.purge();
     };
     

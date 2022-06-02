@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { ItemAPI } from '../../shared/api';
+// import { getCookie } from '../../shared/cookie';
 
 export const getItemApi = createAsyncThunk(
     'item/getItemApi', 
@@ -8,7 +9,6 @@ export const getItemApi = createAsyncThunk(
             const response = await ItemAPI.getItems(category, page);
             
             let is_next;
-            
             if(response.data.items.length < 10){
                 is_next = false;
             } else {
