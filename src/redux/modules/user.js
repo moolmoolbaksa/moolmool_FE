@@ -5,7 +5,7 @@ import { instance } from '../../shared/api';
 
 import { history } from '../configureStore';
 import { userAPI } from '../../shared/api';
-// import { setCookie } from '../../shared/cookie';
+import { setCookie } from '../../shared/cookie';
 
 const loginCheckApi = createAsyncThunk(
     'user/loginCheckApi', 
@@ -14,9 +14,6 @@ const loginCheckApi = createAsyncThunk(
             const response = await userAPI.loginCheck();
             return response.data;
         } catch (error) {
-            // console.log('loginCheck error: ', error);
-            // localStorage.removeItem('token');
-            // history.push('/login');
             if(axios.isAxiosError(error)){
                 console.log(error)
             }
@@ -32,7 +29,7 @@ const kakaoLoginApi = createAsyncThunk(
             localStorage.setItem('accessToken', response.headers.authorization);
             localStorage.setItem('refreshToken', response.headers.refresh);
             instance.defaults.headers.common['Authorization'] = localStorage.getItem('accessToken');
-            // document.cookie = `refreshToken = ${response.headers.refresh};path=/`
+            
             // setCookie('refreshToken', response.headers.refresh);
 
             if (!response.data.isFirst) {
@@ -78,7 +75,6 @@ const setFirstUserInfoApi = createAsyncThunk(
             return address;
         } catch (error) {
             console.log('setFirstUserInfoApi error: ', error);
-            // alert('setFirstUserInfoApi error');
         }   
     }
 );
@@ -92,7 +88,6 @@ const getMyInfoApi = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.log('getMyInfo: ', error);
-            // alert('getMyInfo error');
         }
     }
 );
@@ -106,7 +101,6 @@ const updateMyInfoApi = createAsyncThunk(
             return response.data.result;
         } catch (error) {
             console.log('updateMyInfoApi: ', error);
-            // alert('updateMyInfoApi error');
         }
     }
 );
@@ -120,7 +114,6 @@ const getCounterUserInfoApi = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.log('getCounterUserInfoApi: ', error);
-            // alert('getCounterUserInfoApi error');
         }
     }
 );

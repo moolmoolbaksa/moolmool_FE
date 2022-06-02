@@ -21,7 +21,8 @@ import defaultProfile from '../images/default_profile.png';
 import useScrollRestoration from '../hooks/useScrollRestoration';
 import MainHeader from '../components/main/Mainheader';
 import {setConnect} from '../redux/modules/chat';
-const Main = props => {
+
+const Main = (props) => {
     const dispatch = useDispatch();
     const is_token = localStorage.getItem('accessToken');
 
@@ -29,22 +30,16 @@ const Main = props => {
     const { paging, item_list } = useSelector(state => state.item);
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const [filter, setfilter] = useState(paging.category);
-    // const [websocket,setWebsocket]=useState(false);
-    // const websocket_temp=useSelector(state=>state.chat.connected);
-    // const client2=useSelector(state=>state.chat.client);
-    // console.log(websocket_temp);
-   
+
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, [is_token]);
     
     useEffect(() => {
-      
         var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
         var client = Stomp.over(sock);
         if (userId && is_token) 
         {
-          
           console.log(client);
           console.log('connected check');
           client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {

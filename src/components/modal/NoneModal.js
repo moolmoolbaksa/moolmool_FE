@@ -1,11 +1,12 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Text, Grid } from '../../elements/index';
-import { ReactComponent as ExclamationIcon } from '../../images/exclamation_mark.svg';
 import { setReload } from '../../redux/modules/item';
 import { history } from '../../redux/configureStore';
+import { fadeIn } from '../../animation/fade';
+
+import { Text, Grid } from '../../elements/index';
+import { ReactComponent as ExclamationIcon } from '../../images/exclamation_mark.svg';
 
 const NoneModal = (props) => {
     const dispatch = useDispatch();
@@ -45,17 +46,6 @@ const NoneModal = (props) => {
     );
 };
 
-const FadeIn = keyframes`
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -20%);
-    }
-    100%{
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-`;
-
 const ModalBackground = styled.div`
     position: absolute;
     z-index: 10000;
@@ -76,7 +66,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
-    animation: ${FadeIn} 0.3s ease-out;
+    animation: ${fadeIn} 0.3s ease-out;
 `;
 
 const Content = styled.div`
