@@ -37,11 +37,6 @@
 
 **`차단과 신고, 욕설 필터링 등의 회원 관리 기능`**
 
-
-
-https://user-images.githubusercontent.com/97653052/171561241-25c85544-be5d-4201-8ab3-416bc0c60024.mp4
-
-
 ## 🗺 API 설계
 [API 설계 보러가기](https://www.notion.so/b308c025e9954cadb9fdc19d86bd411f?v=b6b1eb52cfe24793b97163d7b4825b07)
 
