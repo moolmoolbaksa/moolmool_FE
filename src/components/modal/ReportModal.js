@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteReportModal } from '../../redux/modules/modal';
 import { Text } from '../../elements/index';
 import { api as ItemActions } from '../../redux/modules/item';
+import { fadeIn, fadeOut } from '../../animation/fade';
 
 const ReportModal = (props) => {
     const dispatch = useDispatch();
@@ -66,29 +67,6 @@ const ReportModal = (props) => {
     );
 };
 
-const FadeIn = keyframes`
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -30%);
-    }
-    100%{
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-`;
-
-const FadeOut = keyframes`
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-    100%{
-        opacity: 0;
-        transform: translate(-50%, -30%);
-        pointer-events: none;
-    }
-`;
-
 const ModalBackground = styled.div`
     position: absolute;
     z-index: 10000;
@@ -109,7 +87,7 @@ const ModalContainer = styled.div`
     border: none;
     transform: translate(-50%, -50%);
     background: white;
-    animation: ${props => props.is_modal ? FadeIn : FadeOut} 0.3s ease-out;
+    animation: ${props => props.is_modal ? fadeIn : fadeOut} 0.3s ease-out;
 `;
 
 const Content = styled.div`

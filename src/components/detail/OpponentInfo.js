@@ -41,7 +41,6 @@ const OpponentInfo = (props) => {
                         margin="0px"
                     />
                     <Grid 
-                        flex 
                         is_column
                         justify="center"
                         margin="0 0 0 10px"
