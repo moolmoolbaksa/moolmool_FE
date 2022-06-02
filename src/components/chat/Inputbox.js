@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { Button } from '../../elements';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
 import { useParams } from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux';
 import {moveScroll} from '../../redux/modules/chat'
@@ -16,13 +14,10 @@ const Inputbox = (props) => {
     
   const roomtype=useSelector(state=>state.chat.Currentroom.type);
   const isBanned=useSelector(state=>state.chat.Currentroom.isBanned);
-  // const Sentroomid_temp=useSelector(state=>state.chat.Currentroom.roomId);
+
   let isRead = roomtype === "NORMAL" ? false : true;
-  // console.log('sentroomid_temp: '+Sentroomid_temp);
+
   const Sentroomid=parseInt(roomId.roomid);
-  // let sock = new SockJS('http://13.124.0.71/ws-stomp');
-  // let client = Stomp.over(sock);
-  // console.log('Sentroomid: '+Sentroomid);
   console.log('roomtype: '+roomtype);
   console.log();
 

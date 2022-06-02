@@ -16,13 +16,10 @@ import Devide from './Devide';
 const MessageList = (props) => {
         
     const dispatch=useDispatch();
-    
-
     const roomid=useParams();
     const Opponent=useSelector(state=>state.chat.Opponent);
     const messages=useSelector(state=>state.chat.messages);
     const ScrollState=useSelector(state=>state.chat.moveScroll);
-  // console.log(ScrollState);
     const messageref=React.useRef(null);
 
     const apiroomid=parseInt(roomid.roomid);

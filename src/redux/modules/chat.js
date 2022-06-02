@@ -53,6 +53,12 @@ export const chat = createSlice({
             // const date1=date.split('T')[1].slice(0,5);
             
             const temp_message=_.cloneDeep(action.payload);
+            if(temp_message.length===1)
+            {
+              action.payload.splice(0,0,{messageId:temp_message[0].messageId-0.1,date:temp_message[0].date, message:"", type:"DEVIDE"});
+              console.log('length=1 test')
+            }
+            else{
             for (let i=temp_message.length-1; i>0; i--)
             {
               console.log(action.payload[i]);
@@ -76,6 +82,7 @@ export const chat = createSlice({
                 console.log(dategap);
                 } 
             }
+          }
             state.messages=action.payload;
         },
         addMessage:(state,action)=>{
