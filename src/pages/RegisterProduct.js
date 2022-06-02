@@ -207,25 +207,9 @@ const myitem=useSelector(state=>state.user.item_list);
               const blobimage= new Blob([ab],{type:mimeString});
               
               let example=new File([blobimage],file.name,{type:type});
-              setFileslist(state=>state.concat(example));
-              // let example='';
-              // context.canvas.toBlob(
-              //   newImageBlob=>{
-              //     example=new File([newImageBlob],file.name,{type:type});
-                  
-              //     setFileslist(state=>state.concat(example));
-              //     console.log(example);
-              //   }
-              //  )
-              console.log(example);
-              // console.log(dataUrl);
-              
+              setFileslist(state=>state.concat(example));              
               setPreview(state=>state.concat([dataUrl]));
             }
-            
-            
-            // setPreview([...preview,reader.result]);
-
         }})
         
     }

@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Image2 from '../../elements/Image2';
 
-const ReceviedMessage = ({message, isRead, profile, nickname}) => {
+const ReceviedMessage = ({message, isRead, profile, nickname, date}) => {
+  console.log(date);
+  const date1=date.split('T')[1].slice(0,5);
     return(
         <Messagewrap>
             <Image2 size='36' shape='circle' src={profile}></Image2>
-            <ChatRecived>
+            <ChatRecived date={date1}>
                 <Messagetext>{message}</Messagetext>
             </ChatRecived>
         </Messagewrap>
@@ -15,7 +17,7 @@ const ReceviedMessage = ({message, isRead, profile, nickname}) => {
 
 const Messagewrap = styled.div`
     display: flex;
-    margin: 20px 0px 0px 0px;
+    margin: 20px 0px 0px 16px;
 `;
 
 const ChatRecived = styled.div`
@@ -37,6 +39,14 @@ const ChatRecived = styled.div`
         border-right: 5px solid ${props => props.theme.palette.white};
         border-bottom: 5px solid transparent;
         border-left: 5px solid transparent;        
+    }
+    &:after{
+      content:"${props=>props.date?props.date:""}";
+      font-size:0.9rem;
+      position:absolute;
+      left:105%;
+      bottom:0%;
+      width:40px;
     }
 `;
 

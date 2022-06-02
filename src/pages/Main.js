@@ -19,7 +19,7 @@ import CategoryBar from '../components/main/CategoryBar';
 import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
 import useScrollRestoration from '../hooks/useScrollRestoration';
-import MainHeader from '../components/main/MainHeader';
+import MainHeader from '../components/main/Mainheader';
 import {setConnect} from '../redux/modules/chat';
 
 const Main = (props) => {
@@ -31,20 +31,19 @@ const Main = (props) => {
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const [filter, setfilter] = useState(paging.category);
 
-    let sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-    let client = Stomp.over(sock);
-  
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, [is_token]);
     
     useEffect(() => {
-      
+        var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+        var client = Stomp.over(sock);
         if (userId && is_token) 
         {
+          console.log(client);
           console.log('connected check');
-            client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
-                client.subscribe(
+          client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
+            client.subscribe(
                     `/sub/notification/${userId}`,
                     (data) => {
                         console.log(data.body);
@@ -60,14 +59,13 @@ const Main = (props) => {
         return() => {
             if(is_token && client.ws.readyState === 1)
             {
-            client.disconnect(() => {
+              client.disconnect(() => {
                                         client.unsubscribe('sub-0');
                                     },
                 { Authorization: `${localStorage.getItem('accessToken')}` },
             );
-            dispatch(setConnect(false));
             }
-        };   
+        };
     }, [userId]);
    
     useEffect(() => {
