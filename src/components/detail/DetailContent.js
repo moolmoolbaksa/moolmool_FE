@@ -15,7 +15,8 @@ const DetailContent = (props) => {
         <Container>
             <Grid> 
                 <Grid flex margin="0 0 16px 0" gap="10px">
-                    <Text 
+                    <Text
+                        multiLine 
                         multi="2"
                         text={title}
                         bold="bold"
@@ -32,6 +33,7 @@ const DetailContent = (props) => {
                     />
                 </Grid>
                 <Text 
+                    multiLine 
                     multi="20"
                     text={contents}
                 />

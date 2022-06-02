@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { history } from '../redux/configureStore';
 
 import { Text } from '../elements/index';
@@ -61,16 +61,14 @@ const LocationBar = ({ title, type,color }) => {
 };
 
 const Container = styled.div`
-
     display: flex;
     align-items: center;
     padding: 15px 16px 15px 8px;
     justify-content: space-between;
-    background:yellow;
+    background-color: white;
 `;
 
 const ArrowContainer = styled.div`
-
     position: absolute;
     top: 0;
     z-index: 100;
@@ -88,7 +86,7 @@ const StyledArrowIcon = styled(ArrowIcon)`
 `;
 
 const Wrap = styled.div`
-background:yellow;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;

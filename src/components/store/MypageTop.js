@@ -47,6 +47,7 @@ const MypageTop = ({user_info, page}) => {
                             />
                         </Grid>
                         <Text 
+                            multiLine 
                             multi="3"
                             text={storeInfo ? storeInfo : '아직 보따리 소개가 없어요.'}
                             size="13px"

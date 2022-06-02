@@ -41,6 +41,7 @@ const TradeItemCard = ({nickname, degree, title, contents, image}) => {
                     />
                 </Grid>
                 <Text 
+                    multiLine 
                     multi="4"
                     text={contents}
                     color="#9D9D9D"
