@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
@@ -39,7 +39,6 @@ import {
   Search,
   Banlist,
 } from './pages/index';
-import Test from './pages/Test';
 
 function App() {
   if (process.env.NODE_ENV === "production") {
@@ -80,7 +79,6 @@ function App() {
             <Route exact path="/chat/:roomid" component={ChatroomDetail}/>
             <Route exact path="/Decidetrade/:userid" component={Decidetrade}/>
             <Route exact path="/search" component={Search}/>
-            <Route exact path="/test" component={Test}/>
             <Route exact path="/editproduct/:itemId" component={RegisterProduct} />
             <Route exact path="/Banlist" component={Banlist} />
             <Route exact path="/editTrade/:barterId" component={Trade} />
