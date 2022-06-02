@@ -30,8 +30,8 @@ const ChatRecived = styled.div`
     max-width: 300px;
     background-color: #E8E8E8;
     border-radius: 5px 5px 5px 5px;
-    margin: 5px 0px 0px 10px;
-    padding:10px;
+    margin: 0px 0px 0px 10px;
+    // padding:5px;
    
 `;
 

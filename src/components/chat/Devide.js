@@ -38,8 +38,8 @@ const Messagewrap=styled.div`
     // background:red;
     align-items:center;
     font-size:0.9rem;
-    padding:10px 0;
-    margin:10px 0;
+    padding:5px 0;
+    margin:5px 0;
     
     & > p{
      margin: 0 20px;
