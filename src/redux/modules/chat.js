@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PURGE } from "redux-persist";
-
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
 const initialState = {
     Roomlist: [],
     Opponent:{
@@ -20,6 +21,7 @@ const initialState = {
     moveScroll:1,
     BanList:[],
     connected:false,
+    client:"",
 };
 
 
@@ -65,6 +67,9 @@ export const chat = createSlice({
         },
         setConnect: (state,action)=>{
           state.connected=action.payload;
+          const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+          state.client = Stomp.over(sock);
+          
         },
     },
 

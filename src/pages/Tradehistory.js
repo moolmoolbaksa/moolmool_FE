@@ -33,6 +33,7 @@ const Tradehistory = (props) => {
     const Sentlist = useSelector(state=>state.tradehistory.Senthistory);
     let sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
     let client = Stomp.over(sock);
+    console.log(client);
     const message = '';
     React.useEffect(() => {
         client.connect({ Authorization: `${localStorage.getItem('accessToken')}` }, function () {

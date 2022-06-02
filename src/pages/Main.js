@@ -25,6 +25,7 @@ import MainContentSkeleton from '../components/skeleton/MainContentSkeleton';
 import defaultProfile from '../images/default_profile.png';
 import useScrollRestoration from '../hooks/useScrollRestoration';
 import {setConnect} from '../redux/modules/chat';
+// import { client } from '../shared/websocket';
 const Main = props => {
   
     const dispatch = useDispatch();
@@ -35,20 +36,11 @@ const Main = props => {
     const { nickname, profile } = useSelector(state => state.user.user_info);
     const unread_noti = useSelector(state => state.notification.unread_noti);
     const [filter, setfilter] = useState(paging.category);
-    const [websocket,setWebsocket]=useState(false);
-    const websocket_temp=useSelector(state=>state.chat.connected);
-    console.log("websocket_temp");
-    
-    // const sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-    // const client = Stomp.over(sock);
-    if(!websocket_temp)
-    {
-      var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
-      var client = Stomp.over(sock);
-      dispatch(setConnect(true));
-      console.log(client);
-    }
-
+    // const [websocket,setWebsocket]=useState(false);
+    // const websocket_temp=useSelector(state=>state.chat.connected);
+    // const client2=useSelector(state=>state.chat.client);
+    // console.log(websocket_temp);
+   
     useEffect(() => {
         if (is_token) dispatch(userActions.loginCheckApi());
     }, [is_token]);
@@ -57,10 +49,12 @@ const Main = props => {
       
         if (userId && is_token) 
         {
-          
+          var sock = new SockJS(`${process.env.REACT_APP_SOCKET_URL}`);
+          var client = Stomp.over(sock);
+          console.log(client);
           console.log('connected check');
-            client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
-                client.subscribe(
+          client.connect({ Authorization: localStorage.getItem('accessToken') }, () => {
+            client.subscribe(
                     `/sub/notification/${userId}`,
                     (data) => {
                         console.log(data.body);
@@ -76,12 +70,11 @@ const Main = props => {
         return() => {
             if(is_token && client.ws.readyState === 1)
             {
-            client.disconnect(() => {
+              client.disconnect(() => {
                                         client.unsubscribe('sub-0');
                                     },
                 { Authorization: `${localStorage.getItem('accessToken')}` },
             );
-            dispatch(setConnect(false));
             }
         };   
     }, [userId]);
