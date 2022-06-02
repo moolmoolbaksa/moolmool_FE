@@ -35,7 +35,12 @@ const MessageList = (props) => {
         .catch((error)=>{
         console.log(error);
     })
-    },[])
+
+    return()=>{
+       
+    
+}
+    },[dispatch])
     
     React.useEffect(()=>{
 

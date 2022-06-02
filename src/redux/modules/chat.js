@@ -88,9 +88,11 @@ export const chat = createSlice({
               state.messages.unshift({messageId:lastMessage.messageId+0.1,date:action.payload.date, message:"", type:"DEVIDE"})
               state.messages.unshift(action.payload);
             }
-            
-            console.log(action.payload.date);
+            else{
+              // console.log(action.payload.date);
             state.messages.unshift(action.payload);
+            }
+            
         },
         changeRoomtype: (state,action)=>{
             state.Currentroom.type=action.payload

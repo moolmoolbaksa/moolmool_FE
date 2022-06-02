@@ -30,7 +30,7 @@ const Drawer = (props) => {
 		ChatAPI.exitRoom(props.roomid)
 			.then((res)=>{
 				console.log(res);
-        history.push('/chat');
+        history.replace('/chat');
 			})
 			.catch((err)=>{
 				console.log(err);

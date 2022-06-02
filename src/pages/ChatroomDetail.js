@@ -102,7 +102,9 @@ const ChatroomDetail = props => {
                     client.unsubscribe('sub-0');
                 },
                 { Authorization: `${localStorage.getItem('accessToken')}` },
-            );
+            );       
+            dispatch(getPreviousMessages([]));
+            
             //방퇴장할때 OUT 했다는 메시지 Send
         };
     }, []);
