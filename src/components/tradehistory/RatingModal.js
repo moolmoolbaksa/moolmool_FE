@@ -16,7 +16,7 @@ const RatingModal = (props) => {
   }
   const handleSubmit=()=>{
     dispatch(rateTrade({barterId:props.barterId,myPosition:props.myPosition}));
-    dispatch(acceptTrade({barterId:props.barterId,myPosition:props.myPosition}));
+    // dispatch(acceptTrade({barterId:props.barterId,myPosition:props.myPosition}));
     console.log(rating);
     HistoryAPI.Rating(props.barterId,props.userId,rating)
     .then((res)=>{

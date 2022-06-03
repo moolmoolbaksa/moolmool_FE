@@ -58,7 +58,7 @@ const Detail = (props) => {
                     )}
                 </StyledSlider>
                 <StatusLabel status={status}/>
-                <TransMethod />
+                <TransMethod/>
             </Grid>
             <Wrap>
                 <OpponentInfo/>
