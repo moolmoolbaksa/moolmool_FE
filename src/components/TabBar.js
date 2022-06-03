@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { useLocation } from 'react-router-dom';
@@ -79,6 +79,14 @@ const TabBar = ({position}) => {
         </Container>
     );
 };
+const rotate = keyframes`
+    0% { 
+        transform: rotate(0deg);   
+    }
+    100% { 
+        transform: rotate(360deg); 
+    }
+`;
 
 const Container = styled.div`
     width: 100%;
@@ -107,7 +115,7 @@ const CreateBtn = styled.button`
     bottom: 15px;
     width: 55px;
     height: 55px;
-    background: ${props => props.theme.palette.yellow};
+    background-color: ${props => props.theme.palette.yellow};
     border: none;
     border-radius: 50px;
     display: flex;
@@ -115,6 +123,18 @@ const CreateBtn = styled.button`
     align-items: center;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        border-radius: 50px;
+        animation: ${rotate} 4s infinite linear;
+        background: linear-gradient(transparent 50%, rgba(255, 238, 194, 0.8));
+    }
 `;
 
 export default TabBar;

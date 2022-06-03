@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css"
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -11,7 +8,7 @@ import {
     OpponentInfo, 
     TransMethod
 } from '../components/detail/index';
-import { Image, Grid } from '../elements/index';
+import { Grid } from '../elements/index';
 import { useSelector } from 'react-redux';
 import LocationBar from '../components/LocationBar';
 import StatusLabel from '../components/shared/StatusLabel';
@@ -22,41 +19,24 @@ import LoginModal from '../components/modal/LoginModal';
 import DeleteModal from '../components/modal/DeleteModal';
 import AlertModal from '../components/modal/AlertModal';
 import NoneModal from '../components/modal/NoneModal';
+import Slide from '../components/detail/Slide';
 
 const Detail = (props) => {
-    const {images, status, itemId, nickname} = useSelector(state => state.product.product_info);
+    const {status, itemId, nickname} = useSelector(state => state.product.product_info);
     const is_login = useSelector(state => state.user.is_login);
     const my_nickname = useSelector(state => state.user.user_info.nickname);
-  
-    const settings = { 
-        infinite: false,
-        dots: true, 
-        speed: 500,
-        slidesToShow: 1, 
-        slidesToScroll: 1,
-    };
-    
+   
     const [ isOpen, setIsOpen ] = useState(false);
-
+   
     return (
         <>
-        <Container>
+        <Container >
             <LocationBar type="detail"/>
             {is_login && nickname !== my_nickname && <StyledReportIcon width="36" height="36" onClick={() => {setIsOpen(!isOpen)}}/>}
             <Grid
                 position="relative"
             >
-                <StyledSlider {...settings}>
-                    {images.length && images.map((v ,i) => {
-                        return(
-                            <Image 
-                                key={i}
-                                src={v}
-                                shape="slide"
-                            />
-                        )}
-                    )}
-                </StyledSlider>
+                <Slide/>
                 <StatusLabel status={status}/>
                 <TransMethod/>
             </Grid>
@@ -93,17 +73,6 @@ const Container = styled.div`
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
-    }
-`;
-
-const StyledSlider = styled(Slider)`
-    .slick-list { 
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-    }
-    .slick-dots { 
-        bottom: 20px;
     }
 `;
 
