@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { useSelector } from 'react-redux';
@@ -11,31 +11,32 @@ import _ from 'lodash';
 
 const MainHeader = ({dom}) => {
     const unread_noti = useSelector(state => state.notification.unread_noti);
-    const [hide, setHide] = useState(false);
-    const [pageY, setPageY] = useState(0);
+    // const [hide, setHide] = useState(false);
+    // const [pageY, setPageY] = useState(0);
     
-    const handleScroll = () => {
-        const scrollTop = dom.scrollTop;
-        const deltaY = scrollTop - pageY;
-        const hide = scrollTop !== 0 && deltaY >= 0;
-        setHide(hide);
-        setPageY(scrollTop);
-    };
+    // const handleScroll = () => {
+    //     const scrollTop = dom.scrollTop;
+    //     const deltaY = scrollTop - pageY;
+    //     const hide = scrollTop !== 0 && deltaY >= 0;
+    //     setHide(hide);
+    //     setPageY(scrollTop);
+    //     console.log(hide, deltaY, scrollTop, pageY)
+    // };
+    
+    // const throttleScroll = _.throttle(handleScroll, 200);
 
-    const throttleScroll = _.throttle(handleScroll, 100);
-
-    useEffect(() => {
-        if(dom){
-            dom.addEventListener('scroll', throttleScroll);
+    // useEffect(() => {
+    //     if(dom){
+    //         dom.addEventListener('scroll', throttleScroll);
             
-            return () => {
-                dom.removeEventListener('scroll', throttleScroll)
-            };
-        }
-    }, [dom, throttleScroll]);
-    
+    //         return () => {
+    //             dom.removeEventListener('scroll', throttleScroll)
+    //         };
+    //     }
+    // }, [dom, pageY]);
+    // className={hide && 'hide'}
     return (
-        <HeaderWrap className={hide && 'hide'}>
+        <HeaderWrap >
             <Grid flex gap="10px">
             <SearchIcon width="24" height="24" onClick={() => {history.push('/search')}}/>
             <NotiWrap>
